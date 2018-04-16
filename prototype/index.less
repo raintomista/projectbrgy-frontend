@@ -1,0 +1,129 @@
+@primary-color: #2a8abd;
+@secondary-color: #1f4bc8;
+
+.content{
+    button{
+      color: @primary-color;
+      border-color: @primary-color;
+      border-radius: 100px;
+      font-family: 'Lato', sans-serif;      
+      font-weight: 700;
+      padding: 6px 20px;
+    }
+    a {
+      color: @primary-color;
+    }
+
+
+    & > .row{
+        margin: 0px;        
+        min-height: 100vh;
+    }
+
+    
+
+    .landing-left{
+        background: linear-gradient(@primary-color, 70%, @secondary-color);
+        color: white;
+        font-family: 'Lato', sans-serif;
+        padding: 25px;
+        
+        .slider-content img{
+          height: 85px;
+          margin-bottom: 50px;
+        }
+
+        .slider-content h2{
+          font-size: 2.3rem;
+          font-weight: 500;
+          margin-bottom: 20px;
+          margin-left: 4px;
+        }
+
+        .slider-content p{
+          font-size: 1.11rem;
+          letter-spacing: 0.2px;
+          margin-left: 4px;
+        }
+
+        .slider-content .nav-dots{
+          margin-left: 4px;   
+
+          .dot{
+            background-color: #92b5e1;
+            border-radius: 100%;
+            display: inline-block;
+            height: 10px;
+            width: 10px;
+            margin-right: 5px;
+          }
+
+          .dot.active{
+            background-color: white;
+          }
+        }
+    }
+
+    .landing-right{
+      .container{
+        max-width: 600px;
+
+        h1{
+          color: @primary-color;
+          font-family: 'Montserrat', sans-serif;
+          font-weight: 700;
+          margin-bottom: 60px;
+        }
+
+        form{
+          font-family: 'Lato', sans-serif;
+          margin-left: 100px;
+          margin-bottom: 60px;
+
+          label{
+            color: @primary-color;
+            font-size: 1.12em;
+          }
+
+          .form-control{
+            background-color: #f2f2f2;
+            border-radius: 0px;
+            margin-left: 12px;
+            width: 70%;
+          }
+
+          .forgot-password-login{
+            margin-left: 120px;
+          }
+          .forgot-password-login button{
+            margin-left: 15px;
+          }
+        }
+
+        
+        .sign-up  {
+          width: max-content;
+        }
+
+        .partners{
+          margin-top: 60px;
+
+          img{
+            height: 55px;
+            margin-right: 20px;
+          }
+
+          img:first-of-type{
+            height: 65px;
+          }
+
+          img:last-of-type{
+            height: 100px;
+          }
+        }
+      }
+
+
+    }
+
+}
