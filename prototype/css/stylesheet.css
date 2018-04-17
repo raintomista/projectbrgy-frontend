@@ -1,3 +1,61 @@
+/************************
+  Dashboard Navbar
+************************/
+.navbar {
+  background: linear-gradient(#2a8abd, 80%, #226cc1);
+  height: 60px;
+}
+/************************
+  Dashboard Home Sidebar 
+************************/
+.home-sidebar .card-body {
+  background: linear-gradient(#60a7ce, 60%, #5c92d1);
+  color: white;
+}
+.home-sidebar .card-body .card-img {
+  border-radius: 100%;
+  margin: 15px 0px;
+  width: 80%;
+}
+.home-sidebar .card-body .card-title {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  margin-bottom: 0;
+  text-align: center;
+}
+.home-sidebar .card-body .card-text {
+  font-family: 'Lato', sans-serif;
+  font-size: 1.2em;
+  font-weight: 500;
+  text-align: center;
+}
+.home-sidebar .list-group.list-group-flush {
+  font-family: 'Lato', sans-serif;
+  font-weight: 500;
+}
+.home-sidebar .list-group.list-group-flush .list-group-item:first-of-type {
+  margin-top: 10px;
+}
+.home-sidebar .list-group.list-group-flush .list-group-item:not(:last-of-type) {
+  border: 0;
+  padding: 0.3rem 1.25rem;
+}
+.home-sidebar .list-group.list-group-flush .list-group-item:last-of-type {
+  border-top: 0;
+  height: 1.6em;
+}
+.home-sidebar .list-group.list-group-flush .list-group-item .card-link {
+  color: #2a8abd;
+}
+.home-sidebar .list-group.list-group-flush .list-group-item .badge {
+  color: #bfbfbf;
+  font-size: 0.79em;
+}
+.dashboard-content {
+  background-color: #f2f2f2;
+  height: calc(100vh - 60px);
+  padding: 25px 0px;
+}
 .content button {
   color: #2a8abd;
   border-color: #2a8abd;
