@@ -1,3 +1,26 @@
+/************************
+ Rounded Button
+************************/
+.btn{
+    font-family: 'Lato', sans-serif;      
+    font-weight: 700;
+
+    &.rounded{
+        color: #2a8abd;        
+        border-color: #2a8abd;
+        border-radius: 100px;
+        padding: 0.3em 1.5em;
+        
+        &-light{
+            &:extend(.btn.rounded);
+            background-color: transparent;
+            border-color: white;
+            color: white;
+            
+        }       
+    }
+}
+
 
 /************************
   Dashboard Navbar
@@ -63,7 +86,43 @@
             font-size: 0.79em;            
         }
     }
+}
 
+/************************
+  Dashboard Home Post Box 
+************************/
+.home-post-box{
+    .card-body{
+        &:extend(.home-sidebar .card-body);
+        padding: 1.1em 1.25em 0.6em 1.25em;
 
+        .post-box{
+            border-radius: 0.4em;
+            resize: none;
+            width: 100%;
+        }
 
+        .post-box-buttons{
+            display: flex;
+            align-items: center;                        
+            justify-content: space-between;
+        }
+
+        .post-options .btn{
+            color: white;
+            background-color: transparent;
+            font-size: 1.3em;
+            margin: 0 0.6em;
+        }
+
+        .post-options, .post-btn{
+            display: inline-block;
+        }
+
+        .post-btn{
+            height: max-content;
+            margin-right: 0.1em;
+            text-align: right;            
+        }
+    }
 }
