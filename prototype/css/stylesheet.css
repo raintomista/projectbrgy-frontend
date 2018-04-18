@@ -56,6 +56,115 @@
   height: calc(100vh - 60px);
   padding: 25px 0px;
 }
+.profile .navbar {
+  background: rgba(255, 255, 255, 0) !important;
+}
+.profile .navbar .nav-bar {
+  color: #ffffff;
+}
+.profile .header {
+  height: 250px;
+  background: linear-gradient(#2a8abd, 50%, #226cc1);
+}
+.profile .header img {
+  margin: 100px 0 0  50px;
+  border-radius: 100%;
+  width: 200px;
+  position: absolute;
+}
+.profile .content .right-side-bar .card-body {
+  color: #2a8abd;
+}
+.profile .content .right-side-bar .card-body .card-img {
+  border-radius: 100%;
+  margin-top: -60%;
+  width: 100%;
+}
+.profile .content .right-side-bar .card-body .card-title {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  margin-bottom: 0;
+  text-align: center;
+}
+.profile .content .right-side-bar .card-body .card-text {
+  font-family: 'Lato', sans-serif;
+  font-size: 1.2em;
+  font-weight: 500;
+  text-align: center;
+}
+.profile .content .right-side-bar .list-group {
+  font-family: 'Lato', sans-serif;
+  font-weight: 500;
+}
+.profile .content .right-side-bar .list-group .list-group-item:first-of-type {
+  margin-top: 10px;
+}
+.profile .content .right-side-bar .list-group .list-group-item:not(:last-of-type) {
+  border: 0;
+  padding: 0.3rem 1.25rem;
+}
+.profile .content .right-side-bar .list-group .list-group-item:last-of-type {
+  border-top: 0;
+  height: 1.6em;
+}
+.profile .content .right-side-bar .list-group .list-group-item .card-link {
+  color: #2a8abd;
+}
+.profile .content .right-side-bar .list-group .list-group-item .card-link .icon {
+  margin-right: 5px;
+}
+.profile .content .right-side-bar .list-group .list-group-item .badge {
+  color: #bfbfbf;
+  font-size: 0.79em;
+}
+.profile .content .right-side-bar .secondary.list-group {
+  margin-left: 25px;
+}
+.profile .content .center-bar .status.card .card-body {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.profile .content .center-bar .status.card .card-body .nav .nav-item .nav-link .title {
+  font-weight: 700;
+}
+.profile .content .center-bar .status.card .card-body .nav .nav-item .nav-link .value {
+  font-weight: 200;
+  font-size: 14px;
+}
+.profile .content .center-bar .posts.card {
+  margin-top: 16px;
+}
+.profile .content .center-bar .posts.card .card-header .card-img {
+  float: left;
+  width: 50px;
+  border-radius: 100%;
+}
+.profile .content .center-bar .posts.card .card-header .brgy-info {
+  margin-left: 10px;
+  float: left;
+  color: #2a8abd;
+  font-family: 'Lato', sans-serif;
+}
+.profile .content .center-bar .posts.card .card-header .brgy-info .name {
+  font-weight: 700;
+  font-size: 1rem;
+}
+.profile .content .center-bar .posts.card .card-header .brgy-info .place {
+  font-size: .90rem;
+}
+.profile .content .center-bar .posts.card .card-header .brgy-info .time {
+  font-size: 0.75rem;
+}
+.profile .content .center-bar .posts.card .card-header .option {
+  margin-top: 16px;
+  float: right;
+}
+.profile .content .center-bar .posts.card .card-footer {
+  font-family: 'Lato', sans-serif;
+}
+.profile .content .center-bar .posts.card .card-footer .footer-button {
+  margin-left: 36px;
+}
 .content button {
   color: #2a8abd;
   border-color: #2a8abd;

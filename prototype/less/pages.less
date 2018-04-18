@@ -1,5 +1,165 @@
+@import "colors";
+
 .dashboard-content{
     background-color: @background-color;
     height: calc(~"100vh - 60px");
     padding: 25px 0px;
+}
+
+
+.profile {
+  .navbar {
+    background: rgba(255, 255, 255, 0) !important;
+
+    .nav-bar {
+      color: #ffffff;
+    }
+  }
+
+  .header {
+    height: 250px;
+    background: linear-gradient(@navbar-primary-color, 50%, @navbar-secondary-color);
+
+      img {
+        margin: 100px 0 0  50px;
+        border-radius: 100%;
+        width: 200px;
+        position: absolute;
+      }
+  }
+
+  .content {
+    .right-side-bar {
+      .card-body {
+        color: @primary-color;
+    
+        .card-img {
+            border-radius: 100%;
+            margin-top: -60%;
+            width: 100%;
+        }
+
+        .card-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            margin-bottom: 0;
+            text-align: center;
+        }
+
+        .card-text{
+            font-family: 'Lato', sans-serif;
+            font-size: 1.2em;
+            font-weight: 500;
+            text-align: center;
+            
+        }
+      }
+
+      .list-group {
+        font-family: 'Lato', sans-serif;
+        font-weight: 500;
+
+        .list-group-item:first-of-type {
+            margin-top: 10px;
+        }
+        .list-group-item:not(:last-of-type) {
+            border: 0;
+            padding: .30rem 1.25rem
+        }
+        .list-group-item:last-of-type {
+            border-top: 0;
+            height: 1.6em;
+        }
+
+        .list-group-item {
+          .card-link {
+            color: @primary-color;
+
+            .icon {
+              margin-right: 5px;
+            }
+          }
+
+          .badge {
+            color: @badge-text-color;
+            font-size: 0.79em;            
+          }
+        }
+      }
+      .secondary.list-group {
+        margin-left: 25px;
+      }
+    }
+
+    .center-bar {
+      .status.card {
+        .card-body {
+          padding-top: 0;
+          padding-bottom: 0;
+
+          .nav {
+            .nav-item {
+              .nav-link {
+                .title {
+                  font-weight: 700;
+                }
+                .value {
+                  font-weight: 200;
+                  font-size: 14px;
+                }
+              }
+            }
+          }
+        }
+      }
+
+      .posts.card {
+        margin-top: 16px;
+
+        .card-header {
+          .card-img {
+            float: left;
+            width: 50px;
+            border-radius: 100%;
+          }
+          .brgy-info {
+            margin-left: 10px;
+            float: left;
+            color: @primary-color;
+            font-family: 'Lato', sans-serif;
+
+            .name {
+              font-weight: 700;
+              font-size: 1rem;
+            }
+
+            .place {
+              font-size: .90rem;
+            }
+
+            .time {
+              font-size: 0.75rem;
+            }
+          }
+
+          .option {
+            margin-top: 16px;
+            float: right;
+          }
+        }
+
+        .card-body {
+
+        }
+
+        .card-footer {
+          font-family: 'Lato', sans-serif;
+
+          .footer-button {
+            margin-left: 36px;
+          }
+        }
+      }
+    }
+  }
 }
