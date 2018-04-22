@@ -35,9 +35,8 @@ a {
 .navbar {
     background: linear-gradient(@navbar-primary-color, 80%, @navbar-secondary-color);
     height: 60px;
-
-
-    input, input:focus{
+    input,
+    input:focus {
         background-color: rgba(255, 255, 255, 0.5);
         border: none;
         border-radius: 5em;
@@ -47,8 +46,7 @@ a {
         padding: 0.3em 1.5em;
         width: 45em !important;
     }
-
-    input::placeholder{
+    input::placeholder {
         color: white;
         font-family: 'Lato', sans-serif;
         font-weight: 500;
@@ -111,7 +109,6 @@ a {
 
 .home-post-box {
     margin-bottom: 1em;
-    
     .card-body {
         &:extend(.home-sidebar .card-body);
         padding: 1.1em 1.25em 0.6em 1.25em;
@@ -151,29 +148,25 @@ a {
     display: flex;
     align-content: center;
     margin: 0 0 1em 0;
-    
-
     h6 {
-        color: @primary-color;  
+        color: @primary-color;
         display: inline-block;
         font-family: 'Lato', sans-serif;
         font-weight: 600;
         margin: 0;
     }
-    .sort-by{
-        color: @primary-color;  
+    .sort-by {
+        color: @primary-color;
         font-size: 0.8em;
         font-weight: 600;
         margin-left: 0.5em;
     }
-
-    .btn{
-        color: @primary-color !important;
+    .btn {
+        color: @primary-color  !important;
         font-size: 0.8em;
         padding: 0px 0.4em;
     }
 }
-
 
 /************************
   News Feed Post 
@@ -291,5 +284,27 @@ a {
             margin-right: 1em;
             padding: 1.25rem 0 0 0;
         }
+    }
+}
+
+/************************
+  Confirmation Message
+************************/
+
+.confirmation-msg {
+    display: flex;
+    padding: 10em 0;
+    h3 {
+        color: @primary-color;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 700;
+        margin-bottom: 1.2em;
+        text-align: center;
+    }
+    p {
+        color: @primary-color;
+        font-family: 'Lato', sans-serif;
+        font-size: 1.1em;
+        text-align: center;
     }
 }

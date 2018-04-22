@@ -271,6 +271,26 @@ a {
   margin-right: 1em;
   padding: 1.25rem 0 0 0;
 }
+/************************
+  Confirmation Message
+************************/
+.confirmation-msg {
+  display: flex;
+  padding: 10em 0;
+}
+.confirmation-msg h3 {
+  color: #2a8abd;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  margin-bottom: 1.2em;
+  text-align: center;
+}
+.confirmation-msg p {
+  color: #2a8abd;
+  font-family: 'Lato', sans-serif;
+  font-size: 1.1em;
+  text-align: center;
+}
 .dashboard-content {
   background-color: #f2f2f2;
   min-height: calc(100vh - 60px);
