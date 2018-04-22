@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Lato:400,700,900" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700,800" rel="stylesheet">
+  <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js"></script>
+  <link rel="stylesheet" href="css/stylesheet.css">
+  <title>Dashboard</title>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-md ">
+    <div class="mx-auto order-0">
+      <form class="form-inline">
+        <input class="form-control" type="search" placeholder="Search..." aria-label="Search">
+      </form>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+
+  </nav>
+  <div class="dashboard-content">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="e-service-form card">
+            <div class="card-body">
+              <h4 class="form-title">Barangay Clearance Form</h4>
+              <p class="form-instructions">Fill the form below.</p>
+              <form>
+                <!-- First Name -->
+                <div class="inline form-group">
+                  <label for="first-name">First Name: </label>
+                  <input type="text" class="form-control" id="first-name">
+                </div>
+
+                <!-- Middle Name -->
+                <div class="inline form-group">
+                  <label for="middle-name">Middle Name: </label>
+                  <input type="text" class="form-control" id="middle-name">
+                </div>
+
+                <!-- Last Name -->
+                <div class="inline form-group">
+                  <label for="last-name">Last Name: </label>
+                  <input type="text" class="form-control" id="last-name">
+                </div>
+
+                <!-- Address -->
+                <div class="inline form-group">
+                  <label for="address">Address: </label>
+                  <input type="text" class="form-control" id="address">
+                </div>
+
+                <!-- Date of Birth -->
+                <div class="inline form-group">
+                  <label for="dob">Date of Birth: </label>
+                  <input type="text" class="form-control" id="dob">
+                </div>
+
+                <!-- Place of Birth -->
+                <div class="inline form-group">
+                  <label for="pob">Place of Birth: </label>
+                  <input type="text" class="form-control" id="pob">
+                </div>
+
+                <!-- Citizenship -->
+                <div class="inline form-group">
+                  <label for="citizenship">Citizenship: </label>
+                  <input type="text" class="form-control" id="citizenship">
+                </div>
+
+                <!-- Marital Status -->
+                <div class="inline form-group">
+                  <label for="marital-status">Marital Status: </label>
+                  <input type="text" class="form-control" id="marital-status">
+                </div>
+
+                <!-- Purpose of CLearance -->
+                <label class="purpose-checkbox-label">Purpose of Clearance: </label>
+                <div class="form-check">
+                  <label class="checkbox-container">
+                    <input type="checkbox">
+                    <span class="checkmark"></span>
+                  </label>
+                  <label class="checkbox-label"></label>Certification/Residency</label>
+                </div>
+                <div class="form-check">
+                  <label class="checkbox-container">
+                    <input type="checkbox">
+                    <span class="checkmark"></span>
+                  </label>
+                  <label class="checkbox-label">Local Employment</label>
+                </div>
+                <div class="form-check">
+                  <label class="checkbox-container">
+                    <input type="checkbox">
+                    <span class="checkmark"></span>
+                  </label>
+                  <label class="checkbox-label">Overseas Employment</label>
+                </div>
+                <div class="form-check">
+                  <label class="checkbox-container">
+                    <input type="checkbox">
+                    <span class="checkmark"></span>
+                  </label>
+                  <label class="checkbox-label">Loan</label>
+                </div>
+                <div class="form-check">
+                  <label class="checkbox-container">
+                    <input type="checkbox">
+                    <span class="checkmark"></span>
+                  </label>
+                  <label class="checkbox-label">Others; please specify</label>
+                  <input type="text">
+                </div>
+
+
+
+
+                <label class="attach-requirements-label">Please attached picture of the following requirements if applicable: : </label>
+
+                <!-- Certification of Residency from Association or Condominium -->
+                <div class="stacked attachment form-group">
+                  <label>Certification of Residency from Association or Condominium: </label>
+                  <a href="#" class="btn rounded">Browse</a>
+                </div>
+
+                <!-- Certification from Resident Owner (For House Helpers) -->
+                <div class="stacked attachment form-group">
+                  <label>Certification from Resident Owner (For House Helpers): </label>
+                  <a href="#" class="btn rounded">Browse</a>
+                </div>
+
+                <!-- Latest Proof of Billing -->
+                <div class="stacked attachment form-group">
+                  <label>Latest Proof of Billing: </label>
+                  <a href="#" class="btn rounded">Browse</a>
+                </div>
+
+                <!-- 2 Valid ID with Address -->
+                <div class="stacked attachment form-group">
+                  <label>2 Valid ID with Address: </label>
+                  <a href="#" class="btn rounded">Browse</a>
+                </div>
+
+                <!-- Date and Time of Pickup -->
+                <div class="inline attachment form-group">
+                  <label for="pickup-datetime">Date and Time of Pickup (Between 8am-5pm) only: </label>
+                  <input type="text" class="form-control" id="pickup-datetime">
+                </div>
+
+                <div class="submit text-center">
+                  <a href="" class="btn rounded">Submit</a>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Required JS files -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+</body>
+
+</html>

@@ -7,9 +7,8 @@
 }
 .btn.rounded,
 .btn.rounded-light {
-  color: #2a8abd;
   border-color: #2a8abd;
-  border-radius: 100px;
+  border-radius: 100px !important;
   padding: 0.3em 1.5em;
 }
 .btn.rounded-light {
@@ -290,6 +289,137 @@ a {
   font-family: 'Lato', sans-serif;
   font-size: 1.1em;
   text-align: center;
+}
+/************************
+  Inline Form Group
+************************/
+.inline.form-group .form-control {
+  width: max-content;
+}
+.stacked.form-group label,
+.stacked-form-group .btn {
+  display: block;
+}
+.inline.form-group input,
+.inline.form-group label {
+  display: inline-block;
+}
+/************************
+  Checkbox
+************************/
+.checkbox-container {
+  display: block;
+  position: relative;
+  padding-left: 1.2em;
+  width: max-content;
+  cursor: pointer;
+  font-size: 22px;
+  height: 0.8em;
+  margin: 0;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.checkbox-container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+.checkbox-container .checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 0.8em;
+  width: 0.8em;
+  background-color: white;
+  border: 1px solid #2a8abd;
+}
+.checkbox-container:hover input ~ .checkmark {
+  background-color: white;
+}
+.checkbox-container input:checked ~ .checkmark {
+  background-color: white;
+}
+.checkbox-container .checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+.checkbox-container input:checked ~ .checkmark:after {
+  display: block;
+}
+.checkbox-container .checkmark:after {
+  left: 0.26em;
+  top: 0.09em;
+  width: 5px;
+  height: 10px;
+  border: solid #2a8abd;
+  border-width: 0 2px 2px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+/************************
+  E-Service Form
+************************/
+.e-service-form .card-body {
+  padding: 2.5em 5em;
+}
+.e-service-form .form-title {
+  color: #2a8abd;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+}
+.e-service-form .form-instructions {
+  color: #2a8abd;
+  font-family: 'Lato', sans-serif;
+  font-size: 1.08em;
+  font-weight: 500;
+}
+.e-service-form .form-group {
+  margin-bottom: 0.2em;
+  padding-left: 1.2em;
+}
+.e-service-form .form-group > label,
+.e-service-form .purpose-checkbox-label,
+.e-service-form .attach-requirements-label,
+.e-service-form .form-check {
+  color: #2a8abd;
+  font-family: 'Lato', sans-serif;
+  font-size: 1em;
+  font-weight: 500;
+}
+.e-service-form .form-group > .form-control {
+  background-color: #f7f7f7;
+  border: none;
+  border-radius: 0;
+  padding: 0.1em 0.2em;
+  width: 30%;
+}
+.e-service-form .attach-requirements-label {
+  font-weight: 700;
+  margin-top: 2em;
+}
+.e-service-form .form-check {
+  display: flex;
+  align-items: center;
+}
+.e-service-form .form-check > label {
+  display: inline-block;
+}
+.e-service-form .form-check > .checkbox-label {
+  margin: 0;
+}
+.e-service-form .form-check > input {
+  border: none;
+  border-bottom: 1px solid #2a8abd;
+  margin-left: 0.5em;
+}
+.e-service-form .attachment.form-group {
+  margin-bottom: 1.1em;
+  padding-left: 1.2em;
+  width: max-content;
 }
 .dashboard-content {
   background-color: #f2f2f2;
