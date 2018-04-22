@@ -422,6 +422,47 @@ a {
   padding-left: 1.2em;
   width: max-content;
 }
+/************************
+  E-Services Modal
+************************/
+#e-service-modal .modal-lg {
+  max-width: 950px;
+}
+#e-service-modal .modal-lg .modal-body {
+  padding: 3em;
+}
+#e-service-modal .col-md-4 {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  align-content: flex-start;
+}
+#e-service-modal .modal-title {
+  color: #2a8abd;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  margin-bottom: 1.5em;
+  text-align: center;
+}
+#e-service-modal .services .btn {
+  border: 1.5px solid #2a8abd;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 200px;
+  height: 200px;
+}
+#e-service-modal .services .btn img {
+  height: 170px;
+}
+#e-service-modal .services .btn-label {
+  color: #2a8abd;
+  font-family: 'Lato', sans-serif;
+  margin-top: 1em;
+  text-align: center;
+}
 .dashboard-content {
   background-color: #f2f2f2;
   min-height: calc(100vh - 60px);
