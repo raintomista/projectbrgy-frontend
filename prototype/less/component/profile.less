@@ -1,6 +1,7 @@
 /************************
   Profile Header
 ************************/
+
 .profile-header {
     height: 250px;
     background: linear-gradient(@navbar-primary-color, 50%, @navbar-secondary-color);
@@ -49,16 +50,21 @@
         .card-link .icon {
             margin-right: 5px;
         }
-    }
-
-    //Follow Button for User View Only
-    .list-group .follow-btn.list-group-item{
-        margin: 0.65em 0 0 1.25em;
+        .btn {
+            min-width: 113px;
+        }
+    } //Follow Button for User/Brgy View Only
+    .list-group .follow-btn.list-group-item,
+    .list-group .message-btn.list-group-item {
+        margin: 0.325em 0 0 2.5em;
+        padding: .30rem 1.25rem
+    } //Message Button for Brgy View Only
+    .list-group .message-btn.list-group-item {
+        margin: 0em 0 0 2.5em;
         padding: .30rem 1.25rem
     }
-
     .profile-resources.list-group {
-        margin: 0.65em 0 0 1.25em;
+        margin: 0.325em 0 0 2.5em;
     }
     .profile-resources.list-group .list-group-item:not(:last-of-type) {
         border: 0;
@@ -92,4 +98,3 @@
         }
     }
 }
-
