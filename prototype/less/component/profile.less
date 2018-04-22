@@ -1,0 +1,88 @@
+/************************
+  Profile Header
+************************/
+.profile-header {
+    height: 250px;
+    background: linear-gradient(@navbar-primary-color, 50%, @navbar-secondary-color);
+}
+
+/************************
+  Profile Details
+************************/
+
+.profile-details {
+    border: none;
+    border-radius: 0;
+    color: @primary-color;
+    .card-body {
+        padding-bottom: 1rem;
+    }
+    .card-body .card-img {
+        border: 2px solid @primary-color;
+        border-radius: 100%;
+        margin-top: -60%;
+        margin-bottom: 1em;
+        width: 100%;
+    }
+    .card-body .card-title {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 700;
+        margin-bottom: 0;
+        text-align: center;
+    }
+    .card-body .card-text {
+        font-family: 'Lato', sans-serif;
+        font-size: 1.2em;
+        font-weight: 500;
+        text-align: center;
+    }
+    .list-group {
+        font-family: 'Lato', sans-serif;
+        font-weight: 500;
+    }
+    .list-group .list-group-item {
+        border: 0;
+        padding: .30rem 2rem
+    }
+    .list-group .list-group-item {
+        color: @primary-color;
+        .card-link .icon {
+            margin-right: 5px;
+        }
+    }
+    .profile-resources.list-group {
+        margin: 0.65em 0 0 2.5em;
+    }
+    .profile-resources.list-group .list-group-item:not(:last-of-type) {
+        border: 0;
+        padding: .30rem 1.25rem
+    }
+    .profile-resources.list-group .list-group-item:last-of-type {
+        border-top: 0;
+        height: 1.6em;
+    }
+}
+
+/************************
+  Profile Stats
+************************/
+
+.profile-stats {
+    border: none;
+    border-radius: 0;
+    margin-bottom: 1em;
+    .card-body {
+        padding: 0 1.25rem;
+        .nav-link>.nav-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.15em;
+            font-weight: 700;
+        }
+        .nav-link>.nav-value {
+            font-family: 'Lato', sans-serif;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+    }
+}
+
