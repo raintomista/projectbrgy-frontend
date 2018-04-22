@@ -517,8 +517,12 @@ a {
 .profile-details .list-group .list-group-item .card-link .icon {
   margin-right: 5px;
 }
+.profile-details .list-group .follow-btn.list-group-item {
+  margin: 0.65em 0 0 1.25em;
+  padding: 0.3rem 1.25rem;
+}
 .profile-details .profile-resources.list-group {
-  margin: 0.65em 0 0 2.5em;
+  margin: 0.65em 0 0 1.25em;
 }
 .profile-details .profile-resources.list-group .list-group-item:not(:last-of-type) {
   border: 0;
