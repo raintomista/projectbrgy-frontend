@@ -18,11 +18,34 @@
   color: white;
 }
 /************************
+ Links
+************************/
+a {
+  color: #2a8abd;
+  font-family: 'Lato', sans-serif;
+}
+/************************
   Dashboard Navbar
 ************************/
 .navbar {
   background: linear-gradient(#2a8abd, 80%, #226cc1);
   height: 60px;
+}
+.navbar input,
+.navbar input:focus {
+  background-color: rgba(255, 255, 255, 0.5);
+  border: none;
+  border-radius: 5em;
+  color: white;
+  font-family: 'Lato', sans-serif;
+  font-weight: 500;
+  padding: 0.3em 1.5em;
+  width: 45em !important;
+}
+.navbar input::placeholder {
+  color: white;
+  font-family: 'Lato', sans-serif;
+  font-weight: 500;
 }
 /************************
   Dashboard Home Sidebar 
@@ -102,13 +125,153 @@
   margin-right: 0.1em;
   text-align: right;
 }
+/************************
+  News Feed Options 
+************************/
+.newsfeed-option {
+  display: flex;
+  align-content: center;
+  margin: 1em 0;
+}
+.newsfeed-option h6 {
+  color: #2a8abd;
+  display: inline-block;
+  font-family: 'Lato', sans-serif;
+  font-weight: 600;
+  margin: 0;
+}
+.newsfeed-option .sort-by {
+  color: #2a8abd;
+  font-size: 0.8em;
+  font-weight: 600;
+  margin-left: 0.5em;
+}
+.newsfeed-option .btn {
+  color: #2a8abd !important;
+  font-size: 0.8em;
+  padding: 0px 0.4em;
+}
+/************************
+  News Feed Post 
+************************/
+.newsfeed-post {
+  margin-bottom: 1em;
+}
+.newsfeed-post .post-info-group {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.newsfeed-post .post-info-group .post-avatar {
+  border: 2px solid #2a8abd;
+  border-radius: 100%;
+  display: inline-block;
+  height: 4em;
+  width: 4em;
+}
+.newsfeed-post .post-info-group .post-info {
+  display: inline-block;
+  margin-left: 0.6em;
+  margin-top: -0.8em;
+}
+.newsfeed-post .post-info-group .post-info .post-author {
+  display: block;
+  font-size: 1.05em;
+  font-weight: 600;
+}
+.newsfeed-post .post-info-group .post-info .post-location {
+  font-size: 1em;
+}
+.newsfeed-post .post-info-group .post-info .post-timestamp {
+  font-size: 0.85em;
+  margin-left: 0.5em;
+}
+.newsfeed-post .post-info-group .more {
+  align-self: flex-start;
+  margin-left: auto;
+}
+.newsfeed-post .post-info-group .more .btn {
+  padding: 0;
+}
+.newsfeed-post .post-content {
+  margin-left: 4.5em;
+}
+.newsfeed-post .post-content .embedded-link {
+  background-color: white;
+  border: 1px solid #f1f1f1;
+  height: 6em;
+  padding: 0.5em;
+  width: 100%;
+}
+.newsfeed-post .post-content .preview-content {
+  display: flex;
+  justify-content: space-around;
+  height: 100%;
+}
+.newsfeed-post .post-content .preview-content > .preview-img {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  width: max-content;
+}
+.newsfeed-post .post-content .preview-content > .preview-img > img {
+  height: 100%;
+}
+.newsfeed-post .post-content .preview-content > .preview-details {
+  display: flex;
+  flex-flow: column;
+  justify-content: flex-start;
+  height: 100%;
+  padding: 0.2em 0.4em;
+  width: 80%;
+}
+.newsfeed-post .post-content .preview-content .link-title {
+  color: #1a17a4;
+  font-family: 'Arial', sans-serif;
+  font-size: 0.99em;
+  font-weight: 600;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.newsfeed-post .post-content .preview-content .link-subdetails {
+  margin-top: -2px;
+}
+.newsfeed-post .post-content .preview-content .link-subdetails > .link-author {
+  color: #006621;
+  display: inline-block;
+  font-family: 'Arial', sans-serif;
+  font-size: 0.95em;
+}
+.newsfeed-post .post-content .preview-content .link-subdetails > .separator,
+.newsfeed-post .post-content .preview-content .link-subdetails > .link-timestamp {
+  color: #808080;
+  font-family: 'Arial', sans-serif;
+  font-size: 0.95em;
+  line-height: 0.95em;
+}
+.newsfeed-post .post-content .preview-content .link-text {
+  font-family: 'Arial', sans-serif;
+  font-size: 0.8em;
+  text-align: justify;
+  margin-bottom: 0px;
+  line-height: 1.2em;
+  height: 2.3em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.newsfeed-post .post-buttons {
+  margin-left: 4.4em;
+}
+.newsfeed-post .post-buttons .btn {
+  margin-right: 1em;
+  padding: 1.25rem 0 0 0;
+}
 .dashboard-content {
   background-color: #f2f2f2;
-  height: calc(100vh - 60px);
+  min-height: calc(100vh - 60px);
   padding: 25px 0px;
-}
-.content a {
-  color: #2a8abd;
 }
 .content > .row {
   margin: 0px;
