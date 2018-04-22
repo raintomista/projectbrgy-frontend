@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Lato:400,700,900" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700,800" rel="stylesheet">
+  <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js"></script>
+  <link rel="stylesheet" href="css/stylesheet.css">
+  <title>Dashboard</title>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-md ">
+    <div class="mx-auto order-0">
+      <form class="form-inline">
+        <input class="form-control" type="search" placeholder="Search..." aria-label="Search">
+      </form>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+
+  </nav>
+  <div class="dashboard-content">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="e-service-form card">
+            <div class="card-body">
+              <h4 class="form-title">Barangay Business Permit Form</h4>
+              <p class="form-instructions">Fill the form below.</p>
+              <form>
+                <ol>
+                  <li>
+                    <label> Click the type of service: </label>
+                    <div class="form-check">
+                      <label class="checkbox-container">
+                        <input type="checkbox">
+                        <span class="checkmark"></span>
+                      </label>
+                      <label class="checkbox-label"></label>New Business</label>
+                    </div>
+                    <div class="form-check">
+                      <label class="checkbox-container">
+                        <input type="checkbox">
+                        <span class="checkmark"></span>
+                      </label>
+                      <label class="checkbox-label">Change of Location</label>
+                    </div>
+                    <div class="form-check">
+                      <label class="checkbox-container">
+                        <input type="checkbox">
+                        <span class="checkmark"></span>
+                      </label>
+                      <label class="checkbox-label">Change of Commercial Name</label>
+                    </div>
+                    <div class="form-check">
+                      <label class="checkbox-container">
+                        <input type="checkbox">
+                        <span class="checkmark"></span>
+                      </label>
+                      <label class="checkbox-label">Renewal of Permit</label>
+                    </div>
+                  </li>
+                  <li>
+                    <label> Fill out the form below: </label>
+                    <div class="inline form-group">
+                      <label for="owner">Name of Proprietor/Owner: </label>
+                      <input type="text" class="form-control" id="owner">
+                    </div>
+                    <div class="inline form-group">
+                      <label for="address">Address of Owner: </label>
+                      <input type="text" class="form-control" id="address">
+                    </div>
+                    <div class="inline form-group">
+                      <label for="address">Business/Trade Name </label>
+                      <input type="text" class="form-control" id="address">
+                    </div>
+                    <div class="inline form-group">
+                      <label for="address">Address of Business</label>
+                      <input type="text" class="form-control" id="address">
+                    </div>
+                  </li>
+                  <li>
+                    <label> Attach photos of the following requirements:</label>
+                    <div class="stacked attachment form-group">
+                      <label>Latest Community Tax Certificate (Cedula) </label>
+                      <a href="#" class="btn rounded">Browse</a>
+                    </div>
+                    <div class="stacked attachment form-group">
+                      <label>DTI Business Name Registration</label>
+                      <a href="#" class="btn rounded">Browse</a>
+                    </div>
+                  </li>
+                </ol>
+
+                <!-- Date and Time of Pickup -->
+                <div class="inline attachment form-group">
+                  <label for="pickup-datetime">Date and Time of Pickup (Between 8am-5pm) only: </label>
+                  <input type="text" class="form-control" id="pickup-datetime">
+                </div>
+
+                <div class="submit text-center">
+                  <a href="" class="btn rounded">Submit</a>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Required JS files -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+</body>
+
+</html>

@@ -384,7 +384,8 @@ a {
 .e-service-form .form-group > label,
 .e-service-form .purpose-checkbox-label,
 .e-service-form .attach-requirements-label,
-.e-service-form .form-check {
+.e-service-form .form-check,
+.e-service-form ol > li {
   color: #2a8abd;
   font-family: 'Lato', sans-serif;
   font-size: 1em;

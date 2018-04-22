@@ -407,7 +407,7 @@ a {
     .form-group {
         margin-bottom: 0.2em;
         padding-left: 1.2em;
-        
+
         &>label {
             color: @primary-color;
             font-family: 'Lato', sans-serif;
@@ -456,8 +456,9 @@ a {
         margin-bottom: 1.1em;
         padding-left: 1.2em;
         width: max-content;
-        
-        .btn{
-        }
+    }
+
+    ol>li{
+        &:extend(.e-service-form .form-group>label);
     }
 }
