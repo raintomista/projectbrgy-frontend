@@ -338,6 +338,21 @@ a {
   width: max-content;
 }
 /************************
+  Inline Fluid Form Group
+************************/
+.inline-fluid.form-group {
+  display: flex;
+  align-items: center;
+}
+.inline-fluid.form-group label {
+  margin-bottom: 0;
+  min-width: max-content;
+}
+.inline-fluid.form-group .form-control {
+  margin-left: 0.7em;
+  flex-grow: 100;
+}
+/************************
   Stacked Form Group
 ************************/
 .stacked.form-group label,
@@ -465,6 +480,35 @@ a {
   margin-bottom: 1.1em;
   padding-left: 1.2em;
   width: max-content;
+}
+/************************
+  Sign-up Form
+************************/
+.signup-form .form-title {
+  color: #2a8abd;
+  font-family: 'Lato', sans-serif;
+  margin-bottom: 1.1em;
+  text-align: center;
+}
+.signup-form .form-group {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.9rem;
+  color: #2a8abd;
+}
+.signup-form label {
+  font-family: 'Lato', sans-serif;
+  font-size: 1.16em;
+}
+.signup-form input {
+  background: linear-gradient(to right, #bfdbeb, #bbc8ee);
+  border: none;
+  border-radius: 2em;
+  font-size: 1em;
+  padding: 0.3em 0.6em;
+}
+.signup-form .submit {
+  margin-top: 1.5em;
+  margin-bottom: 3em;
 }
 /************************
   Profile Header
@@ -629,6 +673,22 @@ a {
 .user-brgy-info .col-md-8 .contact-section .list-group .list-group-item .card-link .icon {
   margin-right: 5px;
 }
+#signup-slider .carousel-indicators .indicator {
+  background-color: transparent;
+  border: 1px solid #1f4bc8;
+  border-radius: 100%;
+  height: 8.5px;
+  margin: 0 1.5em;
+  width: 8.5px;
+}
+#signup-slider .carousel-indicators .indicator.active {
+  background: linear-gradient(to right, #2a8abd, #1f4bc8);
+}
+#signup-slider .carousel-inner .carousel-item .carousel-img {
+  display: block;
+  margin: 90px auto 100px auto;
+  height: 290px;
+}
 .dashboard-content {
   background-color: #f2f2f2;
   min-height: calc(100vh - 60px);
@@ -642,47 +702,10 @@ a {
   background: rgba(255, 255, 255, 0) !important;
   color: #ffffff;
 }
-.signup .content .left-side-bar .carousel-indicators .indicator {
-  height: 10px;
-  width: 10px;
-  border-radius: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-}
-.signup .content .left-side-bar .carousel-indicators .indicator.active {
-  background-color: #000000;
-}
-.signup .content .left-side-bar .carousel-inner .carousel-item .carousel-container {
-  background-color: #ffffff;
-}
-.signup .content .left-side-bar .carousel-inner .carousel-item .carousel-container .carousel-img {
-  display: block;
-  margin: 100px auto;
-  border-radius: 100%;
-  width: 300px;
-}
-.signup .content .right-side-bar .header {
-  width: 100%;
-}
-.signup .content .right-side-bar .header .title {
-  margin: 25px auto;
-  width: 100%;
-  display: block;
-  text-align: center;
-  font-weight: 700;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 2rem;
-  color: #2a8abd;
-}
-.signup .content .right-side-bar .form-group {
-  font-family: 'Lato', sans-serif;
-  font-size: 0.9rem;
-  color: #2a8abd;
-}
-.signup .content .right-side-bar form .submit-container {
+.signup .content {
   display: flex;
   align-items: center;
-  justify-content: center;
-  margin-bottom: 50px;
+  min-height: calc(100vh - 60px);
 }
 .content > .row {
   margin: 0px;
