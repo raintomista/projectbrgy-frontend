@@ -540,6 +540,18 @@ a {
   border-top: 0;
   height: 1.6em;
 }
+.profile-details .see-more.list-group {
+  text-align: center;
+}
+.profile-details .see-more.list-group .list-group-item {
+  padding: 0.9em 0 0 0;
+}
+.profile-details .see-more.list-group .list-group-item a {
+  color: gray;
+}
+.profile-details .see-more.list-group .list-group-item:last-of-type {
+  height: 1.6em;
+}
 /************************
   Profile Stats
 ************************/
@@ -550,6 +562,9 @@ a {
 }
 .profile-stats .card-body {
   padding: 0 1.25rem;
+}
+.profile-stats .card-body .filler.nav-item {
+  min-width: 115px;
 }
 .profile-stats .card-body .nav-link > .nav-title {
   font-family: 'Montserrat', sans-serif;

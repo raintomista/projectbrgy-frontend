@@ -65,14 +65,26 @@
     }
     .profile-resources.list-group {
         margin: 0.325em 0 0 2.5em;
+        .list-group-item:not(:last-of-type) {
+            border: 0;
+            padding: .30rem 1.25rem
+        }
+        .list-group-item:last-of-type {
+            border-top: 0;
+            height: 1.6em;
+        }
     }
-    .profile-resources.list-group .list-group-item:not(:last-of-type) {
-        border: 0;
-        padding: .30rem 1.25rem
-    }
-    .profile-resources.list-group .list-group-item:last-of-type {
-        border-top: 0;
-        height: 1.6em;
+    .see-more.list-group {
+        text-align: center;
+        .list-group-item {
+            padding: 0.9em 0 0 0;
+        }
+        .list-group-item a {
+            color: gray;
+        }
+        .list-group-item:last-of-type {
+            height: 1.6em;
+        }
     }
 }
 
@@ -86,6 +98,10 @@
     margin-bottom: 1em;
     .card-body {
         padding: 0 1.25rem;
+
+        .filler.nav-item{
+            min-width: 115px;
+        }
         .nav-link>.nav-title {
             font-family: 'Montserrat', sans-serif;
             font-size: 1.15em;
