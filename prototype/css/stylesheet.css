@@ -484,20 +484,20 @@ a {
 .profile-details .card-body {
   padding-bottom: 1rem;
 }
-.profile-details .card-body .card-img {
+.profile-details .card-img {
   border: 2px solid #2a8abd;
   border-radius: 100%;
   margin-top: -60%;
   margin-bottom: 1em;
   width: 100%;
 }
-.profile-details .card-body .card-title {
+.profile-details .card-title {
   font-family: 'Montserrat', sans-serif;
   font-weight: 700;
   margin-bottom: 0;
   text-align: center;
 }
-.profile-details .card-body .card-text {
+.profile-details .card-text {
   font-family: 'Lato', sans-serif;
   font-size: 1.2em;
   font-weight: 500;
@@ -563,18 +563,71 @@ a {
 .profile-stats .card-body {
   padding: 0 1.25rem;
 }
-.profile-stats .card-body .filler.nav-item {
+.profile-stats .filler.nav-item {
   min-width: 115px;
 }
-.profile-stats .card-body .nav-link > .nav-title {
+.profile-stats .nav-link > .nav-title {
   font-family: 'Montserrat', sans-serif;
   font-size: 1.15em;
   font-weight: 700;
 }
-.profile-stats .card-body .nav-link > .nav-value {
+.profile-stats .nav-link > .nav-value {
   font-family: 'Lato', sans-serif;
   font-size: 1.1em;
   font-weight: 500;
+}
+.user-brgy-info {
+  background-color: white;
+  margin: 0px;
+}
+.user-brgy-info .col-md-4 {
+  padding: 0 20px 0 0;
+}
+.user-brgy-info .col-md-8 {
+  color: #2a8abd;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 410px;
+  padding: 1em 0 0 0px;
+}
+.user-brgy-info .col-md-8 .vertical-divider {
+  width: 0.18em;
+  height: 23em;
+  background-color: #f2f2f2;
+}
+.user-brgy-info .col-md-8 .content {
+  padding: 1em 4em 2.5em 4em;
+}
+.user-brgy-info .col-md-8 h4 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  margin-bottom: 0.5em;
+}
+.user-brgy-info .col-md-8 .brgy-information-section .brgy-info {
+  display: block;
+  font-family: 'Lato', sans-serif;
+  font-size: 1.08em;
+  font-weight: 500;
+  margin-left: 0.8em;
+  margin-bottom: 0.5em;
+}
+.user-brgy-info .col-md-8 .contact-section {
+  margin-top: 1em;
+}
+.user-brgy-info .col-md-8 .contact-section .list-group {
+  font-family: 'Lato', sans-serif;
+  font-weight: 500;
+}
+.user-brgy-info .col-md-8 .contact-section .list-group .list-group-item {
+  border: 0;
+  margin-left: 0.9em;
+  margin-bottom: 0.5em;
+  padding: 0;
+}
+.user-brgy-info .col-md-8 .contact-section .list-group .list-group-item .card-link .icon {
+  margin-right: 5px;
 }
 .dashboard-content {
   background-color: #f2f2f2;

@@ -18,20 +18,20 @@
     .card-body {
         padding-bottom: 1rem;
     }
-    .card-body .card-img {
+    .card-img {
         border: 2px solid @primary-color;
         border-radius: 100%;
         margin-top: -60%;
         margin-bottom: 1em;
         width: 100%;
     }
-    .card-body .card-title {
+    .card-title {
         font-family: 'Montserrat', sans-serif;
         font-weight: 700;
         margin-bottom: 0;
         text-align: center;
     }
-    .card-body .card-text {
+    .card-text {
         font-family: 'Lato', sans-serif;
         font-size: 1.2em;
         font-weight: 500;
@@ -98,19 +98,78 @@
     margin-bottom: 1em;
     .card-body {
         padding: 0 1.25rem;
+    }
+    .filler.nav-item {
+        min-width: 115px;
+    }
+    .nav-link>.nav-title {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 1.15em;
+        font-weight: 700;
+    }
+    .nav-link>.nav-value {
+        font-family: 'Lato', sans-serif;
+        font-size: 1.1em;
+        font-weight: 500;
+    }
+}
 
-        .filler.nav-item{
-            min-width: 115px;
+.user-brgy-info {
+    background-color: white;
+    margin: 0px;
+    .col-md-4 {
+        padding: 0 20px 0 0;
+    }
+    .col-md-8 {
+        color: @primary-color;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;        
+        justify-content: flex-start;
+        min-height: 410px;
+        padding: 1em 0 0 0px;
+ 
+
+        .vertical-divider{
+            width: 0.18em;
+            height: 23em;
+            background-color: #f2f2f2;
         }
-        .nav-link>.nav-title {
+
+        .content{
+            padding: 1em 4em 2.5em 4em;
+        }
+
+        h4 {
             font-family: 'Montserrat', sans-serif;
-            font-size: 1.15em;
             font-weight: 700;
+            margin-bottom: 0.5em;
         }
-        .nav-link>.nav-value {
+        .brgy-information-section .brgy-info {
+            display: block;
             font-family: 'Lato', sans-serif;
-            font-size: 1.1em;
+            font-size: 1.08em;
             font-weight: 500;
+            margin-left: 0.8em;
+            margin-bottom: 0.5em;
+        }
+        .contact-section {
+            margin-top: 1em;
+        }
+        .contact-section .list-group {
+            font-family: 'Lato', sans-serif;
+            font-weight: 500;
+        }
+        .contact-section .list-group .list-group-item {
+            border: 0;
+            margin-left: 0.9em;
+            margin-bottom: 0.5em;
+            padding: 0;
+        }
+        .contact-section .list-group .list-group-item .card-link .icon {
+            margin-right: 5px;
         }
     }
 }
+
+
