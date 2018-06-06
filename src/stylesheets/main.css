@@ -259,6 +259,30 @@
   height: 80px;
   margin-right: 0px;
 }
+.signup-form .form-title {
+  color: #2a8abd;
+  font-family: 'Lato', sans-serif;
+  text-align: center;
+}
+.signup-form .form-group {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.9rem;
+  color: #2a8abd;
+}
+.signup-form label {
+  font-family: 'Lato', sans-serif;
+  font-size: 1.16em;
+}
+.signup-form input {
+  background: linear-gradient(to right, #bfdbeb, #bbc8ee);
+  border: none;
+  border-radius: 2em;
+  font-size: 1em;
+  padding: 0.3em 0.6em;
+}
+.signup-form .section {
+  padding: 1em 0;
+}
 /* 
 ===========================================
         Form Components Section
@@ -281,6 +305,21 @@
 .login-form form .form-control {
   background-color: #f2f2f2;
   border-radius: 0px;
+}
+/****************************
+*  Inline Fluid Form Group  *
+****************************/
+.inline-fluid.form-group {
+  display: flex;
+  align-items: center;
+}
+.inline-fluid.form-group label {
+  margin-bottom: 0;
+  min-width: max-content;
+}
+.inline-fluid.form-group .form-control {
+  margin-left: 0.7em;
+  flex-grow: 100;
 }
 /* 
 ===========================================
