@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import LoginSlider from 'component/login/LoginSlider';
+import LoginSlider from 'components/login/LoginSlider';
 
 export default class Login extends Component {
-  render(){
+  render() {
     return (
       <div className="row">
-        <LoginSlider />                                       
+        {/* Login Slider */}
+        <LoginSlider />
       </div>
     );
   }
 }
-                                                              
