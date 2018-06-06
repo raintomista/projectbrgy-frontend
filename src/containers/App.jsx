@@ -3,6 +3,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { Route, Switch } from 'react-router-dom';
 import Login from 'containers/Login';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'stylesheets/main.css';
 
 export default class App extends Component {
   render() {
