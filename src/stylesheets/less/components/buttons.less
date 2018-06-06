@@ -1,0 +1,47 @@
+/* 
+===========================================
+        Button Components Section
+===========================================
+*/
+
+
+/*****************************
+*       Rounded Button       *
+*****************************/
+.btn {
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+    &.rounded {
+        background-color: transparent;
+        border: 1.5px solid #2a8abd;
+        border-radius: 150px !important;
+        color: #2a8abd;
+        padding: 0.5em 1em;
+
+
+        &-light {
+            &:extend(.btn.rounded);
+            background-color: transparent;
+            border-color: white;
+            color: white;
+        }
+    }
+}
+
+/********************************************
+*       Signup Label + Rounded Button       *
+********************************************/
+.sign-up {
+    text-align: center; 
+
+    label {
+        color: #2a8abd;
+        font-family: 'Lato', sans-serif;
+    }
+}
+
+@media screen and (min-width: 345px) {
+    .sign-up button {
+        margin-left: 10px;
+    }
+}

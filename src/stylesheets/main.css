@@ -168,6 +168,46 @@
 }
 /* 
 ===========================================
+        Button Components Section
+===========================================
+*/
+/*****************************
+*       Rounded Button       *
+*****************************/
+.btn {
+  font-family: 'Lato', sans-serif;
+  font-weight: 700;
+}
+.btn.rounded,
+.btn.rounded-light {
+  background-color: transparent;
+  border: 1.5px solid #2a8abd;
+  border-radius: 150px !important;
+  color: #2a8abd;
+  padding: 0.5em 1em;
+}
+.btn.rounded-light {
+  background-color: transparent;
+  border-color: white;
+  color: white;
+}
+/********************************************
+*       Signup Label + Rounded Button       *
+********************************************/
+.sign-up {
+  text-align: center;
+}
+.sign-up label {
+  color: #2a8abd;
+  font-family: 'Lato', sans-serif;
+}
+@media screen and (min-width: 345px) {
+  .sign-up button {
+    margin-left: 10px;
+  }
+}
+/* 
+===========================================
        Container Components Section
 ===========================================
 */
@@ -181,11 +221,11 @@
   color: #2a8abd;
   font-family: 'Montserrat', sans-serif;
   font-weight: 700;
-  margin-bottom: 60px;
+  margin-bottom: 45px;
 }
 .login-form .partners {
   flex-wrap: wrap;
-  margin-top: 60px;
+  margin-top: 45px;
 }
 .login-form .partners img {
   height: 55px;
@@ -211,7 +251,7 @@
 }
 .login-form form {
   font-family: 'Lato', sans-serif;
-  margin-bottom: 60px;
+  margin-bottom: 45px;
 }
 .login-form form label {
   color: #2a8abd;
