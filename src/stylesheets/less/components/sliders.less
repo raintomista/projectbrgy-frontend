@@ -1,4 +1,12 @@
-// Login Slider
+/* 
+===========================================
+        Slider Components Section
+===========================================
+*/
+
+/*****************************
+*       Login Sliders        *
+*****************************/
 
 .login-slider {
     display: flex;
@@ -6,8 +14,8 @@
     justify-content: space-evenly;   
     background: linear-gradient(@primary-color, 70%, @secondary-color);
     color: white;
-    font-family: 'Lato', sans-serif;            
-    min-height: 100vh;
+    font-family: 'Lato', sans-serif;
+    padding: 50px 25px; 
 
     .carousel-item {
         min-width: 310px;
@@ -45,5 +53,11 @@
         width: 10px;
         margin-left: 0;
         margin-right: 8px;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .login-slider {
+        min-height: 100vh;
     }
 }
