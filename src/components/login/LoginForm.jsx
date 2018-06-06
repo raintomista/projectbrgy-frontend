@@ -10,6 +10,10 @@ const LoginForm = (props) => (
       <form>
         <LoginInputField type="text" name="username" label="Username" />
         <LoginInputField type="password" name="password" label="Password" />
+        <div className="forgot-password-login">
+          <a href="">Forgot Password?</a>
+          <button className="btn rounded">Log-in</button>
+        </div>
       </form>
 
       {/* Sign-up */}
