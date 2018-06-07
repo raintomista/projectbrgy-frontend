@@ -181,6 +181,29 @@
   margin-left: 0.7em;
   flex-grow: 100;
 }
+/************************
+ Navbar
+************************/
+.navbar {
+  background: linear-gradient(#2a8abd, 80%, #226cc1);
+  height: 60px;
+}
+.navbar input,
+.navbar input:focus {
+  background-color: rgba(255, 255, 255, 0.5);
+  border: none;
+  border-radius: 5em;
+  color: white;
+  font-family: 'Lato', sans-serif;
+  font-weight: 500;
+  padding: 0.3em 1.5em;
+  width: 45em !important;
+}
+.navbar input::placeholder {
+  color: white;
+  font-family: 'Lato', sans-serif;
+  font-weight: 500;
+}
 /*****************************
 *       Rounded Button       *
 *****************************/

@@ -2,6 +2,9 @@
 *       Signup Form          *
 *****************************/
 .signup-form {
+    padding: 50px 20px;
+    width: 100%;
+    
     .form-title {
         color: @primary-color;
         font-family: 'Lato', sans-serif;
@@ -32,6 +35,13 @@
 
     // Form Sections
     .section {
-        padding: 1em 0;
+        padding: 0.5em 0;
     }
+}
+
+@media screen and (min-width: 992px) {
+    .signup-form {
+        min-height: max-content;
+        padding: 30px 20px;
+    }    
 }
