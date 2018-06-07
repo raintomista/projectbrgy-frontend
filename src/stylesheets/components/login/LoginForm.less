@@ -1,29 +1,35 @@
-/* 
-===========================================
-        Button Components Section
-===========================================
-*/
-
-
 /*****************************
-*       Rounded Button       *
+*    Login Form Container    *
 *****************************/
-.btn {
-    font-family: 'Lato', sans-serif;
-    font-weight: 700;
-    &.rounded {
-        background-color: transparent;
-        border: 1.5px solid #2a8abd;
-        border-radius: 150px !important;
-        color: #2a8abd;
-        padding: 0.5em 1em;
 
+.login-form {
+    .container {
+        max-width: 600px;
+    }
 
-        &-light {
-            &:extend(.btn.rounded);
-            background-color: transparent;
-            border-color: white;
-            color: white;
+    h1 {
+        color: @primary-color;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 700;
+        margin-bottom: 45px;
+    }
+
+    .partners {
+        flex-wrap: wrap;
+        margin-top: 45px;
+
+        img{
+            height: 55px;
+            margin-right: 20px;
+        }
+
+        img:first-of-type{
+            height: 65px;
+        }
+
+        img:last-of-type{
+            height: 80px;
+            margin-right: 0px;
         }
     }
 }

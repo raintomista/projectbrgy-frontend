@@ -1,0 +1,23 @@
+/*****************************
+*       Rounded Button       *
+*****************************/
+.btn {
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+    
+    &.rounded {
+        background-color: transparent;
+        border: 1.5px solid #2a8abd;
+        border-radius: 150px !important;
+        color: #2a8abd;
+        padding: 0.5em 1em;
+
+
+        &-light {
+            &:extend(.btn.rounded);
+            background-color: transparent;
+            border-color: white;
+            color: white;
+        }
+    }
+}

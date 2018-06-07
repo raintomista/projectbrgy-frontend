@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import SignupInputField from 'components/signup/SignupInputField';
+import 'stylesheets/containers/SignUp.css';
 
 export default class SignUp extends Component {
   constructor(props) {
