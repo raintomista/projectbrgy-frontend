@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { Link } from "react-router-dom";
 
 const NavBar = () => (
   <nav className="navbar navbar-expand-md fixed-top navbar-dark">
@@ -10,7 +10,7 @@ const NavBar = () => (
       </button>
       <div className="collapse navbar-collapse" id="navbarSupportedContent">
         <div className="navbar-nav">
-          <a className="navbar-brand" href="#">Logo</a>
+          <Link to="/login" className="navbar-brand">Logo</Link>
         </div>
         <form className="form-inline my-2 my-lg-0">
           <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />

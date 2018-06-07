@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 import LoginInputField from 'components/login/LoginInputField'
 
 const LoginForm = (props) => (
@@ -20,7 +21,7 @@ const LoginForm = (props) => (
       <div className="d-flex justify-content-center">
         <div className="sign-up">
           <label>Don't have an account yet?</label>
-          <button class="btn rounded">Sign-up</button>
+          <Link to='/sign-up'><button class="btn rounded">Sign-up</button></Link>
         </div>
       </div>
 
