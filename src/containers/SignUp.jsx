@@ -8,7 +8,7 @@ export default class SignUp extends Component {
   constructor(props) {
     super(props);
   }
-
+  
   render() {
     return (
       <div>
@@ -21,7 +21,7 @@ export default class SignUp extends Component {
               </div>
               <div className="col-12 col-sm-12 col-md-12 col-lg-7 d-flex align-items-center justify-content-center">
                 <div className="signup-form">
-                  <h3 class="form-title">Sign Up</h3>
+                  <h3 className="form-title">Sign Up</h3>
                   <form>
                     <div className="section">
                       <SignUpInputField type="text" name="region" label="Region" />
@@ -37,7 +37,7 @@ export default class SignUp extends Component {
                       <SignUpInputField type="text" name="mobile" label="Mobile Phone" />
                       <SignUpInputField type="text" name="email" label="Email" />
                     </div>
-                    <div class="text-center">
+                    <div className="text-center">
                       <button className="btn rounded">Sign Up</button>
                     </div>
                   </form>

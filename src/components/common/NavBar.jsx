@@ -16,7 +16,7 @@ const NavBar = () => (
           <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
         </form>
         <div className="navbar-nav">
-          <a className="nav-item nav-link active" href="#">Menu
+          <a className="nav-item nav-link active">Menu
             <span className="sr-only">(current)</span>
           </a>
         </div>
