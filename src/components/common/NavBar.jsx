@@ -2,7 +2,7 @@ import React from 'react';
 
 
 const NavBar = () => (
-  <nav className="navbar navbar-expand-md navbar-dark">
+  <nav className="navbar navbar-expand-md fixed-top navbar-dark">
     <div className="mx-auto order-0">
       <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
         aria-expanded="false" aria-label="Toggle navigation">

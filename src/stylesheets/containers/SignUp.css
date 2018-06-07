@@ -32,11 +32,12 @@
 @media screen and (min-width: 992px) {
   .signup-form {
     min-height: max-content;
-    padding: 30px 20px;
+    padding: 23px 20px;
   }
 }
 .signup-slider {
-  padding: 50px 20px;
+  padding: 50px 0;
+  width: 100%;
 }
 .signup-slider .carousel-inner {
   min-width: 300px;
@@ -67,4 +68,7 @@
   .signup-slider {
     padding-bottom: 0;
   }
+}
+nav + .content {
+  margin-top: 60px;
 }
