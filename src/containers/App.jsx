@@ -8,6 +8,7 @@ import 'stylesheets/main.less';
 import Login from 'containers/Login';
 import SignUp from 'containers/SignUp';
 import ConfirmationPage from 'containers/ConfirmationPage';
+import Dashboard from 'containers/Dashboard';
 
 export default class App extends Component {
   render() {
@@ -16,6 +17,7 @@ export default class App extends Component {
         <Switch>
           <Route exact={true} path='/login' component={Login} />
           <Route exact={true} path='/sign-up' component={SignUp} />
+          <Route exact={true} path='/dashboard' component={Dashboard} />
           <Route
             exact={true}
             path='/katarungang-pambarangay/confirmation'

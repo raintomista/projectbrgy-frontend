@@ -1,0 +1,45 @@
+.home-sidebar {
+    .card-body {
+        background: linear-gradient(@home-sidebar-primary-color, 60%, @home-sidebar-secondary-color);
+        color: white;
+        .card-img {
+            border-radius: 100%;
+            margin: 15px 0px;
+            width: 80%;
+        }
+        .card-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            margin-bottom: 0;
+            text-align: center;
+        }
+        .card-text {
+            font-family: 'Lato', sans-serif;
+            font-size: 1.2em;
+            font-weight: 500;
+            text-align: center;
+        }
+    }
+    .list-group.list-group-flush {
+        font-family: 'Lato', sans-serif;
+        font-weight: 500;
+        .list-group-item:first-of-type {
+            margin-top: 10px;
+        }
+        .list-group-item:not(:last-of-type) {
+            border: 0;
+            padding: .30rem 1.25rem
+        }
+        .list-group-item:last-of-type {
+            border-top: 0;
+            height: 1.6em;
+        }
+        .list-group-item .card-link {
+            color: @primary-color;
+        }
+        .list-group-item .badge {
+            color: @badge-text-color;
+            font-size: 0.79em;
+        }
+    }
+}
