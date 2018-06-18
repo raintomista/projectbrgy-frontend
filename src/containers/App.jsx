@@ -3,7 +3,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { Route, Switch } from 'react-router-dom';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import 'stylesheets/main.css';
+import 'stylesheets/main.less';
 
 import Login from 'containers/Login';
 import SignUp from 'containers/SignUp';

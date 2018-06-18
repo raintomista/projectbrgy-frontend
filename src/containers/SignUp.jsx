@@ -11,7 +11,7 @@ import Yup from 'yup';
 
 import { Redirect } from 'react-router-dom'
 
-import 'stylesheets/containers/SignUp.css';
+import 'stylesheets/containers/SignUp.less';
 
 
 

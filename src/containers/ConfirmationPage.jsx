@@ -1,7 +1,7 @@
 import React from 'react';
 import ConfirmationMsg from 'components/common/ConfirmationMsg';
 import NavBar from 'components/common/NavBar';
-import 'stylesheets/containers/ConfirmationPage.css';
+import 'stylesheets/containers/ConfirmationPage.less';
 
 let messages = new Map();
 
