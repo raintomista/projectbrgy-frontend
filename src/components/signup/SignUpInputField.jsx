@@ -1,6 +1,6 @@
 import React from 'react';
 
-const SignupInputField = (props) => {
+export const SignUpInputField = (props) => {
   const { required, touched, errors } = props;
 
   return (
@@ -11,9 +11,10 @@ const SignupInputField = (props) => {
           type={props.type}
           className="form-control"
           name={props.name}
-          value={props.value}
           onChange={props.handleChange}
           onBlur={props.handleBlur}
+          value={props.value}
+          disabled={props.disabled}
         />
       </div>
       { required ? touched && errors && <div>{errors}</div> : errors && <div>{errors}</div> }
@@ -21,4 +22,19 @@ const SignupInputField = (props) => {
   );
 }
 
-export default SignupInputField;
+export const UncontrolledSignUpInputField = (props) => {
+  return (
+    <div>
+      <div className="inline-fluid form-group">
+        <label htmlFor={props.name}>{props.label}</label>
+        <input
+          type={props.type}
+          className="form-control"
+          name={props.name}
+          value={props.value}
+        />
+      </div>
+    </div>
+  );
+}
+

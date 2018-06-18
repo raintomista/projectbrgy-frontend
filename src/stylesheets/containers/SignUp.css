@@ -26,13 +26,23 @@
   font-size: 1em;
   padding: 0.3em 0.6em;
 }
+.signup-form select {
+  background: linear-gradient(to right, #bfdbeb, #bbc8ee);
+  border: none;
+  border-radius: 2em;
+  box-sizing: content-box;
+  font-size: 1em;
+  height: 21px !important;
+  padding: 0.3em 0.6em;
+  appearance: none;
+}
 .signup-form .section {
   padding: 0.5em 0;
 }
 @media screen and (min-width: 992px) {
   .signup-form {
     min-height: max-content;
-    padding: 23px 20px;
+    padding: 65px 20px;
   }
 }
 .signup-slider {
