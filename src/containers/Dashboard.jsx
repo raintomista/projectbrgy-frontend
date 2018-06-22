@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import NavBar from 'components/common/NavBar';
 import DashboardFeedCard from '../components/dashboard/DashboardFeedCard';
+import DashboardPostBox from '../components/dashboard/DashboardPostBox';
 import DashboardSidebar from 'components/dashboard/DashboardSidebar';
 import 'stylesheets/containers/Dashboard.less';
 
@@ -16,6 +17,7 @@ export default class Dashboard extends Component {
                 <DashboardSidebar type="user" loggedUser="Juan Dela Cruz" barangay="Barangay 20" city="Caloocan City" />
               </div>
               <div className="col-md-6">
+                <DashboardPostBox />
                 <DashboardFeedCard 
                   imgSrc="images/default-brgy.png"
                   authorName="Barangay 69"
