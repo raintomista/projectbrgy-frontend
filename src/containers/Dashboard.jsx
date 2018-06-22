@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import NavBar from 'components/common/NavBar';
-import DashboardFeedCard from '../components/dashboard/DashboardFeedCard';
-import DashboardPostBox from '../components/dashboard/DashboardPostBox';
+import DashboardFeedCard from 'components/dashboard/DashboardFeedCard';
+import DashboardPostBox from 'components/dashboard/DashboardPostBox';
 import DashboardSidebar from 'components/dashboard/DashboardSidebar';
+import NewsFeedOptions from 'components/dashboard/NewsFeedOptions';
 import 'stylesheets/containers/Dashboard.less';
 
 export default class Dashboard extends Component {
@@ -18,6 +19,7 @@ export default class Dashboard extends Component {
               </div>
               <div className="col-md-6">
                 <DashboardPostBox />
+                <NewsFeedOptions />                
                 <DashboardFeedCard 
                   imgSrc="images/default-brgy.png"
                   authorName="Barangay 69"
