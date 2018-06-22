@@ -4,21 +4,21 @@ import { faCamera, faMapMarkerAlt, faTag, faCalendarAlt } from '@fortawesome/fon
 
 
 const DashboardPostBox = (props) => (
-  <div class="dashboard-post-box card">
-    <div class="card-body">
+  <div className="dashboard-post-box card">
+    <div className="card-body">
       <textarea rows="4"></textarea>
       <div className="options">
         <div className="buttons">
           <button className="btn">
             <FontAwesomeIcon icon={faCamera} />
           </button>
-          <button class="btn">
+          <button className="btn">
             <FontAwesomeIcon icon={faMapMarkerAlt} />
           </button>
-          <button class="btn">
+          <button className="btn">
             <FontAwesomeIcon icon={faTag} />
           </button>
-          <button class="btn">
+          <button className="btn">
             <FontAwesomeIcon icon={faCalendarAlt} />
           </button>
         </div>

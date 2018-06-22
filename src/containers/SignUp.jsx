@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import NavBar from 'components/common/NavBar';
 import SignUpDropdownField from 'components/signup/SignUpDropdownField';
-import { SignUpInputField, UncontrolledSignUpInputField } from 'components/signup/SignUpInputField';
+import { SignUpInputField } from 'components/signup/SignUpInputField';
 import SignUpSlider from 'components/signup/SignUpSlider';
 import { getRegions, getProvinces } from 'services/SignupService';
 import { getMunicipalities, getBarangays } from 'services/SignupService';

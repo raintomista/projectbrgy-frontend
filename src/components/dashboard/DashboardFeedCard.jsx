@@ -7,12 +7,9 @@ import Moment from 'moment';
 const formatDate = (date) => {
   const diff = Moment(date).diff(Moment(), 'hours');
 
-  if(parseInt(diff, 10) <=-21){
-    console.log(parseInt(diff, 10));
-    
+  if(parseInt(diff, 10) <=-21){    
     return Moment(date).format('MMM D, YYYY [at] h:mm a');
   } else {
-    console.log(parseInt(diff, 10));
     return Moment(date).fromNow();
   }
 }
