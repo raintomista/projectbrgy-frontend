@@ -1,0 +1,114 @@
+.feed-post {
+    margin-bottom: 1em;
+    .post-info-group {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        .post-avatar {
+            border: 2px solid @primary-color;
+            border-radius: 100%;
+            display: inline-block;
+            height: 4em;
+            width: 4em;
+        }
+        .post-info {
+            display: inline-block;
+            margin-left: 0.6em;
+            margin-top: -0.8em;
+        }
+        .post-info .post-author {
+            display: block;
+            font-size: 1.05em;
+            font-weight: 600;
+        }
+        .post-info .post-location {
+            font-size: 1em;
+        }
+        .post-info .post-timestamp {
+            font-size: 0.85em;
+            margin-left: 0.5em;
+        }
+        .more {
+            align-self: flex-start;
+            margin-left: auto;
+            .btn {
+                padding: 0;
+            }
+        }
+    }
+    .post-content {
+        margin-left: 4.5em;
+        .embedded-link {
+            background-color: white;
+            border: 1px solid @embedded-link-border-color;
+            height: 6em;
+            padding: 0.5em;
+            width: 100%;
+        }
+        .preview-content {
+            display: flex;
+            justify-content: space-around;
+            height: 100%;
+        }
+        .preview-content>.preview-img {
+            display: flex;
+            justify-content: center;
+            height: 100%;
+            width: max-content;
+        }
+        .preview-content>.preview-img>img {
+            height: 100%;
+        }
+        .preview-content>.preview-details {
+            display: flex;
+            flex-flow: column;
+            justify-content: flex-start;
+            height: 100%;
+            padding: 0.2em 0.4em;
+            width: 80%;
+        }
+        .preview-content .link-title {
+            color: #1a17a4;
+            font-family: 'Arial', sans-serif;
+            font-size: 0.99em;
+            font-weight: 600;
+            margin: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .preview-content .link-subdetails {
+            margin-top: -2px;
+        }
+        .preview-content .link-subdetails>.link-author {
+            color: #006621;
+            display: inline-block;
+            font-family: 'Arial', sans-serif;
+            font-size: 0.95em;
+        }
+        .preview-content .link-subdetails>.separator,
+        .preview-content .link-subdetails>.link-timestamp {
+            color: #808080;
+            font-family: 'Arial', sans-serif;
+            font-size: 0.95em;
+            line-height: 0.95em;
+        }
+        .preview-content .link-text {
+            font-family: 'Arial', sans-serif;
+            font-size: 0.8em;
+            text-align: justify;
+            margin-bottom: 0px;
+            line-height: 1.2em;
+            height: 2.3em;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    }
+    .post-buttons {
+        margin-left: 4.4em;
+        .btn {
+            margin-right: 1em;
+            padding: 1.25rem 0 0 0;
+        }
+    }
+}
