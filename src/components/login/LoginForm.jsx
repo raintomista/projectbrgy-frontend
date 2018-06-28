@@ -8,12 +8,12 @@ const LoginForm = (props) => (
       <h1>Know what's happening in your Barangay!</h1>
 
       {/* Username and Password */}
-      <form>
-        <LoginInputField type="text" name="username" label="Username" />
-        <LoginInputField type="password" name="password" label="Password" />
+      <form onSubmit={props.handleSubmit}>
+        <LoginInputField type="text" name="email" label="Email" handleChange={props.handleChange}/>
+        <LoginInputField type="password" name="password" label="Password" handleChange={props.handleChange}/>
         <div className="forgot-password-login">
           <a href="">Forgot Password?</a>
-          <button className="btn rounded">Log-in</button>
+          <button type="submit" className="btn rounded">Log-in</button>
         </div>
       </form>
 
@@ -21,7 +21,7 @@ const LoginForm = (props) => (
       <div className="d-flex justify-content-center">
         <div className="sign-up">
           <label>Don't have an account yet?</label>
-          <Link to='/sign-up'><button class="btn rounded">Sign-up</button></Link>
+          <Link to='/sign-up'><button className="btn rounded">Sign-up</button></Link>
         </div>
       </div>
 

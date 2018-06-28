@@ -24,3 +24,7 @@ export function getBarangayDetails(region, province, municipality, name) {
 export function createUser(user) {
     return axios.post(`${API_HOST}/users`, user);
 }
+
+export function loginUser(email, password) {
+    return axios.post(`${API_HOST}/auth/sign-in`, { email, password });
+}
