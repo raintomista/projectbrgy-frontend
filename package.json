@@ -55,7 +55,9 @@
   },
   "scripts": {
     "start": "NODE_PATH=src node scripts/start.js",
-    "build": "node scripts/build.js",
+    "build": "NODE_PATH=src node scripts/build.js",
+    "predeploy": "npm run build && mv build/index.html build/200.html",
+    "deploy": "surge build b2p.surge.sh",
     "test": "node scripts/test.js --env=jsdom",
     "watch-less": "less-watch-compiler src/stylesheets/less src/stylesheets main.less"
   },
