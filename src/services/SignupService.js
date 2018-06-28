@@ -36,3 +36,8 @@ export function createUser(user) {
 export function loginUser(email, password) {
     return axios.post(`${API_HOST}/auth/sign-in`, { email, password });
 }
+
+export function signOutUser(){
+    const token = localStorage.getItem('x-access-token');
+    return axios.post(`${API_HOST}/auth/sign-out`, { headers: { 'x-access-token': token } }); 
+}

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 
-const NavBar = () => (
+const NavBar = (props) => (
   <nav className="navbar navbar-expand-md fixed-top navbar-dark">
     <div className="mx-auto order-0">
       <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -16,9 +16,7 @@ const NavBar = () => (
           <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
         </form>
         <div className="navbar-nav">
-          <a className="nav-item nav-link active">Menu
-            <span className="sr-only">(current)</span>
-          </a>
+        <Link to="/login" className="navbar-brand">Sign out</Link>
         </div>
       </div>
     </div>

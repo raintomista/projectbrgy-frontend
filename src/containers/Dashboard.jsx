@@ -5,14 +5,17 @@ import DashboardPostBox from 'components/dashboard/DashboardPostBox';
 import DashboardSidebar from 'components/dashboard/DashboardSidebar';
 import NewsFeedOptions from 'components/dashboard/NewsFeedOptions';
 
-import { getUser, getBarangayById } from 'services/SignupService';
+import { getUser, getBarangayById, signOutUser } from 'services/SignupService';
+
+import { Redirect } from 'react-router-dom'
 
 import 'stylesheets/containers/Dashboard.less';
 
 export default class Dashboard extends Component {
   constructor(props) {
     super(props);
-    this.state = { loggedUser: null }
+    this.state = { loggedUser: null, logged: true }
+    this.handleSignOut = this.handleSignOut.bind(this);
   }
 
   componentDidMount() {
@@ -45,10 +48,16 @@ export default class Dashboard extends Component {
     }
   }
 
+  async handleSignOut() {
+    await signOutUser();
+    this.setState({ logged: false })
+  }
+
   render() {
     return (
       <div>
-        <NavBar />
+        {this.state.logged === false && <Redirect to='/login' />}
+        <NavBar handleSignOut={this.handleSignOut} />
         <div className="dashboard-content">
           <div className="container">
             <div className="row">
