@@ -13,12 +13,20 @@ export function getMunicipalities(region, province) {
     return axios.post(`${API_HOST}/barangay/municipalities`, { region, province });
 }
 
+export function getBarangayById(id) {
+    return axios.get(`${API_HOST}/barangay/${id}`);
+}
+
 export function getBarangays(region, province, municipality) {
     return axios.post(`${API_HOST}/barangay/barangays`, { region, province, municipality });
 }
 
 export function getBarangayDetails(region, province, municipality, name) {
     return axios.post(`${API_HOST}/barangay/detail`, { region, province, municipality, name });
+}
+
+export function getUser(token) {
+    return axios.get(`${API_HOST}/me`, { headers: { 'x-access-token': token } });
 }
 
 export function createUser(user) {
