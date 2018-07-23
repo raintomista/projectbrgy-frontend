@@ -54,6 +54,7 @@ export default class Dashboard extends Component {
   }
 
   render() {
+    const loggedUser = this.state.loggedUser;
     return (
       <div>
         {this.state.logged === false && <Redirect to='/login' />}
@@ -62,10 +63,10 @@ export default class Dashboard extends Component {
           <div className="container">
             <div className="row">
               <div className="col-md-3">
-                <DashboardSidebar loggedUser={this.state.loggedUser} />
+                <DashboardSidebar loggedUser={loggedUser} />
               </div>
               <div className="col-md-6">
-                <DashboardPostBox />
+                <DashboardPostBox loggedUser={loggedUser} />
                 <NewsFeedOptions />
                 <DashboardFeedCard
                   imgSrc="images/default-brgy.png"
