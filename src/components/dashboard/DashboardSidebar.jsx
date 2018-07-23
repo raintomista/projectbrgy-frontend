@@ -1,8 +1,10 @@
 import React from 'react';
 import { Link } from "react-router-dom";
-import PropTypes from 'prop-types';
 
-const userOptions = (
+/********************************************************
+*  [Subcomponent]: Two Variants of Dashboard Sidebar Options
+*********************************************************/
+const brgyOptions = (
 	<ul className="list-group list-group-flush">
 		<li className="list-group-item">
 			<Link to='/dashboard' className="card-link">Reports</Link>
@@ -32,7 +34,7 @@ const userOptions = (
 	</ul>
 );
 
-const brgyOptions = (
+const userOptions = (
 	<ul className="list-group list-group-flush">
 		<li className="list-group-item">
 			<Link to='/dashboard' className="card-link">My Barangay</Link>
@@ -54,6 +56,10 @@ const brgyOptions = (
 	</ul>
 );
 
+/********************************************************
+*  [Subcomponent]: Two Variants of Dashboard Sidebar Info
+*********************************************************/
+
 const UserInfo = (props) => (
 	<div>
 		<img className="card-img mx-auto d-block" src="images/default-user.png" alt="Default User Thumbnail" />
@@ -70,6 +76,9 @@ const BrgyInfo = (props) => (
 	</div>
 );
 
+/**********************************
+*  [Main Component]: Dashboard Sidebar
+***********************************/
 const DashboardSidebar = (props) => {
 	const { loggedUser } = props;
 	if (loggedUser) {
@@ -77,24 +86,25 @@ const DashboardSidebar = (props) => {
 		return (
 			<div className="home-sidebar card">
 				<div className="card-body">
+					{/* Dashboard sidebar content depends on logged user */}
 					{loggedUser.role === 'barangay_member' ?
 						(
+							// Name, Barangay, and Municipality will be displayed for Barangay Memebers
 							<UserInfo name={name} barangay={barangay} municipality={municipality} />
 						) : (
+							// Barangay and Municipality will be displayed for Barangay Pages
 							<BrgyInfo barangay={barangay} municipality={municipality} />
 						)
 					}
-
 				</div>
-				{loggedUser.role === 'barangay_member' ? userOptions : brgyOptions}
 
+				{/* Dashboard Sidebar Options vary depending on user privilege */}
+				{loggedUser.role === 'barangay_member' ? userOptions : brgyOptions}
 			</div>
 		)
 	}
 	else {
-		return (
-			<div></div>
-		);
+		return null;
 	}
 }
 
