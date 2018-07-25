@@ -1,17 +1,20 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Route, Switch } from 'react-router-dom';
+import { observer, inject } from 'mobx-react';
 
+/*----------------- Stylesheets -----------------*/
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'stylesheets/main.less';
 
+/*----------------- Router Views -----------------*/
 import Login from 'containers/Login';
 import SignUp from 'containers/SignUp';
 import ConfirmationPage from 'containers/ConfirmationPage';
 import Dashboard from 'containers/Dashboard';
 import Profile from './Profile';
 
-export default class App extends Component {
+class App extends Component {
   render() {
     return (
       <Router>
@@ -19,7 +22,11 @@ export default class App extends Component {
           <Route exact={true} path='/login' component={Login} />
           <Route exact={true} path='/sign-up' component={SignUp} />
           <Route exact={true} path='/dashboard' component={Dashboard} />
-          <Route exact={true} path='/profile' component={Profile} />
+          <Route
+            exact={true}
+            path='/profiles/:username'
+            render={(props) => <Profile UserStore={this.props.UserStore} />}
+          />
           <Route
             exact={true}
             path='/katarungang-pambarangay/confirmation'
@@ -40,3 +47,5 @@ export default class App extends Component {
     );
   }
 }
+
+export default inject("UserStore")(observer(App));

@@ -8,9 +8,9 @@ import './Profile.less';
 export default class Profile extends Component {
   constructor(props) {
     super(props);
-    this.state = { loggedUser: null, logged: true }
   }
   render() {
+
     return (
       <div>
         {/* Profile Header */}
