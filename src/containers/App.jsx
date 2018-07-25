@@ -9,6 +9,7 @@ import Login from 'containers/Login';
 import SignUp from 'containers/SignUp';
 import ConfirmationPage from 'containers/ConfirmationPage';
 import Dashboard from 'containers/Dashboard';
+import Profile from './profile';
 
 export default class App extends Component {
   render() {
@@ -18,6 +19,7 @@ export default class App extends Component {
           <Route exact={true} path='/login' component={Login} />
           <Route exact={true} path='/sign-up' component={SignUp} />
           <Route exact={true} path='/dashboard' component={Dashboard} />
+          <Route exact={true} path='/profile' component={Profile} />
           <Route
             exact={true}
             path='/katarungang-pambarangay/confirmation'
@@ -28,7 +30,7 @@ export default class App extends Component {
             path='/brgy-clearance/confirmation'
             render={(props) => <ConfirmationPage {...props} type="clearance" />}
           />
-                    <Route
+          <Route
             exact={true}
             path='/business-permit/confirmation'
             render={(props) => <ConfirmationPage {...props} type="business-permit" />}
