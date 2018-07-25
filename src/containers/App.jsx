@@ -9,7 +9,7 @@ import Login from 'containers/Login';
 import SignUp from 'containers/SignUp';
 import ConfirmationPage from 'containers/ConfirmationPage';
 import Dashboard from 'containers/Dashboard';
-import Profile from './profile';
+import Profile from './Profile';
 
 export default class App extends Component {
   render() {
