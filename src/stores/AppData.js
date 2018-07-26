@@ -32,6 +32,7 @@ class AppData {
 
     @action
     async fetchUserProfileData(id) {
+        this.profileData = null; //reset data for every request
         try {
             const response = await getUserById(id);
             const profileData = response.data.data;
@@ -70,6 +71,8 @@ class AppData {
 
     @action
     async fetchBrgyPageData(id) {
+        this.pageData = null; //reset data for every request
+
         try {
             const response = await getBarangayById(id);
             const pageData = response.data.data;

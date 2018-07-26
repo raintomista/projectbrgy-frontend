@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+
 import { observer } from 'mobx-react';
 import 'components/profile/UserFollowingList.less'
 
@@ -22,7 +24,7 @@ const UserFollowingList = observer((props) => {
 
                     {/* Barangay Name and Location */}
                     <div className="brgy-info">
-                      <h5 className="brgy-name">{barangay.barangay_page_name}</h5>
+                      <Link to={viewBarangayPage(barangay.barangay_page_id)} className="brgy-name">{barangay.barangay_page_name}</Link>
                       <div className="brgy-location">
                         {`${barangay.barangay_page_municipality}, ${barangay.barangay_page_province}, ${barangay.barangay_page_region}`}
                       </div>
@@ -41,6 +43,11 @@ const UserFollowingList = observer((props) => {
       </div>
     </div>
   );
+});
+
+const viewBarangayPage = (brgyId) => ({
+  pathname: '/barangay',
+  search: `?id=${brgyId}`
 });
 
 export default UserFollowingList;
