@@ -1,16 +1,20 @@
 import React, { Component } from 'react';
-import DashboardFeedCard from '../components/dashboard/DashboardFeedCard';
-import ProfileHeader from '../components/profile/ProfileHeader';
-import UserProfileDetails from '../components/profile/UserProfileDetails';
-import UserProfileStats from '../components/profile/UserProfileStats';
+import DashboardFeedCard from 'components/dashboard/DashboardFeedCard';
+import ProfileHeader from 'components/profile/ProfileHeader';
+import UserProfileDetails from 'components/profile/UserProfileDetails';
+import UserProfileStats from 'components/profile/UserProfileStats';
+
+import queryString from 'query-string';
 import './Profile.less';
 
 export default class Profile extends Component {
-  constructor(props) {
-    super(props);
+  async componentDidMount() {
+    const searchQuery = this.props.location.search;
+    const parsedQuery = queryString.parse(searchQuery);
+    this.props.AppData.fetchProfileData(parsedQuery.id);
   }
-  render() {
 
+  render() {
     return (
       <div>
         {/* Profile Header */}
@@ -22,7 +26,7 @@ export default class Profile extends Component {
             <div className="row">
               {/* User Profile Details Section (Left) */}
               <div className="col-md-3">
-                <UserProfileDetails />
+                <UserProfileDetails AppData={this.props.AppData} />
               </div>
 
               {/* User Profile Stats and Newsfeed Section (Middle) */}

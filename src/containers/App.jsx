@@ -14,7 +14,9 @@ import ConfirmationPage from 'containers/ConfirmationPage';
 import Dashboard from 'containers/Dashboard';
 import Profile from './Profile';
 
-class App extends Component {
+@inject('AppData')
+@observer
+export default class App extends Component {
   render() {
     return (
       <Router>
@@ -24,8 +26,8 @@ class App extends Component {
           <Route exact={true} path='/dashboard' component={Dashboard} />
           <Route
             exact={true}
-            path='/profiles/:username'
-            render={(props) => <Profile UserStore={this.props.UserStore} />}
+            path='/profile'
+            render={(props) => <Profile {...props} AppData={this.props.AppData} />}
           />
           <Route
             exact={true}
@@ -47,5 +49,3 @@ class App extends Component {
     );
   }
 }
-
-export default inject("UserStore")(observer(App));

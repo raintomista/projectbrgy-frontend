@@ -3,10 +3,10 @@ import ReactDOM from 'react-dom';
 import App from 'containers/App';
 import registerServiceWorker from 'registerServiceWorker';
 import { Provider } from 'mobx-react';
-import UserStore from './stores/UserStore';
+import AppData from './stores/AppData';
 
 const Root = (
-    <Provider UserStore={UserStore}>
+    <Provider AppData={AppData}>
         <App />
     </Provider>
 );
