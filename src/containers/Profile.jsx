@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
-import DashboardFeedCard from 'components/dashboard/DashboardFeedCard';
 import ProfileHeader from 'components/profile/ProfileHeader';
-import UserProfileDetails from 'components/profile/UserProfileDetails';
-import UserProfileStats from 'components/profile/UserProfileStats';
-
+import UserProfileNewsfeedView from '../components/profile/UserProfileNewsfeedView';
 import queryString from 'query-string';
 import './Profile.less';
 
@@ -12,6 +9,7 @@ export default class Profile extends Component {
     const searchQuery = this.props.location.search;
     const parsedQuery = queryString.parse(searchQuery);
     this.props.AppData.fetchProfileData(parsedQuery.id);
+    console.log(this.props.AppData);
   }
 
   render() {
@@ -23,29 +21,7 @@ export default class Profile extends Component {
         {/* Profile Content Grid */}
         <div className="profile-content">
           <div className="container">
-            <div className="row">
-              {/* User Profile Details Section (Left) */}
-              <div className="col-md-3">
-                <UserProfileDetails AppData={this.props.AppData} />
-              </div>
-
-              {/* User Profile Stats and Newsfeed Section (Middle) */}
-              <div className="col-md-6">
-                <UserProfileStats />
-                <DashboardFeedCard
-                  imgSrc="images/default-brgy.png"
-                  authorName="Barangay 69"
-                  city="Caloocan City"
-                  date={new Date()}
-                />
-                <DashboardFeedCard
-                  imgSrc="images/default-brgy.png"
-                  authorName="Barangay 69"
-                  city="Caloocan City"
-                  date={new Date()}
-                />
-              </div>
-            </div>
+            <UserProfileNewsfeedView AppData={this.props.AppData} />
           </div>
         </div>
       </div>
