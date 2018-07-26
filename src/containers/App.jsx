@@ -12,7 +12,8 @@ import Login from 'containers/Login';
 import SignUp from 'containers/SignUp';
 import ConfirmationPage from 'containers/ConfirmationPage';
 import Dashboard from 'containers/Dashboard';
-import Profile from './Profile';
+import BrgyPage from 'containers/BrgyPage';
+import Profile from 'containers/Profile';
 
 @inject('AppData')
 @observer
@@ -24,6 +25,11 @@ export default class App extends Component {
           <Route exact={true} path='/login' component={Login} />
           <Route exact={true} path='/sign-up' component={SignUp} />
           <Route exact={true} path='/dashboard' component={Dashboard} />
+          <Route
+            exact={true}
+            path='/barangay'
+            render={(props) => <BrgyPage {...props} AppData={this.props.AppData} />}
+          />
           <Route
             exact={true}
             path='/profile'

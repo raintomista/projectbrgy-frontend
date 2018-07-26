@@ -6,6 +6,7 @@ import {
     runInAction
 } from 'mobx';
 import {
+    getBarangayById,
     getUserById
 } from 'services/ProfileService';
 
@@ -15,24 +16,25 @@ configure({
 
 class AppData {
     @observable loggedUser = {
-        id: "9ea48bbc-d560-4894-8fda-daf35f1ee548",
+        id: "cbba552f-4f64-43c7-885a-138a76a34497",
         name: "Juan Dela Cruz",
         barangay: 'Barangay 113',
         municipality: "Caloocan City",
         role: "barangay_member"
     }
 
+
+    /*----------------- Profile Data -----------------*/
     @observable profileData;
     @observable profileViewType;
 
     @action
-    async fetchProfileData(id) {
+    async fetchUserProfileData(id) {
         try {
             const response = await getUserById(id);
             const profileData = response.data.data;
 
             runInAction(() => {
-                profileData.landline_number = '1324242'
                 this.profileData = profileData;
             });
         } catch (e) {
@@ -41,8 +43,25 @@ class AppData {
     }
 
     @action
-    setProfileView(type){
+    setProfileView(type) {
         this.profileViewType = type;
+    }
+
+    /*----------------- Page Data -----------------*/
+    @observable pageData;
+    @observable pageViewType;
+
+    @action
+    async fetchBrgyPageData(id) {
+        try {
+            const response = await getBarangayById(id);
+            const pageData = response.data.data;
+            runInAction(() => {
+                this.pageData = pageData;
+            });
+        } catch (e) {
+            console.log(e);
+        }
     }
 }
 

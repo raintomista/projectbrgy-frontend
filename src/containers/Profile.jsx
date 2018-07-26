@@ -14,7 +14,7 @@ export default class Profile extends Component {
   async componentDidMount() {
     const searchQuery = this.props.location.search;
     const parsedQuery = queryString.parse(searchQuery);
-    this.props.AppData.fetchProfileData(parsedQuery.id);
+    this.props.AppData.fetchUserProfileData(parsedQuery.id);
     this.props.AppData.setProfileView(parsedQuery.view);
   }
 
