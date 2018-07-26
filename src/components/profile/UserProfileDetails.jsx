@@ -77,10 +77,10 @@ function seeMore(history, AppData) {
 
   history.push({
     pathname: '/profile',
-    search: existingQuery + '&view=expanded'
+    search: existingQuery + '&view=expanded_details'
   });
 
-  AppData.setProfileView('expanded');
+  AppData.setProfileView('expanded_details');
 }
 
 export default UserProfileDetails;
