@@ -3,15 +3,41 @@ import ProfileHeader from 'components/profile/ProfileHeader';
 import UserProfileExpandedView from '../components/profile/UserProfileExpandedView';
 import UserProfileNewsfeedView from '../components/profile/UserProfileNewsfeedView';
 import queryString from 'query-string';
+
+import { observer } from 'mobx-react';
+
 import './Profile.less';
 
-
+@observer
 export default class Profile extends Component {
+
   async componentDidMount() {
     const searchQuery = this.props.location.search;
     const parsedQuery = queryString.parse(searchQuery);
     this.props.AppData.fetchProfileData(parsedQuery.id);
-    console.log(this.props.AppData);
+  }
+
+  profileView() {
+    const { AppData } = this.props;
+    const loggedUser = AppData.loggedUser;
+    const profileData = AppData.profileData;
+
+    if (loggedUser && profileData) {
+      /* 
+        Checks if loggedUser is a barangay member that views other user
+        If true, a limited view will be displayed to the user
+        Otherwise, the newsfeed view will be displayed
+      */
+      if (loggedUser.role === 'barangay_member' && loggedUser.id !== profileData.user_id) {
+        return (
+          <UserProfileExpandedView AppData={this.props.AppData} />
+        );
+      } else {
+        return (
+          <UserProfileNewsfeedView AppData={this.props.AppData} />
+        );
+      }
+    }
   }
 
   render() {
@@ -23,8 +49,7 @@ export default class Profile extends Component {
         {/* Profile Content Grid */}
         <div className="profile-content">
           <div className="container">
-            {/* <UserProfileNewsfeedView AppData={this.props.AppData} /> */}
-            <UserProfileExpandedView AppData={this.props.AppData} />
+            {this.profileView()}
           </div>
         </div>
       </div>
