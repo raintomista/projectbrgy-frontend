@@ -3,6 +3,8 @@ import DashboardFeedCard from 'components/dashboard/DashboardFeedCard';
 import UserProfileDetails from 'components/profile/UserProfileDetails';
 import UserProfileStats from 'components/profile/UserProfileStats';
 
+import './UserProfileNewsfeedView.less';
+
 const UserProfileNewsfeedView = (props) => {
     return (
         <div className="row">

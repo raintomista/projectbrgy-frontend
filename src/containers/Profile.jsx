@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import ProfileHeader from 'components/profile/ProfileHeader';
+import UserProfileExpandedView from '../components/profile/UserProfileExpandedView';
 import UserProfileNewsfeedView from '../components/profile/UserProfileNewsfeedView';
 import queryString from 'query-string';
 import './Profile.less';
+
 
 export default class Profile extends Component {
   async componentDidMount() {
@@ -21,7 +23,8 @@ export default class Profile extends Component {
         {/* Profile Content Grid */}
         <div className="profile-content">
           <div className="container">
-            <UserProfileNewsfeedView AppData={this.props.AppData} />
+            {/* <UserProfileNewsfeedView AppData={this.props.AppData} /> */}
+            <UserProfileExpandedView AppData={this.props.AppData} />
           </div>
         </div>
       </div>

@@ -1,4 +1,5 @@
 import React from 'react';
+import './ProfileHeader.less';
 
 const ProfileHeader = (props) => {
     return (
