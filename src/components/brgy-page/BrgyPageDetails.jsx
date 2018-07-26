@@ -63,17 +63,18 @@ const BrgyPageDetails = observer((props) => {
         <div className="buttons">
           {/* Follow Button */}
           <li className="follow-btn list-group-item">
-            <a class="btn rounded">Follow</a>
+            {
+              pageData.followed ?
+                <a className="btn rounded filled" onClick={() => AppData.unfollowBarangay(pageData.id)}>Following</a> :
+                <a className="btn rounded" onClick={() => AppData.followBarangay(pageData.id)}>Follow</a>
+            }
           </li>
 
           {/* Message */}
           <li className="message-btn list-group-item">
-            <a class="btn rounded">Message</a>
+            <a className="btn rounded">Message</a>
           </li>
         </div>
-
-
-
       </ul>
 
       {/* Barangay Resources  */}

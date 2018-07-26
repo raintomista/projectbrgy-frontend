@@ -79,8 +79,6 @@ const viewTimeline = (profileId) => ({
 });
 
 function seeMore(history, AppData) {
-  const existingQuery = history.location.search;
-
   history.push({
     pathname: '/profile',
     search: `?id=${AppData.profileData.user_id}&view=expanded_details`

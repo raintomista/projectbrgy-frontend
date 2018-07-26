@@ -11,6 +11,11 @@ import {
     getUserFollowingList
 } from 'services/ProfileService';
 
+import {
+    followBarangay,
+    unfollowBarangay
+} from 'services/BrgyPageService';
+
 configure({
     enforceActions: true
 });
@@ -76,6 +81,8 @@ class AppData {
         try {
             const response = await getBarangayById(id);
             const pageData = response.data.data;
+            pageData.followed = false;
+
             runInAction(() => {
                 this.pageData = pageData;
             });
@@ -83,6 +90,34 @@ class AppData {
             console.log(e);
         }
     }
+
+    @action
+    async followBarangay(brgyId) {
+        try {
+            await followBarangay(brgyId);
+            runInAction(() => {
+                this.pageData.followed = true;
+            });
+
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    @action
+    async unfollowBarangay(brgyId) {
+        try {
+            await unfollowBarangay(brgyId);
+
+            runInAction(() => {
+                this.pageData.followed = false;
+            });
+
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
 
 
 
