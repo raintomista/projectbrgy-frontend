@@ -5,6 +5,8 @@ import faMobileAlt from '@fortawesome/fontawesome-free-solid/faMobileAlt';
 import faPhone from '@fortawesome/fontawesome-free-solid/faPhone';
 import { observer } from 'mobx-react';
 
+import 'components/profile/UserProfileDetails.less';
+
 const UserProfileDetails = observer((props) => {
   const { AppData } = props;
   const profileData = AppData.profileData;

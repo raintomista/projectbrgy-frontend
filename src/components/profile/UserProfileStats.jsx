@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 
+import 'components/profile/UserProfileStats.less';
+
 const UserProfileStats = (props) => {
   return (
     <div className="user-profile-stats card">

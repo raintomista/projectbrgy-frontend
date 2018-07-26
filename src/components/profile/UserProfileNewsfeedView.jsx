@@ -3,14 +3,12 @@ import DashboardFeedCard from 'components/dashboard/DashboardFeedCard';
 import UserProfileDetails from 'components/profile/UserProfileDetails';
 import UserProfileStats from 'components/profile/UserProfileStats';
 
-import './UserProfileNewsfeedView.less';
-
 const UserProfileNewsfeedView = (props) => {
     return (
         <div className="row">
             {/* User Profile Details Section (Left) */}
             <div className="col-md-3">
-                <UserProfileDetails AppData={props.AppData} history={props.history}/>
+                <UserProfileDetails AppData={props.AppData} history={props.history} />
             </div>
 
             {/* User Profile Stats and Newsfeed Section (Middle) */}
