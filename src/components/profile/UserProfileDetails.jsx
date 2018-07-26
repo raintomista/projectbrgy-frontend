@@ -4,6 +4,7 @@ import faEnvelope from '@fortawesome/fontawesome-free-solid/faEnvelope';
 import faMobileAlt from '@fortawesome/fontawesome-free-solid/faMobileAlt';
 import faPhone from '@fortawesome/fontawesome-free-solid/faPhone';
 import { observer } from 'mobx-react';
+import { Link } from 'react-router-dom';
 
 import 'components/profile/UserProfileDetails.less';
 
@@ -16,9 +17,9 @@ const UserProfileDetails = observer((props) => {
       {/* Essential User Details */}
       <div className="basic-details card-body">
         <img src="images/default-user.png" alt="" className="card-img" />
-        <h3 className="card-title">
+        <Link to={viewTimeline(AppData.profileData.user_id)} className="card-title">
           {profileData && `${profileData.user_first_name} ${profileData.user_last_name}`}
-        </h3>
+        </Link>
         <p className="card-text">{profileData && `${profileData.barangay_page_municipality}`}</p>
       </div>
 
@@ -70,6 +71,11 @@ const UserProfileDetails = observer((props) => {
       </ul>
     </div>
   );
+});
+
+const viewTimeline = (profileId) => ({
+  pathname: '/profile',
+  search: `?id=${profileId}`
 });
 
 function seeMore(history, AppData) {
