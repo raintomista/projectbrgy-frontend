@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 import ProfileHeader from 'components/profile/ProfileHeader';
-import UserProfileExpandedView from '../components/profile/UserProfileExpandedView';
-import UserProfileNewsfeedView from '../components/profile/UserProfileNewsfeedView';
-import queryString from 'query-string';
 
+/*--------------- User Profile Views ---------------*/
+import UserProfileExpandedView from '../components/profile/UserProfileExpandedView';
+import UserProfileFollowingListView from '../components/profile/UserProfileFollowingListView';
+import UserProfileNewsfeedView from '../components/profile/UserProfileNewsfeedView';
+
+/*--------------- Utilities ---------------*/
+import queryString from 'query-string';
 import { observer } from 'mobx-react';
 
 import './Profile.less';
@@ -33,15 +37,22 @@ export default class Profile extends Component {
       /* 
         Checks if loggedUser is a barangay member that views other user
         If true, a limited view will be displayed to the user
-        Otherwise, the newsfeed view will be displayed
+        Otherwise, the other views can be displayed
       */
       if (loggedUser.role === 'barangay_member' && loggedUser.id !== profileData.user_id) {
         return (
           <UserProfileExpandedView AppData={this.props.AppData} />
         );
       } else {
-        if (AppData.profileViewType === 'expanded') {
+
+        //Expanded Details View
+        if (AppData.profileViewType === 'expanded_details') {
           return <UserProfileExpandedView AppData={this.props.AppData} />;
+        }
+
+        else if (AppData.profileViewType === 'following_list') {
+          this.props.AppData.fetchUserFollowingList(loggedUser.id);
+          return <UserProfileFollowingListView AppData={this.props.AppData} history={this.props.history} />;
         }
         else {
           return <UserProfileNewsfeedView AppData={this.props.AppData} history={this.props.history} />;

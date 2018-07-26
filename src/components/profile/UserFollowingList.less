@@ -1,0 +1,44 @@
+.user-following-list {
+    .card-title {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 700;
+    }
+    .list-group-item {
+        border: none;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+    }
+    .list-group-item>.wrapper {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        margin-right: 10px;
+        width: 100%;
+    }
+    .list-group-item>.wrapper>.profile-pic {
+        border-radius: 100%;
+        margin-right: 10px;
+        max-height: 55px;
+        max-width: 55px;
+    }
+    .list-group-item>.wrapper>.brgy-info {
+        max-width: 290px;
+    }
+    .list-group-item>.wrapper>.brgy-info>.brgy-name {
+        color: #2a8abd;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 700;
+        margin: 0;
+    }
+    .list-group-item>.wrapper>.brgy-info>.brgy-location {
+        color: gray;
+        font-family: 'Lato', sans-serif;
+        font-weight: 500;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-size: 16px;
+    }
+}

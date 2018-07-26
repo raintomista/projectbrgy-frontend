@@ -7,7 +7,8 @@ import {
 } from 'mobx';
 import {
     getBarangayById,
-    getUserById
+    getUserById,
+    getUserFollowingList
 } from 'services/ProfileService';
 
 configure({
@@ -27,6 +28,7 @@ class AppData {
     /*----------------- Profile Data -----------------*/
     @observable profileData;
     @observable profileViewType;
+    @observable profileFollowingList = [];
 
     @action
     async fetchUserProfileData(id) {
@@ -47,6 +49,21 @@ class AppData {
         this.profileViewType = type;
     }
 
+    @action
+    async fetchUserFollowingList(userId) {
+        try {
+            const response = await getUserFollowingList(userId);
+            const profileFollowingList = response.data.data.items;
+
+            runInAction(() => {
+                this.profileFollowingList = profileFollowingList;
+            })
+
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
     /*----------------- Page Data -----------------*/
     @observable pageData;
     @observable pageViewType;
@@ -63,6 +80,9 @@ class AppData {
             console.log(e);
         }
     }
+
+
+
 }
 
 export default new AppData();

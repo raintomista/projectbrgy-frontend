@@ -9,13 +9,13 @@ const UserProfileStats = (props) => {
       <div className="card-body">
         <ul className="nav justify-content-center nav-fill">
           <li className="nav-item">
-            <Link className="nav-link" to=''>
+            <Link className="nav-link" to={viewTimeline(props.profileId)}>
               <span className="nav-item-title">Share</span>
               <span className="nav-item-value">1,438</span>
             </Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link" to=''>
+            <Link className="nav-link" to={viewFollowing(props.profileId)}>
               <span className="nav-item-title">Following</span>
               <span className="nav-item-value">50</span>
             </Link>
@@ -28,5 +28,14 @@ const UserProfileStats = (props) => {
   );
 }
 
+const viewTimeline = (profileId) => ({
+  pathname: '/profile',
+  search: `?id=${profileId}`
+});
+
+const viewFollowing = (profileId) => ({
+  pathname: '/profile',
+  search: `?id=${profileId}&view=following_list`
+});
 
 export default UserProfileStats;

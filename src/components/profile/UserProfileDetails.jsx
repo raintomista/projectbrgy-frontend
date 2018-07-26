@@ -77,7 +77,7 @@ function seeMore(history, AppData) {
 
   history.push({
     pathname: '/profile',
-    search: existingQuery + '&view=expanded_details'
+    search: `?id=${AppData.profileData.user_id}&view=expanded_details`
   });
 
   AppData.setProfileView('expanded_details');
