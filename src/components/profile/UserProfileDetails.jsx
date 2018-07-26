@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from "react-router-dom";
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import faEnvelope from '@fortawesome/fontawesome-free-solid/faEnvelope';
 import faMobileAlt from '@fortawesome/fontawesome-free-solid/faMobileAlt';
@@ -18,7 +17,7 @@ const UserProfileDetails = observer((props) => {
         <h3 className="card-title">
           {profileData && `${profileData.user_first_name} ${profileData.user_last_name}`}
         </h3>
-        {/* <p className="card-text">Caloocan City</p> */}
+        <p className="card-text">{profileData && `${profileData.barangay_page_municipality}`}</p>
       </div>
 
       {/* Additional User Details */}
@@ -64,11 +63,22 @@ const UserProfileDetails = observer((props) => {
 
         {/* See More Button */}
         <li className="see-more list-group-item">
-          <Link to="" className="nav-link">See More</Link>
+          <a onClick={() => seeMore(props.history, AppData)} className="nav-link">See More</a>
         </li>
       </ul>
     </div>
   );
 });
+
+function seeMore(history, AppData) {
+  const existingQuery = history.location.search;
+
+  history.push({
+    pathname: '/profile',
+    search: existingQuery + '&view=expanded'
+  });
+
+  AppData.setProfileView('expanded');
+}
 
 export default UserProfileDetails;

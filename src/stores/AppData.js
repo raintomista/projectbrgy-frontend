@@ -15,7 +15,7 @@ configure({
 
 class AppData {
     @observable loggedUser = {
-        id: "795d2bc8-96b9-402c-b09e-6ca791a14299",
+        id: "9ea48bbc-d560-4894-8fda-daf35f1ee548",
         name: "Juan Dela Cruz",
         barangay: 'Barangay 113',
         municipality: "Caloocan City",
@@ -23,6 +23,7 @@ class AppData {
     }
 
     @observable profileData;
+    @observable profileViewType;
 
     @action
     async fetchProfileData(id) {
@@ -39,6 +40,10 @@ class AppData {
         }
     }
 
+    @action
+    setProfileView(type){
+        this.profileViewType = type;
+    }
 }
 
 export default new AppData();

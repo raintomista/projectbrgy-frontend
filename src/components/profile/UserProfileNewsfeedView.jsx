@@ -10,7 +10,7 @@ const UserProfileNewsfeedView = (props) => {
         <div className="row">
             {/* User Profile Details Section (Left) */}
             <div className="col-md-3">
-                <UserProfileDetails AppData={props.AppData} />
+                <UserProfileDetails AppData={props.AppData} history={props.history}/>
             </div>
 
             {/* User Profile Stats and Newsfeed Section (Middle) */}

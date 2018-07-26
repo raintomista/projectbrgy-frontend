@@ -4,9 +4,6 @@ import { Link } from 'react-router-dom';
 /*--------------- Mobx ---------------*/
 import { observer } from 'mobx-react';
 
-/*--------------- Subcomponents ---------------*/
-import UserProfileDetails from 'components/profile/UserProfileDetails';
-
 /*--------------- FontAwesome Icons ---------------*/
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import faEnvelope from '@fortawesome/fontawesome-free-solid/faEnvelope';

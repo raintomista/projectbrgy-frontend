@@ -15,6 +15,13 @@ export default class Profile extends Component {
     const searchQuery = this.props.location.search;
     const parsedQuery = queryString.parse(searchQuery);
     this.props.AppData.fetchProfileData(parsedQuery.id);
+    this.props.AppData.setProfileView(parsedQuery.view);
+  }
+
+  componentDidUpdate() {
+    const searchQuery = this.props.location.search;
+    const parsedQuery = queryString.parse(searchQuery);
+    this.props.AppData.setProfileView(parsedQuery.view);
   }
 
   profileView() {
@@ -33,9 +40,12 @@ export default class Profile extends Component {
           <UserProfileExpandedView AppData={this.props.AppData} />
         );
       } else {
-        return (
-          <UserProfileNewsfeedView AppData={this.props.AppData} />
-        );
+        if (AppData.profileViewType === 'expanded') {
+          return <UserProfileExpandedView AppData={this.props.AppData} />;
+        }
+        else {
+          return <UserProfileNewsfeedView AppData={this.props.AppData} history={this.props.history} />;
+        }
       }
     }
   }
