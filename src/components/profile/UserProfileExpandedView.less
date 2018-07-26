@@ -1,14 +1,110 @@
 .user-profile-expanded-details {
+    background-color: white;
+    margin: 0 0 55px 0;
+    /* User Basic Information */
     .basic-info {
         color: #2a8abd;
     }
-    .basic-info>.card-body {
+    .basic-info {
         padding-bottom: 1rem;
     }
-    .basic-info .card-title {
+    /* User Profile Picture */
+    .basic-info>.card-img {
+        border: 2px solid #2a8abd;
+        border-radius: 100%;
+        margin-top: -60%;
+        margin-bottom: 1em;
+        width: 100%;
+    }
+    /* User Full Name */
+    .basic-info>.card-title {
         font-family: 'Montserrat', sans-serif;
         font-weight: 700;
         margin-bottom: 0;
         text-align: center;
     }
+    /* User Location */
+    .basic-info>.card-text {
+        font-family: 'Lato', sans-serif;
+        font-size: 1.2em;
+        font-weight: 500;
+        text-align: center;
+    }
+    /* User Stats */
+    .basic-info>.user-stats {
+        /* User Stats Item Title */
+        .nav-item .nav-item-title {
+            display: block;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.15em;
+            font-weight: 700;
+        }
+        /* User Stats Item Value*/
+        .nav-item .nav-item-value {
+            display: block;
+            font-family: 'Lato', sans-serif;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+    }
+    /* User Additional Info */
+    .additional-info {
+        padding: 1em 4em 1.4em 4em;
+    }
+    .additional-info h4 {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 700;
+        margin-bottom: 0.5em;
+    }
+    /* User's Barangay Info */
+    .additional-info>.brgy-info-section span {
+        display: block;
+        font-family: 'Lato', sans-serif;
+        font-size: 1.08em;
+        font-weight: 500;
+        margin-left: 0.8em;
+        margin-bottom: 0.5em;
+    }
+    /* User's Contact Info */
+    .additional-info>.contact-info-section {
+        margin-top: 1em;
+    }
+    .additional-info>.contact-info-section>.list-group {
+        font-family: 'Lato', sans-serif;
+        font-weight: 500;
+    }
+    .additional-info>.contact-info-section .list-group>.list-group-item {
+        border: 0;
+        margin-left: 0.9em;
+        margin-bottom: 0.5em;
+        padding: 0;
+    }
+    /* Spacing between icon and text */
+    .additional-info>.contact-info-section .list-group .icon {
+        min-width: 16px;
+        margin-right: 8px;
+    }
+}
+
+/* User Expanded Details Modified Grid */
+
+.user-profile-expanded-details>.col-md-4 {
+    padding: 0 20px 0 0;
+}
+
+.user-profile-expanded-details>.col-md-8 {
+    color: #2a8abd;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 410px;
+    padding: 1em 0 0 0px;
+}
+
+// Vertical Divider
+.vertical-divider {
+    width: 0.18em;
+    height: 23em;
+    background-color: #f2f2f2;
 }
