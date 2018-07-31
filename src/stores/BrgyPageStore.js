@@ -13,6 +13,7 @@ export default class BrgyPageStore {
 
     @observable data;
     @observable viewType;
+    @observable isModalOpen = false;
 
     @action
     async fetchBrgyPageData(id) {
@@ -21,6 +22,10 @@ export default class BrgyPageStore {
         try {
             const response = await getBarangayById(id);
             const data = response.data.data;
+            data.barangay_clearance = 1;
+            data.business_permit = 1;
+            data.katarungang_pambarangay = 1;
+            
 
             runInAction(() => {
                 this.data = data;
@@ -58,5 +63,10 @@ export default class BrgyPageStore {
         } catch (e) {
             console.log(e);
         }
+    }
+
+    @action
+    toggleModal(){
+        this.isModalOpen = this.isModalOpen === false ? true : false;
     }
 }

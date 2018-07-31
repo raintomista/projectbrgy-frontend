@@ -99,7 +99,7 @@ const BrgyPageDetails = observer((props) => {
 
         {/* E-Services */}
         <li className="list-group-item">
-          <a href="" className="card-link">
+          <a onClick={() => BrgyPageStore.toggleModal()} className="card-link">
             <FontAwesomeIcon icon={faCogs} className="icon" />
             <span>E-Services</span>
           </a>
