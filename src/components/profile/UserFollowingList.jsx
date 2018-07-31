@@ -7,6 +7,8 @@ import 'components/profile/UserFollowingList.less'
 const UserFollowingList = observer((props) => {
   const { UserProfileStore } = props;
 
+  console.log(UserProfileStore);
+
   return (
     <div className="user-following-list card">
       <div className="card-body">
@@ -32,9 +34,11 @@ const UserFollowingList = observer((props) => {
                   </div>
 
                   {/* Follow Button */}
-                  <div className="follow-btn">
-                    <a href="" className="btn rounded">Follow</a>
-                  </div>
+                  {
+                    barangay.is_following === 1 ?
+                      <a className="btn rounded filled" onClick={() => UserProfileStore.unfollowBarangay(barangay.barangay_page_id, index)}>Following</a> :
+                      <a className="btn rounded" onClick={() => UserProfileStore.followBarangay(barangay.barangay_page_id, index)}>Follow</a>
+                  }
                 </li>
               );
             })

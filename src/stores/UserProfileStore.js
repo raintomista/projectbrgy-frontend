@@ -5,6 +5,7 @@ import {
     runInAction
 } from 'mobx';
 
+import { followBarangay, unfollowBarangay } from 'services/BrgyPageService';
 import { getUserById, getUserFollowingList } from 'services/UserProfileService';
 
 configure({
@@ -46,6 +47,34 @@ export default class UserProfileStore {
                 this.followingList = followingList;
             })
     
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    @action
+    async followBarangay(brgyId, index) {
+        try {
+            await followBarangay(brgyId);
+            
+            runInAction(() => {
+                this.followingList[index].is_following = 1;
+            });
+
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    @action
+    async unfollowBarangay(brgyId, index) {
+        try {
+            await unfollowBarangay(brgyId);
+
+            runInAction(() => {
+                this.followingList[index].is_following = 0;
+            });
+
         } catch (e) {
             console.log(e);
         }
