@@ -17,7 +17,7 @@ const UserProfileStats = (props) => {
               <span className="nav-item-value">1,438</span>
             </Link>
           </li>
-          <li className="nav-item">
+          <li className={`nav-item ${viewType === 'following_list' ? 'active' : '' }`}>
             <Link className="nav-link" to={viewFollowing(data.user_id)}>
               <span className="nav-item-title">Following</span>
               <span className="nav-item-value">50</span>
