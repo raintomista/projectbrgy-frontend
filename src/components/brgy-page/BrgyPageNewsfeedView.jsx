@@ -16,7 +16,7 @@ const BrgyPageNewsfeedView = (props) => {
 
       {/* Brarangay Page Stats and Newsfeed Section (Middle) */}
       <div className="col-md-6">
-        <BrgyPageStats />
+        <BrgyPageStats {...props} />
         <DashboardFeedCard
           imgSrc="images/default-brgy.png"
           authorName="Barangay 69"

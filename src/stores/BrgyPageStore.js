@@ -34,8 +34,10 @@ export default class BrgyPageStore {
     async followBarangay(brgyId) {
         try {
             await followBarangay(brgyId);
+            
             runInAction(() => {
                 this.data.is_following = true;
+                this.data.stats.followers_count += 1;
             });
 
         } catch (e) {
@@ -50,6 +52,7 @@ export default class BrgyPageStore {
 
             runInAction(() => {
                 this.data.is_following = false;
+                this.data.stats.followers_count -= 1;
             });
 
         } catch (e) {

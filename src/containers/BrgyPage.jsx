@@ -26,6 +26,7 @@ export default class BrgyPage extends Component {
 
   render() {
     const { AppData, BrgyPageStore } = this.props;
+
     return (
       <div>
         {/* Barangay Page Header */}
