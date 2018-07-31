@@ -6,6 +6,7 @@ import 'components/profile/UserProfileStats.less';
 const UserProfileStats = (props) => {
   const { UserProfileStore } = props;
   const { data, viewType } = UserProfileStore;
+  const { stats } = data;
 
   return (
     <div className="user-profile-stats card">
@@ -14,13 +15,13 @@ const UserProfileStats = (props) => {
           <li className={`nav-item ${viewType === undefined ? 'active' : '' }`}>
             <Link className="nav-link" to={viewTimeline(data.user_id)}>
               <span className="nav-item-title">Share</span>
-              <span className="nav-item-value">1,438</span>
+              <span className="nav-item-value">{stats.shared_posts_count}</span>
             </Link>
           </li>
           <li className={`nav-item ${viewType === 'following_list' ? 'active' : '' }`}>
             <Link className="nav-link" to={viewFollowing(data.user_id)}>
               <span className="nav-item-title">Following</span>
-              <span className="nav-item-value">50</span>
+              <span className="nav-item-value">{stats.following_count}</span>
             </Link>
           </li>
           <li className="filler nav-item"></li>
