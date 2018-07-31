@@ -16,8 +16,7 @@ import { observer } from 'mobx-react';
 import 'components/brgy-page/BrgyPageDetails.less'
 
 const BrgyPageDetails = observer((props) => {
-  const { AppData } = props;
-  const pageData = AppData.pageData;
+  const { AppData, BrgyPageStore } = props;
 
   return (
     <div className="brgy-page-details card">
@@ -26,47 +25,55 @@ const BrgyPageDetails = observer((props) => {
       <div className="basic-details card-body">
         <img src="images/default-brgy.png" alt="" className="card-img" />
         <h3 className="card-title">
-          {pageData && `${pageData.name}`}
+          {BrgyPageStore.data && `${BrgyPageStore.data.name}`}
         </h3>
-        <p className="card-text">{pageData && `${pageData.municipality}`}</p>
+        <p className="card-text">{BrgyPageStore.data && `${BrgyPageStore.data.municipality}`}</p>
       </div>
 
       {/* Additional Barangay Page Details */}
       <ul className="additional-details list-group list-group-flush">
 
         {/* Email Address */}
-        <li className="list-group-item">
-          <a href={'mailto: barangay20@gov.ph'} className="card-link">
-            <FontAwesomeIcon icon={faEnvelope} className="icon" />
-            <span>barangay20@gov.ph</span>
-          </a>
-        </li>
+
+        {BrgyPageStore.data && BrgyPageStore.data.email && (
+          <li className="list-group-item">
+            <a href={'mailto: barangay20@gov.ph'} className="card-link">
+              <FontAwesomeIcon icon={faEnvelope} className="icon" />
+              <span>{BrgyPageStore.data.email}</span>
+            </a>
+          </li>
+        )}
+
 
         {/* Landline Number */}
 
-        <li className="list-group-item">
-          <a href={'callto: 123-45-78'} className="card-link">
-            <FontAwesomeIcon icon={faPhone} className="icon" />
-            <span>123-45-78</span>
-          </a>
-        </li>
+        {BrgyPageStore.data && BrgyPageStore.data.landline_number && (
+          <li className="list-group-item">
+            <a href={`callto: ${BrgyPageStore.data.landline_number}`} className="card-link">
+              <FontAwesomeIcon icon={faPhone} className="icon" />
+              <span>{BrgyPageStore.data.landline_number}</span>
+            </a>
+          </li>
+        )}
 
         {/* Website Link */}
 
-        <li className="list-group-item">
-          <a href={''} className="card-link">
-            <FontAwesomeIcon icon={faGlobe} className="icon" />
-            <span>barangay20.com</span>
-          </a>
-        </li>
+        {BrgyPageStore.data && BrgyPageStore.data.website && (
+          <li className="list-group-item">
+            <a href={`${BrgyPageStore.data.website}`} className="card-link">
+              <FontAwesomeIcon icon={faGlobe} className="icon" />
+              <span>{BrgyPageStore.data.website}</span>
+            </a>
+          </li>
+        )}
 
         <div className="buttons">
           {/* Follow Button */}
           <li className="follow-btn list-group-item">
             {
-              pageData.followed ?
-                <a className="btn rounded filled" onClick={() => AppData.unfollowBarangay(pageData.id)}>Following</a> :
-                <a className="btn rounded" onClick={() => AppData.followBarangay(pageData.id)}>Follow</a>
+              BrgyPageStore.data.is_following ?
+                <a className="btn rounded filled" onClick={() => BrgyPageStore.unfollowBarangay(BrgyPageStore.data.id)}>Following</a> :
+                <a className="btn rounded" onClick={() => BrgyPageStore.followBarangay(BrgyPageStore.data.id)}>Follow</a>
             }
           </li>
 
@@ -81,12 +88,14 @@ const BrgyPageDetails = observer((props) => {
       <ul className="brgy-resources list-group list-group-flush">
 
         {/* Dropbox */}
-        <li className="list-group-item">
-          <a href="" className="card-link">
-            <FontAwesomeIcon icon={faDropbox} className="icon" />
-            <span>Dropbox</span>
-          </a>
-        </li>
+        {BrgyPageStore.data && BrgyPageStore.data.dropbox && (
+          <li className="list-group-item">
+            <a href={`${BrgyPageStore.data.dropbox}`} className="card-link">
+              <FontAwesomeIcon icon={faDropbox} className="icon" />
+              <span>Dropbox</span>
+            </a>
+          </li>
+        )}
 
         {/* E-Services */}
         <li className="list-group-item">
@@ -96,13 +105,14 @@ const BrgyPageDetails = observer((props) => {
           </a>
         </li>
 
-        {/* E-Resources */}
-        <li className="list-group-item">
-          <a href="" className="card-link">
-            <FontAwesomeIcon icon={faFolder} className="icon" />
-            <span>E-Resources</span>
-          </a>
-        </li>
+        {BrgyPageStore.data && BrgyPageStore.data.e_resources && (
+          <li className="list-group-item">
+            <a href={`${BrgyPageStore.data.e_resources}`} className="card-link">
+              <FontAwesomeIcon icon={faFolder} className="icon" />
+              <span>E-Resources</span>
+            </a>
+          </li>
+        )}
       </ul>
     </div>
   );

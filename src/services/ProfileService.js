@@ -6,11 +6,6 @@ export function getUserById(id) {
     return axios.get(`${API_HOST}/users/${id}`, { headers: { 'x-access-token': token } });
 }
 
-export function getBarangayById(id){
-    const token = localStorage.getItem('x-access-token');
-    return axios.get(`${API_HOST}/barangay/${id}`, { headers: { 'x-access-token': token } });
-}
-
 export function getUserFollowingList(userId){
     const token = localStorage.getItem('x-access-token');
     return axios.get(`${API_HOST}/following/${userId}`, { headers: { 'x-access-token': token } });

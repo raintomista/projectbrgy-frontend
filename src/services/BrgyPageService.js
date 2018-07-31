@@ -1,6 +1,10 @@
 import axios from 'axios';
 import API_HOST from './../config';
 
+export function getBarangayById(id){
+    const token = localStorage.getItem('x-access-token');
+    return axios.get(`${API_HOST}/barangay/${id}`, { headers: { 'x-access-token': token } });
+}
 
 export function followBarangay(brgyId) {
     const token = localStorage.getItem('x-access-token');

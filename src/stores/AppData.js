@@ -6,21 +6,17 @@ import {
     runInAction
 } from 'mobx';
 import {
-    getBarangayById,
     getUserById,
     getUserFollowingList
 } from 'services/ProfileService';
 
-import {
-    followBarangay,
-    unfollowBarangay
-} from 'services/BrgyPageService';
 
 configure({
     enforceActions: true
 });
 
-class AppData {
+
+export default class AppData {
     @observable loggedUser = {
         id: "cbba552f-4f64-43c7-885a-138a76a34497",
         name: "Juan Dela Cruz",
@@ -69,58 +65,4 @@ class AppData {
             console.log(e);
         }
     }
-
-    /*----------------- Page Data -----------------*/
-    @observable pageData;
-    @observable pageViewType;
-
-    @action
-    async fetchBrgyPageData(id) {
-        this.pageData = null; //reset data for every request
-
-        try {
-            const response = await getBarangayById(id);
-            const pageData = response.data.data;
-            pageData.followed = false;
-
-            runInAction(() => {
-                this.pageData = pageData;
-            });
-        } catch (e) {
-            console.log(e);
-        }
-    }
-
-    @action
-    async followBarangay(brgyId) {
-        try {
-            await followBarangay(brgyId);
-            runInAction(() => {
-                this.pageData.followed = true;
-            });
-
-        } catch (e) {
-            console.log(e);
-        }
-    }
-
-    @action
-    async unfollowBarangay(brgyId) {
-        try {
-            await unfollowBarangay(brgyId);
-
-            runInAction(() => {
-                this.pageData.followed = false;
-            });
-
-        } catch (e) {
-            console.log(e);
-        }
-    }
-
-
-
-
 }
-
-export default new AppData();

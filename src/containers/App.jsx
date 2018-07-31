@@ -15,7 +15,7 @@ import Dashboard from 'containers/Dashboard';
 import BrgyPage from 'containers/BrgyPage';
 import Profile from 'containers/Profile';
 
-@inject('AppData')
+@inject('AppData', 'BrgyPageStore')
 @observer
 export default class App extends Component {
   render() {
@@ -28,7 +28,7 @@ export default class App extends Component {
           <Route
             exact={true}
             path='/barangay'
-            render={(props) => <BrgyPage {...props} AppData={this.props.AppData} />}
+            render={(props) => <BrgyPage {...props} AppData={this.props.AppData} BrgyPageStore={this.props.BrgyPageStore} />}
           />
           <Route
             exact={true}

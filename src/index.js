@@ -1,12 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from 'containers/App';
 import registerServiceWorker from 'registerServiceWorker';
+
 import { Provider } from 'mobx-react';
-import AppData from './stores/AppData';
+
+import RootStore from 'stores/RootStore';
+
+import App from 'containers/App';
+
 
 const Root = (
-    <Provider AppData={AppData}>
+    <Provider {...RootStore}>
         <App />
     </Provider>
 );

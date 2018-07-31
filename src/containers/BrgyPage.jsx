@@ -13,7 +13,7 @@ export default class BrgyPage extends Component {
   async componentDidMount() {
     const searchQuery = this.props.location.search;
     const parsedQuery = queryString.parse(searchQuery);
-    this.props.AppData.fetchBrgyPageData(parsedQuery.id);
+    this.props.BrgyPageStore.fetchBrgyPageData(parsedQuery.id);
     // this.props.AppData.setProfileView(parsedQuery.view);
   }
 
@@ -25,7 +25,7 @@ export default class BrgyPage extends Component {
 
 
   render() {
-    const { AppData } = this.props;
+    const { AppData, BrgyPageStore } = this.props;
     return (
       <div>
         {/* Barangay Page Header */}
@@ -35,8 +35,8 @@ export default class BrgyPage extends Component {
         <div className="brgy-page-content">
           <div className="container">
             {
-              AppData.loggedUser && AppData.pageData &&
-              <BrgyPageNewsfeedView AppData={this.props.AppData} />
+              AppData.loggedUser && BrgyPageStore.data &&
+              <BrgyPageNewsfeedView AppData={AppData} BrgyPageStore={BrgyPageStore} />
             }
           </div>
         </div>

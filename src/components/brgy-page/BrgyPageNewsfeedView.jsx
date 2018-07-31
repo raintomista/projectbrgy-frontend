@@ -6,11 +6,12 @@ import DashboardFeedCard from 'components/dashboard/DashboardFeedCard';
 import 'components/brgy-page/BrgyPageStats.less'
 
 const BrgyPageNewsfeedView = (props) => {
+    
   return (
     <div className="row">
       {/* Brarangay Page Details Section (Left) */}
       <div className="col-md-3">
-        <BrgyPageDetails AppData={props.AppData} />
+        <BrgyPageDetails {...props} />
       </div>
 
       {/* Brarangay Page Stats and Newsfeed Section (Middle) */}
