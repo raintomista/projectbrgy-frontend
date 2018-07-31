@@ -9,30 +9,30 @@ import { Link } from 'react-router-dom';
 import 'components/profile/UserProfileDetails.less';
 
 const UserProfileDetails = observer((props) => {
-  const { AppData } = props;
-  const profileData = AppData.profileData;
+  const { UserProfileStore } = props;
+  const { data } = UserProfileStore;
 
   return (
     <div className="user-profile-details card">
       {/* Essential User Details */}
       <div className="basic-details card-body">
         <img src="images/default-user.png" alt="" className="card-img" />
-        <Link to={viewTimeline(AppData.profileData.user_id)} className="card-title">
-          {profileData && `${profileData.user_first_name} ${profileData.user_last_name}`}
+        <Link to={viewTimeline(data.user_id)} className="card-title">
+          {data && `${data.user_first_name} ${data.user_last_name}`}
         </Link>
-        <p className="card-text">{profileData && `${profileData.barangay_page_municipality}`}</p>
+        <p className="card-text">{data && `${data.barangay_page_municipality}`}</p>
       </div>
 
       {/* Additional User Details */}
       <ul className="additional-details list-group list-group-flush">
 
         {/* Email Address */}
-        {profileData && profileData.user_email && (
+        {data && data.user_email && (
           <li className="list-group-item">
-            <a href={'mailto:' + profileData.user_email} className="card-link">
+            <a href={'mailto:' + data.user_email} className="card-link">
               <FontAwesomeIcon icon={faEnvelope} className="icon" />
               <span>
-                {profileData.user_email}
+                {data.user_email}
               </span>
             </a>
           </li>
@@ -40,12 +40,12 @@ const UserProfileDetails = observer((props) => {
 
         {/* Mobile Number */}
 
-        {profileData && profileData.user_mobile_number && (
+        {data && data.user_mobile_number && (
           <li className="list-group-item">
-            <a href={'callto:' + profileData.user_mobile_number} className="card-link">
+            <a href={'callto:' + data.user_mobile_number} className="card-link">
               <FontAwesomeIcon icon={faMobileAlt} className="icon" />
               <span>
-                {profileData.user_mobile_number}
+                {data.user_mobile_number}
               </span>
             </a>
           </li>
@@ -53,12 +53,12 @@ const UserProfileDetails = observer((props) => {
 
         {/* Landline Number */}
 
-        {profileData && profileData.user_landline_number && (
+        {data && data.user_landline_number && (
           <li className="list-group-item">
-            <a href={'callto:' + profileData.user_landline_number} className="card-link">
+            <a href={'callto:' + data.user_landline_number} className="card-link">
               <FontAwesomeIcon icon={faPhone} className="icon" />
               <span>
-                {profileData.user_landline_number}
+                {data.user_landline_number}
               </span>
             </a>
           </li>
@@ -66,7 +66,7 @@ const UserProfileDetails = observer((props) => {
 
         {/* See More Button */}
         <li className="see-more list-group-item">
-          <a onClick={() => seeMore(props.history, AppData)} className="nav-link">See More</a>
+          <a onClick={() => seeMore(props.history, UserProfileStore)} className="nav-link">See More</a>
         </li>
       </ul>
     </div>
@@ -78,13 +78,13 @@ const viewTimeline = (profileId) => ({
   search: `?id=${profileId}`
 });
 
-function seeMore(history, AppData) {
+function seeMore(history, UserProfileStore) {
   history.push({
     pathname: '/profile',
-    search: `?id=${AppData.profileData.user_id}&view=expanded_details`
+    search: `?id=${UserProfileStore.data.user_id}&view=expanded_details`
   });
 
-  AppData.setProfileView('expanded_details');
+  UserProfileStore.setProfileView('expanded_details');
 }
 
 export default UserProfileDetails;

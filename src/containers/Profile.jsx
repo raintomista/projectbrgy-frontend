@@ -10,7 +10,7 @@ import UserProfileNewsfeedView from '../components/profile/UserProfileNewsfeedVi
 import queryString from 'query-string';
 import { observer } from 'mobx-react';
 
-import './Profile.less';
+import 'containers/Profile.less';
 
 @observer
 export default class Profile extends Component {
@@ -18,44 +18,44 @@ export default class Profile extends Component {
   async componentDidMount() {
     const searchQuery = this.props.location.search;
     const parsedQuery = queryString.parse(searchQuery);
-    this.props.AppData.fetchUserProfileData(parsedQuery.id);
-    this.props.AppData.setProfileView(parsedQuery.view);
+    this.props.UserProfileStore.fetchUserProfileData(parsedQuery.id);
+    this.props.UserProfileStore.setProfileView(parsedQuery.view);
   }
 
   componentDidUpdate() {
     const searchQuery = this.props.location.search;
     const parsedQuery = queryString.parse(searchQuery);
-    this.props.AppData.setProfileView(parsedQuery.view);
+    this.props.UserProfileStore.setProfileView(parsedQuery.view);
   }
 
   profileView() {
-    const { AppData } = this.props;
+    const { AppData, UserProfileStore } = this.props;
     const loggedUser = AppData.loggedUser;
-    const profileData = AppData.profileData;
+    const { data, viewType } = UserProfileStore;
 
-    if (loggedUser && profileData) {
+    if (loggedUser && data) {
       /* 
         Checks if loggedUser is a barangay member that views other user
         If true, a limited view will be displayed to the user
         Otherwise, the other views can be displayed
       */
-      if (loggedUser.role === 'barangay_member' && loggedUser.id !== profileData.user_id) {
+      if (loggedUser.role === 'barangay_member' && loggedUser.id !== data.user_id) {
         return (
-          <UserProfileExpandedView AppData={this.props.AppData} />
+          <UserProfileExpandedView AppData={AppData} UserProfileStore={UserProfileStore} />
         );
       } else {
 
         //Expanded Details View
-        if (AppData.profileViewType === 'expanded_details') {
-          return <UserProfileExpandedView AppData={this.props.AppData} />;
+        if (viewType === 'expanded_details') {
+          return <UserProfileExpandedView AppData={AppData} UserProfileStore={UserProfileStore} />;
         }
 
-        else if (AppData.profileViewType === 'following_list') {
-          this.props.AppData.fetchUserFollowingList(loggedUser.id);
-          return <UserProfileFollowingListView AppData={this.props.AppData} history={this.props.history} />;
+        else if (viewType === 'following_list') {
+          UserProfileStore.fetchUserFollowingList(loggedUser.id);
+          return <UserProfileFollowingListView AppData={AppData} UserProfileStore={UserProfileStore} history={this.props.history} />;
         }
         else {
-          return <UserProfileNewsfeedView AppData={this.props.AppData} history={this.props.history} />;
+          return <UserProfileNewsfeedView AppData={AppData} UserProfileStore={UserProfileStore} history={this.props.history} />;
         }
       }
     }

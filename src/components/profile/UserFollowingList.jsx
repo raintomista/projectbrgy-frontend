@@ -5,7 +5,7 @@ import { observer } from 'mobx-react';
 import 'components/profile/UserFollowingList.less'
 
 const UserFollowingList = observer((props) => {
-  const { AppData } = props;
+  const { UserProfileStore } = props;
 
   return (
     <div className="user-following-list card">
@@ -15,7 +15,7 @@ const UserFollowingList = observer((props) => {
         {/* Following List */}
         <ul className="list-group list-group-flush">
           {
-            AppData.profileFollowingList.map((barangay, index) => {
+            UserProfileStore.followingList.map((barangay, index) => {
               return (
                 <li className="list-group-item" key={index}>
                   <div className="wrapper">

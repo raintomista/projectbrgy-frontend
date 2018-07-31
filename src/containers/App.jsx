@@ -15,7 +15,7 @@ import Dashboard from 'containers/Dashboard';
 import BrgyPage from 'containers/BrgyPage';
 import Profile from 'containers/Profile';
 
-@inject('AppData', 'BrgyPageStore')
+@inject('AppData', 'BrgyPageStore', 'UserProfileStore')
 @observer
 export default class App extends Component {
   render() {
@@ -33,7 +33,7 @@ export default class App extends Component {
           <Route
             exact={true}
             path='/profile'
-            render={(props) => <Profile {...props} AppData={this.props.AppData} />}
+            render={(props) => <Profile {...props} AppData={this.props.AppData} UserProfileStore={this.props.UserProfileStore} />}
           />
           <Route
             exact={true}

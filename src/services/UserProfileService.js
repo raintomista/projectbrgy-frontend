@@ -8,5 +8,5 @@ export function getUserById(id) {
 
 export function getUserFollowingList(userId){
     const token = localStorage.getItem('x-access-token');
-    return axios.get(`${API_HOST}/following/${userId}`, { headers: { 'x-access-token': token } });
+    return axios.get(`${API_HOST}/following/users/${userId}`, { headers: { 'x-access-token': token } });
 }

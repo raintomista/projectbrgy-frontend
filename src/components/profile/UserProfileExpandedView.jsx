@@ -14,8 +14,8 @@ import faPhone from '@fortawesome/fontawesome-free-solid/faPhone';
 import './UserProfileExpandedView.less';
 
 const UserProfileExpandedView = observer((props) => {
-  const { AppData } = props;
-  const profileData = AppData.profileData;
+  const { UserProfileStore } = props;
+  const data = UserProfileStore.data;
 
   return (
     <div className="row">
@@ -29,8 +29,8 @@ const UserProfileExpandedView = observer((props) => {
 
               {/* User Profile Picture, Full Name, and Location */}
               <img src="images/default-user.png" alt="" className="card-img" />
-              <h3 className="card-title">{profileData && `${profileData.user_first_name} ${profileData.user_last_name}`}</h3>
-              <p className="card-text">{profileData && `${profileData.barangay_page_municipality}`}</p>
+              <h3 className="card-title">{data && `${data.user_first_name} ${data.user_last_name}`}</h3>
+              <p className="card-text">{data && `${data.barangay_page_municipality}`}</p>
 
               {/* User Stats */}
               <div className="user-stats">
@@ -64,42 +64,42 @@ const UserProfileExpandedView = observer((props) => {
                 {/* Region */}
                 <div className="row">
                   <div className="col">
-                    <span>Region: {profileData && `${profileData.barangay_page_region}`}</span>
+                    <span>Region: {data && `${data.barangay_page_region}`}</span>
                   </div>
                 </div>
 
                 {/* Province */}
                 <div className="row">
                   <div className="col">
-                    <span>Province: {profileData && `${profileData.barangay_page_province}`}</span>
+                    <span>Province: {data && `${data.barangay_page_province}`}</span>
                   </div>
                 </div>
 
                 {/* City/Municipality */}
                 <div className="row">
                   <div className="col">
-                    <span>City/Municipality: {profileData && `${profileData.barangay_page_municipality}`}</span>
+                    <span>City/Municipality: {data && `${data.barangay_page_municipality}`}</span>
                   </div>
                 </div>
 
                 {/* Barangay */}
                 <div className="row">
                   <div className="col">
-                    <span>Barangay: {profileData && `${profileData.barangay_page_name}`}</span>
+                    <span>Barangay: {data && `${data.barangay_page_name}`}</span>
                   </div>
                 </div>
 
                 {/* Barangay Captain */}
                 <div className="row">
                   <div className="col">
-                    <span>Barangay Captain: {profileData && `${profileData.barangay_page_captain}`}</span>
+                    <span>Barangay Captain: {data && `${data.barangay_page_captain}`}</span>
                   </div>
                 </div>
 
                 {/* Barangay Office Address */}
                 <div className="row">
                   <div className="col">
-                    <span>Barangay Office Address: {profileData && `${profileData.barangay_page_office_address_street}`}</span>
+                    <span>Barangay Office Address: {data && `${data.barangay_page_office_address_street}`}</span>
                   </div>
                 </div>
               </div>
@@ -119,36 +119,36 @@ const UserProfileExpandedView = observer((props) => {
                     <ul className="list-group list-group-flush">
 
                       {/* User Email Address */}
-                      {profileData && profileData.user_email && (
+                      {data && data.user_email && (
                         <li className="list-group-item">
-                          <a href={'mailto:' + profileData.user_email} className="card-link">
+                          <a href={'mailto:' + data.user_email} className="card-link">
                             <FontAwesomeIcon icon={faEnvelope} className="icon" />
                             <span>
-                              {profileData.user_email}
+                              {data.user_email}
                             </span>
                           </a>
                         </li>
                       )}
 
                       {/* User Mobile Number */}
-                      {profileData && profileData.user_mobile_number && (
+                      {data && data.user_mobile_number && (
                         <li className="list-group-item">
-                          <a href={'callto:' + profileData.user_mobile_number} className="card-link">
+                          <a href={'callto:' + data.user_mobile_number} className="card-link">
                             <FontAwesomeIcon icon={faMobileAlt} className="icon" />
                             <span>
-                              {profileData.user_mobile_number}
+                              {data.user_mobile_number}
                             </span>
                           </a>
                         </li>
                       )}
 
                       {/* User Landline Number */}
-                      {profileData && profileData.user_landline_number && (
+                      {data && data.user_landline_number && (
                         <li className="list-group-item">
-                          <a href={'callto:' + profileData.user_landline_number} className="card-link">
+                          <a href={'callto:' + data.user_landline_number} className="card-link">
                             <FontAwesomeIcon icon={faPhone} className="icon" />
                             <span>
-                              {profileData.user_landline_number}
+                              {data.user_landline_number}
                             </span>
                           </a>
                         </li>
