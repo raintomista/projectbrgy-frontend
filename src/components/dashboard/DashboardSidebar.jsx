@@ -9,6 +9,8 @@ const DashboardSidebar = observer((props) => {
   const { AppData } = props;
   const { loggedUser } = AppData;
 
+  console.log(loggedUser);
+
   if (loggedUser) {
     return (
       <div className="home-sidebar card">
@@ -36,11 +38,11 @@ const DashboardSidebar = observer((props) => {
         {loggedUser.user_role === 'barangay_member' && (
           <ul className="list-group list-group-flush">
             <li className="list-group-item">
-              <Link to='/dashboard' className="card-link">My Barangay</Link>
+              <Link to={viewBrgyPage(loggedUser.barangay_page_id)} className="card-link">My Barangay</Link>
               <span className="badge"></span>
             </li>
             <li className="list-group-item">
-              <Link to='/dashboard' className="card-link">Following</Link>
+              <Link to={viewUserFollowingList(loggedUser.user_id)} className="card-link">Following</Link>
               <span className="badge">{loggedUser.stats.following_count}</span>
             </li>
             <li className="list-group-item">
@@ -78,8 +80,8 @@ const DashboardSidebar = observer((props) => {
               <span className="badge">11</span>
             </li>
             <li className="list-group-item">
-              <Link to='/dashboard' className="card-link">Followers</Link>
-              <span className="badge">332</span>
+              <Link to={viewBrgyFollowersList(loggedUser.barangay_page_id)} className="card-link">Followers</Link>
+              <span className="badge">{loggedUser.stats.follower_count}</span>
             </li>
             <li className="list-group-item"></li>
           </ul>
@@ -91,5 +93,22 @@ const DashboardSidebar = observer((props) => {
     return null;
   }
 });
+
+const viewBrgyPage = (brgyId) => ({
+  pathname: '/barangay',
+  search: `?id=${brgyId}`
+});
+
+const viewBrgyFollowersList = (brgyId) => ({
+  pathname: '/barangay',
+  search: `?id=${brgyId}&view=followers_list`
+});
+
+const viewUserFollowingList = (userId) => ({
+  pathname: '/profile',
+  search: `?id=${userId}&view=following_list`
+});
+
+
 
 export default DashboardSidebar;

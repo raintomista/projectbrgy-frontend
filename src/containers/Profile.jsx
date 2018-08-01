@@ -23,6 +23,7 @@ export default class Profile extends Component {
   async componentDidMount() {
     const searchQuery = this.props.location.search;
     const parsedQuery = queryString.parse(searchQuery);
+    this.props.AppData.getUserDetails();   
     this.props.UserProfileStore.fetchUserProfileData(parsedQuery.id);
     this.props.UserProfileStore.setProfileView(parsedQuery.view);
   }
@@ -44,7 +45,7 @@ export default class Profile extends Component {
         If true, a limited view will be displayed to the user
         Otherwise, the other views can be displayed
       */
-      if (loggedUser.role === 'barangay_member' && loggedUser.id !== data.user_id) {
+      if (loggedUser.user_role === 'barangay_member' && loggedUser.user_id !== data.user_id) {
         return (
           <UserProfileExpandedView AppData={AppData} UserProfileStore={UserProfileStore} />
         );

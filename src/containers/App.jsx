@@ -17,7 +17,7 @@ import Profile from 'containers/Profile';
 
 @inject('AppData', 'BrgyPageStore', 'UserProfileStore')
 @observer
-export default class App extends Component {
+export default class App extends Component {  
   render() {
     return (
       <Router>

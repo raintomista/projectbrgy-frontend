@@ -15,6 +15,7 @@ export default class BrgyPage extends Component {
   async componentDidMount() {
     const searchQuery = this.props.location.search;
     const parsedQuery = queryString.parse(searchQuery);
+    this.props.AppData.getUserDetails();    
     this.props.BrgyPageStore.fetchBrgyPageData(parsedQuery.id);
     this.props.BrgyPageStore.setViewType(parsedQuery.view);
   }

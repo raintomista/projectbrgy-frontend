@@ -17,9 +17,7 @@ import 'stylesheets/containers/Dashboard.less';
 
 @observer
 export default class Dashboard extends Component {
-
   componentDidMount() {
-    const token = localStorage.getItem('x-access-token');
     this.props.AppData.getUserDetails();
   }
 
