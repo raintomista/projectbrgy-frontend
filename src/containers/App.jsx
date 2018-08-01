@@ -24,7 +24,11 @@ export default class App extends Component {
         <Switch>
           <Route exact={true} path='/login' component={Login} />
           <Route exact={true} path='/sign-up' component={SignUp} />
-          <Route exact={true} path='/dashboard' component={Dashboard} />
+          <Route
+            exact={true}
+            path='/dashboard'
+            render={(props) => <Dashboard AppData={this.props.AppData} />}
+          />
           <Route
             exact={true}
             path='/barangay'

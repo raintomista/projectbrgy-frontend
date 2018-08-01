@@ -1,25 +1,37 @@
 import {
     action,
-    computed,
     configure,
     observable,
     runInAction
 } from 'mobx';
 
+import {
+    getUserDetailsViaToken
+} from 'services/DashboardService';
+
 configure({
     enforceActions: true
 });
 
-
 export default class AppData {
-    @observable loggedUser = {
-        id: "cbba552f-4f64-43c7-885a-138a76a34497",
-        name: "Juan Dela Cruz",
-        barangay: 'Barangay 113',
-        municipality: "Caloocan City",
-        role: "barangay_member"
+    @observable loggedUser = null;
+
+    /*--------------- Get User Details Using Token ---------------*/
+    @action
+    async getUserDetails() {
+        try {
+            const response = await getUserDetailsViaToken();
+            const loggedUser = response.data.data;
+
+            runInAction(() => {
+                this.loggedUser = loggedUser;
+            });
+        } catch (e) {
+            console.log(e);
+        }
     }
 
+    /*--------------- Sidebar ---------------*/
     @observable isSidebarOpen = false;
 
     @action
