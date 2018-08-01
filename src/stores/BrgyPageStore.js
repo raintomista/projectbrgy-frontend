@@ -17,7 +17,7 @@ import {
 export default class BrgyPageStore {
     @observable data;
     @observable viewType;
-    @observable followers_list = [];
+    @observable followersList = [];
     @observable followingList = [];
     @observable isModalOpen = false;
 
@@ -113,10 +113,10 @@ export default class BrgyPageStore {
     async getBrgyPageFollowersList(brgyId) {
         try {
             const response = await getBrgyPageFollowersList(brgyId);
-            const followers_list = response.data.data.items;
+            const followersList = response.data.data.items;
 
             runInAction(() => {
-                this.followers_list = followers_list;
+                this.followersList = followersList;
             })
 
         } catch (e) {

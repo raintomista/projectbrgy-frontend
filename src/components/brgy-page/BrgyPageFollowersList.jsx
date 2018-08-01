@@ -7,7 +7,7 @@ import 'components/brgy-page/BrgyPageFollowList.less';
 
 const BrgyPageFollowersList = observer((props) => {
   const { AppData, BrgyPageStore } = props;
-  const { followers_list } = BrgyPageStore;
+  const { followersList } = BrgyPageStore;
 
   return (
     <div className="brgy-follow-list card">
@@ -17,7 +17,7 @@ const BrgyPageFollowersList = observer((props) => {
         {/* Followers List */}
         <ul className="list-group list-group-flush">
           {
-            followers_list.map((follower, index) => {
+            followersList.map((follower, index) => {
               return (
                 <li className="list-group-item" key={index}>
                   <div className="wrapper">
