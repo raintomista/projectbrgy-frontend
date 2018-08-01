@@ -1,9 +1,13 @@
 import axios from 'axios';
 import API_HOST from './../config';
 
-export function getBarangayById(id){
+export function getBarangayById(id) {
     const token = localStorage.getItem('x-access-token');
-    return axios.get(`${API_HOST}/barangay/${id}`, { headers: { 'x-access-token': token } });
+    return axios.get(`${API_HOST}/barangay/${id}`, {
+        headers: {
+            'x-access-token': token
+        }
+    });
 }
 
 export function followBarangay(brgyId) {
@@ -28,7 +32,20 @@ export function unfollowBarangay(brgyId) {
     });
 }
 
-export function getBrgyPageFollowersList(brgyId){
+export function getBrgyPageFollowersList(brgyId) {
     const token = localStorage.getItem('x-access-token');
-    return axios.get(`${API_HOST}/followers/${brgyId}`, { headers: { 'x-access-token': token } });
+    return axios.get(`${API_HOST}/followers/${brgyId}`, {
+        headers: {
+            'x-access-token': token
+        }
+    });
+}
+
+export function getBrgyPageFollowingList(brgyId) {
+    const token = localStorage.getItem('x-access-token');
+    return axios.get(`${API_HOST}/following/pages/${brgyId}`, {
+        headers: {
+            'x-access-token': token
+        }
+    });
 }

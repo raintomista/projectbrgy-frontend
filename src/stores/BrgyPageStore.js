@@ -6,12 +6,19 @@ import {
     runInAction
 } from 'mobx';
 
-import { getBarangayById, getBrgyPageFollowersList, followBarangay, unfollowBarangay,  } from 'services/BrgyPageService';
+import {
+    getBarangayById,
+    getBrgyPageFollowersList,
+    getBrgyPageFollowingList,
+    followBarangay,
+    unfollowBarangay,
+} from 'services/BrgyPageService';
 
 export default class BrgyPageStore {
     @observable data;
     @observable viewType;
     @observable followers_list = [];
+    @observable followingList = [];
     @observable isModalOpen = false;
 
     @action
@@ -24,7 +31,7 @@ export default class BrgyPageStore {
             data.barangay_clearance = 1;
             data.business_permit = 1;
             data.katarungang_pambarangay = 1;
-            
+
             runInAction(() => {
                 this.data = data;
             });
@@ -37,7 +44,7 @@ export default class BrgyPageStore {
     async followBarangay(brgyId) {
         try {
             await followBarangay(brgyId);
-            
+
             runInAction(() => {
                 this.data.is_following = true;
                 this.data.stats.followers_count += 1;
@@ -63,8 +70,37 @@ export default class BrgyPageStore {
         }
     }
 
+    /*----- Follow/Unfollow in Barangay Page List -----*/
     @action
-    toggleModal(){
+    async followBarangayFromList(brgyId, index) {
+        try {
+            await followBarangay(brgyId);
+
+            runInAction(() => {
+                this.followingList[0].is_following = 1;
+            });
+
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    @action
+    async unfollowBarangayFromList(brgyId, index) {
+        try {
+            await unfollowBarangay(brgyId);
+
+            runInAction(() => {
+                this.followingList[index].is_following = 0;
+            });
+
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    @action
+    toggleModal() {
         this.isModalOpen = this.isModalOpen === false ? true : false;
     }
 
@@ -78,11 +114,26 @@ export default class BrgyPageStore {
         try {
             const response = await getBrgyPageFollowersList(brgyId);
             const followers_list = response.data.data.items;
-    
+
             runInAction(() => {
                 this.followers_list = followers_list;
             })
-    
+
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    @action
+    async getBrgyPageFollowingList(brgyId) {
+        try {
+            const response = await getBrgyPageFollowingList(brgyId);
+            const followingList = response.data.data.items;
+
+            runInAction(() => {
+                this.followingList = followingList;
+            })
+
         } catch (e) {
             console.log(e);
         }

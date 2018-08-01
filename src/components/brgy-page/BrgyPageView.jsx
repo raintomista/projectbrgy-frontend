@@ -1,5 +1,8 @@
 import React from 'react';
+
 import BrgyPageFollowersList from 'components/brgy-page/BrgyPageFollowersList';
+import BrgyPageFollowingList from './BrgyPageFollowingList';
+
 import BrgyPageDetails from 'components/brgy-page/BrgyPageDetails';
 import BrgyPageStats from 'components/brgy-page/BrgyPageStats';
 import DashboardFeedCard from 'components/dashboard/DashboardFeedCard';
@@ -7,7 +10,7 @@ import { observer } from 'mobx-react';
 import 'components/brgy-page/BrgyPageStats.less'
 
 const BrgyPageView = observer((props) => {
-    
+
   return (
     <div className="row">
       {/* Brarangay Page Details Section (Left) */}
@@ -36,13 +39,17 @@ const BrgyPageView = observer((props) => {
   );
 });
 
-function renderView(props){
+function renderView(props) {
   const { BrgyPageStore } = props;
   const { viewType } = BrgyPageStore;
-  
-  if(viewType === 'followers_list'){
+
+  if (viewType === 'followers_list') {
     BrgyPageStore.getBrgyPageFollowersList(BrgyPageStore.data.id);
     return <BrgyPageFollowersList {...props} />;
+  }
+  else if (viewType === 'following_list') {
+    BrgyPageStore.getBrgyPageFollowingList(BrgyPageStore.data.id);
+    return <BrgyPageFollowingList {...props} />
   }
 }
 
