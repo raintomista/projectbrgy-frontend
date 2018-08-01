@@ -17,7 +17,6 @@ export default class NavBar extends Component {
 
   onSetSidebarOpen() {
     this.props.AppData.toggleSidebar();
-    document.body.style.overflow = document.body.style.overflow === 'hidden' ? 'visible' : 'hidden';
   }
 
   render() {
