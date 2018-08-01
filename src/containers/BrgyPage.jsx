@@ -19,10 +19,19 @@ export default class BrgyPage extends Component {
     this.props.BrgyPageStore.setViewType(parsedQuery.view);
   }
 
-  componentDidUpdate() {
-      const searchQuery = this.props.location.search;
-      const parsedQuery = queryString.parse(searchQuery);
+  componentDidUpdate(prevProps) {
+    const prevQuery = prevProps.location.search;
+    const query = this.props.location.search;
+    const parsedPrevQuery = queryString.parse(prevQuery);
+    const parsedQuery = queryString.parse(query);
+
+    if(parsedPrevQuery.id !== parsedQuery.id){
+      this.props.BrgyPageStore.fetchBrgyPageData(parsedQuery.id);
+    }
+
+    if(parsedPrevQuery.view!== parsedQuery.view){
       this.props.BrgyPageStore.setViewType(parsedQuery.view);
+    }
   }
 
   render() {

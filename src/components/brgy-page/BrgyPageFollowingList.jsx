@@ -9,8 +9,6 @@ const BrgyPageFollowingList = observer((props) => {
   const { AppData, BrgyPageStore } = props;
   const { followingList } = BrgyPageStore;
 
-  console.log(BrgyPageStore);
-
   return (
     <div className="brgy-follow-list card">
       <div className="card-body">
@@ -30,7 +28,7 @@ const BrgyPageFollowingList = observer((props) => {
                     <div className="item-info">
 
                       {/* Following Name */}
-                      <Link to={viewUserProfile(barangay.user_id)} className="item-name">{barangay.barangay_page_name}</Link>
+                      <Link to={viewBrgyPage(barangay.barangay_page_id)} className="item-name">{barangay.barangay_page_name}</Link>
 
                       {/* Following Location */}
                       <div className="item-location">
@@ -64,9 +62,9 @@ const BrgyPageFollowingList = observer((props) => {
   );
 });
 
-const viewUserProfile = (userId) => ({
-  pathname: '/profile',
-  search: `?id=${userId}`
+const viewBrgyPage = (brgyId) => ({
+  pathname: '/barangay',
+  search: `?id=${brgyId}`
 });
 
 export default BrgyPageFollowingList;

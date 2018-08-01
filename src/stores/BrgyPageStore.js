@@ -111,6 +111,8 @@ export default class BrgyPageStore {
 
     @action
     async getBrgyPageFollowersList(brgyId) {
+        this.followersList = [];
+
         try {
             const response = await getBrgyPageFollowersList(brgyId);
             const followersList = response.data.data.items;
@@ -126,6 +128,7 @@ export default class BrgyPageStore {
 
     @action
     async getBrgyPageFollowingList(brgyId) {
+        this.followingList = [];
         try {
             const response = await getBrgyPageFollowingList(brgyId);
             const followingList = response.data.data.items;
@@ -135,7 +138,7 @@ export default class BrgyPageStore {
             })
 
         } catch (e) {
-            console.log(e);
+            console.log(e)
         }
     }
 
