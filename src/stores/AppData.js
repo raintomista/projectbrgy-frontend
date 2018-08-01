@@ -19,4 +19,11 @@ export default class AppData {
         municipality: "Caloocan City",
         role: "barangay_member"
     }
+
+    @observable isSidebarOpen = false;
+
+    @action
+    toggleSidebar() {
+        this.isSidebarOpen = !this.isSidebarOpen;
+    }
 }

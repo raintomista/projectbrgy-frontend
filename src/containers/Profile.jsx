@@ -1,15 +1,20 @@
+/*--------------- React Core ---------------*/
 import React, { Component } from 'react';
-import ProfileHeader from 'components/profile/ProfileHeader';
 
 /*--------------- User Profile Views ---------------*/
 import UserProfileExpandedView from '../components/profile/UserProfileExpandedView';
 import UserProfileFollowingListView from '../components/profile/UserProfileFollowingListView';
 import UserProfileNewsfeedView from '../components/profile/UserProfileNewsfeedView';
 
+/*--------------- Components ---------------*/
+import NavBar from 'components/common/NavBar';
+import ProfileHeader from 'components/profile/ProfileHeader';
+
 /*--------------- Utilities ---------------*/
 import queryString from 'query-string';
 import { observer } from 'mobx-react';
 
+/*--------------- Stylesheets ---------------*/
 import 'containers/Profile.less';
 
 @observer
@@ -62,8 +67,10 @@ export default class Profile extends Component {
   }
 
   render() {
+    const { AppData } = this.props;
     return (
       <div>
+        <NavBar AppData={AppData} />
         {/* Profile Header */}
         <ProfileHeader />
 
