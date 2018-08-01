@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ProfileHeader from 'components/profile/ProfileHeader';
-import BrgyPageNewsfeedView from 'components/brgy-page/BrgyPageNewsfeedView';
+import BrgyPageView from 'components/brgy-page/BrgyPageView';
 import queryString from 'query-string';
 
 import { Modal, ModalBody } from 'reactstrap';
@@ -16,20 +16,17 @@ export default class BrgyPage extends Component {
     const searchQuery = this.props.location.search;
     const parsedQuery = queryString.parse(searchQuery);
     this.props.BrgyPageStore.fetchBrgyPageData(parsedQuery.id);
-    // this.props.AppData.setProfileView(parsedQuery.view);
+    this.props.BrgyPageStore.setViewType(parsedQuery.view);
   }
 
-  // componentDidUpdate() {
-  //     const searchQuery = this.props.location.search;
-  //     const parsedQuery = queryString.parse(searchQuery);
-  //     this.props.AppData.setProfileView(parsedQuery.view);
-  // }
-
+  componentDidUpdate() {
+      const searchQuery = this.props.location.search;
+      const parsedQuery = queryString.parse(searchQuery);
+      this.props.BrgyPageStore.setViewType(parsedQuery.view);
+  }
 
   render() {
     const { AppData, BrgyPageStore } = this.props;
-    const externalCloseBtn = <button className="close" style={{ position: 'absolute', top: '15px', right: '15px' }} onClick={this.toggle}>&times;</button>;
-    console.log(BrgyPageStore);
 
     return (
       <div>
@@ -41,7 +38,7 @@ export default class BrgyPage extends Component {
           <div className="container">
             {
               AppData.loggedUser && BrgyPageStore.data &&
-              <BrgyPageNewsfeedView AppData={AppData} BrgyPageStore={BrgyPageStore} />
+              <BrgyPageView AppData={AppData} BrgyPageStore={BrgyPageStore} />
             }
           </div>
         </div>
@@ -53,7 +50,7 @@ export default class BrgyPage extends Component {
               {BrgyPageStore.data && BrgyPageStore.data.barangay_clearance === 1 && (
                 <div className="col-sm-4 e-service">
                   <div className="e-service-btn">
-                    <img src="images/brgy-clearance.png" />
+                    <img src="images/brgy-clearance.png" alt="" />
                   </div>
                   <h5>Barangay Clearance</h5>
                 </div>
@@ -62,7 +59,7 @@ export default class BrgyPage extends Component {
               {BrgyPageStore.data && BrgyPageStore.data.business_permit === 1 && (
                 <div className="col-sm-4 e-service">
                   <div className="e-service-btn">
-                    <img src="images/business-permit.png" />
+                    <img src="images/business-permit.png" alt="" />
                   </div>
                   <h5>Business Permit</h5>
                 </div>
@@ -71,7 +68,7 @@ export default class BrgyPage extends Component {
               {BrgyPageStore.data && BrgyPageStore.data.katarungang_pambarangay === 1 && (
                 <div className="col-sm-4 e-service">
                   <div className="e-service-btn">
-                    <img src="images/katarungang-pambarangay.png" />
+                    <img src="images/katarungang-pambarangay.png" alt="" />
                   </div>
                   <h5>Katarungang Pambarangay Services</h5>
                 </div>

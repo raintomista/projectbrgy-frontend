@@ -27,3 +27,8 @@ export function unfollowBarangay(brgyId) {
         }
     });
 }
+
+export function getBrgyPageFollowersList(brgyId){
+    const token = localStorage.getItem('x-access-token');
+    return axios.get(`${API_HOST}/followers/${brgyId}`, { headers: { 'x-access-token': token } });
+}

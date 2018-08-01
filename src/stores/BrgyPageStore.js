@@ -6,13 +6,12 @@ import {
     runInAction
 } from 'mobx';
 
-import { getBarangayById, followBarangay, unfollowBarangay } from 'services/BrgyPageService';
+import { getBarangayById, getBrgyPageFollowersList, followBarangay, unfollowBarangay,  } from 'services/BrgyPageService';
 
 export default class BrgyPageStore {
-    constructor() { }
-
     @observable data;
     @observable viewType;
+    @observable followers_list = [];
     @observable isModalOpen = false;
 
     @action
@@ -26,7 +25,6 @@ export default class BrgyPageStore {
             data.business_permit = 1;
             data.katarungang_pambarangay = 1;
             
-
             runInAction(() => {
                 this.data = data;
             });
@@ -69,4 +67,26 @@ export default class BrgyPageStore {
     toggleModal(){
         this.isModalOpen = this.isModalOpen === false ? true : false;
     }
+
+    @action
+    setViewType(type) {
+        this.viewType = type;
+    }
+
+    @action
+    async getBrgyPageFollowersList(brgyId) {
+        try {
+            const response = await getBrgyPageFollowersList(brgyId);
+            const followers_list = response.data.data.items;
+    
+            runInAction(() => {
+                this.followers_list = followers_list;
+            })
+    
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+
 }

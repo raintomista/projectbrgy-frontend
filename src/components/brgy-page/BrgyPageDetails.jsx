@@ -16,7 +16,7 @@ import { observer } from 'mobx-react';
 import 'components/brgy-page/BrgyPageDetails.less'
 
 const BrgyPageDetails = observer((props) => {
-  const { AppData, BrgyPageStore } = props;
+  const { BrgyPageStore } = props;
 
   return (
     <div className="brgy-page-details card">

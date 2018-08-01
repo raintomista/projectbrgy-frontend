@@ -1,11 +1,12 @@
 import React from 'react';
+import BrgyPageFollowersList from 'components/brgy-page/BrgyPageFollowersList';
 import BrgyPageDetails from 'components/brgy-page/BrgyPageDetails';
-import BrgyPageStats from './BrgyPageStats';
+import BrgyPageStats from 'components/brgy-page/BrgyPageStats';
 import DashboardFeedCard from 'components/dashboard/DashboardFeedCard';
-
+import { observer } from 'mobx-react';
 import 'components/brgy-page/BrgyPageStats.less'
 
-const BrgyPageNewsfeedView = (props) => {
+const BrgyPageView = observer((props) => {
     
   return (
     <div className="row">
@@ -17,7 +18,8 @@ const BrgyPageNewsfeedView = (props) => {
       {/* Brarangay Page Stats and Newsfeed Section (Middle) */}
       <div className="col-md-6">
         <BrgyPageStats {...props} />
-        <DashboardFeedCard
+        {renderView(props)}
+        {/* <DashboardFeedCard
           imgSrc="images/default-brgy.png"
           authorName="Barangay 69"
           city="Caloocan City"
@@ -27,11 +29,22 @@ const BrgyPageNewsfeedView = (props) => {
           imgSrc="images/default-brgy.png"
           authorName="Barangay 69"
           city="Caloocan City"
-          date={new Date()}
-        />
+          date={new Date()} */}
+        {/* />   */}
       </div>
     </div>
   );
+});
+
+function renderView(props){
+  const { BrgyPageStore } = props;
+  const { viewType } = BrgyPageStore;
+  
+  if(viewType === 'followers_list'){
+    BrgyPageStore.getBrgyPageFollowersList(BrgyPageStore.data.id);
+    return <BrgyPageFollowersList {...props} />;
+  }
 }
 
-export default BrgyPageNewsfeedView;
+
+export default BrgyPageView;
