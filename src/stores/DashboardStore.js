@@ -12,7 +12,7 @@ configure({
 });
 
 export default class DashboardStore {
-    @observable currentPage = 1;
+    @observable hasMoreItems = true;
     @observable loadedPosts = [];
 
     @action
@@ -27,17 +27,19 @@ export default class DashboardStore {
     }
 
     @action
-    async getPostsFromFollowing(limit) {
+    async getPostsFromFollowing(page, limit) {
         try {
-            const response = await getPostsFromFollowing(this.currentPage, limit);
+            const response = await getPostsFromFollowing(page, limit);
             const data = response.data.data.items;
+
             runInAction(() => {
-                this.loadedPosts = this.loadedPosts.concat(data);
-                this.currentPage += 1;
+                this.loadedPosts.push(...data);
             });
         }
         catch (e) {
-
+            runInAction(() => {
+                this.hasMoreItems = false;
+            });
         }
     }
 }
