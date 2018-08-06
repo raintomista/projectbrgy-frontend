@@ -22,7 +22,7 @@ export default class Dashboard extends Component {
   }
 
   render() {
-    const { AppData } = this.props;
+    const { AppData, DashboardStore } = this.props;
 
     return (
       <div>
@@ -35,7 +35,7 @@ export default class Dashboard extends Component {
                 <DashboardSidebar AppData={AppData} />
               </div>
               <div className="col-md-6">
-                <DashboardPostBox />
+                <DashboardPostBox AppData={AppData}/>
                 <NewsFeedOptions />
                 <DashboardFeedCard
                   imgSrc="images/default-brgy.png"
