@@ -1,7 +1,7 @@
 /*--------------- Utils ---------------*/
 import MobxReactForm from 'mobx-react-form';
 import validatorjs from 'validatorjs';
-
+import RootStore from 'stores/RootStore';
 
 const plugins = { dvr: validatorjs };
 
@@ -13,10 +13,16 @@ const fields = {
 
 const hooks = {
     onSuccess(form) {
-        
+        const { message } = form.values();
+
+        alert('Your announcement has been posted.');
+        RootStore.DashboardStore.postAnnouncement(message);
+
+        // Clear form if success
+        form.clear();
     },
     onError(form) {
-
+        alert('An error occurred. Please try again.');
     }
 }
 

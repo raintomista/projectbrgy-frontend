@@ -25,7 +25,7 @@ const DashboardPostBox = observer((props) => {
               <span className={`${characterCount < 0 ? 'exceeded' : ''} character-count`}>
                 {characterCount}
               </span>
-              <button type="submit" className="btn rounded-light">Post</button>
+              <button type="submit" className="btn rounded-light" disabled={characterCount === 150 || characterCount < 0}>Post</button>
             </div>
           </div>
         </div>

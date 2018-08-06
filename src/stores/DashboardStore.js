@@ -13,9 +13,13 @@ configure({
 
 export default class DashboardStore {
     @action
-    async postAnnouncement(message){
-        const response = await postAnnouncement(message);
-        const data = response.data.data; 
-        
+    async postAnnouncement(message) {        
+        try {
+            const response = await postAnnouncement(message);
+            const data = response.data.data;
+        }
+        catch(e) {
+            console.log(e);
+        }
     }
 }

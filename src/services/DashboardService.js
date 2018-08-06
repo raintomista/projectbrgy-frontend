@@ -14,7 +14,7 @@ export function postAnnouncement(message) {
         headers: {
             'x-access-token': token
         },
-        body: {
+        data: {
             message: message
         }
     });
