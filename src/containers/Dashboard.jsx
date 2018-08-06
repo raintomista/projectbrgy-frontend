@@ -19,10 +19,12 @@ import 'stylesheets/containers/Dashboard.less';
 export default class Dashboard extends Component {
   componentDidMount() {
     this.props.AppData.getUserDetails();
+    this.props.DashboardStore.getPostsFromFollowing(10);
   }
 
   render() {
     const { AppData, DashboardStore } = this.props;
+    const { loadedPosts } = DashboardStore;
 
     return (
       <div>
@@ -35,20 +37,21 @@ export default class Dashboard extends Component {
                 <DashboardSidebar AppData={AppData} />
               </div>
               <div className="col-md-6">
-                <DashboardPostBox AppData={AppData}/>
+                <DashboardPostBox AppData={AppData} />
                 <NewsFeedOptions />
-                <DashboardFeedCard
-                  imgSrc="images/default-brgy.png"
-                  authorName="Barangay 69"
-                  city="Caloocan City"
-                  date={new Date()}
-                />
-                <DashboardFeedCard
-                  imgSrc="images/default-user.png"
-                  authorName="Barangay 35"
-                  city="Caloocan City"
-                  date={new Date(2018, 5, 19, 3, 0, 10)}
-                />
+
+                {loadedPosts.map((post, index) => (
+                  <DashboardFeedCard
+                    imgSrc="images/default-brgy.png"
+                    authorName={post.barangay_page_name}
+                    brgyId={post.barangay_page_id}
+                    city={post.barangay_page_municipality}
+                    date={post.post_date_created}
+                    key={post.post_id}                    
+                    postId={post.post_id}
+                    postMessage={post.post_message}
+                  />
+                ))}
               </div>
             </div>
           </div>
