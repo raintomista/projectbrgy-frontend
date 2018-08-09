@@ -1,7 +1,12 @@
 import React from 'react';
 import 'components/common/CommentSection.less';
 
-export default function CommentSection() {
+/*--------------- Form ---------------*/
+import form from 'forms/FormAddComment';
+
+export default function CommentSection(props) {
+  const { postId } = props;
+
   return (
     <div className="comment-section">
       <div className="comments">
@@ -32,13 +37,14 @@ export default function CommentSection() {
           </div>
         </div>
       </div>
-      <div className="comment-box">
+      <form className="comment-box" onSubmit={form.onSubmit}>
         <input
           type="text"
           className="form-control"
           placeholder="Write a comment..."
+          {...form.$('message').bind()}
         />
-      </div>
+      </form>
     </div>
   );
 } ``

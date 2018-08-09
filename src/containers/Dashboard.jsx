@@ -45,10 +45,14 @@ export default class Dashboard extends Component {
           authorName={post.barangay_page_name}
           brgyId={post.barangay_page_id}
           city={post.barangay_page_municipality}
+          commentCount={post.comment_count}
           date={post.post_date_created}
+          isLiked={post.is_liked}
           key={post.post_id}
+          likeCount={post.like_count}
           postId={post.post_id}
           postMessage={post.post_message}
+          shareCount={post.share_count}
         />
       );
     });

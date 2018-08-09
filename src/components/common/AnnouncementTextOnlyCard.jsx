@@ -9,6 +9,9 @@ import Moment from 'moment';
 import { observer } from 'mobx-react';
 import { Link } from "react-router-dom";
 
+/*---------------- Service ----------------*/
+import { likePost, unlikePost } from 'services/LikeService';
+
 /*---------------- Components ----------------*/
 import CommentSection from 'components/common/CommentSection';
 
@@ -16,13 +19,13 @@ import CommentSection from 'components/common/CommentSection';
 export default class AnnouncementTextOnlyCard extends Component {
   constructor(props) {
     super(props);
-    this.state = { showComments: false };
+    this.state = { showComments: false, isLiked: props.isLiked };
     this.toggleCommentSection = this.toggleCommentSection.bind(this);
   }
   render() {
-    const { authorName, brgyId, city, date, imgSrc, postMessage } = this.props;
+    const { authorName, brgyId, city, date, imgSrc, postId, postMessage } = this.props;
     const { showComments } = this.state;
-
+    
     return (
       <div className="feed-post card">
         <div className="card-body">
@@ -41,7 +44,12 @@ export default class AnnouncementTextOnlyCard extends Component {
           </div>
           <div className="post-content">{postMessage}</div>
           <div className="post-buttons">
-            <Link to='/dashboard' className="btn">Like</Link>
+            {this.state.isLiked === 0 ?
+              <a  onClick={() => this.likePost(postId)} className="btn">Like</a>
+              :
+              <a onClick={() => this.unlikePost(postId)} className="btn">Liked</a>
+            }
+
             <Link to='/dashboard' className="btn" onClick={this.toggleCommentSection}>Comment</Link>
             <Link to='/dashboard' className="btn">Share</Link>
           </div>
@@ -50,12 +58,31 @@ export default class AnnouncementTextOnlyCard extends Component {
 
         {/*<---------- Comments Sections ---------->*/}
         {showComments && (
-          <CommentSection />
+          <CommentSection postId={postId}/>
         )}
       </div>
     );
   }
 
+  async likePost(postId) {
+    try {
+      const response = await likePost(postId);
+      this.setState({ isLiked: 1 });
+    }
+    catch(e) {
+      console.log(e)
+    }
+  }
+
+  async unlikePost(postId) {
+    try {
+      const response = await unlikePost(postId);
+      this.setState({ isLiked: 0 });
+    }
+    catch(e) {
+      console.log(e)
+    }
+  }
 
   formatDate(date) {
     const currentDate = Moment();
