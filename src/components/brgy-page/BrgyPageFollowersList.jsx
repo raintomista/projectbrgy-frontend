@@ -21,14 +21,38 @@ const BrgyPageFollowersList = observer((props) => {
               return (
                 <li className="list-group-item" key={index}>
                   <div className="wrapper">
-                    {/* Profile Pic */}
-                    <img src="images/default-user.png" className="profile-pic" alt="" />
+
+                    {/* Barangay Member Profile Pic */}
+                    {follower.user_id !== null && (
+                      <Link to={viewUserProfile(follower.user_id)}>
+                        <img src="images/default-user.png" className="profile-pic" alt="" />
+                      </Link>
+                    )}
+
+                    {/* Barangay Page Profile Pic */}
+                    {follower.user_id === null && (
+                      <Link to={viewBrgyPage(follower.barangay_page_id)}>
+                        <img src="images/default-brgy.png" className="profile-pic" alt="" />
+                      </Link>
+                    )}
+
 
                     {/* Follower Name and Location */}
                     <div className="item-info">
 
-                      {/* Follow Name */}
-                      <Link to={viewUserProfile(follower.user_id)} className="item-name">{`${follower.user_first_name} ${follower.user_last_name}`}</Link>
+                      {/* Barangay Member Follower Name */}
+                      {follower.user_id !== null && (
+                        <Link to={viewUserProfile(follower.user_id)} className="item-name">
+                          {`${follower.user_first_name} ${follower.user_last_name}`}
+                        </Link>
+                      )}
+
+                      {/* Barangay Page Follower Name */}
+                      {follower.user_id === null && (
+                        <Link to={viewBrgyPage(follower.barangay_page_id)} className="item-name">
+                          {`${follower.barangay_page_name}`}
+                        </Link>
+                      )}
 
                       {/* Follow Location */}
                       <div className="item-location">
@@ -37,7 +61,7 @@ const BrgyPageFollowersList = observer((props) => {
                     </div>
                   </div>
 
-                  {/* Message Button (Do not display to logged user) */}  
+                  {/* Message Button (Do not display to logged user) */}
                   {AppData.loggedUser.id !== follower.user_id ? <a className="btn rounded">Message</a> : null}
                 </li>
               );
@@ -47,6 +71,11 @@ const BrgyPageFollowersList = observer((props) => {
       </div>
     </div>
   );
+});
+
+const viewBrgyPage = (brgyId) => ({
+  pathname: '/barangay',
+  search: `?id=${brgyId}`
 });
 
 const viewUserProfile = (userId) => ({
