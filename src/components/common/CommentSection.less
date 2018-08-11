@@ -4,8 +4,6 @@
     padding: 12px 15px 12px 15px;
 
     .view-more-comments {
-        color: #2a8abd;
-        cursor: pointer;
         display: flex;
         justify-content: space-between;
         font-family: 'Lato', sans-serif;
@@ -13,6 +11,15 @@
         font-weight: 500;  
         padding: 0px 0px 16px 0px;
         
+        a {
+            color: #2a8abd;
+        }
+        
+        a:hover {
+            color: #2a8abd;
+            cursor: pointer;
+            text-decoration: underline;
+        }
 
         .paginator {
             color: gray;
@@ -51,14 +58,24 @@
         margin: 0;            
         padding: 6px 12px;
         text-align: justify;
+        width: fit-content;
     }
 
-    .comment-date-created {
+    .comment-details {
         color: gray;
         font-family: 'Lato', sans-serif;
         font-size: 14px;
         font-weight: 500;  
         margin-left: 15px;
+        a {
+            color: #2a8abd;
+            cursor: pointer;
+        }
+
+        a:hover {
+            color: #2a8abd;            
+            text-decoration: underline;
+        }
     }
 
 }

@@ -53,6 +53,7 @@ export default class Dashboard extends Component {
           postId={post.post_id}
           postMessage={post.post_message}
           shareCount={post.share_count}
+          loggedUser={AppData.loggedUser}
         />
       );
     });

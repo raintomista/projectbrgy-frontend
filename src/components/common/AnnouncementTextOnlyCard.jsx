@@ -30,7 +30,7 @@ export default class AnnouncementTextOnlyCard extends Component {
   }
 
   render() {
-    const { authorName, brgyId, city, date, imgSrc, postId, postMessage } = this.props;
+    const { authorName, brgyId, city, date, imgSrc, loggedUser, postId, postMessage } = this.props;
     const { comments, showComments, totalPage, currentPage } = this.state;
 
     return (
@@ -70,6 +70,7 @@ export default class AnnouncementTextOnlyCard extends Component {
             comments={comments}
             totalPage={totalPage}
             currentPage={currentPage}
+            loggedUser={loggedUser}
           />
         )}
       </div>

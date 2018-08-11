@@ -8,7 +8,7 @@ import { fields, hooks, plugins } from 'forms/FormAddComment';
 import Moment from 'moment';
 import { observer } from 'mobx-react';
 
-import { getCommentsByPostId } from 'services/CommentService';
+import { deleteComment, getCommentsByPostId } from 'services/CommentService';
 import MobxReactForm from 'mobx-react-form';
 
 
@@ -21,7 +21,7 @@ export default class CommentSection extends Component {
       currentPage: this.props.currentPage,
       totalPage: this.props.totalPage
     };
-    
+
     // Comment section has own instance of the form
     this.form = new MobxReactForm({ fields }, { plugins, hooks });
 
@@ -44,7 +44,7 @@ export default class CommentSection extends Component {
   }
 
   render() {
-    const { postId } = this.props;
+    const { loggedUser, postId } = this.props;
     const { currentPage, totalPage } = this.state;
 
     let comments = [];
@@ -52,19 +52,28 @@ export default class CommentSection extends Component {
     this.form.select('comments').value.map((comment, index) => {
       const { barangay_page_id, barangay_page_name } = comment;
       const { comment_id, comment_date_created, comment_message } = comment;
-      const { user_id, user_first_name, user_last_name } = comment;
-
-
+      const { user_id, user_first_name, user_last_name, user_role } = comment;
+      
       /*-------- Comments of a Post ------- */
       comments.push(
         <div className="comment" key={comment_id}>
           <div className="comment-avatar">
-            <img src="images/default-user.png " alt="" />
+
+            {/* TODO: Fix remove user issues */}
+            {/*-------- Barangay Member Default Avatar  ------- */}
+            {user_role === 'barangay_member' && (
+              <img src="images/default-user.png " alt="" />
+            )}
+
+            {/*-------- Barangay Page Admin Default Avatar  ------- */}
+            {user_role === 'barangay_page_admin' && (
+              <img src="images/default-brgy.png " alt="" />
+            )}
           </div>
           <div className="comment-content">
 
             {/*-------- Barangay Member Comment  ------- */}
-            {user_id !== null && (
+            {user_role === 'barangay_member' && (
               <p className="comment-message">
                 <span className="comment-author">{`${user_first_name} ${user_last_name}`}</span>
                 {comment_message}
@@ -72,7 +81,7 @@ export default class CommentSection extends Component {
             )}
 
             {/*-------- Barangay Page Comment  ------- */}
-            {user_id === null && (
+            {user_role === 'barangay_page_admin' && (
               <p className="comment-message">
                 <span className="comment-author">{barangay_page_name}</span>
                 {comment_message}
@@ -80,8 +89,12 @@ export default class CommentSection extends Component {
             )}
 
             {/*-------- Barangay Member Comment  ------- */}
-            <div className="comment-date-created">
-              {this.formatDate(comment_date_created)}
+            <div className="comment-details">
+              <span className="comment-date-created">{this.formatDate(comment_date_created)} </span>
+
+              {user_id === loggedUser.user_id && (
+                <span> &middot; <a onClick={() => this.deleteMyComment(comment_id, index)}>Delete</a></span>
+              )}
             </div>
           </div>
         </div>
@@ -113,6 +126,25 @@ export default class CommentSection extends Component {
         </div>
       </div>
     );
+  }
+
+  async deleteMyComment(commentId, index) {
+    //TODO: Fix issues with deleting
+    try {
+      const response = await deleteComment(commentId);
+
+      // Get existing comments
+      let comments = this.form.select('comments').value;
+
+      // Remove selected comment
+      comments.splice(index, 1);
+
+      // Update array in form
+      this.form.select('comments').set('value', comments);
+    }
+    catch (e) {
+      console.log(e);
+    }
   }
 
   async loadPreviousComments(postId) {
@@ -150,6 +182,8 @@ export default class CommentSection extends Component {
   }
 
   handleKeyPress(e) {
+    //TODO: Fix issues with adding comment
+
     if (e.key === 'Enter') {
       this.form.select('postId').set('value', this.props.postId);
       this.form.onSubmit(e, 'test');

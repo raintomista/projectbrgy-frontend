@@ -16,6 +16,17 @@ export function addComment(postId, message) {
     });
 }
 
+export function deleteComment(commentId) {
+    const token = localStorage.getItem('x-access-token');
+    return axios({
+        url: `${API_HOST}/comment/${commentId}`,
+        method: 'delete',
+        headers: {
+            'x-access-token': token
+        }
+    });
+}
+
 
 export function getCommentsByPostId(postId, page, limit) {
     const token = localStorage.getItem('x-access-token');
