@@ -1,33 +1,46 @@
 /*--------------- Utils ---------------*/
-import MobxReactForm from 'mobx-react-form';
 import validatorjs from 'validatorjs';
 import RootStore from 'stores/RootStore';
 
-const plugins = { dvr: validatorjs };
+import { addComment } from 'services/CommentService';
+import { getCommentsByPostId } from 'services/CommentService';
 
-const fields = {
-    post_id: {
+export const plugins = { dvr: validatorjs };
+
+export const fields = {
+    postId: {
         rules: 'required',
     },
     message: {
         rules: 'required|string',
         placeholder: 'Write a comment...'
+    },
+    comments: {
+        value: []
     }
 };
 
-const hooks = {
-    onSuccess(form) {
-        console.log(form.values());
-        // const { message } = form.values();
+export const hooks = {
+    async onSuccess(form) {
+        const { postId, message } = form.values();
+        form.set('disabled', true);
 
-        alert('Your announcement has been posted.');
+        try {
+            const response = await addComment(postId, message);
+            const comments = form.select('comments').value;
 
+            // Update comments
+            comments.push(response.data.data);            
+            form.select('comments').set('value', comments);
 
-        // Clear form if success
-        form.clear();
-    },
-    onError(form) {
-        alert('An error occurred. Please try again.');
+            // Clear comment box
+            form.select('message').clear();
+
+            // Re-enable form
+            form.set('disabled', false);            
+        } 
+        catch (e) {
+            console.log(e);
+        }
     }
 }
-export default new MobxReactForm({ fields }, { plugins, hooks })

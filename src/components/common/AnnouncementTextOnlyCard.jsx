@@ -10,6 +10,7 @@ import { observer } from 'mobx-react';
 import { Link } from "react-router-dom";
 
 /*---------------- Service ----------------*/
+import { getCommentsByPostId } from 'services/CommentService';
 import { likePost, unlikePost } from 'services/LikeService';
 
 /*---------------- Components ----------------*/
@@ -19,13 +20,19 @@ import CommentSection from 'components/common/CommentSection';
 export default class AnnouncementTextOnlyCard extends Component {
   constructor(props) {
     super(props);
-    this.state = { showComments: false, isLiked: props.isLiked };
-    this.toggleCommentSection = this.toggleCommentSection.bind(this);
+    this.state = {
+      isLiked: props.isLiked,
+      showComments: false,
+      comments: [],
+      currentPage: 1,
+      totalPage: 1
+    };
   }
+
   render() {
     const { authorName, brgyId, city, date, imgSrc, postId, postMessage } = this.props;
-    const { showComments } = this.state;
-    
+    const { comments, showComments, totalPage, currentPage } = this.state;
+
     return (
       <div className="feed-post card">
         <div className="card-body">
@@ -45,12 +52,12 @@ export default class AnnouncementTextOnlyCard extends Component {
           <div className="post-content">{postMessage}</div>
           <div className="post-buttons">
             {this.state.isLiked === 0 ?
-              <a  onClick={() => this.likePost(postId)} className="btn">Like</a>
+              <a onClick={() => this.likePost(postId)} className="btn">Like</a>
               :
               <a onClick={() => this.unlikePost(postId)} className="btn">Liked</a>
             }
 
-            <Link to='/dashboard' className="btn" onClick={this.toggleCommentSection}>Comment</Link>
+            <Link to='/dashboard' className="btn" onClick={() => this.toggleCommentSection(postId)}>Comment</Link>
             <Link to='/dashboard' className="btn">Share</Link>
           </div>
         </div>
@@ -58,7 +65,12 @@ export default class AnnouncementTextOnlyCard extends Component {
 
         {/*<---------- Comments Sections ---------->*/}
         {showComments && (
-          <CommentSection postId={postId}/>
+          <CommentSection
+            postId={postId}
+            comments={comments}
+            totalPage={totalPage}
+            currentPage={currentPage}
+          />
         )}
       </div>
     );
@@ -69,7 +81,7 @@ export default class AnnouncementTextOnlyCard extends Component {
       const response = await likePost(postId);
       this.setState({ isLiked: 1 });
     }
-    catch(e) {
+    catch (e) {
       console.log(e)
     }
   }
@@ -79,7 +91,7 @@ export default class AnnouncementTextOnlyCard extends Component {
       const response = await unlikePost(postId);
       this.setState({ isLiked: 0 });
     }
-    catch(e) {
+    catch (e) {
       console.log(e)
     }
   }
@@ -95,9 +107,26 @@ export default class AnnouncementTextOnlyCard extends Component {
     }
   }
 
-  toggleCommentSection() {
-    const { showComments } = this.state;
-    this.setState({ showComments: !showComments })
+  async toggleCommentSection(postId) {
+    try {
+      const { showComments, currentPage } = this.state;
+      const response = await getCommentsByPostId(postId, currentPage, 3);
+      const total = response.data.data.total;
+
+      this.setState({
+        showComments: !showComments,
+        comments: response.data.data.items,
+        totalPage: Math.round((total / 3) + ((total % 3) / 3)),
+      });
+    }
+    catch (e) { //Notify backend to change empty array to status 201
+      const { showComments, currentPage } = this.state;
+      this.setState({
+        showComments: !showComments,
+        comments: [],
+        totalPage: 1,
+      });
+    }
   }
 
   viewBrgyPage(brgyId) {
