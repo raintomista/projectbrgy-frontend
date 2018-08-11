@@ -6,11 +6,11 @@ import { fields, hooks, plugins } from 'forms/FormAddComment';
 
 /*--------------- Utils ---------------*/
 import Moment from 'moment';
+import MobxReactForm from 'mobx-react-form';
 import { observer } from 'mobx-react';
+import { Link } from 'react-router-dom';
 
 import { deleteComment, getCommentsByPostId } from 'services/CommentService';
-import MobxReactForm from 'mobx-react-form';
-
 
 @observer
 export default class CommentSection extends Component {
@@ -53,7 +53,7 @@ export default class CommentSection extends Component {
       const { barangay_page_id, barangay_page_name } = comment;
       const { comment_id, comment_date_created, comment_message } = comment;
       const { user_id, user_first_name, user_last_name, user_role } = comment;
-      
+
       /*-------- Comments of a Post ------- */
       comments.push(
         <div className="comment" key={comment_id}>
@@ -62,12 +62,16 @@ export default class CommentSection extends Component {
             {/* TODO: Fix remove user issues */}
             {/*-------- Barangay Member Default Avatar  ------- */}
             {user_role === 'barangay_member' && (
-              <img src="images/default-user.png " alt="" />
+              <Link to={this.viewUserProfile(user_id)} >
+                <img src="images/default-user.png " alt="" />
+              </Link>
             )}
 
             {/*-------- Barangay Page Admin Default Avatar  ------- */}
             {user_role === 'barangay_page_admin' && (
-              <img src="images/default-brgy.png " alt="" />
+              <Link to={this.viewBrgyPage(barangay_page_id)} >
+                <img src="images/default-brgy.png " alt="" />
+              </Link>
             )}
           </div>
           <div className="comment-content">
@@ -75,7 +79,7 @@ export default class CommentSection extends Component {
             {/*-------- Barangay Member Comment  ------- */}
             {user_role === 'barangay_member' && (
               <p className="comment-message">
-                <span className="comment-author">{`${user_first_name} ${user_last_name}`}</span>
+                <Link to={this.viewUserProfile(user_id)} className="comment-author">{`${user_first_name} ${user_last_name}`}</Link>
                 {comment_message}
               </p>
             )}
@@ -83,7 +87,7 @@ export default class CommentSection extends Component {
             {/*-------- Barangay Page Comment  ------- */}
             {user_role === 'barangay_page_admin' && (
               <p className="comment-message">
-                <span className="comment-author">{barangay_page_name}</span>
+                <Link to={this.viewBrgyPage(barangay_page_id)} className="comment-author">{barangay_page_name}</Link>
                 {comment_message}
               </p>
             )}
@@ -187,6 +191,20 @@ export default class CommentSection extends Component {
     if (e.key === 'Enter') {
       this.form.select('postId').set('value', this.props.postId);
       this.form.onSubmit(e, 'test');
+    }
+  }
+
+  viewBrgyPage(brgyId) {
+    return {
+      pathname: '/barangay',
+      search: `?id=${brgyId}`
+    }
+  }
+
+  viewUserProfile(userId) {
+    return {
+      pathname: '/profile',
+      search: `?id=${userId}`
     }
   }
 }
