@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 /*--------------- Components ---------------*/
 import NavBar from 'components/common/NavBar';
 import AnnouncementTextOnlyCard from '../components/common/AnnouncementTextOnlyCard';
+import AnnouncementWithImagesCard from '../components/common/AnnouncementWithImagesCard';
 import DashboardPostBox from 'components/dashboard/DashboardPostBox';
 import DashboardSidebar from 'components/dashboard/DashboardSidebar';
 import NewsFeedOptions from 'components/dashboard/NewsFeedOptions';
@@ -40,7 +41,7 @@ export default class Dashboard extends Component {
 
     loadedPosts.map((post, index) => {
       items.push(
-        <AnnouncementTextOnlyCard
+        <AnnouncementWithImagesCard
           imgSrc="images/default-brgy.png"
           authorName={post.barangay_page_name}
           brgyId={post.barangay_page_id}

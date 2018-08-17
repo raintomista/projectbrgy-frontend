@@ -54,14 +54,21 @@ export default class AnnouncementTextOnlyCard extends Component {
               </Link>
             </div>
           </div>
-          <div className="post-content">{postMessage}</div>
+          <div className="post-content">
+            <div className="post-caption">{postMessage}</div>
+            <div className="post-images">
+              <div className="single-image-container">
+                <img src="images/post2.jpg" alt=""/>
+              </div>
+            </div>
+          </div>
           <div className="post-stats">
             <div className="post-stats-left">
               <Link to='/' className="post-likes-count">100 Likes</Link>
             </div>
             <div className="post-stats-right">
-            <a className="post-comments-count" onClick={() => this.toggleCommentSection(postId)} >100 Comments</a>
-            <Link to='/' className="post-shares-count">100 Shares</Link>
+              <a className="post-comments-count" onClick={() => this.toggleCommentSection(postId)} >100 Comments</a>
+              <Link to='/' className="post-shares-count">100 Shares</Link>
             </div>
           </div>
           <div className="post-buttons">

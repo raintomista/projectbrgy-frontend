@@ -1,0 +1,210 @@
+.feed-post {
+    margin-bottom: 16px;
+
+    .card-body {
+        padding: 15px 15px 0px 15px;
+    }
+
+    /* Post Details Group */
+    .post-details-group {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        margin-bottom: 6px;
+    }
+
+    /* Post Author Avatar */
+    .post-details-group .post-author-avatar {
+        border: 2px solid #2a8abd;
+        border-radius: 100%;
+        display: inline-block;
+        height: 45px;
+        width: 45px;
+    }
+
+    /* Post Details */
+    .post-details-group .post-details {
+        color: gray;
+        height: 50px;
+        margin-top: 5px;                
+        margin-left: 8px;
+    }
+
+    /* Post Author */
+    .post-details-group .post-details > .post-author {
+        color: #2a8abd !important;
+        display: block;
+        font-family: 'Lato', sans-serif;
+        font-size: 17px;
+        font-weight: 600;
+        margin-bottom: -5px;
+    }
+
+    .post-details-group .post-details > .post-author:hover {
+        color: #2a8abd !important
+    }
+
+    /* Post Location and Timestamp */
+
+    .post-details-group .post-details > .post-location, 
+    .post-details-group .post-details > .post-timestamp {
+        color: gray !important; 
+        font-family: 'Lato', sans-serif;
+        font-size: 14px;
+        margin-top: -2px;
+    }
+
+    .post-details-group .post-details > .post-location:hover,
+    .post-details-group .post-details > .post-timestamp:hover {
+        color: gray !important;        
+    }
+
+    .post-options {
+        font-size: 15px;
+        margin-left: auto;
+        padding: 0 5px;
+    }
+
+    .post-content {
+        margin-bottom: 12px;
+    }
+
+    /* Post Caption */
+    .post-caption {
+        font-family: 'Lato', sans-serif;
+        font-size: 15px;
+        margin-bottom: 12px;
+    }
+    
+    /* Single Image Content */
+    .single-image-container {
+        width: calc(100% + 30px);
+        max-height: 450px;
+        margin-left: -15px;
+        overflow: hidden;
+        cursor: pointer;
+
+        img {
+            width: 100%;
+            height: auto;    
+        }
+    }
+
+
+    /* Dual Image Content */
+    .dual-image-container {
+        width: calc(100% + 30px);
+        margin-left: -15px;
+
+        .top-image {
+            width: 100%;
+            height: 225px;
+            margin-bottom: 2.5px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .bottom-image {
+            width: 100%;            
+            margin-top: 2.5px;            
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        img {
+            margin-top: -25%;
+            width: 100%;   
+            height: auto;             
+        }
+    }
+
+    /* Triple Image Content */
+    .triple-image-container {
+        width: calc(100% + 30px);
+        margin-left: -15px;
+
+        .top-image {
+            width: 100%;
+            height: 225px;
+            margin-bottom: 5px;
+            overflow: hidden;
+            cursor: pointer;
+
+            img {
+                width: 100%;
+                margin-top: -25%;
+                height: auto;
+            }
+        }
+
+        .bottom-images {
+            display: flex;
+            height: 225px;
+            
+            .image:first-child {
+                width: 50%;
+                overflow: hidden;
+                margin-right: 2.5px;
+                cursor: pointer;
+            }
+
+            .image:last-child {
+                width: 50%;
+                overflow: hidden;
+                margin-left: 2.5px;
+                cursor: pointer;                
+            }
+
+            img {
+                width: 150%;
+                height: auto;
+            }
+        }
+    }
+
+    /* Post Stats */
+
+    .post-stats {
+        display: flex;
+        justify-content: space-between;
+        font-family: 'Lato', sans-serif;
+        font-size: 14px;
+        margin-bottom: 12px;
+    }
+
+    .post-likes-count, 
+    .post-comments-count, 
+    .post-shares-count {
+        color: gray !important;
+        cursor: pointer;
+    }
+
+    .post-likes-count:hover, 
+    .post-comments-count:hover, 
+    .post-shares-count:hover {
+        text-decoration: underline !important;
+    }
+
+    .post-stats-right > a:last-child {
+        margin-left: 9px !important;
+    }
+
+    .post-buttons {
+        border-top: 1px solid rgba(0, 0, 0, 0.125);
+        display: flex;
+        justify-content: space-around;
+        padding: 5px 0px 8px 0px;
+
+
+        .btn {
+            color: gray !important;
+            font-family: 'Lato', sans-serif;
+            padding: 5px 0px;
+        }
+
+        .btn.liked {
+            color: #2a8abd !important;
+            font-weight: 700;
+        }
+    }
+}
