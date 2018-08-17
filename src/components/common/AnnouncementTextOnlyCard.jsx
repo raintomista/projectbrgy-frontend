@@ -16,6 +16,8 @@ import { likePost, unlikePost } from 'services/LikeService';
 /*---------------- Components ----------------*/
 import CommentSection from 'components/common/CommentSection';
 
+import 'components/common/AnnouncementTextOnlyCard.less';
+
 @observer
 export default class AnnouncementTextOnlyCard extends Component {
   constructor(props) {
@@ -36,28 +38,40 @@ export default class AnnouncementTextOnlyCard extends Component {
     return (
       <div className="feed-post card">
         <div className="card-body">
-          <div className="post-info-group">
-            <Link to={this.viewBrgyPage(brgyId)} className="post-author">
-              <img src={imgSrc} className="post-avatar" alt="" />
+          <div className="post-details-group">
+            <Link to={this.viewBrgyPage(brgyId)}>
+              <img src={imgSrc} className="post-author-avatar" alt="" />
             </Link>
-            <div className="post-info">
+            <div className="post-details">
               <Link to={this.viewBrgyPage(brgyId)} className="post-author">{authorName}</Link>
               <Link to='/dashboard' className="post-location">{city}</Link>
+              <span> &middot; </span>
               <Link to='/dashboard' className="post-timestamp">{this.formatDate(date)}</Link>
             </div>
-            <Link to='/dashboard' className="more">
-              <FontAwesomeIcon icon={faChevronDown} />
-            </Link>
+            <div className="post-options">
+              <Link to='/dashboard' className="more">
+                <FontAwesomeIcon icon={faChevronDown} />
+              </Link>
+            </div>
           </div>
           <div className="post-content">{postMessage}</div>
+          <div className="post-stats">
+            <div className="post-stats-left">
+              <Link to='/' className="post-likes-count">100 Likes</Link>
+            </div>
+            <div className="post-stats-right">
+            <a className="post-comments-count" onClick={() => this.toggleCommentSection(postId)} >100 Comments</a>
+            <Link to='/' className="post-shares-count">100 Shares</Link>
+            </div>
+          </div>
           <div className="post-buttons">
             {this.state.isLiked === 0 ?
               <a onClick={() => this.likePost(postId)} className="btn">Like</a>
               :
-              <a onClick={() => this.unlikePost(postId)} className="btn">Liked</a>
+              <a onClick={() => this.unlikePost(postId)} className="btn liked">Liked</a>
             }
 
-            <Link to='/dashboard' className="btn" onClick={() => this.toggleCommentSection(postId)}>Comment</Link>
+            <a className="btn" onClick={() => this.toggleCommentSection(postId)}>Comment</a>
             <Link to='/dashboard' className="btn">Share</Link>
           </div>
         </div>
