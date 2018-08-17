@@ -16,6 +16,8 @@ import { likePost, unlikePost } from 'services/LikeService';
 /*---------------- Components ----------------*/
 import CommentSection from 'components/common/CommentSection';
 
+import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+
 import 'components/common/AnnouncementCard.less';
 
 @observer
@@ -23,17 +25,23 @@ export default class AnnouncementTextOnlyCard extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      isDropdownOpen: false,
       isLiked: props.isLiked,
       showComments: false,
+      likeCount: props.likeCount,
+      commentCount: props.commentCount,
+      shareCount: props.shareCount,
       comments: [],
       currentPage: 1,
-      totalPage: 1
+      totalPage: 1,
     };
+    this.toggleDropdown = this.toggleDropdown.bind(this);
   }
 
   render() {
     const { authorName, brgyId, city, date, imgSrc, loggedUser, postId, postMessage } = this.props;
-    const { comments, showComments, totalPage, currentPage } = this.state;
+    const { comments, showComments, totalPage, currentPage } = this.state; //Comment section-related
+    const { likeCount, commentCount, shareCount } = this.state; //Post Stats
 
     return (
       <div className="feed-post card">
@@ -49,19 +57,35 @@ export default class AnnouncementTextOnlyCard extends Component {
               <Link to='/dashboard' className="post-timestamp">{this.formatDate(date)}</Link>
             </div>
             <div className="post-options">
-              <Link to='/dashboard' className="more">
-                <FontAwesomeIcon icon={faChevronDown} />
-              </Link>
+              <Dropdown isOpen={this.state.isDropdownOpen} toggle={this.toggleDropdown}>
+                <DropdownToggle><FontAwesomeIcon icon={faChevronDown} /></DropdownToggle>
+                <DropdownMenu>
+                  <DropdownItem>Delete Post</DropdownItem>
+                </DropdownMenu>
+              </Dropdown>
             </div>
           </div>
           <div className="post-content">{postMessage}</div>
           <div className="post-stats">
             <div className="post-stats-left">
-              <Link to='/' className="post-likes-count">100 Likes</Link>
+              {likeCount > 0 && (
+                <Link to='/' className="post-likes-count">
+                  {likeCount === 1 ? `${likeCount} Like` : `${likeCount} Likes`}
+                </Link>
+              )}
+
             </div>
             <div className="post-stats-right">
-            <a className="post-comments-count" onClick={() => this.toggleCommentSection(postId)} >100 Comments</a>
-            <Link to='/' className="post-shares-count">100 Shares</Link>
+              {commentCount > 0 && (
+                <a className="post-comments-count" onClick={() => this.toggleCommentSection(postId)}>
+                  {commentCount === 1 ? `${commentCount} Comment` : `${commentCount} Comments`}
+                </a>
+              )}
+              {shareCount > 0 && (
+                <Link to='/' className="post-shares-count">
+                  {shareCount === 1 ? `${shareCount} Share` : `${shareCount} Share`}
+                </Link>
+              )}
             </div>
           </div>
           <div className="post-buttons">
@@ -94,7 +118,12 @@ export default class AnnouncementTextOnlyCard extends Component {
   async likePost(postId) {
     try {
       const response = await likePost(postId);
-      this.setState({ isLiked: 1 });
+      const { likeCount } = this.state;
+
+      this.setState((prevState) => ({
+        isLiked: 1,
+        likeCount: prevState.likeCount + 1
+      }));
     }
     catch (e) {
       console.log(e)
@@ -104,7 +133,10 @@ export default class AnnouncementTextOnlyCard extends Component {
   async unlikePost(postId) {
     try {
       const response = await unlikePost(postId);
-      this.setState({ isLiked: 0 });
+      this.setState((prevState) => ({
+        isLiked: 0,
+        likeCount: prevState.likeCount - 1
+      }));
     }
     catch (e) {
       console.log(e)
@@ -124,23 +156,23 @@ export default class AnnouncementTextOnlyCard extends Component {
 
   async toggleCommentSection(postId) {
     try {
-      const { showComments, currentPage } = this.state;
+      const { currentPage } = this.state;
+
       const response = await getCommentsByPostId(postId, currentPage, 3);
       const total = response.data.data.total;
 
-      this.setState({
-        showComments: !showComments,
+      this.setState((prevState) => ({
+        showComments: !prevState.showComments,
         comments: response.data.data.items,
         totalPage: Math.round((total / 3) + ((total % 3) / 3)),
-      });
+      }));
     }
     catch (e) { //Notify backend to change empty array to status 201
-      const { showComments, currentPage } = this.state;
-      this.setState({
-        showComments: !showComments,
+      this.setState((prevState) => ({
+        showComments: !prevState.showComments,
         comments: [],
         totalPage: 1,
-      });
+      }));
     }
   }
 
@@ -149,5 +181,11 @@ export default class AnnouncementTextOnlyCard extends Component {
       pathname: '/barangay',
       search: `?id=${brgyId}`
     }
+  }
+
+  toggleDropdown() {
+    this.setState((prevState) => ({
+      isDropdownOpen: !prevState.isDropdownOpen
+    }))
   }
 }

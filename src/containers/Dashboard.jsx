@@ -40,8 +40,9 @@ export default class Dashboard extends Component {
     let items = [];
 
     loadedPosts.map((post, index) => {
+      
       items.push(
-        <AnnouncementWithImagesCard
+        <AnnouncementTextOnlyCard
           imgSrc="images/default-brgy.png"
           authorName={post.barangay_page_name}
           brgyId={post.barangay_page_id}
