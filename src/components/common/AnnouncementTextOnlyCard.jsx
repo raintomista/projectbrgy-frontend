@@ -65,7 +65,11 @@ export default class AnnouncementTextOnlyCard extends Component {
               </Dropdown>
             </div>
           </div>
-          <div className="post-content">{postMessage}</div>
+          <div className="post-content">
+            <div className="post-caption">
+              {postMessage}
+            </div>
+          </div>
           <div className="post-stats">
             <div className="post-stats-left">
               {likeCount > 0 && (
