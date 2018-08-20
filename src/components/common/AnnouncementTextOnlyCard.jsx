@@ -162,13 +162,13 @@ export default class AnnouncementTextOnlyCard extends Component {
     try {
       const { currentPage } = this.state;
 
-      const response = await getCommentsByPostId(postId, currentPage, 3);
+      const response = await getCommentsByPostId(postId, currentPage, 4);
       const total = response.data.data.total;
 
       this.setState((prevState) => ({
         showComments: !prevState.showComments,
         comments: response.data.data.items,
-        totalPage: Math.round((total / 3) + ((total % 3) / 3)),
+        totalPage: Math.ceil(total/4)
       }));
     }
     catch (e) { //Notify backend to change empty array to status 201

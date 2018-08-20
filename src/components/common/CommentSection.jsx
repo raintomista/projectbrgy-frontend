@@ -11,6 +11,7 @@ import { observer } from 'mobx-react';
 import { Link } from 'react-router-dom';
 
 import { deleteComment, getCommentsByPostId } from 'services/CommentService';
+import CommentLoader from 'components/common/CommentLoader';
 
 @observer
 export default class CommentSection extends Component {
@@ -19,7 +20,8 @@ export default class CommentSection extends Component {
 
     this.state = {
       currentPage: this.props.currentPage,
-      totalPage: this.props.totalPage
+      totalPage: this.props.totalPage,
+      isLoading: false
     };
 
     // Comment section has own instance of the form
@@ -46,6 +48,7 @@ export default class CommentSection extends Component {
   render() {
     const { loggedUser, postId } = this.props;
     const { currentPage, totalPage } = this.state;
+    const formComment = this.form.select('comments').value;
 
     let comments = [];
 
@@ -97,7 +100,7 @@ export default class CommentSection extends Component {
               <span className="comment-date-created">{this.formatDate(comment_date_created)} </span>
 
               {user_id === loggedUser.user_id && (
-                <span> &middot; <a onClick={() => this.deleteMyComment(comment_id, index)}>Delete</a></span>
+                <span> &middot; <a onClick={() => this.deleteMyComment(comment_id, postId)}>Delete</a></span>
               )}
             </div>
           </div>
@@ -105,21 +108,9 @@ export default class CommentSection extends Component {
       );
     });
 
+
     return (
       <div className="comment-section">
-        <div className="comments">
-
-          {/*------------------ Hide if the page reaches the total page ------------------*/}
-          {currentPage !== totalPage && (
-            <div className="view-more-comments">
-              <a onClick={() => this.loadPreviousComments(postId)}>View previous comments</a>
-              <span className="paginator">{currentPage} of {totalPage}</span>
-            </div>
-          )}
-
-          {/*-- Render Comments of a Post --*/}
-          {comments}
-        </div>
         <div className="comment-box">
           <input
             type="text"
@@ -128,35 +119,58 @@ export default class CommentSection extends Component {
             {...this.form.$('message').bind()}
           />
         </div>
+        <CommentLoader visible={this.state.isLoading} />
+        {!this.state.isLoading && (
+          <div className="comments">
+            {/*-- Render Comments of a Post --*/}
+            {comments}
+
+            {/*------------------ Hide if the page reaches the total page ------------------*/}
+            {currentPage !== totalPage && (
+              <div className="view-more-comments">
+                <a onClick={() => this.loadNextComments(postId)}>View next comments</a>
+                <span className="paginator">{currentPage} of {totalPage}</span>
+              </div>
+            )}
+          </div>
+        )}
       </div>
     );
   }
 
-  async deleteMyComment(commentId, index) {
+  async deleteMyComment(commentId, postId) {
     //TODO: Fix issues with deleting
     try {
-      const response = await deleteComment(commentId);
+      await deleteComment(commentId);
 
-      // Get existing comments
-      let comments = this.form.select('comments').value;
+      // Set comment array to null in order to show loader
+      this.setState({ isLoading: true });
 
-      // Remove selected comment
-      comments.splice(index, 1);
+      // Reset current page to page 1 and fetch total page and items
+      const response = await getCommentsByPostId(postId, 1, 4);
+      const comments = response.data.data.items;
+      let totalPage = response.data.data.total;
+      totalPage = Math.ceil((totalPage / 4));
 
-      // Update array in form
-      this.form.select('comments').set('value', comments);
+      setTimeout(() => {
+        this.setState({ currentPage: 1, totalPage: totalPage, isLoading: false   }, () => {
+          this.form.select('comments').set('value', comments);
+        });
+      }, 1000);
     }
     catch (e) {
       console.log(e);
     }
   }
 
-  async loadPreviousComments(postId) {
+  async loadNextComments(postId) {
     const { currentPage, totalPage } = this.state;
+    const { newCommentCount } = this.form.values();
 
     if (currentPage < totalPage) {
       const newCurrentPage = currentPage + 1;
-      const response = await getCommentsByPostId(postId, newCurrentPage, 3);
+      const response = await getCommentsByPostId(postId, newCurrentPage, 4);
+      const nextComments = response.data.data.items;
 
       // Set new current page
       this.setState({ currentPage: newCurrentPage });
@@ -166,7 +180,7 @@ export default class CommentSection extends Component {
       let comments = this.form.select('comments').value;
 
       // Add fetched comment to the head of the array
-      comments.unshift(...response.data.data.items);
+      comments.push(...nextComments);
 
 
       // Update the comment array in forms
@@ -176,12 +190,17 @@ export default class CommentSection extends Component {
 
   formatDate(date) {
     const currentDate = Moment();
-    const diff = Moment(date).diff(currentDate, 'hours');
+    const diffInSeconds = parseInt(Moment(date).diff(currentDate, 'seconds'), 10);
+    const diffInHours = parseInt(Moment(date).diff(currentDate, 'hours'), 10);
 
-    if (parseInt(diff, 10) <= -21) {
+    if (diffInHours <= -21) {
       return Moment(date).format('MMM D, YYYY [at] h:mm a');
-    } else {
+    }
+    else if (diffInHours > -21 && (diffInSeconds < -60 || diffInSeconds > -10)) {
       return Moment(date).fromNow();
+    }
+    else if (diffInHours > -21 && diffInSeconds <= -10) {
+      return `${Math.abs(diffInSeconds)} seconds ago`;
     }
   }
 

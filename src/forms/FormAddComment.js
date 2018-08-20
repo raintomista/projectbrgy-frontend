@@ -17,6 +17,9 @@ export const fields = {
     },
     comments: {
         value: []
+    },
+    myComments: {
+        value: []
     }
 };
 
@@ -27,11 +30,11 @@ export const hooks = {
 
         try {
             const response = await addComment(postId, message);
-            const comments = form.select('comments').value;
+            const myComments = form.select('myComments').value;
 
             // Update comments
-            comments.push(response.data.data);            
-            form.select('comments').set('value', comments);
+            myComments.unshift(response.data.data);         
+            form.select('myComments').set('value', myComments);
 
             // Clear comment box
             form.select('message').clear();
