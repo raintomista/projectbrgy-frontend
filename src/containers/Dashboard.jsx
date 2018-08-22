@@ -5,6 +5,9 @@ import React, { Component } from 'react';
 import NavBar from 'components/common/NavBar';
 import AnnouncementTextOnlyCard from '../components/common/AnnouncementTextOnlyCard';
 import AnnouncementWithImagesCard from '../components/common/AnnouncementWithImagesCard';
+import SharedAnnouncementTextOnlyCard from '../components/common/SharedAnnouncementTextOnlyCard';
+import BarangayPostCard from 'components/common/BarangayPost/BarangayPostCard';
+
 import DashboardPostBox from 'components/dashboard/DashboardPostBox';
 import DashboardSidebar from 'components/dashboard/DashboardSidebar';
 import NewsFeedOptions from 'components/dashboard/NewsFeedOptions';
@@ -19,6 +22,7 @@ import 'stylesheets/containers/Dashboard.less';
 
 /*--------------- Mobx Stores ---------------*/
 import RootStore from 'stores/RootStore';
+
 
 @observer
 export default class Dashboard extends Component {
@@ -42,20 +46,21 @@ export default class Dashboard extends Component {
     loadedPosts.map((post, index) => {
       
       items.push(
-        <AnnouncementTextOnlyCard
-          imgSrc="images/default-brgy.png"
-          authorName={post.barangay_page_name}
-          brgyId={post.barangay_page_id}
-          city={post.barangay_page_municipality}
-          commentCount={post.comment_count}
-          date={post.post_date_created}
-          isLiked={post.is_liked}
+        <BarangayPostCard
           key={post.post_id}
-          likeCount={post.like_count}
-          postId={post.post_id}
-          postMessage={post.post_message}
-          shareCount={post.share_count}
+          authorId={post.barangay_page_id}
+          authorImg={'images/default-brgy.png'}
+          authorName={post.barangay_page_name}
+          authorLocation={post.barangay_page_municipality}
+          isLiked={post.is_liked}
           loggedUser={AppData.loggedUser}
+          postId={post.post_id}
+          postDate={post.post_date_created}
+          postMessage={post.post_message}
+          postType={'announcement'}
+          statsComments={post.comment_count}
+          statsLikes={post.like_count}
+          statsShares={post.share_count}
         />
       );
     });
