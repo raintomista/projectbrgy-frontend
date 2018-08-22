@@ -40,7 +40,7 @@ const BarangayPostDetails = observer((props) => {
         <div className="post-subdetails">
           <Link to='/dashboard' className="post-location">{props.authorLocation}</Link>
           <span> &middot; </span>
-          <Link to={viewPost(props.postId)} className="post-timestamp">{formatDate(props.postDate)}</Link>
+          <Link to={viewPost(props.postId)} className="post-timestamp">{props.postDate}</Link>
         </div>
       </div>
       
@@ -77,23 +77,6 @@ BarangayPostDetails.propTypes = {
 
 export default BarangayPostDetails;
 
-
-/*---------- Utility Functions ----------*/
-function formatDate(date) {
-  const currentDate = Moment();
-  const diffInSeconds = parseInt(Moment(date).diff(currentDate, 'seconds'), 10);
-  const diffInHours = parseInt(Moment(date).diff(currentDate, 'hours'), 10);
-
-  if (diffInHours <= -21) {
-    return Moment(date).format('MMM D, YYYY [at] h:mm a');
-  }
-  else if (diffInHours > -21 && (diffInSeconds < -60 || diffInSeconds > -10)) {
-    return Moment(date).fromNow();
-  }
-  else if (diffInHours > -21 && diffInSeconds <= -10) {
-    return `${Math.abs(diffInSeconds)} seconds ago`;
-  }
-}
 
 function viewBrgyPage(brgyId) {
   return {

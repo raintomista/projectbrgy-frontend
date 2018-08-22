@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+// Utilities
+import Moment from 'moment';
 import { observer } from 'mobx-react';
 import MobxReactForm from 'mobx-react-form';
 
@@ -9,7 +11,8 @@ import BarangayPostDetails from './subcomponents/Details';
 import BarangayPostContent from './subcomponents/Content';
 import BarangayPostStats from './subcomponents/Stats';
 import BarangayPostActionButtons from './subcomponents/ActionButtons';
-import { fields, hooks, plugins } from './subcomponents/CommentForm';
+import CommentSection from 'components/common/Comments/Section';
+import { fields, hooks, plugins } from 'components/common/Comments/subcomponents/Form';
 
 // Services 
 import { getCommentsByPostId } from 'services/CommentService';
@@ -36,8 +39,8 @@ export default class BarangayPostCard extends Component {
 
     // Initialize comment form
     this.form = new MobxReactForm({ fields }, { plugins, hooks });
-    this.form.select('comments').set('value', this.state.comments);    
-    this.form.select('postId').set('value', this.props.postId);    
+    this.form.select('postId').set('value', this.props.postId);
+    this.form.select('comments').set('value', this.state.comments);
     this.form.select('statsComments').set('value', this.state.statsComments);
   }
 
@@ -55,12 +58,12 @@ export default class BarangayPostCard extends Component {
             isPostOptionsOpen={this.state.isPostOptionsOpen}
             loggedUser={this.props.loggedUser}
             postId={this.props.postId}
-            postDate={this.props.postDate}
+            postDate={this._handleFormatDate(this.props.postDate)}
             postType={this.props.postType}
           />
           <BarangayPostContent postMessage={this.props.postMessage} />
           <BarangayPostStats
-            handleToggleComments={() => this._handleToggleComments()}
+            handleToggleComments={() => this._handleToggleComments(1)}
             postId={this.props.postId}
             statsLikes={this.state.statsLikes}
             statsComments={this.form.select('statsComments').value}
@@ -70,15 +73,59 @@ export default class BarangayPostCard extends Component {
             isLiked={this.state.isLiked}
             handleLikePost={() => this._handleLikePost()}
             handleUnlikePost={() => this._handleUnlikePost()}
-            handleToggleComments={() => this._handleToggleComments()}
+            handleToggleComments={() => this._handleToggleComments(1)}
           />
+          {this.state.isCommentSectionVisible && (
+            <CommentSection
+              comments={this.form.select('comments').value}
+              form={this.form}
+              fetchLimit={this.state.fetchLimit}
+              loggedUser={this.props.loggedUser}
+              handleFormatDate={(date) => this._handleFormatDate(date)}
+              newComments={this.form.select('newComments').value}
+              postId={this.props.postId}
+              totalComments={this.state.totalComments}
+            />
+          )}
         </div>
       </div>
     );
   }
 
+  componentDidMount() {
+    this.interval = setInterval(() => {
+      this.setState({ updated: 1 });
+    }, 2500);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
+  }
+
   _handleDeletePost() {
 
+  }
+
+  _handleEnter(e) {
+    if (e.key === 'Enter') {
+      this.form.onSubmit(e);
+    }
+  }
+
+  _handleFormatDate(date) {
+    const currentDate = Moment();
+    const diffInSeconds = parseInt(Moment(date).diff(currentDate, 'seconds'), 10);
+    const diffInHours = parseInt(Moment(date).diff(currentDate, 'hours'), 10);
+
+    if (diffInHours <= -21) {
+      return Moment(date).format('MMM D, YYYY [at] h:mm a');
+    }
+    else if (diffInHours > -21 && (diffInSeconds < -60 || diffInSeconds > -10)) {
+      return Moment(date).fromNow();
+    }
+    else if (diffInHours > -21 && diffInSeconds <= -10) {
+      return `${Math.abs(diffInSeconds)} seconds ago`;
+    }
   }
 
   async _handleLikePost() {
@@ -108,18 +155,22 @@ export default class BarangayPostCard extends Component {
   }
 
   async _handleToggleComments(currentPage) {
-    try {
-      const response = await getCommentsByPostId(this.props.postId, currentPage, this.state.fetchLimit);
-      this.setState((prevState) => ({
-        isCommentSectionVisible: !prevState.isCommentSectionVisible,
-        comments: response.data.data.items,
-        total: response.data.data.total
-      }));
-    }
-    catch (e) {
-      this.setState((prevState) => ({
-        isCommentSectionVisible: !prevState.isCommentSectionVisible
-      }));
+    if (!this.state.isCommentSectionVisible) {
+      try {
+        const response = await getCommentsByPostId(this.props.postId, currentPage, this.state.fetchLimit);
+        this.setState((prevState) => ({
+          isCommentSectionVisible: true,
+          comments: response.data.data.items,
+          totalComments: response.data.data.total
+        }));
+
+        this.form.select('comments').set('value', this.state.comments);
+      }
+      catch (e) {
+        this.setState((prevState) => ({
+          isCommentSectionVisible: true
+        }));
+      }
     }
   }
 
@@ -129,7 +180,6 @@ export default class BarangayPostCard extends Component {
     }))
   }
 }
-
 
 BarangayPostCard.propTypes = {
   authorId: PropTypes.string.isRequired,
