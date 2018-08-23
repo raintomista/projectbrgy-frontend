@@ -7,6 +7,7 @@ import { observer } from 'mobx-react';
 // Subcomponents
 import CommentBox from './subcomponents/FieldBox';
 import CommentItem from './subcomponents/Item';
+import CommentLoader from './subcomponents/Loader';
 import ViewMoreComment from './subcomponents/ViewMore';
 
 // Services
@@ -38,14 +39,17 @@ export default class CommentSection extends Component {
           field={this.props.form.select('commentMessage')}
         />
         <div className="comments">
+          {this.state.isLoading && <CommentLoader />}
           {/* All comments from the server when the component mounted */}
-          {newComments}          
+          {newComments}
           {comments}
-          <ViewMoreComment
-            currentPage={this.state.currentPage}
-            totalPage={this.state.totalPage}
-            handleLoadNextComments={() => this._handleLoadNextComments(this.props.postId)}
-          />
+          {!this.state.isLoading && (
+            <ViewMoreComment
+              currentPage={this.state.currentPage}
+              totalPage={this.state.totalPage}
+              handleLoadNextComments={() => this._handleLoadNextComments(this.props.postId)}
+            />
+          )}
         </div>
       </div>
     );
@@ -71,11 +75,11 @@ export default class CommentSection extends Component {
 
         // Comment Message
         commentId={comment.comment_id}
-        commentBrgyId={comment.comment_barangay_id}        
+        commentBrgyId={comment.comment_barangay_id}
         commentMessage={comment.comment_message}
 
         formattedCreatedDate={this.props.handleFormatDate(comment.comment_date_created)}
-        
+
         loggedUser={this.props.loggedUser}
 
         // Barangay Member Credentials
@@ -93,6 +97,11 @@ export default class CommentSection extends Component {
   }
 
   async _handleDeleteComment(commentId, postId) {
+    this.setState({ isLoading: true }, () => {
+      this.props.form.select('comments').set('value', []);
+      this.props.form.select('newComments').set('value', []);
+    });
+
     try {
       await deleteComment(commentId);
 
@@ -105,20 +114,22 @@ export default class CommentSection extends Component {
       let totalPage = response.data.data.total;
       totalPage = Math.ceil((totalPage / this.props.fetchLimit));
 
-      // Set the state of the currentPage and total Page
-      this.setState({ currentPage: 1, totalPage: totalPage });
-      
-      this.props.form.select('comments').set('value', comments); //Replace the comment section with the fetched first 4 (since fetchlimit is 4) comments
-      this.props.form.select('newComments').set('value', []); // The value of the new comments will be resetted to empty since the comment is resetted to the first 4 comments
-      this.props.form.select('statsComments').set('value', statsComments - 1); // Decrement stats when a comment is deleted
+      setTimeout(() => {
+        this.setState({  isLoading: false, currentPage: 1, totalPage: totalPage },
+          () => {
+            this.props.form.select('comments').set('value', comments); //Replace the comment section with the fetched first 4 (since fetchlimit is 4) comments
+            this.props.form.select('newComments').set('value', []); // The value of the new comments will be resetted to empty since the comment is resetted to the first 4 comments
+            this.props.form.select('statsComments').set('value', statsComments - 1); // Decrement stats when a comment is deleted
+          });
+      }, 1000);
     }
     catch (e) {
       console.log(e);
     }
   }
 
-  _handleEnter(e){
-    if(e.key === 'Enter') {
+  _handleEnter(e) {
+    if (e.key === 'Enter') {
       this.props.form.onSubmit(e);
     }
   }
