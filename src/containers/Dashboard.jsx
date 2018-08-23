@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 
 /*--------------- Components ---------------*/
 import NavBar from 'components/common/NavBar';
-import BarangayPostCard from 'components/common/BarangayPost/BarangayPostCard';
+import BarangayPostCard from 'components/common/Post/PostCard';
 
 import DashboardPostBox from 'components/dashboard/DashboardPostBox';
 import DashboardSidebar from 'components/dashboard/DashboardSidebar';

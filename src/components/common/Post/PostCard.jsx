@@ -19,10 +19,10 @@ import { getCommentsByPostId } from 'services/CommentService';
 import { likePost, unlikePost } from 'services/PostService';
 
 // Stylesheet
-import './BarangayPostCard.less';
+import './PostCard.less';
 
 @observer
-export default class BarangayPostCard extends Component {
+export default class BarangayPost extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -178,7 +178,7 @@ export default class BarangayPostCard extends Component {
   }
 }
 
-BarangayPostCard.propTypes = {
+BarangayPost.propTypes = {
   authorId: PropTypes.string.isRequired,
   authorImg: PropTypes.string.isRequired,
   authorName: PropTypes.string.isRequired,
