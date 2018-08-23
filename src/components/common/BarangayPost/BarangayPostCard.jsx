@@ -16,7 +16,7 @@ import { fields, hooks, plugins } from 'components/common/Comments/subcomponents
 
 // Services 
 import { getCommentsByPostId } from 'services/CommentService';
-import { likePost, unlikePost } from 'services/LikeService';
+import { likePost, unlikePost } from 'services/PostService';
 
 // Stylesheet
 import './BarangayPostCard.less';
@@ -53,11 +53,12 @@ export default class BarangayPostCard extends Component {
             authorImg={this.props.authorImg}
             authorName={this.props.authorName}
             authorLocation={this.props.authorLocation}
-            handleDeletePost={() => this._handleDeletePost()}
+            handleDeletePost={this.props.handleDeletePost}
             handleTogglePostOptions={() => this._handleTogglePostOptions()}
             isPostOptionsOpen={this.state.isPostOptionsOpen}
             loggedUser={this.props.loggedUser}
             postId={this.props.postId}
+            postBrgyId={this.props.postBrgyId}
             postDate={this._handleFormatDate(this.props.postDate)}
             postType={this.props.postType}
           />
@@ -102,10 +103,6 @@ export default class BarangayPostCard extends Component {
     clearInterval(this.interval);
   }
 
-  _handleDeletePost() {
-
-  }
-
   _handleEnter(e) {
     if (e.key === 'Enter') {
       this.form.onSubmit(e);
@@ -130,7 +127,7 @@ export default class BarangayPostCard extends Component {
 
   async _handleLikePost() {
     try {
-      const response = await likePost(this.props.postId);
+      await likePost(this.props.postId);
       this.setState((prevState) => ({
         isLiked: 1,
         statsLikes: prevState.statsLikes + 1
@@ -143,7 +140,7 @@ export default class BarangayPostCard extends Component {
 
   async _handleUnlikePost() {
     try {
-      const response = await unlikePost(this.props.postId);
+      await unlikePost(this.props.postId);
       this.setState((prevState) => ({
         isLiked: 0,
         statsLikes: prevState.statsLikes - 1
@@ -190,6 +187,7 @@ BarangayPostCard.propTypes = {
   isLiked: PropTypes.oneOf([0, 1]).isRequired,
   loggedUser: PropTypes.object,
   postId: PropTypes.string.isRequired,
+  postBrgyId: PropTypes.string.isRequired,
   postDate: PropTypes.string.isRequired,
   postMessage: PropTypes.string.isRequired,
   postType: PropTypes.oneOf(['announcement', 'sharePost']).isRequired,

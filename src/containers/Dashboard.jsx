@@ -3,9 +3,6 @@ import React, { Component } from 'react';
 
 /*--------------- Components ---------------*/
 import NavBar from 'components/common/NavBar';
-import AnnouncementTextOnlyCard from '../components/common/AnnouncementTextOnlyCard';
-import AnnouncementWithImagesCard from '../components/common/AnnouncementWithImagesCard';
-import SharedAnnouncementTextOnlyCard from '../components/common/SharedAnnouncementTextOnlyCard';
 import BarangayPostCard from 'components/common/BarangayPost/BarangayPostCard';
 
 import DashboardPostBox from 'components/dashboard/DashboardPostBox';
@@ -14,7 +11,6 @@ import NewsFeedOptions from 'components/dashboard/NewsFeedOptions';
 
 /*--------------- Utilities ---------------*/
 import { observer } from 'mobx-react';
-import { Redirect } from 'react-router-dom'
 import InfiniteScroll from 'react-infinite-scroller';
 
 /*--------------- Stylesheets ---------------*/
@@ -43,8 +39,7 @@ export default class Dashboard extends Component {
 
     let items = [];
 
-    loadedPosts.map((post, index) => {
-      
+    loadedPosts.map((post, index) => (
       items.push(
         <BarangayPostCard
           key={post.post_id}
@@ -52,9 +47,11 @@ export default class Dashboard extends Component {
           authorImg={'images/default-brgy.png'}
           authorName={post.barangay_page_name}
           authorLocation={post.barangay_page_municipality}
+          handleDeletePost={() => this.deleteAPost(post.post_id)}
           isLiked={post.is_liked}
           loggedUser={AppData.loggedUser}
           postId={post.post_id}
+          postBrgyId={post.post_barangay_id}
           postDate={post.post_date_created}
           postMessage={post.post_message}
           postType={'announcement'}
@@ -62,8 +59,8 @@ export default class Dashboard extends Component {
           statsLikes={post.like_count}
           statsShares={post.share_count}
         />
-      );
-    });
+      )
+    ));
 
     return (
       <div>
@@ -96,6 +93,12 @@ export default class Dashboard extends Component {
       </div>
     );
   }
+
+  deleteAPost(postId, index) {
+    const { DashboardStore } = RootStore;
+    DashboardStore.deleteAPost(postId, index);
+  }
+
 
   getPosts(page) {
     const { DashboardStore } = RootStore;

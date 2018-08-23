@@ -1,6 +1,17 @@
 import axios from 'axios';
 import API_HOST from './../config';
 
+export function deletePost(postId) {
+    const token = localStorage.getItem('x-access-token');
+    return axios({
+        url: `${API_HOST}/post/${postId}`,
+        method: 'delete',
+        headers: {
+            'x-access-token': token
+        }
+    });
+}
+
 export function likePost(postId) {
     const token = localStorage.getItem('x-access-token');
     return axios({

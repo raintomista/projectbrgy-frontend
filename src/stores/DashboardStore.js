@@ -6,6 +6,7 @@ import {
 } from 'mobx';
 
 import { getPostsFromFollowing, postAnnouncement } from 'services/DashboardService';
+import { deletePost } from 'services/PostService';
 
 configure({
     enforceActions: true
@@ -40,6 +41,19 @@ export default class DashboardStore {
             runInAction(() => {
                 this.hasMoreItems = false;
             });
+        }
+    }
+
+    @action
+    async deleteAPost(postId, index) {
+        try {
+            await deletePost(postId);
+            runInAction(() => {
+                this.loadedPosts.splice(index, 1);
+            });
+        }
+        catch(e) {
+            console.log(e);
         }
     }
 }

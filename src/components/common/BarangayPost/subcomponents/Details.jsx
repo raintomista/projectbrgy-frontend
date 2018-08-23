@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Moment from 'moment';
 import { observer } from 'mobx-react';
 import { Link } from "react-router-dom";
 
@@ -43,7 +42,7 @@ const BarangayPostDetails = observer((props) => {
           <Link to={viewPost(props.postId)} className="post-timestamp">{props.postDate}</Link>
         </div>
       </div>
-      
+
       {/* Post Options */}
       <div className="post-options">
         <Dropdown isOpen={props.isPostOptionsOpen} toggle={props.handleTogglePostOptions}>
@@ -52,7 +51,10 @@ const BarangayPostDetails = observer((props) => {
             <Link to={viewPost(props.postId)}>
               <DropdownItem>View Post</DropdownItem>
             </Link>
-            <DropdownItem onClick={props.handleDeletePost}>Delete Post</DropdownItem>
+
+            {props.loggedUser && props.loggedUser.user_role === 'barangay_page_admin' &&  props.loggedUser.user_barangay_id === props.postBrgyId && (
+              <DropdownItem onClick={props.handleDeletePost}>Delete Post</DropdownItem>
+            )}
           </DropdownMenu>
         </Dropdown>
       </div>
@@ -70,6 +72,7 @@ BarangayPostDetails.propTypes = {
   isPostOptionsOpen: PropTypes.bool.isRequired,
   loggedUser: PropTypes.object,
   postId: PropTypes.string.isRequired,
+  postBrgyId: PropTypes.string.isRequired,
   postDate: PropTypes.string.isRequired,
   postType: PropTypes.oneOf(['announcement', 'sharePost']).isRequired,
   sharedPostId: PropTypes.string,

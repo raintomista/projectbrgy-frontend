@@ -51,8 +51,13 @@ const CommentItem = (props) => (
       <div className="comment-details">
         <span className="comment-date-created">{props.formattedCreatedDate} </span>
 
-        {/* Logged user has the ability to delete own comments */}
-        {props.userId === props.loggedUser.user_id && (
+        {/* Barangay member has the ability to delete its own comments  */}
+        {props.userRole === 'barangay_member' && props.userId === props.loggedUser.user_id && (
+          <span> &middot; <a onClick={props.handleDeleteComment}>Delete</a></span>
+        )}
+
+        {/* Barangay page admin has the ability to delete all comments made by itself and other admin for their own barangay page' comments*/}
+        {props.userRole === 'barangay_page_admin' && props.commentBrgyId === props.loggedUser.barangay_page_id && (
           <span> &middot; <a onClick={props.handleDeleteComment}>Delete</a></span>
         )}
       </div>
@@ -61,11 +66,11 @@ const CommentItem = (props) => (
 );
 
 CommentItem.propTypes = {
-  brgyId: PropTypes.string.isRequired,
   brgyName: PropTypes.string.isRequired,
   commentId: PropTypes.string.isRequired,
+  commentBrgyId: PropTypes.string,  
   commentMessage: PropTypes.string.isRequired,
-  formattedCreatedDate: PropTypes.string.isRequired,  
+  formattedCreatedDate: PropTypes.string.isRequired,
   loggedUser: PropTypes.object,
   userId: PropTypes.string.isRequired,
   userFirstName: PropTypes.string.isRequired,

@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 // Utilities
 import { observer } from 'mobx-react';
-import { Link } from 'react-router-dom';
 
 // Subcomponents
 import CommentBox from './subcomponents/FieldBox';
@@ -68,11 +67,11 @@ export default class CommentSection extends Component {
         key={comment.comment_id}
 
         // Barangay Page Credentials
-        brgyId={comment.barangay_page_id}
         brgyName={comment.barangay_page_name}
 
         // Comment Message
         commentId={comment.comment_id}
+        commentBrgyId={comment.comment_barangay_id}        
         commentMessage={comment.comment_message}
 
         formattedCreatedDate={this.props.handleFormatDate(comment.comment_date_created)}
