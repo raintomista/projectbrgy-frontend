@@ -40,7 +40,7 @@ const CommentItem = (props) => (
       {/*-------- Barangay Page Comment  ------- */}
       {props.userRole === 'barangay_page_admin' && (
         <p className="comment-message">
-          <Link to={props.handleViewUserProfile} className="comment-author">
+          <Link to={props.handleViewBrgyPage} className="comment-author">
             {props.brgyName}
           </Link>
           {props.commentMessage}
