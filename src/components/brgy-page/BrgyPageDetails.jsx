@@ -16,7 +16,9 @@ import { observer } from 'mobx-react';
 import 'components/brgy-page/BrgyPageDetails.less'
 
 const BrgyPageDetails = observer((props) => {
-  const { BrgyPageStore } = props;
+  const { AppData, BrgyPageStore } = props;
+  const { loggedUser } = AppData;
+  const { data } = BrgyPageStore;
 
   return (
     <div className="brgy-page-details card">
@@ -69,13 +71,19 @@ const BrgyPageDetails = observer((props) => {
 
         <div className="buttons">
           {/* Follow Button */}
-          <li className="follow-btn list-group-item">
-            {
-              BrgyPageStore.data.is_following ?
-                <a className="btn rounded filled" onClick={() => BrgyPageStore.unfollowBarangay(BrgyPageStore.data.id)}>Following</a> :
-                <a className="btn rounded" onClick={() => BrgyPageStore.followBarangay(BrgyPageStore.data.id)}>Follow</a>
-            }
-          </li>
+          {((loggedUser.user_role === 'barangay_page_admin' && loggedUser.user_barangay_id !== data.id) ||
+            loggedUser.user_role === 'barangay_member') && (
+              <React.Fragment>
+                <li className="follow-btn list-group-item">
+
+                  {BrgyPageStore.data.is_following ?
+                    <a className="btn rounded filled" onClick={() => BrgyPageStore.unfollowBarangay(BrgyPageStore.data.id)}>Following</a> :
+                    <a className="btn rounded" onClick={() => BrgyPageStore.followBarangay(BrgyPageStore.data.id)}>Follow</a>
+                  }
+                </li>
+
+              </React.Fragment>
+          )}
 
           {/* Message */}
           <li className="message-btn list-group-item">
