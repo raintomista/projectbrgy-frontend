@@ -16,6 +16,7 @@ import './UserProfileExpandedView.less';
 const UserProfileExpandedView = observer((props) => {
   const { UserProfileStore } = props;
   const data = UserProfileStore.data;
+  const { stats } = data;
 
   return (
     <div className="row">
@@ -29,16 +30,18 @@ const UserProfileExpandedView = observer((props) => {
 
               {/* User Profile Picture, Full Name, and Location */}
               <img src="images/default-user.png" alt="" className="card-img" />
-              <h3 className="card-title">{data && `${data.user_first_name} ${data.user_last_name}`}</h3>
+              <Link to={viewTimeline(data.user_id)} className="card-title">
+                {data && `${data.user_first_name} ${data.user_last_name}`}
+              </Link>
               <p className="card-text">{data && `${data.barangay_page_municipality}`}</p>
 
               {/* User Stats */}
               <div className="user-stats">
                 <ul className="nav justify-content-center nav-fill">
                   <li className="nav-item">
-                    <Link className="nav-link" to=''>
+                    <Link className="nav-link" to={viewFollowing(data.user_id)}>
                       <span className="nav-item-title">Following</span>
-                      <span className="nav-item-value">50</span>
+                      <span className="nav-item-value">{stats.following_count}</span>
                     </Link>
                   </li>
                 </ul>
@@ -64,6 +67,7 @@ const UserProfileExpandedView = observer((props) => {
                 {/* Region */}
                 <div className="row">
                   <div className="col">
+
                     <span>Region: {data && `${data.barangay_page_region}`}</span>
                   </div>
                 </div>
@@ -172,6 +176,16 @@ const UserProfileExpandedView = observer((props) => {
       </div>
     </div>
   );
+});
+
+const viewTimeline = (profileId) => ({
+  pathname: '/profile',
+  search: `?id=${profileId}`
+});
+
+const viewFollowing = (profileId) => ({
+  pathname: '/profile',
+  search: `?id=${profileId}&view=following_list`
 });
 
 export default UserProfileExpandedView;
