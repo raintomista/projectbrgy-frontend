@@ -38,19 +38,21 @@ export default class CommentSection extends Component {
           handleEnter={(e) => this._handleEnter(e)}
           field={this.props.form.select('commentMessage')}
         />
-        <div className="comments">
-          {this.state.isLoading && <CommentLoader />}
-          {/* All comments from the server when the component mounted */}
-          {newComments}
-          {comments}
-          {!this.state.isLoading && (
-            <ViewMoreComment
-              currentPage={this.state.currentPage}
-              totalPage={this.state.totalPage}
-              handleLoadNextComments={() => this._handleLoadNextComments(this.props.postId)}
-            />
-          )}
-        </div>
+        {this.state.isLoading && <CommentLoader />}
+        {!this.state.isLoading && (newComments.length > 0 || comments.length > 0) && (
+          <div className="comments">
+            {/* All comments from the server when the component mounted */}
+            {newComments}
+            {comments}
+          </div>
+        )}
+        {!this.state.isLoading && (
+          <ViewMoreComment
+            currentPage={this.state.currentPage}
+            totalPage={this.state.totalPage}
+            handleLoadNextComments={() => this._handleLoadNextComments(this.props.postId)}
+          />
+        )}
       </div>
     );
   }
@@ -66,6 +68,7 @@ export default class CommentSection extends Component {
   }
 
   _createCommentList(commentArray) {
+    console.log(commentArray);
     return commentArray.map((comment, index) => (
       <CommentItem
         key={comment.comment_id}
@@ -107,21 +110,33 @@ export default class CommentSection extends Component {
 
       // Reload comment section to first page when a comment is deleted
       const statsComments = this.props.form.select('statsComments').value;
-      const response = await getCommentsByPostId(postId, 1, this.props.fetchLimit);
-      const comments = response.data.data.items;
 
-      // Recalculate total page of the comment section
-      let totalPage = response.data.data.total;
-      totalPage = Math.ceil((totalPage / this.props.fetchLimit));
+      try {
+        const response = await getCommentsByPostId(postId, 1, this.props.fetchLimit);
+        const comments = response.data.data.items;
 
-      setTimeout(() => {
-        this.setState({  isLoading: false, currentPage: 1, totalPage: totalPage },
-          () => {
-            this.props.form.select('comments').set('value', comments); //Replace the comment section with the fetched first 4 (since fetchlimit is 4) comments
-            this.props.form.select('newComments').set('value', []); // The value of the new comments will be resetted to empty since the comment is resetted to the first 4 comments
-            this.props.form.select('statsComments').set('value', statsComments - 1); // Decrement stats when a comment is deleted
-          });
-      }, 1000);
+        // Recalculate total page of the comment section
+        let totalPage = response.data.data.total;
+        totalPage = Math.ceil((totalPage / this.props.fetchLimit));
+
+        setTimeout(() => {
+          this.setState({ isLoading: false, currentPage: 1, totalPage: totalPage },
+            () => {
+              this.props.form.select('comments').set('value', comments); //Replace the comment section with the fetched first 4 (since fetchlimit is 4) comments
+              this.props.form.select('newComments').set('value', []); // The value of the new comments will be resetted to empty since the comment is resetted to the first 4 comments
+              this.props.form.select('statsComments').set('value', statsComments - 1); // Decrement stats when a comment is deleted
+            });
+        }, 1000);
+      } catch (e) {
+        setTimeout(() => {
+          this.setState({ isLoading: false, currentPage: 1, totalPage: 0 },
+            () => {
+              this.props.form.select('comments').set('value', []); //Replace the comment section with the fetched first 4 (since fetchlimit is 4) comments
+              this.props.form.select('newComments').set('value', []); // The value of the new comments will be resetted to empty since the comment is resetted to the first 4 comments
+              this.props.form.select('statsComments').set('value', statsComments - 1); // Decrement stats when a comment is deleted
+            });
+        }, 1000);
+      }
     }
     catch (e) {
       console.log(e);
