@@ -47,9 +47,10 @@ export default class DashboardStore {
     @action
     async deleteAPost(postId, index) {
         try {
-            await deletePost(postId);
+            const response = await deletePost(postId);
             runInAction(() => {
                 this.loadedPosts.splice(index, 1);
+                alert(response.data.data.message);      
             });
         }
         catch(e) {

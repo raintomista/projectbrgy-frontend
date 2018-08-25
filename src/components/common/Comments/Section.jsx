@@ -68,7 +68,6 @@ export default class CommentSection extends Component {
   }
 
   _createCommentList(commentArray) {
-    console.log(commentArray);
     return commentArray.map((comment, index) => (
       <CommentItem
         key={comment.comment_id}

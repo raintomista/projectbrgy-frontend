@@ -47,7 +47,7 @@ export default class Dashboard extends Component {
           authorImg={'images/default-brgy.png'}
           authorName={post.barangay_page_name}
           authorLocation={post.barangay_page_municipality}
-          handleDeletePost={() => this.deleteAPost(post.post_id)}
+          handleDeletePost={() => this._handleDeletePost(post.post_id)}
           isLiked={post.is_liked}
           loggedUser={AppData.loggedUser}
           postId={post.post_id}
@@ -94,7 +94,7 @@ export default class Dashboard extends Component {
     );
   }
 
-  deleteAPost(postId, index) {
+  _handleDeletePost(postId, index) {
     const { DashboardStore } = RootStore;
     DashboardStore.deleteAPost(postId, index);
   }
