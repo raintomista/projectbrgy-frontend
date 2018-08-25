@@ -70,7 +70,7 @@ BarangayPostDetails.propTypes = {
   authorId: PropTypes.string.isRequired,
   authorImg: PropTypes.string.isRequired,
   authorName: PropTypes.string.isRequired,
-  authorRole: PropTypes.string.isRequired,
+  authorRole: PropTypes.string,
   authorLocation: PropTypes.string.isRequired,
   handleDeletePost: PropTypes.func.isRequired,
   handleTogglePostOptions: PropTypes.func.isRequired,

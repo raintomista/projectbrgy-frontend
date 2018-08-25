@@ -33,3 +33,14 @@ export function unlikePost(postId) {
         }
     });
 }
+
+export function sharePost(postId) {
+    const token = localStorage.getItem('x-access-token');
+    return axios({
+        url: `${API_HOST}/share/${postId}`,
+        method: 'post',
+        headers: {
+            'x-access-token': token
+        }
+    });
+}

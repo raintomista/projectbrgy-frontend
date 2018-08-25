@@ -16,7 +16,7 @@ import { fields, hooks, plugins } from 'components/common/Comments/subcomponents
 
 // Services 
 import { getCommentsByPostId } from 'services/CommentService';
-import { likePost, unlikePost } from 'services/PostService';
+import { likePost, sharePost, unlikePost } from 'services/PostService';
 
 // Stylesheet
 import './PostCard.less';
@@ -77,6 +77,7 @@ export default class BarangayPost extends Component {
             handleLikePost={() => this._handleLikePost()}
             handleUnlikePost={() => this._handleUnlikePost()}
             handleToggleComments={() => this._handleToggleComments(1)}
+            handleSharePost={() => this._handleSharePost()}
           />
           {this.state.isCommentSectionVisible && (
             <CommentSection
@@ -139,7 +140,7 @@ export default class BarangayPost extends Component {
       console.log(e)
     }
   }
-
+  
   async _handleUnlikePost() {
     try {
       await unlikePost(this.props.postId);
@@ -173,6 +174,16 @@ export default class BarangayPost extends Component {
     }
   }
 
+  async _handleSharePost() {
+    try {
+      const response = await sharePost(this.props.postId);
+      alert(response.data.data.message);
+    } 
+    catch(error) {
+      alert(error.response.data.errors[0].context);
+    }
+  }
+
   _handleTogglePostOptions() {
     this.setState((prevState) => ({
       isPostOptionsOpen: !prevState.isPostOptionsOpen,
@@ -193,7 +204,7 @@ BarangayPost.propTypes = {
   postId: PropTypes.string.isRequired,
   postBrgyId: PropTypes.string.isRequired,
   postDate: PropTypes.string.isRequired,
-  postMessage: PropTypes.string.isRequired,
+  postMessage: PropTypes.string,
   postType: PropTypes.oneOf(['announcement', 'sharePost']).isRequired,
   statsComments: PropTypes.number.isRequired,
   statsLikes: PropTypes.number.isRequired,

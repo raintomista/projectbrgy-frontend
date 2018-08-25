@@ -14,7 +14,7 @@ const BarangayPostContent = (props) => {
 }
 
 BarangayPostContent.propTypes = {
-  postMessage: PropTypes.string.isRequired
+  postMessage: PropTypes.string
 }
 
 export default BarangayPostContent;

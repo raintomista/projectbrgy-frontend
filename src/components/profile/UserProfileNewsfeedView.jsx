@@ -13,7 +13,7 @@ const UserProfileNewsfeedView = observer((props) => {
 
   const posts = sharedPosts.map((post, index) => {
     return <UserSharedPostCard
-      key={post.post_id}
+      key={post.share_post_id}
       authorId={post.share_user_id}
       authorImg={'images/default-user.png'}
       authorName={`${post.user_first_name} ${post.user_last_name}`}
@@ -25,8 +25,8 @@ const UserProfileNewsfeedView = observer((props) => {
       loggedUser={AppData.loggedUser}
       postId={post.post_id}
       postBrgyId={post.post_barangay_id}
-      postDate={post.post_date_created}
-      postMessage={post.post_message}
+      postDate={post.share_date_created}
+      postMessage={post.share_caption}
       postType={'sharePost'}
       statsComments={0}
       statsLikes={0}

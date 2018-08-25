@@ -17,7 +17,7 @@ const ActionButtons = (props) => {
           }
 
           <a className="btn" onClick={props.handleToggleComments}>Comment</a>
-          <Link to='/dashboard' className="btn">Share</Link>
+          <a onClick={props.handleSharePost} className="btn">Share</a> 
         </div>
       )}
 
@@ -25,7 +25,7 @@ const ActionButtons = (props) => {
         <div className="post-action-buttons">
           <a className="disabled btn">Like</a>
           <a className="disabled btn">Comment</a>
-          <a className="disabled btn">Share</a>
+          {/* <a className="disabled btn">Share</a> */}
         </div>
       )}
     </div>
@@ -37,7 +37,8 @@ ActionButtons.propTypes = {
   isLiked: PropTypes.oneOf([0, 1]).isRequired,
   handleLikePost: PropTypes.func.isRequired,
   handleUnlikePost: PropTypes.func.isRequired,
-  handleToggleComments: PropTypes.func.isRequired
+  handleToggleComments: PropTypes.func.isRequired,
+  handleSharePost: PropTypes.func.isRequired
 }
 
 export default ActionButtons;
