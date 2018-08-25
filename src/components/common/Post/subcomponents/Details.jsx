@@ -52,7 +52,11 @@ const BarangayPostDetails = observer((props) => {
               <DropdownItem>View Post</DropdownItem>
             </Link>
 
-            {props.loggedUser && props.loggedUser.user_role === 'barangay_page_admin' &&  props.loggedUser.user_barangay_id === props.postBrgyId && (
+            {props.authorRole === 'barangay_page_admin' &&  props.loggedUser.user_barangay_id === props.postBrgyId && (
+              <DropdownItem onClick={props.handleDeletePost}>Delete Post</DropdownItem>
+            )}
+            
+            {props.authorRole === 'barangay_member' && props.loggedUser.user_id === props.authorId && (
               <DropdownItem onClick={props.handleDeletePost}>Delete Post</DropdownItem>
             )}
           </DropdownMenu>
@@ -66,6 +70,7 @@ BarangayPostDetails.propTypes = {
   authorId: PropTypes.string.isRequired,
   authorImg: PropTypes.string.isRequired,
   authorName: PropTypes.string.isRequired,
+  authorRole: PropTypes.string.isRequired,
   authorLocation: PropTypes.string.isRequired,
   handleDeletePost: PropTypes.func.isRequired,
   handleTogglePostOptions: PropTypes.func.isRequired,

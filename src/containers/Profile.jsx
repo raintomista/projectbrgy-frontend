@@ -26,6 +26,7 @@ export default class Profile extends Component {
     this.props.AppData.getUserDetails();   
     this.props.UserProfileStore.fetchUserProfileData(parsedQuery.id);
     this.props.UserProfileStore.setProfileView(parsedQuery.view);
+    this.props.UserProfileStore.fetchUserSharedPosts(parsedQuery.id);    
   }
 
   componentDidUpdate() {

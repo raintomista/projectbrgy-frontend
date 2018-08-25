@@ -7,26 +7,33 @@ import './ActionButtons.less';
 
 const ActionButtons = (props) => {
   return (
-    <div className="post-action-buttons">
+    <div>
+      {!props.disableInteractions && (
+        <div className="post-action-buttons">
+          {/* Display if post is liked or not */}
+          {props.isLiked === 0 ?
+            <a onClick={props.handleLikePost} className="btn">Like</a> :
+            <a onClick={props.handleUnlikePost} className="btn liked">Liked</a>
+          }
 
-      {/* When post is not liked button */}
-      {props.isLiked === 0 && (
-        <a onClick={props.handleLikePost} className="btn">Like</a>
+          <a className="btn" onClick={props.handleToggleComments}>Comment</a>
+          <Link to='/dashboard' className="btn">Share</Link>
+        </div>
       )}
 
-      {/* When post is liked button */}
-      {props.isLiked === 1 && (
-        <a onClick={props.handleUnlikePost} className="btn liked">Liked</a>
+      {props.disableInteractions && (
+        <div className="post-action-buttons">
+          <a className="disabled btn">Like</a>
+          <a className="disabled btn">Comment</a>
+          <a className="disabled btn">Share</a>
+        </div>
       )}
-
-      <a className="btn" onClick={props.handleToggleComments}>Comment</a>
-
-      <Link to='/dashboard' className="btn">Share</Link>
     </div>
   );
 }
 
 ActionButtons.propTypes = {
+  disableInteractions: PropTypes.bool,
   isLiked: PropTypes.oneOf([0, 1]).isRequired,
   handleLikePost: PropTypes.func.isRequired,
   handleUnlikePost: PropTypes.func.isRequired,

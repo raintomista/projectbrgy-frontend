@@ -52,6 +52,7 @@ export default class BarangayPost extends Component {
             authorId={this.props.authorId}
             authorImg={this.props.authorImg}
             authorName={this.props.authorName}
+            authorRole={this.props.authorRole}
             authorLocation={this.props.authorLocation}
             handleDeletePost={this.props.handleDeletePost}
             handleTogglePostOptions={() => this._handleTogglePostOptions()}
@@ -71,6 +72,7 @@ export default class BarangayPost extends Component {
             statsShares={this.state.statsShares}
           />
           <BarangayPostActionButtons
+            disableInteractions={this.props.disableInteractions}
             isLiked={this.state.isLiked}
             handleLikePost={() => this._handleLikePost()}
             handleUnlikePost={() => this._handleUnlikePost()}
@@ -182,8 +184,10 @@ BarangayPost.propTypes = {
   authorId: PropTypes.string.isRequired,
   authorImg: PropTypes.string.isRequired,
   authorName: PropTypes.string.isRequired,
+  authorRole: PropTypes.string,
   authorLocation: PropTypes.string.isRequired,
   contentType: PropTypes.oneOf(['image', 'attachment']),
+  disableInteractions: PropTypes.bool,
   isLiked: PropTypes.oneOf([0, 1]).isRequired,
   loggedUser: PropTypes.object,
   postId: PropTypes.string.isRequired,

@@ -6,7 +6,7 @@ import {
 } from 'mobx';
 
 import { followBarangay, unfollowBarangay } from 'services/BrgyPageService';
-import { getUserById, getUserFollowingList } from 'services/UserProfileService';
+import { getUserById, getUserFollowingList, getUserSharedPosts } from 'services/UserProfileService';
 
 configure({
     enforceActions: true
@@ -14,6 +14,7 @@ configure({
 
 export default class UserProfileStore {
     @observable data;
+    @observable sharedPosts = [];
     @observable viewType;
     @observable followingList = [];
     
@@ -48,6 +49,20 @@ export default class UserProfileStore {
             })
     
         } catch (e) {
+            console.log(e);
+        }
+    }
+
+    @action
+    async fetchUserSharedPosts(userId) {
+        try {
+            const response = await getUserSharedPosts(userId);
+            const sharedPosts = response.data.data.items;
+
+            runInAction(() => {
+                this.sharedPosts = sharedPosts;
+            })
+        } catch(e) {
             console.log(e);
         }
     }
