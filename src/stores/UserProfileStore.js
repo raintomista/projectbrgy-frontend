@@ -6,6 +6,7 @@ import {
 } from 'mobx';
 
 import { followBarangay, unfollowBarangay } from 'services/BrgyPageService';
+import { unsharePost } from 'services/PostService';
 import { getUserById, getUserFollowingList, getUserSharedPosts } from 'services/UserProfileService';
 
 configure({
@@ -90,6 +91,20 @@ export default class UserProfileStore {
                 this.followingList[index].is_following = 0;
             });
 
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    @action
+    async unsharePost(postId, index) {
+        try {
+            const response = await unsharePost(postId);
+
+            runInAction(() => {
+                this.sharedPosts.splice(index, 1);
+                alert(response.data.data.message);                
+            });
         } catch (e) {
             console.log(e);
         }

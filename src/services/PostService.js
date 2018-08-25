@@ -44,3 +44,14 @@ export function sharePost(postId) {
         }
     });
 }
+
+export function unsharePost(postId) {
+    const token = localStorage.getItem('x-access-token');
+    return axios({
+        url: `${API_HOST}/unshare/${postId}`,
+        method: 'delete',
+        headers: {
+            'x-access-token': token
+        }
+    });
+}

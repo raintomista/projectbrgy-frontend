@@ -199,6 +199,7 @@ BarangayPost.propTypes = {
   authorLocation: PropTypes.string.isRequired,
   contentType: PropTypes.oneOf(['image', 'attachment']),
   disableInteractions: PropTypes.bool,
+  handleDeletePost: PropTypes.func.isRequired,
   isLiked: PropTypes.oneOf([0, 1]).isRequired,
   loggedUser: PropTypes.object,
   postId: PropTypes.string.isRequired,
