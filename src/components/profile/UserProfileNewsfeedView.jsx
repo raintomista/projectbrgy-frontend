@@ -15,23 +15,22 @@ export default class UserProfileNewsfeedView extends Component {
 
     const posts = sharedPosts.map((post, index) => {
       return <UserSharedPostCard
-        key={post.share_post_id}
+        key={post.share_id}
 
         // Author of the Share Post
         authorId={post.share_user_id}
         authorImg={'images/default-user.png'}
         authorName={`${post.user_first_name} ${post.user_last_name}`}
         authorRole={post.share_user_role}
-        authorLocation={post.barangay_page_municipality}
-
+        authorLocation={post.share_barangay_municipality}
 
         disableInteractions={true}
-        handleDeletePost={() => this._handleDeletePost(post.post_id, index)}
+        handleDeletePost={() => this._handleDeletePost(post.share_id, index)}
         isLiked={0}
         loggedUser={AppData.loggedUser}
 
         // Share Post
-        postId={post.share_post_id}
+        postId={post.share_id}
         postBrgyId={post.user_barangay_id}
         postDate={post.share_date_created}
         postMessage={post.share_caption}
@@ -39,11 +38,11 @@ export default class UserProfileNewsfeedView extends Component {
 
         // Shared Post (Post that is being shared)
         sharedPostId={post.post_id}
-        sharedPostAuthor={post.barangay_page_name}
+        sharedPostAuthor={post.post_barangay_name}
         sharedPostAuthorId={post.post_barangay_id}
         sharedPostAuthorImg={'images/default-brgy.png'}
         sharedPostDate={post.post_date_created}
-        sharedPostLocation={post.barangay_page_municipality}
+        sharedPostLocation={post.post_barangay_municipality}
         sharedPostMessage={post.post_message}
 
         // Stats of the Share Post

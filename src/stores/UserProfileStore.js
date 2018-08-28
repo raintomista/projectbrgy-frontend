@@ -103,10 +103,11 @@ export default class UserProfileStore {
 
             runInAction(() => {
                 this.sharedPosts.splice(index, 1);
+                this.data.stats.shared_posts_count -= 1;                
                 alert(response.data.data.message);                
             });
         } catch (e) {
-            console.log(e);
+            alert('An error occured. Please try again.')
         }
     }
 }
