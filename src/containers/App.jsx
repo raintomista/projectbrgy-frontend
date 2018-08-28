@@ -5,7 +5,7 @@ import { observer, inject } from 'mobx-react';
 
 /*----------------- Stylesheets -----------------*/
 import 'bootstrap/dist/css/bootstrap.min.css';
-import 'stylesheets/main.less';
+// import 'stylesheets/main.less';
 
 /*----------------- Router Views -----------------*/
 import Login from 'containers/Login';
