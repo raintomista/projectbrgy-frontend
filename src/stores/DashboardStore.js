@@ -18,10 +18,18 @@ export default class DashboardStore {
     @observable pageStart = 0;
 
     @action
-    reloadNewsfeed() {
-        this.pageStart = this.pageStart === 0 ? -1 : 0;
-        this.hasMoreItems = true;
-        this.newsfeedPosts = [];
+    async deleteAPost(postId, index) {
+        try {
+            const response = await deletePost(postId);
+            alert(response.data.data.message);
+
+            runInAction(() => {
+                this.reloadNewsfeed();
+            });
+        }
+        catch (e) {
+            console.log('An error occured. Please try again.');
+        }
     }
 
     @action
@@ -30,28 +38,25 @@ export default class DashboardStore {
             const response = await getPostsFromFollowing(page, limit);
             const data = response.data.data.items;
 
-            runInAction(() => {
-                this.newsfeedPosts.push(...data);
-            });
+            setTimeout(() => {
+                runInAction(() => {
+                    this.newsfeedPosts.push(...data);
+                });
+            }, 1000);
         }
         catch (e) {
-            runInAction(() => {
-                this.hasMoreItems = false;
-            });
+            setTimeout(() => {
+                runInAction(() => {
+                    this.hasMoreItems = false;
+                });
+            }, 1000);
         }
     }
 
     @action
-    async deleteAPost(postId, index) {
-        try {
-            const response = await deletePost(postId);
-            runInAction(() => {
-                this.newsfeedPosts.splice(index, 1);
-                alert(response.data.data.message);
-            });
-        }
-        catch (e) {
-            console.log(e.response);
-        }
+    reloadNewsfeed() {
+        this.pageStart = this.pageStart === 0 ? -1 : 0;
+        this.hasMoreItems = true;
+        this.newsfeedPosts = [];
     }
 }

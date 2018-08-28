@@ -31,7 +31,12 @@ export default class DashboardView extends Component {
     const { loggedUser } = AppData;
     const { newsfeedPosts } = DashboardStore;
 
-    const loader = <div className="loader" key={0}>Loading ...</div>;
+    const loader = (
+      <div className="loader" key={0}>
+        <object data="images/loader.svg" type="image/svg+xml">
+        </object>
+      </div>
+    );
 
     const items = this._getNewsfeedItems(newsfeedPosts);
 
@@ -70,9 +75,12 @@ export default class DashboardView extends Component {
   }
 
 
-  _deletePost(postId, index){
-    const { DashboardStore } = RootStore;
-    DashboardStore.deleteAPost(postId, index);
+  _deletePost(postId, index) {
+    const prompt = window.confirm("Are you sure you want to delete this post?");
+    if (prompt) {
+      const { DashboardStore } = RootStore;
+      DashboardStore.deleteAPost(postId, index);
+    }
   }
 
   _getNewsfeedItems(arr) {
