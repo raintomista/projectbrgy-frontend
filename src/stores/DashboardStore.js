@@ -14,16 +14,24 @@ configure({
 
 export default class DashboardStore {
     @observable hasMoreItems = true;
-    @observable loadedPosts = [];
+    @observable newsfeedPosts = [];
+    @observable pageStart = 0;
     
     @action
-    async getPostsFromFollowing(page, limit) {
+    reloadNewsfeed() {
+        this.pageStart = this.pageStart === 0 ? -1 : 0;
+        this.hasMoreItems = true;
+        this.newsfeedPosts = [];
+    }
+
+    @action
+    async getNewsfeedPosts(page, limit) {
         try {
             const response = await getPostsFromFollowing(page, limit);
             const data = response.data.data.items;
 
             runInAction(() => {
-                this.loadedPosts.push(...data);
+                this.newsfeedPosts.push(...data);
             });
         }
         catch (e) {

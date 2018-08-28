@@ -27,7 +27,7 @@ export default class App extends Component {
           <Route
             exact={true}
             path='/dashboard'
-            render={(props) => <DashboardView AppData={this.props.AppData} DashboardStore={this.props.DashboardStore} />}
+            render={(props) => <DashboardView />}
           />
           <Route
             exact={true}

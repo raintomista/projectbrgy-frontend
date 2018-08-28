@@ -47,7 +47,9 @@ export default class PostBoxForm extends MobxReactForm {
         try {
           await postAnnouncement(message);
           alert('Successfully posted an announcement');
-
+          
+          this.DashboardStore.reloadNewsfeed();
+          
           // Re-enable and reset form
           form.select('message').set('disabled', false);
           form.select('message').set('value', '');          
