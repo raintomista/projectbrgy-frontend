@@ -4,9 +4,12 @@ import React, { Component } from 'react';
 /*--------------- Components ---------------*/
 import SideBar from 'components/common/SideNav/Bar';
 
-/*--------------- Utilities ---------------*/
+// Utilities
 import { Link } from "react-router-dom";
 import { observer } from 'mobx-react';
+
+// Stylesheet
+import 'components/common/Nav/Bar.less';
 
 @observer
 export default class NavBar extends Component {
