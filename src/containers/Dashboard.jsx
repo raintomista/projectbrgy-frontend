@@ -39,7 +39,7 @@ export default class Dashboard extends Component {
 
     let items = [];
 
-    loadedPosts.map((post, index) => (
+    loadedPosts.map((post, index) => {
       items.push(
         <BarangayPostCard
           key={post.post_id}
@@ -61,7 +61,7 @@ export default class Dashboard extends Component {
           statsShares={post.share_count}
         />
       )
-    ));
+    });
 
     return (
       <div>
