@@ -7,7 +7,7 @@ import UserProfileFollowingListView from '../components/profile/UserProfileFollo
 import UserProfileNewsfeedView from '../components/profile/UserProfileNewsfeedView';
 
 /*--------------- Components ---------------*/
-import NavBar from 'components/common/NavBar';
+import NavBar from 'components/common/Nav/Bar';
 import ProfileHeader from 'components/profile/ProfileHeader';
 
 /*--------------- Utilities ---------------*/

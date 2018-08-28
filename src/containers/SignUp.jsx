@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import NavBar from 'components/common/NavBar';
+import NavBar from 'components/common/Nav/Bar';
 import SignUpDropdownField from 'components/signup/SignUpDropdownField';
 import { SignUpInputField } from 'components/signup/SignUpInputField';
 import SignUpSlider from 'components/signup/SignUpSlider';

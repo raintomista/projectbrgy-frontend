@@ -11,7 +11,7 @@ import 'stylesheets/main.less';
 import Login from 'containers/Login';
 import SignUp from 'containers/SignUp';
 import ConfirmationPage from 'containers/ConfirmationPage';
-import Dashboard from 'containers/Dashboard';
+import DashboardView from 'components/dashboard/View';
 import BrgyPage from 'containers/BrgyPage';
 import Profile from 'containers/Profile';
 
@@ -27,7 +27,7 @@ export default class App extends Component {
           <Route
             exact={true}
             path='/dashboard'
-            render={(props) => <Dashboard AppData={this.props.AppData} DashboardStore={this.props.DashboardStore} />}
+            render={(props) => <DashboardView AppData={this.props.AppData} DashboardStore={this.props.DashboardStore} />}
           />
           <Route
             exact={true}

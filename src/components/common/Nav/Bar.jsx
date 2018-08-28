@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 
 /*--------------- Components ---------------*/
-import SideBar from 'components/common/SideBar';
+import SideBar from 'components/common/SideNav/Bar';
 
 /*--------------- Utilities ---------------*/
 import { Link } from "react-router-dom";

@@ -7,7 +7,7 @@ import Sidebar from 'react-sidebar';
 import { observer } from 'mobx-react';
 
 /*--------------- Stylesheets ---------------*/
-import 'components/common/SideBar.less';
+import 'components/common/SideNav/Bar.less';
 @observer
 export default class SideBar extends Component {
   render() {
