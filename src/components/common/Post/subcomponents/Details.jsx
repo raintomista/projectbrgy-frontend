@@ -22,15 +22,24 @@ const BarangayPostDetails = observer((props) => {
 
         {/* Post Author */}
         <div className="post-author-container">
-          <Link to={viewBrgyPage(props.authorId)} className="post-author">
-            {props.authorName}
-          </Link>
+
+          {props.authorRole === 'barangay_page_admin' && (
+            <Link to={viewBrgyPage(props.authorId)} className="post-author">
+              {props.authorName}
+            </Link>
+          )}
+
+          {props.authorRole === 'barangay_member' && (
+            <Link to={viewUserProfile(props.authorId)} className="post-author">
+              {props.authorName}
+            </Link>
+          )}
 
           {/* [author] shared a post */}
           {props.postType === 'sharePost' && (
             <div className="share-post-details">
               <span> shared a </span>
-              <Link to={viewPost(props.sharedPostId)} className="post-link">post</Link>
+              <Link to={viewBrgyPost(props.sharedPostAuthorId, props.sharedPostId)} className="post-link">post</Link>
             </div>
           )}
         </div>
@@ -39,7 +48,16 @@ const BarangayPostDetails = observer((props) => {
         <div className="post-subdetails">
           <Link to='/dashboard' className="post-location">{props.authorLocation}</Link>
           <span> &middot; </span>
-          <Link to={viewPost(props.postId)} className="post-timestamp">{props.postDate}</Link>
+          {props.authorRole === 'barangay_page_admin' && (
+            <Link to={viewBrgyPost(props.authorId, props.postId)} className="post-timestamp">
+              {props.postDate}
+            </Link>
+          )}
+          {props.authorRole === 'barangay_member' && (
+            <Link to={viewBrgyPost(props.authorId, props.postId)} className="post-timestamp">
+              {props.postDate}
+            </Link>
+          )}
         </div>
       </div>
 
@@ -48,14 +66,24 @@ const BarangayPostDetails = observer((props) => {
         <Dropdown isOpen={props.isPostOptionsOpen} toggle={props.handleTogglePostOptions}>
           <DropdownToggle><FontAwesomeIcon icon={faChevronDown} /></DropdownToggle>
           <DropdownMenu>
-            <Link to={viewPost(props.postId)}>
-              <DropdownItem>View Post</DropdownItem>
-            </Link>
 
-            {props.authorRole === 'barangay_page_admin' &&  props.loggedUser.user_barangay_id === props.postBrgyId && (
+
+            {props.authorRole === 'barangay_page_admin' && (
+              <Link to={viewBrgyPost(props.authorId, props.postId)}>
+                <DropdownItem>View Post</DropdownItem>
+              </Link>
+            )}
+
+            {props.authorRole === 'barangay_member' && (
+              <Link to={viewUserPost(props.authorId, props.postId)}>
+                <DropdownItem>View Post</DropdownItem>
+              </Link>
+            )}
+
+            {props.authorRole === 'barangay_page_admin' && props.loggedUser.user_barangay_id === props.postBrgyId && (
               <DropdownItem onClick={props.handleDeletePost}>Delete Post</DropdownItem>
             )}
-            
+
             {props.authorRole === 'barangay_member' && props.loggedUser.user_id === props.authorId && (
               <DropdownItem onClick={props.handleDeletePost}>Delete Post</DropdownItem>
             )}
@@ -81,6 +109,7 @@ BarangayPostDetails.propTypes = {
   postDate: PropTypes.string.isRequired,
   postType: PropTypes.oneOf(['announcement', 'sharePost']).isRequired,
   sharedPostId: PropTypes.string,
+  sharedPostAuthorId: PropTypes.string,
 }
 
 export default BarangayPostDetails;
@@ -93,10 +122,24 @@ function viewBrgyPage(brgyId) {
   }
 }
 
-function viewPost(postId) {
+function viewBrgyPost(brgyId, postId) {
   return {
-    pathname: 'post',
-    search: `?id=${postId}`
+    pathname: 'barangay',
+    search: `?id=${brgyId}&post=${postId}`
+  }
+}
+
+function viewUserProfile(userId) {
+  return {
+    pathname: '/profile',
+    search: `?id=${userId}`
+  }
+}
+
+function viewUserPost(userId, postId) {
+  return {
+    pathname: 'profile',
+    search: `?id=${userId}&post=${postId}`
   }
 }
 

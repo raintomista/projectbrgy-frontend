@@ -62,8 +62,20 @@ export default class BarangayPost extends Component {
             postBrgyId={this.props.postBrgyId}
             postDate={this._handleFormatDate(this.props.postDate)}
             postType={this.props.postType}
+            sharedPostId={this.props.sharedPostId}
+            sharedPostAuthorId={this.props.sharedPostAuthorId}
           />
-          <BarangayPostContent postMessage={this.props.postMessage} />
+          <BarangayPostContent
+            postMessage={this.props.postMessage}
+            postType={this.props.postType}
+            sharedPostId={this.props.sharedPostId}
+            sharedPostAuthor={this.props.sharedPostAuthor}
+            sharedPostAuthorId={this.props.sharedPostAuthorId}
+            sharedPostAuthorImg={this.props.sharedPostAuthorImg}
+            sharedPostDate={this._handleFormatDate(this.props.sharedPostDate)}
+            sharedPostLocation={this.props.sharedPostLocation}
+            sharedPostMessage={this.props.sharedPostMessage}
+          />
           <BarangayPostStats
             handleToggleComments={() => this._handleToggleComments(1)}
             postId={this.props.postId}
@@ -140,7 +152,7 @@ export default class BarangayPost extends Component {
       console.log(e)
     }
   }
-  
+
   async _handleUnlikePost() {
     try {
       await unlikePost(this.props.postId);
@@ -178,8 +190,8 @@ export default class BarangayPost extends Component {
     try {
       const response = await sharePost(this.props.postId);
       alert(response.data.data.message);
-    } 
-    catch(error) {
+    }
+    catch (error) {
       alert(error.response.data.errors[0].context);
     }
   }
@@ -207,6 +219,15 @@ BarangayPost.propTypes = {
   postDate: PropTypes.string.isRequired,
   postMessage: PropTypes.string,
   postType: PropTypes.oneOf(['announcement', 'sharePost']).isRequired,
+
+  sharedPostId: PropTypes.string,
+  sharedPostAuthor: PropTypes.string,
+  sharedPostAuthorId: PropTypes.string,
+  sharedPostAuthorImg: PropTypes.string,
+  sharedPostDate: PropTypes.string,
+  sharedPostLocation: PropTypes.string,
+  sharedPostMessage: PropTypes.string,
+
   statsComments: PropTypes.number.isRequired,
   statsLikes: PropTypes.number.isRequired,
   statsShares: PropTypes.number.isRequired,
