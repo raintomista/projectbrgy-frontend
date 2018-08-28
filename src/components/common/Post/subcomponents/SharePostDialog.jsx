@@ -18,7 +18,8 @@ import './SharePostDialog.less';
 export default class SharePostDialog extends Component {
   constructor(props) {
     super(props);
-    this.form = new SharePostDialogForm(props.toggle);
+    this.state = { isLoading: false };
+    this.form = new SharePostDialogForm(props.toggle, () => this._toggleLoader());
     this.form.select('sharedPostId').set('value', this.props.sharedPostId);
   }
 
@@ -34,6 +35,10 @@ export default class SharePostDialog extends Component {
         toggle={this.props.toggle}
         size="md"
       >
+        <div className={`overlay ${!this.state.isLoading ? 'hidden' : ''}`}>
+          <object data="images/loader.svg" type="image/svg+xml">
+          </object>
+        </div>
         <ModalHeader toggle={this.props.toggle}>
           {this.props.loggedUser && this.props.loggedUser.user_role === 'barangay_member' ?
             'Share on your profile' :
@@ -65,6 +70,12 @@ export default class SharePostDialog extends Component {
         </ModalFooter>
       </Modal>
     );
+  }
+
+  _toggleLoader() {
+    this.setState((prevState) => ({
+      isLoading: !prevState.isLoading
+    }));
   }
 }
 
