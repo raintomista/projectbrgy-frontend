@@ -34,13 +34,16 @@ export function unlikePost(postId) {
     });
 }
 
-export function sharePost(postId) {
+export function sharePost(postId, caption) {
     const token = localStorage.getItem('x-access-token');
     return axios({
         url: `${API_HOST}/share/${postId}`,
         method: 'post',
         headers: {
             'x-access-token': token
+        },
+        data: {
+            caption: caption
         }
     });
 }

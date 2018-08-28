@@ -12,11 +12,13 @@ import BarangayPostContent from './subcomponents/Content';
 import BarangayPostStats from './subcomponents/Stats';
 import BarangayPostActionButtons from './subcomponents/ActionButtons';
 import CommentSection from 'components/common/Comments/Section';
+import SharePostDialog from './subcomponents/SharePostDialog';
+
 import { fields, hooks, plugins } from 'components/common/Comments/subcomponents/Form';
 
 // Services 
 import { getCommentsByPostId } from 'services/CommentService';
-import { likePost, sharePost, unlikePost } from 'services/PostService';
+import { likePost, unlikePost } from 'services/PostService';
 
 // Stylesheet
 import './PostCard.less';
@@ -28,6 +30,7 @@ export default class BarangayPost extends Component {
     this.state = {
       isCommentSectionVisible: false,
       isPostOptionsOpen: false,
+      isSharePostDialogOpen: false,
       isLiked: props.isLiked,
       statsComments: props.statsComments,
       statsLikes: props.statsLikes,
@@ -46,65 +49,81 @@ export default class BarangayPost extends Component {
 
   render() {
     return (
-      <div className="brgy-post card">
-        <div className="card-body">
-          <BarangayPostDetails
-            authorId={this.props.authorId}
-            authorImg={this.props.authorImg}
-            authorName={this.props.authorName}
-            authorRole={this.props.authorRole}
-            authorLocation={this.props.authorLocation}
-            handleDeletePost={this.props.handleDeletePost}
-            handleTogglePostOptions={() => this._handleTogglePostOptions()}
-            isPostOptionsOpen={this.state.isPostOptionsOpen}
-            loggedUser={this.props.loggedUser}
-            postId={this.props.postId}
-            postBrgyId={this.props.postBrgyId}
-            postDate={this._handleFormatDate(this.props.postDate)}
-            postType={this.props.postType}
-            sharedPostId={this.props.sharedPostId}
-            sharedPostAuthorId={this.props.sharedPostAuthorId}
-          />
-          <BarangayPostContent
-            postMessage={this.props.postMessage}
-            postType={this.props.postType}
-            sharedPostId={this.props.sharedPostId}
-            sharedPostAuthor={this.props.sharedPostAuthor}
-            sharedPostAuthorId={this.props.sharedPostAuthorId}
-            sharedPostAuthorImg={this.props.sharedPostAuthorImg}
-            sharedPostDate={this._handleFormatDate(this.props.sharedPostDate)}
-            sharedPostLocation={this.props.sharedPostLocation}
-            sharedPostMessage={this.props.sharedPostMessage}
-          />
-          <BarangayPostStats
-            handleToggleComments={() => this._handleToggleComments(1)}
-            postId={this.props.postId}
-            statsLikes={this.state.statsLikes}
-            statsComments={this.form.select('statsComments').value}
-            statsShares={this.state.statsShares}
-          />
-          <BarangayPostActionButtons
-            disableInteractions={this.props.disableInteractions}
-            isLiked={this.state.isLiked}
-            handleLikePost={() => this._handleLikePost()}
-            handleUnlikePost={() => this._handleUnlikePost()}
-            handleToggleComments={() => this._handleToggleComments(1)}
-            handleSharePost={() => this._handleSharePost()}
-          />
-          {this.state.isCommentSectionVisible && (
-            <CommentSection
-              comments={this.form.select('comments').value}
-              form={this.form}
-              fetchLimit={this.state.fetchLimit}
+      <React.Fragment>
+        <div className="brgy-post card">
+          <div className="card-body">
+            <BarangayPostDetails
+              authorId={this.props.authorId}
+              authorImg={this.props.authorImg}
+              authorName={this.props.authorName}
+              authorRole={this.props.authorRole}
+              authorLocation={this.props.authorLocation}
+              handleDeletePost={this.props.handleDeletePost}
+              handleTogglePostOptions={() => this._handleTogglePostOptions()}
+              isPostOptionsOpen={this.state.isPostOptionsOpen}
               loggedUser={this.props.loggedUser}
-              handleFormatDate={(date) => this._handleFormatDate(date)}
-              newComments={this.form.select('newComments').value}
               postId={this.props.postId}
-              totalComments={this.state.totalComments}
+              postBrgyId={this.props.postBrgyId}
+              postDate={this._handleFormatDate(this.props.postDate)}
+              postType={this.props.postType}
+              sharedPostId={this.props.sharedPostId}
+              sharedPostAuthorId={this.props.sharedPostAuthorId}
             />
-          )}
+            <BarangayPostContent
+              postMessage={this.props.postMessage}
+              postType={this.props.postType}
+              sharedPostId={this.props.sharedPostId}
+              sharedPostAuthor={this.props.sharedPostAuthor}
+              sharedPostAuthorId={this.props.sharedPostAuthorId}
+              sharedPostAuthorImg={this.props.sharedPostAuthorImg}
+              sharedPostDate={this._handleFormatDate(this.props.sharedPostDate)}
+              sharedPostLocation={this.props.sharedPostLocation}
+              sharedPostMessage={this.props.sharedPostMessage}
+            />
+            <BarangayPostStats
+              handleToggleComments={() => this._handleToggleComments(1)}
+              postId={this.props.postId}
+              statsLikes={this.state.statsLikes}
+              statsComments={this.form.select('statsComments').value}
+              statsShares={this.state.statsShares}
+            />
+            <BarangayPostActionButtons
+              disableInteractions={this.props.disableInteractions}
+              isLiked={this.state.isLiked}
+              handleLikePost={() => this._handleLikePost()}
+              handleUnlikePost={() => this._handleUnlikePost()}
+              handleToggleComments={() => this._handleToggleComments(1)}
+              handleSharePost={() => this._handleSharePost()}
+            />
+            {this.state.isCommentSectionVisible && (
+              <CommentSection
+                comments={this.form.select('comments').value}
+                form={this.form}
+                fetchLimit={this.state.fetchLimit}
+                loggedUser={this.props.loggedUser}
+                handleFormatDate={(date) => this._handleFormatDate(date)}
+                newComments={this.form.select('newComments').value}
+                postId={this.props.postId}
+                totalComments={this.state.totalComments}
+              />
+            )}
+          </div>
         </div>
-      </div>
+        
+
+        <SharePostDialog
+          isOpen={this.state.isSharePostDialogOpen}
+          toggle={() => this._handleSharePost()}
+          loggedUser={this.props.loggedUser}
+          sharedPostId={this.props.postId}
+          sharedPostAuthor={this.props.authorName}
+          sharedPostAuthorId={this.props.authorId}          
+          sharedPostAuthorImg={this.props.authorImg}
+          sharedPostDate={this._handleFormatDate(this.props.postDate)}
+          sharedPostLocation={this.props.authorLocation}
+          sharedPostMessage={this.props.postMessage}
+        />
+      </React.Fragment>
     );
   }
 
@@ -187,13 +206,9 @@ export default class BarangayPost extends Component {
   }
 
   async _handleSharePost() {
-    try {
-      const response = await sharePost(this.props.postId);
-      alert(response.data.data.message);
-    }
-    catch (error) {
-      alert(error.response.data.errors[0].context);
-    }
+    this.setState((prevState) => ({
+      isSharePostDialogOpen: !prevState.isSharePostDialogOpen
+    }))
   }
 
   _handleTogglePostOptions() {
