@@ -16,7 +16,7 @@ export default class DashboardStore {
     @observable hasMoreItems = true;
     @observable newsfeedPosts = [];
     @observable pageStart = 0;
-    
+
     @action
     reloadNewsfeed() {
         this.pageStart = this.pageStart === 0 ? -1 : 0;
@@ -46,12 +46,12 @@ export default class DashboardStore {
         try {
             const response = await deletePost(postId);
             runInAction(() => {
-                this.loadedPosts.splice(index, 1);
-                alert(response.data.data.message);      
+                this.newsfeedPosts.splice(index, 1);
+                alert(response.data.data.message);
             });
         }
-        catch(e) {
-            console.log(e);
+        catch (e) {
+            console.log(e.response);
         }
     }
 }
