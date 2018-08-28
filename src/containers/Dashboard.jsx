@@ -46,6 +46,7 @@ export default class Dashboard extends Component {
           authorId={post.barangay_page_id}
           authorImg={'images/default-brgy.png'}
           authorName={post.barangay_page_name}
+          authorRole={'barangay_page_admin'}          
           authorLocation={post.barangay_page_municipality}
           handleDeletePost={() => this._handleDeletePost(post.post_id)}
           isLiked={post.is_liked}
