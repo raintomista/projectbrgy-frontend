@@ -21,7 +21,7 @@ export default class DashboardView extends Component {
           <div className="row">
             <div className="col-md-3"></div>
             <div className="col-md-6">
-              <DashboardPostBox />
+              <DashboardPostBox DashboardStore={this.props.DashboardStore}/>
             </div>
           </div>
           </div>

@@ -1,10 +1,8 @@
 .dashboard-post-box {
     margin-bottom: 1em;
-
     .card-body {
         background: linear-gradient(#60a7ce, 60%, #5c92d1);
         padding: 1.1em 1.25em 0.6em 1.25em;
-
         textarea {
             border: none;
             border-radius: 0.4em;
@@ -15,31 +13,29 @@
             resize: none;
             width: 100%;
         }
-
         textarea:focus {
             outline: none !important;
         }
-
+        textarea:disabled {
+            background-color: rgb(245, 245, 245);
+            color: gray;
+        }
         .options {
             display: flex;
             align-items: center;
             justify-content: space-between;
         }
-
-        .options > .buttons > .btn {
+        .options>.buttons>.btn {
             background-color: transparent;
             color: white;
             font-size: 1.3em;
             margin: 0 0.6em;
-        }
-
-        // Message Character Count
+        } // Message Character Count
         .character-count {
             color: white;
             font-family: 'Lato', sans-serif;
             font-weight: 700;
         }
-        
         .character-count.invalid {
             color: rgb(247, 41, 41);
         }

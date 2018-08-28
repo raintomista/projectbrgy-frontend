@@ -1,9 +1,12 @@
 import validatorjs from 'validatorjs';
 import MobxReactForm from 'mobx-react-form';
 
+import { postAnnouncement } from 'services/DashboardService';
+
 export default class PostBoxForm extends MobxReactForm {
-  constructor() {
+  constructor(DashboardStore) {
     super();
+    this.DashboardStore = DashboardStore;
   }
   setup() {
     const fields = {
@@ -21,8 +24,8 @@ export default class PostBoxForm extends MobxReactForm {
 
             // Set field value
             field.set(element.value);
-          },
-        },
+          }
+        }
       }
     }
 
@@ -36,7 +39,25 @@ export default class PostBoxForm extends MobxReactForm {
   hooks() {
     return {
       async onSuccess(form) {
+        const message = form.select('message').value;
 
+        // Disable Form
+        form.select('message').set('disabled', true);
+
+        try {
+          await postAnnouncement(message);
+          alert('Successfully posted an announcement');
+
+          // Re-enable and reset form
+          form.select('message').set('disabled', false);
+          form.select('message').set('value', '');          
+        }
+        catch (e) {
+          alert('An error occured. Please try again.');
+
+          // Re-enable form          
+          form.select('message').set('disabled', false);          
+        }
       },
       onError(form) {
         console.log(form.errors())

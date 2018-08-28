@@ -15,18 +15,7 @@ configure({
 export default class DashboardStore {
     @observable hasMoreItems = true;
     @observable loadedPosts = [];
-
-    @action
-    async postAnnouncement(message) {
-        try {
-            const response = await postAnnouncement(message);
-            const data = response.data.data;
-        }
-        catch (e) {
-            console.log(e);
-        }
-    }
-
+    
     @action
     async getPostsFromFollowing(page, limit) {
         try {

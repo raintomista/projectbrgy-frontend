@@ -16,7 +16,7 @@ import './PostBox.less';
 export default class DasboardPostBox extends Component {
   constructor(props) {
     super(props);
-    this.form = new PostBoxForm();
+    this.form = new PostBoxForm(props.DashboardStore);
   }
 
   render() {
@@ -31,11 +31,15 @@ export default class DasboardPostBox extends Component {
               <span className={`character-count ${characterCount < 0 ? 'invalid' : ''}`}>
                 {characterCount}
               </span>
-              <LightRoundedButton type="submit" value="Post" disabled={characterCount === 150 || characterCount < 0} />
+              <LightRoundedButton type="submit" value="Post" disabled={characterCount === 150 || characterCount < 0 || this.form.disabled } />
             </div>
           </div>
         </div>
       </form>
     );
   }
+}
+
+DasboardPostBox.propTypes = {
+  DashboardStore: PropTypes.object
 }
