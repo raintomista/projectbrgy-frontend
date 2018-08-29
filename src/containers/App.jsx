@@ -12,12 +12,13 @@ import Login from 'containers/Login';
 import SignUp from 'containers/SignUp';
 import ConfirmationPage from 'containers/ConfirmationPage';
 import DashboardView from 'components/dashboard/View';
+import ViewPostById from 'components/view-post-by-id/View';
 import BrgyPage from 'containers/BrgyPage';
 import Profile from 'containers/Profile';
 
 @inject('AppData', 'BrgyPageStore', 'DashboardStore', 'UserProfileStore')
 @observer
-export default class App extends Component {  
+export default class App extends Component {
   render() {
     return (
       <Router>
@@ -29,6 +30,14 @@ export default class App extends Component {
             path='/dashboard'
             render={(props) => <DashboardView />}
           />
+
+          <Route
+            exact={true}
+            path='/post'
+            render={(props) => <ViewPostById {...props} AppData={this.props.AppData} />}
+          />
+
+
           <Route
             exact={true}
             path='/barangay'

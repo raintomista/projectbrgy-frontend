@@ -48,16 +48,9 @@ const BarangayPostDetails = observer((props) => {
         <div className="post-subdetails">
           <Link to='/dashboard' className="post-location">{props.authorLocation}</Link>
           <span> &middot; </span>
-          {props.authorRole === 'barangay_page_admin' && (
-            <Link to={viewBrgyPost(props.authorId, props.postId)} className="post-timestamp">
-              {props.postDate}
-            </Link>
-          )}
-          {props.authorRole === 'barangay_member' && (
-            <Link to={viewBrgyPost(props.authorId, props.postId)} className="post-timestamp">
-              {props.postDate}
-            </Link>
-          )}
+          <Link to={viewPost(props.postId, props.postType)} className="post-timestamp">
+            {props.postDate}
+          </Link>
         </div>
       </div>
 
@@ -66,19 +59,9 @@ const BarangayPostDetails = observer((props) => {
         <Dropdown isOpen={props.isPostOptionsOpen} toggle={props.handleTogglePostOptions}>
           <DropdownToggle><FontAwesomeIcon icon={faChevronDown} /></DropdownToggle>
           <DropdownMenu>
-
-
-            {props.authorRole === 'barangay_page_admin' && (
-              <Link to={viewBrgyPost(props.authorId, props.postId)}>
-                <DropdownItem>View Post</DropdownItem>
-              </Link>
-            )}
-
-            {props.authorRole === 'barangay_member' && (
-              <Link to={viewUserPost(props.authorId, props.postId)}>
-                <DropdownItem>View Post</DropdownItem>
-              </Link>
-            )}
+            <Link to={viewPost(props.postId, props.postType)}>
+              <DropdownItem>View Post</DropdownItem>
+            </Link>
 
             {props.authorRole === 'barangay_page_admin' && props.loggedUser !== null && props.loggedUser.user_barangay_id === props.postBrgyId && (
               <DropdownItem onClick={props.handleDeletePost}>Delete Post</DropdownItem>
@@ -126,6 +109,13 @@ function viewBrgyPost(brgyId, postId) {
   return {
     pathname: 'barangay',
     search: `?id=${brgyId}&post=${postId}`
+  }
+}
+
+function viewPost(postId, postType) {
+  return {
+    pathname: 'post',
+    search: `?id=${postId}&type=${postType}`
   }
 }
 

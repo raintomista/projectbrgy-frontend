@@ -39,12 +39,18 @@ export default class BarangayPost extends Component {
       totalComments: 0,
       fetchLimit: 4,
     }
-
+    
     // Initialize comment form
     this.form = new MobxReactForm({ fields }, { plugins, hooks });
     this.form.select('postId').set('value', this.props.postId);
     this.form.select('comments').set('value', this.state.comments);
     this.form.select('statsComments').set('value', this.state.statsComments);
+
+
+    // Check if component will display comments on load
+    if(props.displayCommentsOnLoad) {
+      this._handleToggleComments(1);
+    }
   }
 
   render() {
@@ -226,6 +232,7 @@ BarangayPost.propTypes = {
   authorLocation: PropTypes.string.isRequired,
   contentType: PropTypes.oneOf(['image', 'attachment']),
   disableInteractions: PropTypes.bool,
+  displayCommentsOnLoad: PropTypes.bool,    
   handleDeletePost: PropTypes.func.isRequired,
   isLiked: PropTypes.oneOf([0, 1]).isRequired,
   loggedUser: PropTypes.object,
@@ -234,7 +241,6 @@ BarangayPost.propTypes = {
   postDate: PropTypes.string.isRequired,
   postMessage: PropTypes.string,
   postType: PropTypes.oneOf(['announcement', 'sharePost']).isRequired,
-
   sharedPostId: PropTypes.string,
   sharedPostAuthor: PropTypes.string,
   sharedPostAuthorId: PropTypes.string,
@@ -242,8 +248,12 @@ BarangayPost.propTypes = {
   sharedPostDate: PropTypes.string,
   sharedPostLocation: PropTypes.string,
   sharedPostMessage: PropTypes.string,
-
   statsComments: PropTypes.number.isRequired,
   statsLikes: PropTypes.number.isRequired,
   statsShares: PropTypes.number.isRequired,
+}
+
+
+BarangayPost.defaultProps = {
+  displayCommentsOnLoad: false
 }

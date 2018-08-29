@@ -12,6 +12,16 @@ export function deletePost(postId) {
     });
 }
 
+export function getPostById(postId) {
+    const token = localStorage.getItem('x-access-token');
+    return axios.get(`${API_HOST}/post/${postId}`, { headers: { 'x-access-token': token } });
+}
+
+export function getSharedPostById(postId) {
+    const token = localStorage.getItem('x-access-token');
+    // return axios.get(`${API_HOST}/post/${postId}`, { headers: { 'x-access-token': token } });
+}
+
 export function likePost(postId) {
     const token = localStorage.getItem('x-access-token');
     return axios({
