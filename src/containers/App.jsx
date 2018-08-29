@@ -34,7 +34,7 @@ export default class App extends Component {
           <Route
             exact={true}
             path='/post'
-            render={(props) => <ViewPostById {...props} AppData={this.props.AppData} />}
+            render={(props) => <ViewPostById {...props} AppData={this.props.AppData} DashboardStore={this.props.DashboardStore}/>}
           />
 
 

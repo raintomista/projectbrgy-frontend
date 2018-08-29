@@ -6,7 +6,7 @@ import queryString from 'query-string';
 import NavBar from 'components/common/Nav/Bar';
 import PostCard from 'components/common/Post/PostCard';
 
-import { getPostById, getSharedPostById } from 'services/PostService';
+import { deletePost, getPostById, getSharedPostById } from 'services/PostService';
 
 @observer
 export default class ViewPostById extends Component {
@@ -17,14 +17,14 @@ export default class ViewPostById extends Component {
   async componentDidMount() {
     // Get logged user data
     this.props.AppData.getUserDetails();
-    
+
     // Parse search query
     const searchQuery = this.props.location.search;
     const parsedQuery = queryString.parse(searchQuery);
-    
+
     // Fetch post    
     this._handleFetch(parsedQuery.id, parsedQuery.type);
-    this.setState({ postType: parsedQuery.type });    
+    this.setState({ postType: parsedQuery.type });
   }
 
   render() {
@@ -53,7 +53,7 @@ export default class ViewPostById extends Component {
         authorName={post.barangay_page_name}
         authorRole={'barangay_page_admin'}
         authorLocation={post.barangay_page_municipality}
-        displayCommentsOnLoad={true}        
+        displayCommentsOnLoad={true}
         handleDeletePost={() => this._handleDeletePost(post.post_id)}
         isLiked={post.is_liked}
         loggedUser={this.props.AppData.loggedUser}
@@ -67,6 +67,22 @@ export default class ViewPostById extends Component {
         statsShares={post.share_count}
       />
     );
+  }
+
+  async _handleDeletePost(postId) {
+    const prompt = window.confirm("Are you sure you want to delete this post?");
+    if (prompt) {
+      try {
+        const response = await deletePost(postId);
+        alert(response.data.data.message);
+
+        // Delete loaded newsfeed posts before navigating back to dashboard
+        this.props.DashboardStore.reloadNewsfeed();
+        this.props.history.push('/dashboard');
+      } catch (e) {
+        alert('An error occurred. Please try again.');
+      }
+    }
   }
 
   async _handleFetch(postId, postType) {
