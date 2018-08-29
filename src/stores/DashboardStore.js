@@ -28,7 +28,7 @@ export default class DashboardStore {
             });
         }
         catch (e) {
-            console.log('An error occured. Please try again.');
+            alert('An error occured. Please try again.');
         }
     }
 

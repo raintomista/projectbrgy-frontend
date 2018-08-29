@@ -31,7 +31,9 @@ export default class DasboardPostBox extends Component {
               <span className={`character-count ${characterCount < 0 ? 'invalid' : ''}`}>
                 {characterCount}
               </span>
-              <LightRoundedButton type="submit" value="Post" disabled={characterCount === 150 || characterCount < 0 || this.form.disabled } />
+              <button type="submit" className="submit btn rounded-light" disabled={characterCount === 150 || characterCount < 0 || this.form.disabled}>
+                Post
+              </button>
             </div>
           </div>
         </div>
