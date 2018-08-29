@@ -55,6 +55,8 @@ export default class DashboardView extends Component {
                   />
                 )}
 
+                <h6 className="newsfeed-title">News Feed</h6>
+
                 <InfiniteNewsFeed
                   pageStart={DashboardStore.pageStart}
                   loadMore={this._loadMorePosts}
