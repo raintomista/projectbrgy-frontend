@@ -32,39 +32,43 @@ export default class PostBoxForm extends MobxReactForm {
     return { fields };
   }
 
+  handlers() {
+    return {
+      onSubmit: (form) => (e) => {
+        const element = e.target.getElementsByTagName('textarea')[0];        
+        e.preventDefault()  // Prevent default form submission
+        form.validate().then((form) => this.onSuccess(form, element))
+      }
+    }
+  }
+
   plugins() {
     return { dvr: validatorjs };
   }
+  
+  async onSuccess(form, element) {
+    const message = form.select('message').value;
 
-  hooks() {
-    return {
-      async onSuccess(form) {
-        const message = form.select('message').value;
+    // Disable Form
+    form.select('message').set('disabled', true);
 
-        // Disable Form
-        form.select('message').set('disabled', true);
+    try {
+      await postAnnouncement(message);
+      alert('Successfully posted an announcement');
 
-        try {
-          await postAnnouncement(message);
-          alert('Successfully posted an announcement');
-                    
-          // Re-enable and reset form
-          form.select('message').set('disabled', false);
-          form.select('message').set('value', '');    
+      // Re-enable and reset form
+      form.select('message').set('disabled', false);
+      form.select('message').set('value', '');
 
-          // Reload newsfeeds
-          this.DashboardStore.reloadNewsfeed();                
-        }
-        catch (e) {
-          alert('An error occured. Please try again.');
+      // Reload newsfeeds
+      this.DashboardStore.reloadNewsfeed();
+      element.style.height = "88px";
+    }
+    catch (err) {
+      alert('An error occured. Please try again.');
 
-          // Re-enable form          
-          form.select('message').set('disabled', false);          
-        }
-      },
-      onError(form) {
-        console.log(form.errors())
-      }
+      // Re-enable form          
+      form.select('message').set('disabled', false);
     }
   }
 }
