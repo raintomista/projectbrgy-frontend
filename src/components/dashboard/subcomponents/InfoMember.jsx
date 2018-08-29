@@ -8,7 +8,7 @@ const SideBarMemberInfo = (props) => {
   return (
     <React.Fragment>
       <img className="card-img mx-auto d-block" src={props.imgSrc} alt="" />
-      <Link to={{}} className="card-title">
+      <Link to={props.handleViewUserProfile} className="card-title">
         {props.memberName}
       </Link>
       <p className="card-text">{props.brgyName}, <br /> {props.municipality}</p>
@@ -16,10 +16,10 @@ const SideBarMemberInfo = (props) => {
   );
 }
 
-SideBarMemberInfo.PropTypes = {
+SideBarMemberInfo.propTypes = {
   brgyName: PropTypes.string,
   imgSrc: PropTypes.string,
-  memberId: PropTypes.string,
+  handleViewUserProfile: PropTypes.object,
   memberName: PropTypes.string,
   municipality: PropTypes.string
 }
