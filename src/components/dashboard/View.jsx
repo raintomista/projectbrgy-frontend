@@ -7,6 +7,7 @@ import { observer } from 'mobx-react';
 import BarangayPostCard from 'components/common/Post/PostCard';
 import DashboardPostBox from 'components/dashboard/subcomponents/PostBox';
 import InfiniteNewsFeed from 'components/dashboard/subcomponents/InfiniteNewsFeed';
+import DashboardSideBar from 'components/dashboard/subcomponents/SideBar';
 import NavBar from 'components/common/Nav/Bar';
 
 // Store
@@ -46,7 +47,9 @@ export default class DashboardView extends Component {
         <div className="dashboard-content">
           <div className="container">
             <div className="row">
-              <div className="col-md-3"></div>
+              <div className="col-md-3">
+                {loggedUser && <DashboardSideBar AppData={AppData} />}
+              </div>
               <div className="col-md-6">
 
                 {loggedUser && loggedUser.user_role !== 'barangay_member' && (
