@@ -9,11 +9,11 @@ const OptionsMember = observer((props) => {
   return (
     <ul className="dashboard-sidebar-options list-group list-group-flush">
       <li className="list-group-item">
-        <Link to='/dashboard' className="card-link">My Barangay</Link>
+        <Link to={props.handleViewBrgyPage} className="card-link">My Barangay</Link>
         <span className="badge"></span>
       </li>
       <li className="list-group-item">
-        <Link to='/dashboard' className="card-link">Following</Link>
+        <Link to={props.handleViewUserFollowingList} className="card-link">Following</Link>
         <span className="badge">{props.followingCount}</span>
       </li>
       <li className="list-group-item">
@@ -31,8 +31,9 @@ const OptionsMember = observer((props) => {
 });
 
 OptionsMember.propTypes = {
-  brgyId: PropTypes.string,
   followingCount: PropTypes.number,
+  handleViewBrgyPage: PropTypes.object,
+  handleViewUserFollowingList: PropTypes.object,
   reportsCount: PropTypes.number,
   respondedCount: PropTypes.number,  
 }

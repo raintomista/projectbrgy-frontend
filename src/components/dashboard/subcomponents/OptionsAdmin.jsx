@@ -31,7 +31,7 @@ const OptionsAdmin = observer((props) => {
       </li>
 
       <li className="list-group-item">
-        <Link to='/dashboard' className="card-link">Followers</Link>
+        <Link to={props.handleViewBrgyFollowersList} className="card-link">Followers</Link>
         <span className="badge">{props.followersCount}</span>
       </li>
 
@@ -45,6 +45,7 @@ OptionsAdmin.propTypes = {
   eResourcesCount: PropTypes.number,      
   eServicesCount: PropTypes.number, 
   followersCount: PropTypes.number, 
+  handleViewBrgyFollowersList: PropTypes.object,
   messageCount: PropTypes.number,
   residentCount: PropTypes.number,
 }

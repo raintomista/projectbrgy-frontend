@@ -41,8 +41,9 @@ export default class DashboardSideBar extends Component {
         {/* Sidebar Options */}
         {loggedUser.user_role === 'barangay_member' ?
           <SideBarMemberOptions
-            brgyId={loggedUser.barangay_page_id}
             followingCount={loggedUser.stats.following_count}
+            handleViewBrgyPage={this._handleViewBrgyPage(loggedUser.barangay_page_id)}
+            handleViewUserFollowingList={this._handleViewUserFollowingList(loggedUser.user_id)}
             reportsCount={5}
             respondedCount={5}
           /> :
@@ -51,12 +52,20 @@ export default class DashboardSideBar extends Component {
             eResourcesCount={11}
             eServicesCount={11}
             followersCount={loggedUser.stats.follower_count}
+            handleViewBrgyFollowersList={this._handleViewBrgyFollowersList(loggedUser.barangay_page_id)}
             messageCount={5}
             residentCount={143}
           />
         }
       </div>
     );
+  }
+
+  _handleViewBrgyFollowersList(brgyId) {
+    return {
+      pathname: '/barangay',
+      search: `?id=${brgyId}&view=followers_list`
+    };
   }
 
   _handleViewBrgyPage(brgyId) {
@@ -66,7 +75,14 @@ export default class DashboardSideBar extends Component {
     };
   }
 
-  _handleViewUserProfile(userId){
+  _handleViewUserFollowingList(userId) {
+    return {
+      pathname: '/profile',
+      search: `?id=${userId}&view=following_list`
+    };
+  }
+
+  _handleViewUserProfile(userId) {
     return {
       pathname: '/profile',
       search: `?id=${userId}`
