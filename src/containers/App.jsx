@@ -16,6 +16,9 @@ import ViewPostById from 'components/view-post-by-id/View';
 import BrgyPage from 'containers/BrgyPage';
 import Profile from 'containers/Profile';
 
+/*----------------- E-Services Views -----------------*/
+import EServicesView from 'components/e-services/View';
+
 @inject('AppData', 'BrgyPageStore', 'DashboardStore', 'UserProfileStore')
 @observer
 export default class App extends Component {
@@ -52,6 +55,10 @@ export default class App extends Component {
             exact={true}
             path='/katarungang-pambarangay/confirmation'
             render={(props) => <ConfirmationPage {...props} type="complaint" />}
+          />
+          <Route 
+            path='/e-services/:type'
+            render={(props) => <EServicesView {...props} />}
           />
           <Route
             exact={true}
