@@ -9,7 +9,7 @@ import './InlineDropdownInput.less';
 
 const InlineDropdownInput = observer((props) => (
   <React.Fragment>
-    <div className="inline form-group">
+    <div className="inline dropdown-input form-group">
       <label htmlFor={props.id}>
         <span>{props.label}</span>
         <span className="required"> * </span>

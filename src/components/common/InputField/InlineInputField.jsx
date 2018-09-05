@@ -6,7 +6,7 @@ import './InlineInputField.less';
 
 const InlineInputField = observer((props) => (
   <React.Fragment>
-    <div className="inline form-group">
+    <div className="inline input-field form-group">
       <label htmlFor={props.id}>
         <span>{props.label}</span>
         { props.required && <span className="required"> * </span> }
