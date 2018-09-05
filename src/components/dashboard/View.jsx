@@ -21,6 +21,7 @@ export default class DashboardView extends Component {
   constructor(props) {
     super(props);
     this._loadMorePosts = this._loadMorePosts.bind(this);
+    RootStore.DashboardStore.initNewsfeed();
   }
 
   componentDidMount() {

@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 
 /*--------------- Components ---------------*/
-import NavBar from 'components/common/NavBar';
+import NavBar from 'components/common/Nav/Bar';
 import BarangayPostCard from 'components/common/Post/PostCard';
 
 import DashboardPostBox from 'components/dashboard/DashboardPostBox';

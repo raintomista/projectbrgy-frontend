@@ -59,4 +59,11 @@ export default class DashboardStore {
         this.hasMoreItems = true;
         this.newsfeedPosts = [];
     }
+
+    @action
+    initNewsfeed() {
+        this.hasMoreItems = true;
+        this.newsfeedPosts = [];
+        this.pageStart = 0;
+    }
 }
