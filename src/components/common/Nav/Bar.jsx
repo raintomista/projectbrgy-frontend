@@ -4,11 +4,15 @@ import React, { Component } from 'react';
 /*--------------- Components ---------------*/
 import SideBar from 'components/common/SideNav/Bar';
 
-// Utilities
+/*--------------- Nav Images ---------------*/
+import Home from 'assets/images/nav-home.png';
+import Menu from 'assets/images/nav-menu.png';
+
+/*--------------- Utilities ---------------*/
 import { Link } from "react-router-dom";
 import { observer } from 'mobx-react';
 
-// Stylesheet
+/*--------------- Stylesheets ---------------*/
 import 'components/common/Nav/Bar.less';
 
 @observer
@@ -34,7 +38,7 @@ export default class NavBar extends Component {
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
               <div className="navbar-nav">
                 <Link to="/dashboard" className="nav-logo">
-                  <img src="images/nav-logo.png" alt="" />
+                  <img src={Home} alt="" />
                 </Link>
               </div>
               <form className="form-inline my-2 my-lg-0">
@@ -42,7 +46,7 @@ export default class NavBar extends Component {
               </form>
               <div className="navbar-nav">
                 <a onClick={() => this.onSetSidebarOpen()} className="nav-menu">
-                  <img src="images/nav-menu.png" alt="" />
+                  <img src={Menu} alt="" />
                 </a>
               </div>
             </div>
