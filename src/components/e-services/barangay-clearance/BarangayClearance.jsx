@@ -14,7 +14,7 @@ const BarangayClearance = observer((props) => {
           <div className="col-md-7">
             <InlineInputField
               id="first-name"
-              field={props.form.$('firstName')}
+              field={props.form.$('first_name')}
               label="First Name:"
               type="text"
               required
@@ -23,7 +23,7 @@ const BarangayClearance = observer((props) => {
           <div className="col-md-5">
             <InlineInputField
               id="middle-name"
-              field={props.form.$('middleName')}
+              field={props.form.$('middle_name')}
               label="Middle Name:"
               type="text"
               required
@@ -34,7 +34,7 @@ const BarangayClearance = observer((props) => {
           <div className="col-md-6">
             <InlineInputField
               id="last-name"
-              field={props.form.$('lastName')}
+              field={props.form.$('last_name')}
               label="Last Name:"
               type="text"
               required
@@ -54,7 +54,7 @@ const BarangayClearance = observer((props) => {
           <div className="col-md-6">
             <InlineInputField
               id="date-of-birth"
-              field={props.form.$('dateOfBirth')}
+              field={props.form.$('date_of_birth')}
               label="Date of Birth:"
               maxLength={10}
               type="text"
@@ -64,7 +64,7 @@ const BarangayClearance = observer((props) => {
           <div className="col-md-6">
             <InlineInputField
               id="place-of-birth"
-              field={props.form.$('placeOfBirth')}
+              field={props.form.$('place_of_birth')}
               label="Place of Birth:"
               type="text"
               required
@@ -86,7 +86,7 @@ const BarangayClearance = observer((props) => {
           <div className="col-md-5">
             <InlineDropdownInput
               id="marital-status"
-              field={props.form.$('maritalStatus')}
+              field={props.form.$('marital_status')}
               label="Marital Status:"
             />
           </div>

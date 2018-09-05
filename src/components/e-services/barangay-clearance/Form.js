@@ -4,30 +4,30 @@ import MobxReactForm from 'mobx-react-form';
 export default class BarangayClearanceForm extends MobxReactForm {
   setup() {
     const fields = {
-      firstName: {
+      first_name: {
         rules: 'required',
       },
-      middleName: {
+      middle_name: {
         rules: 'required',
       },
-      lastName: {
+      last_name: {
         rules: 'required',
       },
       citizenship: {
         rules: 'required',
       },
-      dateOfBirth: {
+      date_of_birth: {
         rules: ['required', 'regex:/^(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)[0-9][0-9]$/'],
         placeholder: 'mm/dd/yyyy'
 
       },
-      placeOfBirth: {
+      place_of_birth: {
         rules: 'required',
       },
       address: {
         rules: 'required',
       },
-      maritalStatus: {
+      marital_status: {
         rules: 'required',
         value: 'Single',
         options: ['Single', 'Married', 'Annulled', 'Widowed']
