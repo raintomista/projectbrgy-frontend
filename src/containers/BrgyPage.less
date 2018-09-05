@@ -10,33 +10,57 @@
 }
 
 .modal-title {
-    color: #2a8abd; 
+    color: #2a8abd;
     font-family: 'Lato', sans-serif;
     font-weight: 600;
-    margin-top: 0.5em;
-    margin-bottom: 0.8em;
+    margin-top: 0em;
+    margin-bottom: 2rem;
     text-align: center;
 }
+
+.modal-body {
+    padding: 2.7rem 5rem;
+}
+
+@media (min-width: 992px) {
+    .modal-lg {
+        max-width: 900px;
+    }
+}
+
 
 // E-Service Button
 .e-service {
-    color: #2a8abd; 
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    color: #2a8abd;
     font-family: 'Lato', sans-serif;
     text-align: center;
+    
+    .e-service-link {
+        font-size: 20px;
+        min-height: 48px;
+    }
 }
 
 .e-service-btn {
-    border: 2.5px solid #2a8abd; 
+    border: 2.5px solid #2a8abd;
     border-radius: 20px;
-    height: 230px;
-    padding: 20px;
+    height: 200px;
+    padding: 30px;
     display: flex;
     justify-content: space-around;
     align-items: center;
-    width: 230px;
+    width: 200px;
     margin-bottom: 1em;
-
+    cursor: pointer;
     img {
-        max-height: 160px;
+        max-height: 140px;
+    }
+
+    &:hover + .e-service-link {
+        text-decoration: underline;
     }
 }

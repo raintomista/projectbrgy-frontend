@@ -55,14 +55,14 @@ export default class BrgyPage extends Component {
 
         <Modal isOpen={BrgyPageStore.isModalOpen} toggle={() => BrgyPageStore.toggleModal()} size="lg" centered={true}>
           <ModalBody>
-            <h4 className="modal-title">E-Services</h4>
+            <h3 className="modal-title">E-Services</h3>
             <div className="row justify-content-sm-center">
               {BrgyPageStore.data && BrgyPageStore.data.barangay_clearance === 1 && (
                 <div className="col-sm-4 e-service">
                   <div className="e-service-btn">
                     <img src="images/brgy-clearance.png" alt="" />
                   </div>
-                  <h5>Barangay Clearance</h5>
+                  <a href="" className="e-service-link">Barangay Clearance</a>
                 </div>
               )}
 
@@ -71,7 +71,7 @@ export default class BrgyPage extends Component {
                   <div className="e-service-btn">
                     <img src="images/business-permit.png" alt="" />
                   </div>
-                  <h5>Business Permit</h5>
+                  <a href="" className="e-service-link">Business Permit</a>
                 </div>
               )}
 
@@ -80,7 +80,7 @@ export default class BrgyPage extends Component {
                   <div className="e-service-btn">
                     <img src="images/katarungang-pambarangay.png" alt="" />
                   </div>
-                  <h5>Katarungang Pambarangay Services</h5>
+                  <a href="" className="e-service-link">Katarungang Pambarangay Services</a>
                 </div>
               )}
             </div>
