@@ -28,7 +28,8 @@ export const fields = {
 export const hooks = {
     async onSuccess(form) {
         const { postId, commentMessage } = form.values();
-        form.set('disabled', true);
+        form.$('commentMessage').set('disabled', true);
+        
 
         try {
             const response = await addComment(postId, commentMessage);
@@ -44,7 +45,7 @@ export const hooks = {
             form.select('commentMessage').clear();
 
             // Re-enable form
-            form.set('disabled', false);
+            form.$('commentMessage').set('disabled', false);
         }
         catch (e) {
             console.log(e);

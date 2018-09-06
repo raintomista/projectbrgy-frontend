@@ -33,12 +33,23 @@ export default class BarangayClearanceForm extends MobxReactForm {
         options: ['Single', 'Married', 'Annulled', 'Widowed']
       },
       residencyField: {
-        rules: 'required|numeric',
+        rules: ['required', 'regex:/^[1-9]([0-9]+)?$/'],
       },
       residencyDropdown: {
         rules: 'required',
         value: 'months',
         options: ['month/s', 'year/s']
+      },
+      purpose: {
+        rules: 'required',
+        type: 'radio',
+        value: 'Certification/Residency'
+      },
+      other_purpose: {
+        rules: 'required_if:purpose,Others',
+        handlers: {
+          onBlur: (field) => (e) => field.validate()
+        }
       }
     }
 
@@ -52,7 +63,14 @@ export default class BarangayClearanceForm extends MobxReactForm {
   hooks() {
     return {
       onSuccess(form) {
-        console.log(form.values())
+        const { other_purpose, purpose, residencyDropdown, residencyField, ...rest } = form.values();
+        let months_of_residency = residencyDropdown === 'year/s' ? (parseInt(residencyField) * 12) : parseInt(residencyField);
+        let _purpose = purpose === 'Others' ? other_purpose : purpose;
+
+
+        const formValue = Object.assign(rest, { months_of_residency, purpose: _purpose });
+
+        console.log(formValue);
       },
       onError(form) {
         console.log(form.errors())
