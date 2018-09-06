@@ -1,0 +1,53 @@
+.radio-button {
+    display: block;
+    position: relative;
+    cursor: pointer;
+    margin-bottom: 2px;    
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    .label {
+        color: #2a8abd;
+        font-family: 'Lato', sans-serif;
+        font-size: 1em;
+        font-weight: 500;
+        padding-left: 25px;
+    }
+    .checkmark {
+        position: absolute;
+        top: 15%;
+        left: 0;
+        height: 19px;
+        width: 19px;
+        border-radius: 50%;
+        
+        border: 1.2px solid #2a8abd;
+        
+    }
+    input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+    }
+    &:hover input~.checkmark {
+        background-color: rgb(231, 222, 222);
+    }
+    .checkmark:after {
+        content: "";
+        position: absolute;
+        display: none;
+    }
+    input:checked~.checkmark:after {
+        display: block;
+    }
+    /* Style the indicator (dot/circle) */
+    .checkmark:after {
+        top: 4px;
+        left: 4px;
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: #2a8abd;
+    }
+}
