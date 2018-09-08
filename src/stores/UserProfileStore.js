@@ -18,14 +18,15 @@ export default class UserProfileStore {
     @observable sharedPosts = [];
     @observable viewType;
     @observable followingList = [];
-    
+    @observable loading = true;
+
     @action
     async fetchUserProfileData(id) {
         this.data = null; //reset data for every request
         try {
             const response = await getUserById(id);
             const data = response.data.data;
-    
+
             runInAction(() => {
                 this.data = data;
             });
@@ -33,22 +34,25 @@ export default class UserProfileStore {
             console.log(e);
         }
     }
-    
+
     @action
     setProfileView(type) {
         this.viewType = type;
     }
-    
+
     @action
     async fetchUserFollowingList(userId) {
+        this.loading = true;
         try {
             const response = await getUserFollowingList(userId);
             const followingList = response.data.data.items;
-    
-            runInAction(() => {
-                this.followingList = followingList;
-            })
-    
+
+            setTimeout(() => {
+                runInAction(() => {
+                    this.followingList = followingList;
+                    this.loading = false;
+                });
+            }, 1000);
         } catch (e) {
             console.log(e);
         }
@@ -63,7 +67,7 @@ export default class UserProfileStore {
             runInAction(() => {
                 this.sharedPosts = sharedPosts;
             })
-        } catch(e) {
+        } catch (e) {
             console.log(e);
         }
     }
@@ -72,7 +76,7 @@ export default class UserProfileStore {
     async followBarangay(brgyId, index) {
         try {
             await followBarangay(brgyId);
-            
+
             runInAction(() => {
                 this.followingList[index].is_following = 1;
             });
@@ -103,8 +107,8 @@ export default class UserProfileStore {
 
             runInAction(() => {
                 this.sharedPosts.splice(index, 1);
-                this.data.stats.shared_posts_count -= 1;                
-                alert(response.data.data.message);                
+                this.data.stats.shared_posts_count -= 1;
+                alert(response.data.data.message);
             });
         } catch (e) {
             alert('An error occured. Please try again.')

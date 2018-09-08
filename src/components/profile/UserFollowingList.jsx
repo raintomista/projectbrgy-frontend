@@ -7,8 +7,6 @@ import 'components/profile/UserFollowingList.less'
 const UserFollowingList = observer((props) => {
   const { UserProfileStore } = props;
 
-  console.log(UserProfileStore);
-
   return (
     <div className="user-following-list card">
       <div className="card-body">
@@ -16,8 +14,16 @@ const UserFollowingList = observer((props) => {
 
         {/* Following List */}
         <ul className="list-group list-group-flush">
+          {UserProfileStore.loading && (
+            <li className="list-group-item">
+              <div className="loader">
+                <object data="images/loader.svg" type="image/svg+xml">
+                </object>
+              </div>
+            </li>)
+          }
           {
-            UserProfileStore.followingList.map((barangay, index) => {
+            !UserProfileStore.loading && UserProfileStore.followingList.map((barangay, index) => {
               return (
                 <li className="list-group-item" key={index}>
                   <div className="wrapper">
