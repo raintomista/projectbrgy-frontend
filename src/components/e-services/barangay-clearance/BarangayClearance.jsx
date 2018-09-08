@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 import InlineInputField from 'components/common/InputField/InlineInputField';
 import InlineInputFieldWithDropdown from 'components/common/InputField/InlineInputFieldWithDropdown';
@@ -117,16 +118,66 @@ const BarangayClearance = observer((props) => {
                 name="purpose"
                 field={props.form.$('other_purpose')}
                 handleChange={props.form.$('purpose').onChange}
-                label="Others"                
+                label="Others"
               />
             </div>
           </div>
         </div>
 
-        <button type="submit">Submit</button>
+        <div className="row">
+          <div className="col-md-12">
+            <div className="attachments-section">
+              <label className="section-label">Please attached picture of the following requirements if applicable:</label>
+              <div className="attachment form-group">
+                <label>Certification of Residency from Association or Condominium: </label>
+                <button className="btn rounded">Browse</button>
+              </div>
+              <div className="attachment form-group">
+                <label>Certification from Resident Owner (For House Helpers): </label>
+                <button className="btn rounded">Browse</button>
+              </div>
+              <div className="attachment form-group">
+                <label>Latest Proof of Billing: </label>
+                <button className="btn rounded">Browse</button>
+              </div>
+              <div className="attachment form-group">
+                <label>2 Valid ID with Address: </label>
+                <button className="btn rounded">Browse</button>
+              </div>
+              <div className="attachment">
+                <InlineInputField
+                  id="pickup-date"
+                  field={props.form.$('pickup_date')}
+                  label="Date of Pickup (Within 5 days after this day only): "
+                  maxLength={10}
+                  type="text"
+                  required
+                />
+                <InlineInputField
+                  id="pickup-time"
+                  field={props.form.$('pickup_time')}
+                  label="Time of Pickup (Between 8am and 5pm only): "
+                  maxLength={4}
+                  type="text"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="row">
+          <div className="col-md-12 submit">
+            <button className="btn rounded" type="submit">Submit</button>
+          </div>
+        </div>
       </form>
     </React.Fragment>
   );
 });
+
+BarangayClearance.propTypes = {
+  form: PropTypes.object
+}
 
 export default BarangayClearance;

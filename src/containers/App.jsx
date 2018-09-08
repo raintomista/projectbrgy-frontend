@@ -10,7 +10,6 @@ import './App.less';
 /*----------------- Router Views -----------------*/
 import Login from 'containers/Login';
 import SignUp from 'containers/SignUp';
-import ConfirmationPage from 'containers/ConfirmationPage';
 import DashboardView from 'components/dashboard/View';
 import ViewPostById from 'components/view-post-by-id/View';
 import BrgyPage from 'containers/BrgyPage';
@@ -18,6 +17,8 @@ import Profile from 'containers/Profile';
 
 /*----------------- E-Services Views -----------------*/
 import EServicesView from 'components/e-services/View';
+import EServicesConfirmationView from 'components/e-services-confirmation/View';
+
 
 @inject('AppData', 'BrgyPageStore', 'DashboardStore', 'UserProfileStore')
 @observer
@@ -37,7 +38,7 @@ export default class App extends Component {
           <Route
             exact={true}
             path='/post'
-            render={(props) => <ViewPostById {...props} AppData={this.props.AppData} DashboardStore={this.props.DashboardStore}/>}
+            render={(props) => <ViewPostById {...props} AppData={this.props.AppData} DashboardStore={this.props.DashboardStore} />}
           />
 
 
@@ -52,23 +53,8 @@ export default class App extends Component {
             render={(props) => <Profile {...props} AppData={this.props.AppData} UserProfileStore={this.props.UserProfileStore} />}
           />
           <Route
-            exact={true}
-            path='/katarungang-pambarangay/confirmation'
-            render={(props) => <ConfirmationPage {...props} type="complaint" />}
-          />
-          <Route 
-            path='/e-services/:type'
+            path='/e-services/:type/'
             render={(props) => <EServicesView {...props} />}
-          />
-          <Route
-            exact={true}
-            path='/brgy-clearance/confirmation'
-            render={(props) => <ConfirmationPage {...props} type="clearance" />}
-          />
-          <Route
-            exact={true}
-            path='/business-permit/confirmation'
-            render={(props) => <ConfirmationPage {...props} type="business-permit" />}
           />
         </Switch>
       </Router>

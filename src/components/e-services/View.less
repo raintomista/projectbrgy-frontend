@@ -75,8 +75,56 @@
         font-family: 'Lato', sans-serif;
         padding: 0px;
     }
-
     .radio-with-field input[type="text"].invalid {
         border-color: #da2020;
+    }
+    .attachments-section {
+        margin-top: 1.3em;
+        .section-label {
+            color: #2a8abd;
+            font-family: 'Lato', sans-serif;
+            font-size: 1em;
+            font-weight: 700;
+        }
+        .attachment {
+            margin-left: 20px;
+        }
+        .attachment label {
+            display: block;
+        }
+        .attachment .btn {
+            min-width: 105px;
+            padding: 4.8px 10px !important;
+        }
+        input {
+            max-width: 120px;
+        }
+    }
+    .row>.submit {
+        margin-top: 10px;
+        text-align: center;
+    }
+    .confirmation-msg {
+        margin: 9em 0em;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+
+        h3 {
+            color: #2a8abd;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            margin-bottom: 0.6em;
+            text-align: center;
+        }
+        p {
+            display: block;
+            color: #2a8abd;
+            font-family: 'Lato', sans-serif;
+            font-size: 1.1em;
+            text-align: center;
+            margin-bottom: 0;
+            max-width: 650px;
+        }
     }
 }
