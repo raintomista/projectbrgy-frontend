@@ -3,6 +3,9 @@ import { observer } from 'mobx-react';
 import InlineInputField from 'components/common/InputField/InlineInputField';
 import InlineInputFieldWithDropdown from 'components/common/InputField/InlineInputFieldWithDropdown';
 import InlineDropdownInput from 'components/common/DropdownInput/InlineDropdownInput';
+import RadioButton from 'components/common/Radio/Button';
+import RadioButtonWithField from 'components/common/Radio/ButtonWithField';
+
 
 const BarangayClearance = observer((props) => {
   return (
@@ -93,12 +96,30 @@ const BarangayClearance = observer((props) => {
           <div className="col-md-7">
             <InlineInputFieldWithDropdown
               id="residency"
-              label="Months/Years of Residency:"    
-              maxLength={2}          
-              residencyDropdown={props.form.$('residencyDropdown')}                            
+              label="Months/Years of Residency:"
+              maxLength={2}
+              residencyDropdown={props.form.$('residencyDropdown')}
               residencyField={props.form.$('residencyField')}
               type="text"
             />
+          </div>
+        </div>
+
+        <div className="row">
+          <div className="col-md-12">
+            <label className="purpose-of-clearance">Purpose of Clearance</label>
+            <div className="radio-group">
+              <RadioButton name="purpose" label="Certification/Residency" handleChange={props.form.$('purpose').onChange} defaultChecked />
+              <RadioButton name="purpose" label="Local Employment" handleChange={props.form.$('purpose').onChange} />
+              <RadioButton name="purpose" label="Overseas Employment" handleChange={props.form.$('purpose').onChange} />
+              <RadioButton name="purpose" label="Loan" handleChange={props.form.$('purpose').onChange} />
+              <RadioButtonWithField
+                name="purpose"
+                field={props.form.$('other_purpose')}
+                handleChange={props.form.$('purpose').onChange}
+                label="Others"                
+              />
+            </div>
           </div>
         </div>
 

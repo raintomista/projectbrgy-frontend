@@ -43,13 +43,22 @@ export default class BarangayClearanceForm extends MobxReactForm {
       purpose: {
         rules: 'required',
         type: 'radio',
-        value: 'Certification/Residency'
+        value: 'Certification/Residency',
+        handlers: {
+          onChange: (field) => (e) => {
+            field.set('value', e.target.value);
+            this.validate();
+
+            if(e.target.value === 'Others') {
+              if(this.$('other_purpose').value.length === 0) {
+                this.$('other_purpose').invalidate('This field is required');
+              }
+            }
+          }
+        }
       },
       other_purpose: {
         rules: 'required_if:purpose,Others',
-        handlers: {
-          onBlur: (field) => (e) => field.validate()
-        }
       }
     }
 
@@ -74,7 +83,7 @@ export default class BarangayClearanceForm extends MobxReactForm {
       },
       onError(form) {
         console.log(form.errors())
-      }
+      },
     }
   }
 } 
