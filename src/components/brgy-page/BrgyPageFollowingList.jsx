@@ -16,8 +16,16 @@ const BrgyPageFollowingList = observer((props) => {
 
         {/* Following List */}
         <ul className="list-group list-group-flush">
+          {BrgyPageStore.loading && (
+            <li className="list-group-item">
+              <div className="loader">
+                <object data="images/loader.svg" type="image/svg+xml">
+                </object>
+              </div>
+            </li>)
+          }
           {
-            followingList.map((barangay, index) => {
+            !BrgyPageStore.loading && followingList.map((barangay, index) => {
               return (
                 <li className="list-group-item" key={index}>
                   <div className="wrapper">

@@ -20,6 +20,7 @@ export default class BrgyPageStore {
     @observable followersList = [];
     @observable followingList = [];
     @observable isModalOpen = false;
+    @observable loading = true;
 
     @action
     async fetchBrgyPageData(id) {
@@ -112,33 +113,47 @@ export default class BrgyPageStore {
     @action
     async getBrgyPageFollowersList(brgyId) {
         this.followersList = [];
+        this.loading = true;
 
         try {
             const response = await getBrgyPageFollowersList(brgyId);
             const followersList = response.data.data.items;
 
-            runInAction(() => {
-                this.followersList = followersList;
-            })
+            setTimeout(() => {
+                runInAction(() => {
+                    this.followersList = followersList;
+                    this.loading = false;
+                });
+            }, 1000);
 
         } catch (e) {
-            console.log(e);
+            runInAction(() => {
+                this.followersList = [];
+                this.loading = false;                                
+            });
         }
     }
 
     @action
     async getBrgyPageFollowingList(brgyId) {
         this.followingList = [];
+        this.loading = true;
         try {
             const response = await getBrgyPageFollowingList(brgyId);
             const followingList = response.data.data.items;
 
-            runInAction(() => {
-                this.followingList = followingList;
-            })
+            setTimeout(() => {
+                runInAction(() => {
+                    this.followingList = followingList;
+                    this.loading = false;
+                });
+            }, 1000);
 
         } catch (e) {
-            console.log(e)
+            runInAction(() => {
+                this.followingList = [];
+                this.loading = false;                
+            });
         }
     }
 

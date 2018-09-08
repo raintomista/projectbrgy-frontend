@@ -16,8 +16,16 @@ const BrgyPageFollowersList = observer((props) => {
 
         {/* Followers List */}
         <ul className="list-group list-group-flush">
+          {BrgyPageStore.loading && (
+            <li className="list-group-item">
+              <div className="loader">
+                <object data="images/loader.svg" type="image/svg+xml">
+                </object>
+              </div>
+            </li>)
+          }
           {
-            followersList.map((follower, index) => {
+            !BrgyPageStore.loading && followersList.map((follower, index) => {
               return (
                 <li className="list-group-item" key={index}>
                   <div className="wrapper">
