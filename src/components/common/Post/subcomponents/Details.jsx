@@ -39,7 +39,7 @@ const BarangayPostDetails = observer((props) => {
           {props.postType === 'sharePost' && (
             <div className="share-post-details">
               <span> shared a </span>
-              <Link to={viewBrgyPost(props.sharedPostAuthorId, props.sharedPostId)} className="post-link">post</Link>
+              <Link to={viewPost(props.sharedPostId, 'announcement')} className="post-link">post</Link>
             </div>
           )}
         </div>
@@ -105,13 +105,6 @@ function viewBrgyPage(brgyId) {
   }
 }
 
-function viewBrgyPost(brgyId, postId) {
-  return {
-    pathname: 'barangay',
-    search: `?id=${brgyId}&post=${postId}`
-  }
-}
-
 function viewPost(postId, postType) {
   return {
     pathname: 'post',
@@ -123,13 +116,6 @@ function viewUserProfile(userId) {
   return {
     pathname: '/profile',
     search: `?id=${userId}`
-  }
-}
-
-function viewUserPost(userId, postId) {
-  return {
-    pathname: 'profile',
-    search: `?id=${userId}&post=${postId}`
   }
 }
 

@@ -18,6 +18,12 @@ const BrgyPageStats = observer((props) => {
               <span className="nav-item-value">{stats.posts_count}</span>
             </Link>
           </li>
+          <li className={`nav-item ${viewType === 'shared_posts' ? 'active' : ''}`}>
+            <Link className="nav-link" to={viewSharedPosts(data.id)}>
+              <span className="nav-item-title">Shared</span>
+              <span className="nav-item-value">{stats.shared_posts_count}</span>
+            </Link>
+          </li>
           <li className={`nav-item ${viewType === 'followers_list' ? 'active' : ''}`}>
             <Link className="nav-link" to={viewFollowers(data.id)}>
               <span className="nav-item-title">Followers</span>
@@ -30,12 +36,6 @@ const BrgyPageStats = observer((props) => {
               <span className="nav-item-value">{stats.following_count}</span>
             </Link>
           </li>
-          <li className={`nav-item ${viewType === 'events_list' ? 'active' : ''}`}>
-            <Link className="nav-link" to={viewEvents(data.id)}>
-              <span className="nav-item-title">Events</span>
-              <span className="nav-item-value">{stats.event_count}</span>
-            </Link>
-          </li>
         </ul>
       </div>
     </div>
@@ -45,6 +45,11 @@ const BrgyPageStats = observer((props) => {
 const viewPosts = (brgyId) => ({
   pathname: '/barangay',
   search: `?id=${brgyId}`
+});
+
+const viewSharedPosts = (brgyId) => ({
+  pathname: '/barangay',
+  search: `?id=${brgyId}&view=shared_posts`
 });
 
 const viewFollowers = (brgyId) => ({
