@@ -20,7 +20,7 @@ const SharedPost = (props) => (
           <Link to='/dashboard' className="shared-post-location">{props.sharedPostLocation}</Link>
           <span> &middot; </span>
           <Link
-            to={viewBrgyPost(props.sharedPostAuthorId, props.sharedPostId)}
+            to={viewPost(props.sharedPostId, 'announcement')}
             className="shared-post-timestamp"
           >
             {props.sharedPostDate}
@@ -54,9 +54,9 @@ function viewBrgyPage(brgyId) {
   }
 }
 
-function viewBrgyPost(brgyId, postId) {
+function viewPost(postId, postType) {
   return {
-    pathname: '/barangay',
-    search: `?id=${brgyId}&post=${postId}`
+    pathname: 'post',
+    search: `?id=${postId}&type=${postType}`
   }
 }
