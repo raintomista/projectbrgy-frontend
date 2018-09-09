@@ -6,7 +6,7 @@ import queryString from 'query-string';
 import NavBar from 'components/common/Nav/Bar';
 import PostCard from 'components/common/Post/PostCard';
 
-import { deletePost, getPostById, getSharedPostById } from 'services/PostService';
+import { deletePost, getPostById, getSharedPostById, unsharePost } from 'services/PostService';
 
 @observer
 export default class ViewPostById extends Component {
@@ -88,25 +88,29 @@ export default class ViewPostById extends Component {
         />
       );
     } else if (postType === 'sharePost') {
+      let authorId = post.share_user_role === 'barangay_page_admin' ? post.share_barangay_id : post.share_user_id;
+      let authorImg = post.share_user_role === 'barangay_page_admin' ? 'images/default-brgy.png' : 'images/default-user.png';
+      let authorName = post.share_user_role === 'barangay_page_admin' ? post.barangay_page_name : `${post.user_first_name} ${post.user_last_name}`;
+      let postBrgyId = post.share_user_role === 'barangay_page_admin' ? post.share_barangay_id : post.user_barangay_id;
       return (
         <PostCard
           key={post.share_id}
 
           // Author of the Share Post
-          authorId={post.share_barangay_id}
-          authorImg={'images/default-brgy.png'}
-          authorName={post.barangay_page_name}
+          authorId={authorId}
+          authorImg={authorImg}
+          authorName={authorName}
           authorRole={post.share_user_role}
           authorLocation={post.post_barangay_municipality}
 
           disableInteractions={true}
-          handleDeletePost={() => { }}
+          handleDeletePost={() => this._handleUnsharePost(post.share_id)}
           isLiked={0}
           loggedUser={this.props.AppData.loggedUser}
 
           // Share Post
           postId={post.share_id}
-          postBrgyId={post.share_barangay_id}
+          postBrgyId={postBrgyId}
           postDate={post.share_date_created}
           postMessage={post.share_caption}
           postType={'sharePost'}
@@ -134,6 +138,22 @@ export default class ViewPostById extends Component {
     if (prompt) {
       try {
         const response = await deletePost(postId);
+        alert(response.data.data.message);
+
+        // Delete loaded newsfeed posts before navigating back to dashboard
+        this.props.DashboardStore.reloadNewsfeed();
+        this.props.history.push('/dashboard');
+      } catch (e) {
+        alert('An error occurred. Please try again.');
+      }
+    }
+  }
+
+  async _handleUnsharePost(postId) {
+    const prompt = window.confirm("Are you sure you want to delete this post?");
+    if (prompt) {
+      try {
+        const response = await unsharePost(postId);
         alert(response.data.data.message);
 
         // Delete loaded newsfeed posts before navigating back to dashboard
