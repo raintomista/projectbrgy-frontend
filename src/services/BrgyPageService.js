@@ -32,6 +32,11 @@ export function unfollowBarangay(brgyId) {
     });
 }
 
+export function getBrgyPageSharedPosts(brgyId){
+    const token = localStorage.getItem('x-access-token');
+    return axios.get(`${API_HOST}/shared/post/page/${brgyId}`, { headers: { 'x-access-token': token } });
+}
+
 export function getBrgyPageFollowersList(brgyId) {
     const token = localStorage.getItem('x-access-token');
     return axios.get(`${API_HOST}/followers/${brgyId}`, {

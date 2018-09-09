@@ -1,7 +1,9 @@
 import React from 'react';
 
 import BrgyPageFollowersList from 'components/brgy-page/BrgyPageFollowersList';
-import BrgyPageFollowingList from './BrgyPageFollowingList';
+import BrgyPageFollowingList from 'components/brgy-page/BrgyPageFollowingList';
+import BrgyPageShared from 'components/brgy-page/BrgyPageShared';
+
 
 import BrgyPageDetails from 'components/brgy-page/BrgyPageDetails';
 import BrgyPageStats from 'components/brgy-page/BrgyPageStats';
@@ -43,7 +45,11 @@ function renderView(props) {
   const { BrgyPageStore } = props;
   const { viewType } = BrgyPageStore;
 
-  if (viewType === 'followers_list') {
+  if(viewType === 'shared_posts') {
+    BrgyPageStore.getBrgyPageSharedPosts(BrgyPageStore.data.id);
+    return <BrgyPageShared {...props} />;
+  }
+  else if (viewType === 'followers_list') {
     BrgyPageStore.getBrgyPageFollowersList(BrgyPageStore.data.id);
     return <BrgyPageFollowersList {...props} />;
   }

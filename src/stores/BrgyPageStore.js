@@ -8,15 +8,18 @@ import {
 
 import {
     getBarangayById,
+    getBrgyPageSharedPosts,
     getBrgyPageFollowersList,
     getBrgyPageFollowingList,
     followBarangay,
     unfollowBarangay,
 } from 'services/BrgyPageService';
+import { unsharePost } from 'services/PostService';
 
 export default class BrgyPageStore {
     @observable data;
     @observable viewType;
+    @observable sharedPosts = [];
     @observable followersList = [];
     @observable followingList = [];
     @observable isModalOpen = false;
@@ -111,6 +114,29 @@ export default class BrgyPageStore {
     }
 
     @action
+    async getBrgyPageSharedPosts(brgyId) {
+        this.sharedPosts = [];
+        this.loading = true;
+        try {
+            const response = await getBrgyPageSharedPosts(brgyId);
+            const sharedPosts = response.data.data.items;
+
+            setTimeout(() => {
+                runInAction(() => {
+                    this.sharedPosts = sharedPosts;
+                    this.loading = false;
+                });
+            }, 1000);
+
+        } catch (e) {
+            runInAction(() => {
+                this.sharedPosts = [];
+                this.loading = false;
+            });
+        }
+    }
+
+    @action
     async getBrgyPageFollowersList(brgyId) {
         this.followersList = [];
         this.loading = true;
@@ -129,7 +155,7 @@ export default class BrgyPageStore {
         } catch (e) {
             runInAction(() => {
                 this.followersList = [];
-                this.loading = false;                                
+                this.loading = false;
             });
         }
     }
@@ -152,10 +178,30 @@ export default class BrgyPageStore {
         } catch (e) {
             runInAction(() => {
                 this.followingList = [];
-                this.loading = false;                
+                this.loading = false;
             });
         }
     }
 
+    @action
+    async unsharePost(postId, index) {
+        try {
+            const response = await unsharePost(postId);
+            alert(response.data.data.message);
 
+            runInAction(() => {
+                this.loading = true;
+
+                setTimeout(() => {
+                    runInAction(() => {
+                        this.loading = false;
+                        this.sharedPosts.splice(index, 1);
+                        this.data.stats.shared_posts_count -= 1;
+                    });
+                }, 1000);
+            });
+        } catch (e) {
+            alert('An error occured. Please try again.')
+        }
+    }
 }
