@@ -12,13 +12,13 @@ const InlineDropdownInput = observer((props) => (
     <div className="inline dropdown-input form-group">
       <label htmlFor={props.id}>
         <span>{props.label}</span>
-        <span className="required"> * </span>
       </label>
       <DropdownList
         id={props.id}
         data={props.field.options}
         defaultValue={props.field.value}
-        onChange={props.field.sync}
+        onChange={props.field.onChange}
+        disabled={props.disabled}
       />
     </div>
 
@@ -29,6 +29,7 @@ InlineDropdownInput.propTypes = {
   id: PropTypes.string.isRequired,
   field: PropTypes.object.isRequired,
   label: PropTypes.string.isRequired,
+  disabled: PropTypes.bool,
 }
 
 export default InlineDropdownInput;

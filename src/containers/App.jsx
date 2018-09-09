@@ -15,10 +15,11 @@ import ViewPostById from 'components/view-post-by-id/View';
 import BrgyPage from 'containers/BrgyPage';
 import Profile from 'containers/Profile';
 
+import MyReportsView from 'components/my-reports/MyReportsView';
+import CreateReportView from 'components/my-reports/create-report/CreateReportView';
+
 /*----------------- E-Services Views -----------------*/
 import EServicesView from 'components/e-services/View';
-import EServicesConfirmationView from 'components/e-services-confirmation/View';
-
 
 @inject('AppData', 'BrgyPageStore', 'DashboardStore', 'UserProfileStore')
 @observer
@@ -33,6 +34,16 @@ export default class App extends Component {
             exact={true}
             path='/dashboard'
             render={(props) => <DashboardView />}
+          />
+          <Route
+            exact={true}
+            path='/dashboard/my-reports'
+            render={(props) => <MyReportsView />}
+          />
+          <Route
+            exact={true}
+            path='/dashboard/my-reports/create'
+            render={(props) => <CreateReportView {...props} />}
           />
 
           <Route
