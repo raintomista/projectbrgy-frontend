@@ -8,6 +8,10 @@ import SideBarMemberInfo from './InfoMember';
 import SideBarAdminOptions from './OptionsAdmin';
 import SideBarMemberOptions from './OptionsMember';
 
+import BrgyMemberAvatar from 'assets/images/default-user.png';
+import BrgyPageAvatar from 'assets/images/default-brgy.png';
+
+
 // Styles
 import './SideBar.less';
 
@@ -24,7 +28,7 @@ export default class DashboardSideBar extends Component {
           {loggedUser.user_role === 'barangay_member' ?
             <SideBarMemberInfo
               brgyName={loggedUser.barangay_page_name}
-              imgSrc={'images/default-user.png'}
+              imgSrc={BrgyMemberAvatar}
               handleViewUserProfile={this._handleViewUserProfile(loggedUser.user_id)}
               memberName={`${loggedUser.user_first_name} ${loggedUser.user_last_name}`}
               municipality={loggedUser.barangay_page_municipality}
@@ -32,7 +36,7 @@ export default class DashboardSideBar extends Component {
             <SideBarAdminInfo
               brgyName={loggedUser.barangay_page_name}
               handleViewBrgyPage={this._handleViewBrgyPage(loggedUser.barangay_page_id)}
-              imgSrc={'images/default-brgy.png'}
+              imgSrc={BrgyPageAvatar}
               municipality={loggedUser.barangay_page_municipality}
             />
           }
@@ -44,8 +48,9 @@ export default class DashboardSideBar extends Component {
             followingCount={loggedUser.stats.following_count}
             handleViewBrgyPage={this._handleViewBrgyPage(loggedUser.barangay_page_id)}
             handleViewUserFollowingList={this._handleViewUserFollowingList(loggedUser.user_id)}
-            reportsCount={5}
-            respondedCount={5}
+            handleViewUserReports={this._handleViewUserReports(loggedUser.user_id)}
+            reportsCount={loggedUser.stats.reports_count}
+            respondedCount={loggedUser.stats.responded_count}
           /> :
           <SideBarAdminOptions
             adminName={`${loggedUser.user_first_name} ${loggedUser.user_last_name}`}
@@ -86,6 +91,12 @@ export default class DashboardSideBar extends Component {
     return {
       pathname: '/profile',
       search: `?id=${userId}`
+    };
+  }
+
+  _handleViewUserReports() {
+    return {
+      pathname: `/my-reports`,
     };
   }
 }
