@@ -96,7 +96,7 @@ export default class DashboardSideBar extends Component {
 
   _handleViewUserReports() {
     return {
-      pathname: `/my-reports`,
+      pathname: `/dashboard/my-reports`,
     };
   }
 }

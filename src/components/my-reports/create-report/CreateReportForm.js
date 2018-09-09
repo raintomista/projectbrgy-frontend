@@ -55,13 +55,15 @@ export default class CreateReportForm extends MobxReactForm {
         committee_type = report_type === 'General' ? null : committee_type.toLowerCase();
         report_type = report_type.toLowerCase();
 
-
-        try {
-          const response = await createReport(Object.assign(rest, { report_type, committee_type }));
-          alert('You have successfully created a report');
-          this.history.push('/dashboard/my-reports');
-        } catch (e) {
-          console.log(e)
+        const prompt = window.confirm("Are you sure you want to submit this report?");
+        if(prompt === true ){
+          try {
+            const response = await createReport(Object.assign(rest, { report_type, committee_type }));
+            alert('You have successfully created a report');
+            this.history.push('/dashboard/my-reports');
+          } catch (e) {
+            console.log(e)
+          }
         }
       },
       onError(form) {

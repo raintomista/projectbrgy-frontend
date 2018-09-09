@@ -12,3 +12,12 @@ export function createReport(data) {
         data: data
     });
 }
+
+export function getMyReports() {
+    const token = localStorage.getItem('x-access-token');
+    return axios.get(`${API_HOST}/inquiry/my-reports`, {
+        headers: {
+            'x-access-token': token
+        }
+    });
+}
