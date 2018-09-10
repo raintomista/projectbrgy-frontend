@@ -41,7 +41,6 @@ export default class DashboardSideBar extends Component {
             />
           }
         </div>
-
         {/* Sidebar Options */}
         {loggedUser.user_role === 'barangay_member' ?
           <SideBarMemberOptions
@@ -55,11 +54,11 @@ export default class DashboardSideBar extends Component {
           <SideBarAdminOptions
             adminName={`${loggedUser.user_first_name} ${loggedUser.user_last_name}`}
             eResourcesCount={11}
-            eServicesCount={11}
             followersCount={loggedUser.stats.follower_count}
             handleViewBrgyResidents={this._handleViewBrgyResidents()}
             handleViewBrgyFollowersList={this._handleViewBrgyFollowersList(loggedUser.barangay_page_id)}
             messageCount={5}
+            reportsCount={loggedUser.stats.unread_reports_count}
             residentCount={loggedUser.stats.resident_count}
           />
         }

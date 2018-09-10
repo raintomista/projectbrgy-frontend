@@ -19,15 +19,15 @@ const OptionsAdmin = observer((props) => {
         <Link to='/dashboard' className="card-link">Message</Link>
         <span className="badge">{props.messageCount > 0 && props.messageCount}</span>
       </li>
-      
+
       <li className="list-group-item">
-        <Link to='/dashboard' className="card-link">E-Services</Link>
-        <span className="badge">{props.eServicesCount > 0 && props.eServicesCount}</span>
+        <Link to='/dashboard/my-barangay/reports' className="card-link">Reports</Link>
+        <span className="badge">{props.reportsCount > 0 && props.reportsCount}</span>
       </li>
 
       <li className="list-group-item">
-        <Link to='/dashboard' className="card-link">E-Resources</Link>
-        <span className="badge">{props.eResourcesCount > 0 && props.eResourcesCount}</span>
+        <Link to='/dashboard' className="card-link">E-Services</Link>
+        <span className="badge">{props.eServicesCount > 0 && props.eServicesCount}</span>
       </li>
 
       <li className="list-group-item">
@@ -42,12 +42,12 @@ const OptionsAdmin = observer((props) => {
 
 OptionsAdmin.propTypes = {
   adminName: PropTypes.string,
-  eResourcesCount: PropTypes.number,      
-  eServicesCount: PropTypes.number, 
-  followersCount: PropTypes.number, 
+  eServicesCount: PropTypes.number,
+  followersCount: PropTypes.number,
   handleViewBrgyResidents: PropTypes.object,
   handleViewBrgyFollowersList: PropTypes.object,
   messageCount: PropTypes.number,
+  reportsCount: PropTypes.number,  
   residentCount: PropTypes.number,
 }
 
