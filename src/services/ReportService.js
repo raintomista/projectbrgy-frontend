@@ -21,3 +21,12 @@ export function getMyReports() {
         }
     });
 }
+
+export function getBrgyMembersReports() {
+    const token = localStorage.getItem('x-access-token');
+    return axios.get(`${API_HOST}/inquiry`, {
+        headers: {
+            'x-access-token': token
+        }
+    });
+}
