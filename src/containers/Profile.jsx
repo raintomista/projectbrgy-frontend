@@ -72,7 +72,7 @@ export default class Profile extends Component {
     const { AppData } = this.props;
     return (
       <div>
-        <NavBar AppData={AppData} />
+        <NavBar AppData={AppData} history={this.props.history} />
         {/* Profile Header */}
         <ProfileHeader />
 

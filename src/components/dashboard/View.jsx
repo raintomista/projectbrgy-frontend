@@ -44,7 +44,7 @@ export default class DashboardView extends Component {
 
     return (
       <React.Fragment>
-        <NavBar AppData={AppData} />
+        <NavBar AppData={AppData} history={this.props.history} />
         <div className="dashboard-content">
           <div className="container">
             <div className="row">

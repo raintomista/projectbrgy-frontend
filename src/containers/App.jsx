@@ -36,7 +36,7 @@ export default class App extends Component {
           <Route
             exact={true}
             path='/dashboard'
-            render={(props) => <DashboardView />}
+            render={(props) => <DashboardView {...props} />}
           />
           <Route
             exact={true}
@@ -46,7 +46,7 @@ export default class App extends Component {
           <Route
             exact={true}
             path='/dashboard/my-reports'
-            render={(props) => <MyReportsView />}
+            render={(props) => <MyReportsView {...props} />}
           />
           <Route
             exact={true}
