@@ -57,9 +57,10 @@ export default class DashboardSideBar extends Component {
             eResourcesCount={11}
             eServicesCount={11}
             followersCount={loggedUser.stats.follower_count}
+            handleViewBrgyResidents={this._handleViewBrgyResidents()}
             handleViewBrgyFollowersList={this._handleViewBrgyFollowersList(loggedUser.barangay_page_id)}
             messageCount={5}
-            residentCount={143}
+            residentCount={loggedUser.stats.resident_count}
           />
         }
       </div>
@@ -77,6 +78,12 @@ export default class DashboardSideBar extends Component {
     return {
       pathname: '/barangay',
       search: `?id=${brgyId}`
+    };
+  }
+
+  _handleViewBrgyResidents() {
+    return {
+      pathname: '/dashboard/my-barangay/residents',
     };
   }
 
