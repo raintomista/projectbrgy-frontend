@@ -4,10 +4,10 @@ import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 import queryString from 'query-string';
 import NavBar from 'components/common/Nav/Bar';
+import { followBarangay, unfollowBarangay } from 'services/BrgyPageService';
 import { search } from 'services/SearchService';
 import BrgyPageAvatar from 'assets/images/default-brgy.png';
 import Loader from 'assets/images/loader.svg';
-
 import './SearchView.less';
 
 @observer
@@ -57,13 +57,17 @@ export default class ViewPostById extends Component {
             </div>
           </div>
         </div>
-        <a className="btn rounded">Follow</a>
+        {
+          result.is_followed === 1 ?
+            <a className="btn rounded filled" onClick={() => this._handleUnfollow(result.id, index)}>Following</a> :
+            <a className="btn rounded" onClick={() => this._handleFollow(result.id, index)}>Follow</a>
+        }
       </li>
     ));
 
     return (
       <React.Fragment>
-        <NavBar AppData={this.props.AppData} history={this.props.history}/>
+        <NavBar AppData={this.props.AppData} history={this.props.history} />
         <div className="dashboard-content">
           <div className="container">
             <div className="row justify-content-md-center">
@@ -96,6 +100,28 @@ export default class ViewPostById extends Component {
         </div>
       </React.Fragment>
     );
+  }
+
+  async _handleFollow(brgyId, index) {
+    try {
+      const response = await followBarangay(brgyId);
+      let results = this.state.results.slice();
+      results[index].is_followed = 1;
+      this.setState({ results: results });
+    } catch (e) {
+      alert('An error occurred. Please try again');
+    }
+  }
+
+  async _handleUnfollow(brgyId, index) {
+    try {
+      const response = await unfollowBarangay(brgyId);
+      let results = this.state.results.slice();
+      results[index].is_followed = 0;
+      this.setState({ results: results });
+    } catch (e) {
+      alert('An error occurred. Please try again');
+    }
   }
 
   async _handleSearch(query) {
