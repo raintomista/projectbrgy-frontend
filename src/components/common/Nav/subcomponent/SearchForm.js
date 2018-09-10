@@ -19,6 +19,8 @@ export default class CreateReportForm extends MobxReactForm {
         placeholder: 'Search for barangay pages...',
         handlers: {
           onChange: (field) => async (e) => {
+            field.sync(e);
+            e.persist();
             // Get new search query
             const query = e.target.value; 
 
@@ -36,8 +38,6 @@ export default class CreateReportForm extends MobxReactForm {
               // Empty search query string
               this.$('results').set('value', []);
             }
-
-            field.set('value', query);
           }
         },
       }
