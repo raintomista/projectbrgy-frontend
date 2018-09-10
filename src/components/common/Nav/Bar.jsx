@@ -12,6 +12,9 @@ import Menu from 'assets/images/nav-menu.png';
 import { Link } from "react-router-dom";
 import { observer } from 'mobx-react';
 
+
+import SearchBar from './subcomponent/SearchBar';
+
 /*--------------- Stylesheets ---------------*/
 import 'components/common/Nav/Bar.less';
 
@@ -23,7 +26,7 @@ export default class NavBar extends Component {
   }
 
   onSetSidebarOpen() {
-    this.props.AppData.toggleSidebar();
+    this.props.AppData.toggleSidebar();                   
   }
 
   render() {
@@ -41,9 +44,9 @@ export default class NavBar extends Component {
                   <img src={Home} alt="" />
                 </Link>
               </div>
-              <form className="form-inline my-2 my-lg-0">
-                <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
-              </form>
+              <div className="form-inline my-2 my-lg-0">
+                <SearchBar />
+              </div>
               <div className="navbar-nav">
                 <a onClick={() => this.onSetSidebarOpen()} className="nav-menu">
                   <img src={Menu} alt="" />
