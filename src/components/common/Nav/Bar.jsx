@@ -45,7 +45,7 @@ export default class NavBar extends Component {
                 </Link>
               </div>
               <div className="form-inline my-2 my-lg-0">
-                <SearchBar />
+                <SearchBar history={this.props.history}/>
               </div>
               <div className="navbar-nav">
                 <a onClick={() => this.onSetSidebarOpen()} className="nav-menu">

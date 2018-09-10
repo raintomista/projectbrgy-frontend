@@ -22,7 +22,7 @@ export default class CreateReportForm extends MobxReactForm {
             field.sync(e);
             e.persist();
             // Get new search query
-            const query = e.target.value; 
+            const query = e.target.value;
 
             if (query.trim().length > 0) {
               try {
@@ -46,18 +46,20 @@ export default class CreateReportForm extends MobxReactForm {
     return { fields };
   }
 
-  plugins() {
-    return { dvr: validatorjs };
+  handlers() {
+    return {
+      onSubmit: (form) => (e) => {
+        if (e.key === 'Enter') {
+          this.history.push({
+            pathname: '/search',
+            search: `?query=${e.target.value}`
+          });
+        }
+      }
+    }
   }
 
-  hooks() {
-    return {
-      async onSuccess(form) {
-
-      },
-      onError(form) {
-        alert('Please fill in the required fields.');
-      },
-    }
+  plugins() {
+    return { dvr: validatorjs };
   }
 } 

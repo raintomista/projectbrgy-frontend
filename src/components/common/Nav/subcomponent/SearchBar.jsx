@@ -11,7 +11,7 @@ export default class SearchBar extends Component {
   constructor(props) {
     super(props);
     this.state = { loading: false }
-    this.form = new SearchForm();
+    this.form = new SearchForm(props.history);
   }
   render() {
     const results = this.form.$('results').value.map((barangay, index) => (
@@ -29,6 +29,7 @@ export default class SearchBar extends Component {
             placeholder="Search"
             aria-label="Search"
             {...this.form.$('query').bind()}
+            onKeyPress={(e) => this._handleEnter(e)}
           />
           <div className="nav-search-results">
             {results}
@@ -42,6 +43,12 @@ export default class SearchBar extends Component {
         </div>
       </React.Fragment>
     );
+  }
+
+  _handleEnter(e) {
+    if (e.key === 'Enter') {
+      this.form.onSubmit(e);
+    }
   }
 
   _handleViewUserBrgyPage(brgyId) {

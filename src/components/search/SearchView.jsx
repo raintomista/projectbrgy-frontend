@@ -63,7 +63,7 @@ export default class ViewPostById extends Component {
 
     return (
       <React.Fragment>
-        <NavBar AppData={this.props.AppData} />
+        <NavBar AppData={this.props.AppData} history={this.props.history}/>
         <div className="dashboard-content">
           <div className="container">
             <div className="row justify-content-md-center">
