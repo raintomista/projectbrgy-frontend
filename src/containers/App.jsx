@@ -18,6 +18,8 @@ import Profile from 'containers/Profile';
 import MyReportsView from 'components/my-reports/MyReportsView';
 import CreateReportView from 'components/my-reports/create-report/CreateReportView';
 import ResidentsView from 'components/residents/ResidentsView';
+import SearchView from 'components/search/SearchView';
+
 
 /*----------------- E-Services Views -----------------*/
 import EServicesView from 'components/e-services/View';
@@ -51,6 +53,12 @@ export default class App extends Component {
             path='/dashboard/my-reports/create'
             render={(props) => <CreateReportView {...props} />}
           />
+          <Route
+            exact={true}
+            path='/search'
+            render={(props) => <SearchView {...props} AppData={this.props.AppData} />}
+          />
+
 
           <Route
             exact={true}
