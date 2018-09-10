@@ -45,13 +45,13 @@ export default class ViewPostById extends Component {
       <li className="list-group-item" key={result.id}>
         <div className="wrapper">
           {/* Profile Pic */}
-          <Link to={this._handleViewUserBrgyPage(result.id)}>
+          <Link to={this._handleViewBrgyPage(result.id)}>
             <img src={BrgyPageAvatar} className="profile-pic" alt="" />
           </Link>
 
           {/* Barangay Name and Location */}
           <div className="brgy-info">
-            <Link to={this._handleViewUserBrgyPage(result.id)} className="brgy-name">{result.name}</Link>
+            <Link to={this._handleViewBrgyPage(result.id)} className="brgy-name">{result.name}</Link>
             <div className="brgy-location">
               {`${result.municipality}, ${result.province}, ${result.region}`}
             </div>
@@ -154,7 +154,7 @@ export default class ViewPostById extends Component {
     }
   }
 
-  _handleViewUserBrgyPage(brgyId) {
+  _handleViewBrgyPage(brgyId) {
     return {
       pathname: '/barangay',
       search: `?id=${brgyId}`
