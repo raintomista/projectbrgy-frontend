@@ -63,7 +63,7 @@ const BarangayPostDetails = observer((props) => {
               <DropdownItem>View Post</DropdownItem>
             </Link>
 
-            {props.authorRole === 'barangay_page_admin' && props.loggedUser !== null && props.loggedUser.user_barangay_id === props.postBrgyId && (
+            {props.authorRole === 'barangay_page_admin' && props.loggedUser !== null && props.loggedUser.user_role === 'barangay_page_admin' && props.loggedUser.user_barangay_id === props.postBrgyId && (
               <DropdownItem onClick={props.handleDeletePost}>Delete Post</DropdownItem>
             )}
 
