@@ -33,6 +33,7 @@ export default class Profile extends Component {
     const searchQuery = this.props.location.search;
     const parsedQuery = queryString.parse(searchQuery);
     this.props.UserProfileStore.setProfileView(parsedQuery.view);
+    this.props.UserProfileStore.fetchUserSharedPosts(parsedQuery.id);        
   }
 
   profileView() {

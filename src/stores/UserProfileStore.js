@@ -60,6 +60,7 @@ export default class UserProfileStore {
 
     @action
     async fetchUserSharedPosts(userId) {
+        this.sharedPosts = [];
         try {
             const response = await getUserSharedPosts(userId);
             const sharedPosts = response.data.data.items;
