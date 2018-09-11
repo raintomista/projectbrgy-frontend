@@ -2,53 +2,41 @@
     .card {
         border-radius: 0px;
     }
-
-    .title {
+    .title, .title a {
         color: rgb(44, 44, 44);
         text-transform: capitalize;
-        font-family: 'Lato', sans-serif;
+        font-family: 'Montserrat', sans-serif !important;   
         font-weight: 700;
         font-size: 21px;
         margin-bottom: 0.7em;
     }
-
     .table {
         font-family: 'Lato';
         margin-bottom: 0px;
-
         thead th {
             border: none;
-            color: #2a8abd;   
+            color: #2a8abd;
             font-weight: 700;
+            padding-top: 0px;
         }
-
         td {
-            color: rgb(44, 44, 44);          
+            color: rgb(44, 44, 44);
         }
-
-        .resident-name a{
-            color: rgb(44, 44, 44) !important;            
+        .resident-name a {
+            color: rgb(44, 44, 44) !important;
             font-weight: 700;
             text-decoration: underline;
         }
-
         .filler {
             font-size: 18px;
             text-align: center;
-            padding-top: 30px;
-            padding-bottom: 10px;
+            padding-top: 18px;
         }
-
-        .loader {
-            padding-top: 20px;
+        tbody>tr:last-of-type * {
             padding-bottom: 0px;
-
-            object {
-                width: 50px;
-                height: 50px;
-            }
         }
-
-
+    }
+    .loader {
+        padding: 30px;
     }
 }

@@ -53,37 +53,37 @@ export default class ResidentsView extends Component {
                 <div className="title"><Link to='/dashboard'>My Barangay</Link> » Residents</div>
                 <div className="card">
                   <div className="card-body">
-                    <table className="table">
-                      <thead>
-                        <tr>
-                          <th scope="col">#</th>
-                          <th scope="col">Full Name</th>
-                          <th scope="col">Email</th>
-                          <th scope="col">Landline</th>
-                          <th scope="col">Mobile</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {this.state.loading && (
+
+                    {this.state.loading && (
+                      <div className="loader">
+                        <object data={Loader} type="image/svg+xml">
+                        </object>
+                      </div>
+                    )}
+
+                    {!this.state.loading && (
+                      <table className="table">
+                        <thead>
                           <tr>
-                            <td colSpan="6">
-                              <div className="loader">
-                                <object data={Loader} type="image/svg+xml">
-                                </object>
-                              </div>
-                            </td>
+                            <th scope="col">#</th>
+                            <th scope="col">Full Name</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Landline</th>
+                            <th scope="col">Mobile</th>
                           </tr>
-                        )}
-                        {!this.state.loading && residents.length > 0 && residents}
-                        {!this.state.loading && residents.length === 0 && (
-                          <tr>
-                            <td colSpan="6" className="filler">
-                              No barangay residents yet!
-                            </td>
-                          </tr>
-                        )}
-                      </tbody>
-                    </table>
+                        </thead>
+                        <tbody>
+                          {residents.length > 0 && residents}
+                          {residents.length === 0 && (
+                            <tr>
+                              <td colSpan="6" className="filler">
+                                No barangay residents yet!
+                              </td>
+                            </tr>
+                          )}
+                        </tbody>
+                      </table>
+                    )}
                   </div>
                 </div>
               </div>
@@ -105,7 +105,7 @@ export default class ResidentsView extends Component {
         });
       }, 1000);
     } catch (e) {
-      console.log(e);
+      alert('An error occurred. Please try again.');
     }
   }
 
