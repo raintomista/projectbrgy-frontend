@@ -20,6 +20,8 @@ import CreateReportView from 'components/my-reports/create-report/CreateReportVi
 import ResidentsView from 'components/residents/ResidentsView';
 import SearchView from 'components/search/SearchView';
 import BrgyReportsView from 'components/brgy-reports/BrgyReports';
+import BrgyReportOverview from 'components/brgy-report-overview/ReportOverview';
+
 
 /*----------------- E-Services Views -----------------*/
 import EServicesView from 'components/e-services/View';
@@ -47,6 +49,11 @@ export default class App extends Component {
             exact={true}
             path='/dashboard/my-barangay/reports'
             render={(props) => <BrgyReportsView {...props} />}
+          />
+          <Route
+            exact={true}
+            path='/dashboard/my-barangay/reports/:id'
+            render={(props) => <BrgyReportOverview {...props} />}
           />
           <Route
             exact={true}

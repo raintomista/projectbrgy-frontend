@@ -30,3 +30,13 @@ export function getBrgyMembersReports() {
         }
     });
 }
+
+export function getBrgyMemberReportById(id) {
+    const token = localStorage.getItem('x-access-token');
+    return axios.get(`${API_HOST}/inquiry/${id}`, {
+        headers: {
+            'x-access-token': token
+        }
+    });
+}
+
