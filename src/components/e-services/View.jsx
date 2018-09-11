@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import RootStore from 'stores/RootStore';
+import { Redirect } from 'react-router-dom';
 
 import NavBar from 'components/common/Nav/Bar';
 import InlineInputField from 'components/common/InputField/InlineInputField';
@@ -87,14 +88,14 @@ export default class EServicesView extends Component {
             <ConfirmationMessage
               type="barangay-clearance"
               fee={this.props.location.state.fee}
-              datetime={this.props.location.state.datetime}
+              pickup={this.props.location.state.pickup}
             />
           );
           break;
       }
     }
     else {
-
+      return <Redirect to='/e-services/barangay-clearance'/>;
     }
   }
 

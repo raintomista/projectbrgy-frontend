@@ -113,26 +113,52 @@ export default class BarangayClearanceForm extends MobxReactForm {
   hooks() {
     return {
       async onSuccess(form) {
-        let { date_of_birth, pickup_date, pickup_time, other_purpose, purpose, residencyDropdown, residencyField, ...rest } = form.values();
-        let months_of_residency = residencyDropdown === 'year/s' ? (parseInt(residencyField) * 12) : parseInt(residencyField);
-        let _purpose = purpose === 'Others' ? other_purpose : purpose;
+        let {
+          date_of_birth,
+          other_purpose,
+          purpose,
+          residencyDropdown,
+          residencyField,
+          pickup_date,
+          pickup_time,
+          ...rest
+        } = form.values();
+
+        // Compute months of residency
+        let months_of_residency = parseInt(residencyField);
+        if (residencyDropdown === 'year/s') {
+          months_of_residency *= 12;
+        }
+
+        // Set specified purpose when selecting others
+        if (purpose === 'Others') {
+          purpose = other_purpose;
+        }
+
+        // Format date of birth to mysql format
         date_of_birth = moment(date_of_birth).format('YYYY/MM/DD');
 
-        const formValue = Object.assign(rest, { date_of_birth, months_of_residency, purpose: _purpose });
+        // Format pickup datetime to mysql format
+        let pickup = moment(`${pickup_date} ${pickup_time}`, 'MM/DD/YYYY hha').format('YYYY-MM-DD HH:mm:ss');
+
+        const form_value = Object.assign(rest, {
+          date_of_birth,
+          months_of_residency,
+          pickup,
+          purpose
+        });
+
+        const formatted_pickup = moment(`${pickup_date} ${pickup_time}`, 'MM/DD/YYYY hha').format('MMMM DD, YYYY hh:mm a');
 
         try {
-          console.log(`${pickup_date} ${pickup_time}`)          
-          let datetime = moment(`${pickup_date} ${pickup_time}`, 'MM/DD/YYYY hha')
-            .format('MMMM DD, YYYY hh:mm a')
-
-          const response = await requestBarangayClearance(formValue);
+          const response = await requestBarangayClearance(form_value);
           this.history.push({
             pathname: '/e-services/barangay-clearance',
             search: '?confirmed',
-            state: { fee: '₱100.00', datetime: datetime }
+            state: { fee: '₱100.00', pickup: formatted_pickup }
           });
         } catch (e) {
-          console.log(e.response);
+          console.log(e);
         }
       },
       onError(form) {
