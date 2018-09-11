@@ -19,7 +19,7 @@ const MemberReportItem = (props) => {
         </div>
         <p className="message">{props.message}</p>
         <div className="status">
-          <div className="indicator-group"><div className="indicator"></div> Unread</div>
+          <div className="indicator-group"><div className="indicator"></div> {props.status}</div>
         </div>
       </div>
     </div>

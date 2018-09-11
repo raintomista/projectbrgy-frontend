@@ -75,7 +75,6 @@ export default class BrgyReports extends Component {
     this.setState({ loading: true });
     try {
       const response = await getBrgyMembersReports();
-      console.log(response.data.data.items);
       setTimeout(() => {
         this.setState({
           loading: false,
