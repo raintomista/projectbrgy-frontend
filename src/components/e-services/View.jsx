@@ -4,12 +4,11 @@ import RootStore from 'stores/RootStore';
 import { Redirect } from 'react-router-dom';
 
 import NavBar from 'components/common/Nav/Bar';
-import InlineInputField from 'components/common/InputField/InlineInputField';
 import BarangayClearance from './barangay-clearance/BarangayClearance';
 import BarangayClearanceForm from './barangay-clearance/Form';
+import BusinessPermit from './business-permit/BusinessPermit';
+import BusinessPermitForm from './business-permit/Form';
 import ConfirmationMessage from './confirmation/ConfirmationMessage';
-
-import moment from 'moment';
 
 
 import queryString from 'query-string';
@@ -76,6 +75,9 @@ export default class EServicesView extends Component {
     switch (this.state.type) {
       case 'barangay-clearance':
         return <BarangayClearance form={this.form} />
+      case 'business-permit':
+        return <BusinessPermit form={this.form} />
+      default:
         break;
     }
   }
@@ -95,7 +97,7 @@ export default class EServicesView extends Component {
       }
     }
     else {
-      return <Redirect to='/e-services/barangay-clearance'/>;
+      return <Redirect to='/e-services/barangay-clearance' />;
     }
   }
 
@@ -103,6 +105,9 @@ export default class EServicesView extends Component {
     switch (this.state.type) {
       case 'barangay-clearance':
         return new BarangayClearanceForm(history);
+      case 'business-permit':
+        return new BusinessPermitForm(history);
+      default:
         break;
     }
   }

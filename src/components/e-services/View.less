@@ -13,35 +13,75 @@
         font-size: 1.08em;
         font-weight: 500;
     }
-    .form-group>label,
-    .purpose-of-clearance {
+    /***************************
+    *      Section Styles
+    ***************************/
+    .section {
+        margin: 0px 0px 20px 20px;
+    }
+    .section>label {
+        color: #2a8abd;
+        font-family: 'Lato', sans-serif;
+        font-size: 1em;
+    }
+    .section>label.heading {
+        font-weight: 700;
+    }
+    .section>.fields,
+    .section>.radio-group,
+    .section>.attachments {
+        margin-left: 30px;
+    }
+    /***************************
+    *    Form Components Styles    *
+    ***************************/
+    .input-field>label,
+    .field-dropdown>label,
+    .dropdown-input>label {
         color: #2a8abd;
         font-family: 'Lato', sans-serif;
         font-size: 1em;
         font-weight: 500;
     }
-    .form-group>.form-control {
+    .input-field .required,
+    .field-dropdown .required {
+        color: red;
+    }
+    .input-field>input[type="text"],
+    .field-dropdown>input[type="text"] {
         background-color: #f7f7f7;
         font-family: 'Lato', sans-serif;
         border: none;
         border-radius: 0;
-        padding: 0.1em 0.7em;
+        height: 30px;
+        padding: 0.5em;
     }
-    .form-group .invalid.form-control {
-        background-color: #ff7d7d;
+    .input-field>input[type="text"].invalid,
+    .field-dropdown>input[type="text"].invalid {
+        background-color: #ff9a9a;
     }
-    .form-group .required {
-        color: red;
+    .radio-with-field input[type="text"] {
+        background-color: transparent;
+        border: none;
+        border-bottom: 1px solid #2a8abd;
+        border-radius: 0px;
+        color: #495057 !important;
+        font-family: 'Lato', sans-serif;
+        margin-left: 10px;
+        padding: 0px 10px;
     }
-    .form-group>.rw-dropdown-list {
+    .radio-with-field input[type="text"].invalid {
+        border-color: red;
+    }
+    .inline.form-group>.rw-dropdown-list {
         .rw-widget-container {
             background-color: #f7f7f7;
             border: none;
             border-radius: 0px;
             color: #495057 !important;
             font-family: 'Lato', sans-serif;
-            padding: 0em 0.4em;
-            height: 27.24px;
+            padding: 0px 8px;
+            height: 30px;
         }
         .rw-widget-input,
         .rw-filter-input {
@@ -59,72 +99,58 @@
             padding: 1px 10px;
         }
     }
-    .purpose-of-clearance {
-        margin-bottom: 3px;
+    /***************************
+    *    Attachment Styles    *
+    ***************************/
+    .attachments>.attachment:last-child {
+        margin-bottom: 0px;
     }
-    .radio-group {
-        margin-left: 20px;
-        margin-bottom: 5px;
-    }
-    .radio-with-field input[type="text"] {
-        background-color: transparent;
-        border: none;
-        border-bottom: 1px solid #2a8abd;
-        border-radius: 0px;
-        color: #495057 !important;
+    .attachment>label {
+        display: block;
+        color: #2a8abd;
         font-family: 'Lato', sans-serif;
-        padding: 0px;
+        font-size: 1em;
+        font-weight: 500;
     }
-    .radio-with-field input[type="text"].invalid {
-        border-color: #da2020;
+    .attachment .btn {
+        min-width: 105px;
+        padding: 4.8px 10px !important;
     }
-    .attachments-section {
-        margin-top: 1.3em;
-        .section-label {
-            color: #2a8abd;
-            font-family: 'Lato', sans-serif;
-            font-size: 1em;
-            font-weight: 700;
-        }
-        .attachment {
-            margin-left: 20px;
-        }
-        .attachment label {
-            display: block;
-        }
-        .attachment .btn {
-            min-width: 105px;
-            padding: 4.8px 10px !important;
-        }
-        input {
-            max-width: 120px;
-        }
+    /************************************************
+    *    Overriding Styles for Specific Use Case    *
+    *************************************************/
+    .basic-info.section>.row>.col:nth-child(2) {
+        padding-left: 0px;
     }
-    .row>.submit {
-        margin-top: 10px;
+    .basic-info.section .input-field {
+        margin-bottom: 10px;
+    }
+    .basic-info.section .dropdown-input,
+    .basic-info.section .field-dropdown {
+        margin-bottom: 0px;
+    }
+    .barangay-clearance-requirements.section {
+        margin-left: 0px;
+    }
+    .barangay-clearance-requirements.section>.attachments {
+        margin-left: 50px;
+    }
+    .business-info.section>.fields>.input-field {
+        max-width: 80%;
+        margin-bottom: 10px;
+    }
+    .business-info.section .input-field:last-child {
+        margin-bottom: 0px;
+    }
+    .pickup-datetime.section {
+        margin-left: 0px;
+    }
+    .pickup-datetime .input-field {
+        margin-bottom: 10px;
+        max-width: 470px;
+    }
+    .submit.section {
+        margin: 0px;
         text-align: center;
-    }
-    .confirmation-msg {
-        margin: 9em 0em;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-around;
-
-        h3 {
-            color: #2a8abd;
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 700;
-            margin-bottom: 0.6em;
-            text-align: center;
-        }
-        p {
-            display: block;
-            color: #2a8abd;
-            font-family: 'Lato', sans-serif;
-            font-size: 1.1em;
-            text-align: center;
-            margin-bottom: 0;
-            max-width: 650px;
-        }
     }
 }
