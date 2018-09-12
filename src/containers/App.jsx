@@ -21,6 +21,8 @@ import ResidentsView from 'components/residents/ResidentsView';
 import SearchView from 'components/search/SearchView';
 import BrgyReportsView from 'components/brgy-reports/BrgyReports';
 import BrgyReportOverview from 'components/brgy-report-overview/ReportOverview';
+import NotFound404 from 'components/not-found/NotFound404';
+
 
 
 /*----------------- E-Services Views -----------------*/
@@ -92,6 +94,12 @@ export default class App extends Component {
           <Route
             path='/e-services/:type/'
             render={(props) => <EServicesView {...props} />}
+          />
+
+          <Route
+            exact={true}
+            path='/404'
+            render={(props) => <NotFound404 {...props} />}
           />
         </Switch>
       </Router>
