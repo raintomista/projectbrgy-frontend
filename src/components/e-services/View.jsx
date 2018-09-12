@@ -79,27 +79,22 @@ export default class EServicesView extends Component {
       case 'katarungang-pambarangay':
         return <KatarungangPambarangay form={this.form} />
       default:
-        break;
+        return <Redirect to='/404' />;
     }
   }
 
   renderConfirmation() {
     if (this.props.location.state) {
-      switch (this.state.type) {
-        case 'barangay-clearance':
-          return (
-            <ConfirmationMessage
-              type="barangay-clearance"
-              fee={this.props.location.state.fee}
-              pickup={this.props.location.state.pickup}
-            />
-          );
-        default:
-          break;
-      }
+      return (
+        <ConfirmationMessage
+          type={this.state.type}
+          fee={this.props.location.state.fee}
+          pickup={this.props.location.state.pickup}
+        />
+      );
     }
     else {
-      return <Redirect to='/e-services/barangay-clearance' />;
+      return <Redirect to={`/e-services/${this.state.type}`} />;
     }
   }
 

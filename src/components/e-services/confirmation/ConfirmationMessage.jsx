@@ -23,6 +23,29 @@ function _renderMsg(type, fee, pickup) {
           </p>
         </React.Fragment>
       );
+    case 'business-permit':
+      return (
+        <React.Fragment>
+          <h3>Barangay Business Permit Form Sent!</h3>
+          <p>
+            Please bring the required documents along with the permit fee of {fee} to pickup your Barangay Business Permit on {pickup}.
+            <br />
+            Thank you!
+          </p>
+        </React.Fragment>
+      );
+    case 'katarungang-pambarangay':
+      return (
+        <React.Fragment>
+          <h3>Complaint Sent!</h3>
+          <p>
+            You will receive the confirmation of Certification to File Action from the Lupon Tagapamayapa/Pangkat Secretary in 3 days, including the available date of hearing.
+            <br />
+            Thank you!
+          </p>
+        </React.Fragment>
+      );
+    default:
       break;
   }
 }
