@@ -8,11 +8,10 @@ import BarangayClearance from './barangay-clearance/BarangayClearance';
 import BarangayClearanceForm from './barangay-clearance/Form';
 import BusinessPermit from './business-permit/BusinessPermit';
 import BusinessPermitForm from './business-permit/Form';
+import KatarungangPambarangay from './katarungang-pambarangay/KatarungangPambarangay';
+import KatarungangPambarangayForm from './katarungang-pambarangay/Form';
 import ConfirmationMessage from './confirmation/ConfirmationMessage';
-
-
 import queryString from 'query-string';
-
 import './View.less';
 
 @observer
@@ -77,6 +76,8 @@ export default class EServicesView extends Component {
         return <BarangayClearance form={this.form} />
       case 'business-permit':
         return <BusinessPermit form={this.form} />
+      case 'katarungang-pambarangay':
+        return <KatarungangPambarangay form={this.form} />
       default:
         break;
     }
@@ -93,6 +94,7 @@ export default class EServicesView extends Component {
               pickup={this.props.location.state.pickup}
             />
           );
+        default:
           break;
       }
     }
@@ -107,6 +109,8 @@ export default class EServicesView extends Component {
         return new BarangayClearanceForm(history);
       case 'business-permit':
         return new BusinessPermitForm(history);
+      case 'katarungang-pambarangay':
+        return new KatarungangPambarangayForm(history);
       default:
         break;
     }
