@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import ProfileHeader from 'components/profile/ProfileHeader';
 import BrgyPageView from 'components/brgy-page/BrgyPageView';
 import queryString from 'query-string';
@@ -58,29 +59,29 @@ export default class BrgyPage extends Component {
             <h3 className="modal-title">E-Services</h3>
             <div className="row justify-content-sm-center">
               {BrgyPageStore.data && BrgyPageStore.data.barangay_clearance === 1 && (
-                <div className="col-sm-4 e-service">
+                <Link to='e-services/barangay-clearance' className="col-sm-4 e-service">
                   <div className="e-service-btn">
                     <img src="images/brgy-clearance.png" alt="" />
                   </div>
-                  <a href="" className="e-service-link">Barangay Clearance</a>
-                </div>
+                  <span className="e-service-link">Barangay Clearance</span>
+                </Link>
               )}
 
               {BrgyPageStore.data && BrgyPageStore.data.business_permit === 1 && (
                 <div className="col-sm-4 e-service">
-                  <div className="e-service-btn">
+                  <Link to='e-services/business-permit' className="e-service-btn">
                     <img src="images/business-permit.png" alt="" />
-                  </div>
-                  <a href="" className="e-service-link">Business Permit</a>
+                  </Link>
+                  <span className="e-service-link">Business Permit</span>
                 </div>
               )}
 
               {BrgyPageStore.data && BrgyPageStore.data.katarungang_pambarangay === 1 && (
                 <div className="col-sm-4 e-service">
-                  <div className="e-service-btn">
+                  <Link to='e-services/katarungang-pambarangay' className="e-service-btn">
                     <img src="images/katarungang-pambarangay.png" alt="" />
-                  </div>
-                  <a href="" className="e-service-link">Katarungang Pambarangay Services</a>
+                  </Link>
+                  <span href="" className="e-service-link">Katarungang Pambarangay Services</span>
                 </div>
               )}
             </div>
