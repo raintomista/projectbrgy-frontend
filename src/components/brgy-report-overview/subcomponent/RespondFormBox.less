@@ -1,0 +1,36 @@
+.respond-form-box {
+    border-radius: 0px;
+    textarea {
+        display: block;
+        border: 1px solid #2a8abd;
+        border-radius: 10px;
+        outline: none;
+        overflow-y: hidden;
+        resize: none;
+        height: 100px;
+        padding: 10px;
+        width: 100%;
+    }
+    textarea::placeholder {
+        color: #2a8abd;
+        font-family: 'Lato', sans-serif;
+    }
+
+    .toolbar {
+        display: flex;
+        justify-content: space-between;
+        margin: 15px 0px 0px 0px;
+    }
+    .btn.rounded {
+        min-width: 100px;
+    }
+    .character-count {
+        color: #2a8abd;
+        font-family: 'Lato', sans-serif;
+        font-weight: 700;
+        margin: 0px 10px 0px 0px;
+    }
+    .character-count.invalid {
+        color: rgb(247, 41, 41);
+    }
+}
