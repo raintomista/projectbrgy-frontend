@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import moment from 'moment';
 import './ReportItem.less';
 
@@ -14,7 +15,7 @@ const ReportItem = (props) => {
           {props.committeeType && (
             <span className="committee-type">{props.committeeType} &middot; </span>
           )}
-          <span>by {props.author}</span>
+          <Link to={props.handleViewUserProfile}>by {props.author}</Link>
           <span> &middot; {dateCreated}</span>
         </div>
         <p className="message">{props.message}</p>
