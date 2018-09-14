@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import NavBar from 'components/common/Nav/Bar';
 import DashboardSideBar from 'components/dashboard/subcomponents/SideBar';
 import BrgyClearanceTable from './subcomponents/BrgyClearanceTable';
+import BusinessPermitTable from './subcomponents/BusinessPermitTable';
 import RootStore from 'stores/RootStore';
 
 @observer
@@ -24,6 +25,10 @@ export default class BrgyEservices extends Component {
               <div className="my-barangay-reports col-md-9">
                 <div className="title"><Link to='/dashboard'>My Barangay</Link> » E-services</div>
                 <BrgyClearanceTable
+                  AppData={AppData}
+                  history={this.props.history}
+                />
+                <BusinessPermitTable
                   AppData={AppData}
                   history={this.props.history}
                 />
