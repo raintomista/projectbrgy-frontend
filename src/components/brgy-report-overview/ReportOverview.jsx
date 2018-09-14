@@ -8,7 +8,7 @@ import ReportOverviewItem from './subcomponent/ReportItem';
 import ResponseItem from './subcomponent/ResponseItem';
 import RespondFormBox from './subcomponent/RespondFormBox';
 
-import { getReportResponses } from 'services/ReportService';
+import { getBrgyMemberReportById, getReportResponses } from 'services/ReportService';
 import RootStore from 'stores/RootStore';
 import Loader from 'assets/images/loader.svg';
 // import './BrgyReports.less';
@@ -28,7 +28,8 @@ export default class BrgyReports extends Component {
 
   async componentDidMount() {
     await RootStore.AppData.getUserDetails();
-    this._getInitialDetails(this.props.match.params.id);
+    await this._getReportDetails(this.props.match.params.id);
+    await this._getBrgyResponses(this.props.match.params.id);
   }
 
   render() {
@@ -90,33 +91,28 @@ export default class BrgyReports extends Component {
     );
   }
 
-  async _getInitialDetails(reportId) {
+  async _getReportDetails(reportId) {
     this.setState({ loading: true });
     try {
-      const response = await getReportResponses(reportId, this.state.page, this.state.limit);
-      const {
-        user_first_name,
-        user_last_name,
-        inquiry_report_type,
-        inquiry_committee_type,
-        inquiry_date_created,
-        inquiry_message,
-        inquiry_admin_response
-      } = response.data.data;
-
-      const report = {
-        user_first_name,
-        user_last_name,
-        inquiry_report_type,
-        inquiry_committee_type,
-        inquiry_date_created,
-        inquiry_message,
-      }
-
+      const response = await getBrgyMemberReportById(reportId);
       setTimeout(() => {
         this.setState({
           loading: false,
-          report: report,
+          report: response.data.data
+        });
+      }, 1000);
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  async _getBrgyResponses(reportId) {
+    try {
+      const response = await getReportResponses(reportId, this.state.page, this.state.limit);
+      const { inquiry_admin_response } = response.data.data;
+      setTimeout(() => {
+        this.setState({
+          loading: false,
           responses: inquiry_admin_response
         });
       }, 1000);
