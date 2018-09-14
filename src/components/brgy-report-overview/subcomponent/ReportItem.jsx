@@ -18,7 +18,9 @@ const ReportItem = (props) => {
           <Link to={props.handleViewUserProfile}>by {props.author}</Link>
           <span> &middot; {dateCreated}</span>
         </div>
-        <p className="message">{props.message}</p>
+        <p className="message">
+          {props.handleDisplayMessage(props.message)}
+        </p>
       </div>
     </div>
   );

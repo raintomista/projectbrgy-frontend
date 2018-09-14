@@ -62,6 +62,7 @@ export default class BrgyReports extends Component {
                       handleViewUserProfile={this._handleViewUserProfile(report.user_id)}
                       message={report.inquiry_message}
                       reportType={report.inquiry_report_type}
+                      handleDisplayMessage={this._handleDisplayMessage}
                     />
                     {this.state.responses.map((response, index) => (
                       <ResponseItem
@@ -72,6 +73,7 @@ export default class BrgyReports extends Component {
                         index={index + 1}
                         message={response.message}
                         attachments={response.attachments}
+                        handleDisplayMessage={this._handleDisplayMessage}
                       />
                     ))}
                     <RespondFormBox
@@ -121,6 +123,15 @@ export default class BrgyReports extends Component {
     } catch (e) {
       console.log(e);
     }
+  }
+
+  _handleDisplayMessage(message) {
+    return message.split("\n").map((item, index) => (
+      <span key={index}>
+        {item}
+        <br />
+      </span>
+    ));
   }
 
   _handleViewUserProfile(userId) {

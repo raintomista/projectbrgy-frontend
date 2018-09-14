@@ -19,7 +19,9 @@ const ResponseItem = (props) => {
       </div>
       <UncontrolledCollapse toggler={`#toggler-${props.index}`}>
         <div className="expandable">
-          <p>{props.message}</p>
+          <p className="message">
+            {props.handleDisplayMessage(props.message)}
+          </p>
           {props.attachments.length > 0 && (
             <div className="attachments">
               <label>{props.attachments.length} Attachments:</label>
