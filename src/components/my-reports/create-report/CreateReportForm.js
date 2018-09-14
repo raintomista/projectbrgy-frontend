@@ -2,7 +2,9 @@ import validatorjs from 'validatorjs';
 import MobxReactForm from 'mobx-react-form';
 import moment from 'moment';
 import RootStore from 'stores/RootStore';
-import { createReport } from 'services/ReportService';
+import {
+  createReport
+} from 'services/ReportService';
 
 export default class CreateReportForm extends MobxReactForm {
   constructor(history) {
@@ -40,29 +42,47 @@ export default class CreateReportForm extends MobxReactForm {
       }
     }
 
-    return { fields };
+    return {
+      fields
+    };
   }
 
   plugins() {
-    return { dvr: validatorjs };
+    return {
+      dvr: validatorjs
+    };
   }
 
   hooks() {
     return {
       async onSuccess(form) {
         form.$('receiver_id').set('value', RootStore.AppData.loggedUser.barangay_page_id);
-        let { report_type, committee_type, ...rest } = form.values();
+        let {
+          message,
+          receiver_id,
+          report_type,
+          committee_type,
+        } = form.values();
         committee_type = report_type === 'General' ? null : committee_type.toLowerCase();
         report_type = report_type.toLowerCase();
+        let files = []
 
         const prompt = window.confirm("Are you sure you want to submit this report?");
-        if(prompt === true ){
+        if (prompt === true) {
           try {
-            const response = await createReport(Object.assign(rest, { report_type, committee_type }));
+            let formData = new FormData();
+            formData.set('message', message);
+            formData.set('receiver_id', receiver_id);
+            formData.set('report_type', report_type);
+            formData.set('committee_type', committee_type);
+            formData.set('files', files);
+            
+
+            const response = await createReport(formData);
             alert('You have successfully created a report');
             this.history.push('/dashboard/my-reports');
           } catch (e) {
-            console.log(e)
+            console.log(e.response)
           }
         }
       },
@@ -71,4 +91,4 @@ export default class CreateReportForm extends MobxReactForm {
       },
     }
   }
-} 
+}
