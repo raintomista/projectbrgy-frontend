@@ -15,7 +15,20 @@ export default class RespondForm extends MobxReactForm {
       },
       message: {
         rules: 'required|between:1,800',
-        placeholder: 'Write your detailed report here...'
+        placeholder: 'Write your detailed report here...',
+        handlers: {
+          onChange: (field) => (e) => {
+            // Set field height to handle new line
+            let element = e.target;
+            if (element) {
+              element.style.height = "100px";
+              element.style.height = (element.scrollHeight) + "px";
+            }
+
+            // Set field value
+            field.set(element.value);
+          }
+        }
       },
       files: {
         value: []
@@ -47,16 +60,20 @@ export default class RespondForm extends MobxReactForm {
 
         if (files.length <= 5) {
           const formData = this.createFormData(message, files);
+          this.$('message').set('disabled', true);
+
           try {
             await this.respondToReport(inquiry_id, formData);
             setTimeout(() => {
               alert('You have successfully responded to the report.');
-              this.$('uploadProgress').set('value', -1); //Set upload progress to 100;          
+              this.$('uploadProgress').set('value', -1); //Set upload progress to 100;
+              this.$('message').set('disabled', false);
             }, 1000);
           } catch (err) {
             console.log(err.response);
             alert('An error occurred. Please try again.');
-            this.$('uploadProgress').set('value', -1); //Set upload progress to 100;                      
+            this.$('uploadProgress').set('value', -1); //Set upload progress to 100;  
+            this.$('message').set('disabled', false);
           }
         } else {
           alert('You cannot upload more than 5 attachments');

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
-import faUpload from '@fortawesome/fontawesome-free-solid/faUpload'
+import faPaperclip from '@fortawesome/fontawesome-free-solid/faPaperclip'
 import { Line } from 'rc-progress';
 import RespondForm from './RespondForm';
 import './RespondFormBox.less';
@@ -12,6 +12,7 @@ export default class RespondFormBox extends Component {
     super(props);
     this.form = new RespondForm(props.history);
     this.form.$('inquiry_id').set('value', this.props.inquiryId);
+    this.state = { label: 'Attach files here' }
   }
 
   render() {
@@ -25,13 +26,31 @@ export default class RespondFormBox extends Component {
             </textarea>
             <div className="toolbar">
               <div className="toolbar-start">
-                <input type="file" multiple onChange={(e) => this.handleUpload(e)} />
+                <input
+                  onChange={(e) => this.handleUpload(e)}
+                  type="file"
+                  name="file"
+                  id="file"
+                  className="inputfile"
+                  disabled={this.form.$('message').disabled}
+                  multiple
+                />
+                <label htmlFor="file">
+                  <FontAwesomeIcon icon={faPaperclip} />
+                  {this.state.label}
+                </label>
               </div>
               <div className="toolbar-end">
                 <label className={`${characterCount < 0 ? 'invalid' : ''} character-count`}>
                   {characterCount}
                 </label>
-                <button type="submit" className="btn rounded">Submit</button>
+                <button
+                  type="submit"
+                  className="btn rounded"
+                  disabled={characterCount === 800 || characterCount < 0 || this.form.$('message').disabled}
+                >
+                  Submit
+                </button>
               </div>
             </div>
           </form>
@@ -49,12 +68,13 @@ export default class RespondFormBox extends Component {
   }
 
   handleUpload(e) {
+    let label = 'Attach files here';
+    if (e.target.files.length === 1) {
+      label = '1 file selected';
+    } else {
+      label = `${e.target.files.length} files selected`;
+    }
+    this.setState({ label: label });
     this.form.$('files').value = Array.from(e.target.files);
   }
-
-
 }
-{/* <button className="file-upload">
-                <FontAwesomeIcon icon={faUpload} />
-              </button>
-    */}

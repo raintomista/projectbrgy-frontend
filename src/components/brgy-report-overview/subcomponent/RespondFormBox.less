@@ -15,11 +15,53 @@
         color: #2a8abd;
         font-family: 'Lato', sans-serif;
     }
-
     .toolbar {
         display: flex;
         justify-content: space-between;
+        align-content: center;
         margin: 15px 0px 0px 0px;
+    }
+    .toolbar-start {
+        display: flex;
+    }
+    .inputfile {
+        width: 0.1px;
+        height: 0.1px;
+        opacity: 0;
+        overflow: hidden;
+        position: absolute;
+        z-index: -1;
+    }
+    .inputfile+label {
+        display: inline-block;
+        background-color: transparent;
+        border-radius: 10px !important;
+        cursor: pointer;
+        color: #2a8abd;
+        font-family: 'Lato', sans-serif;
+        font-weight: 700;
+        margin: 0px;
+        align-self: center;
+        svg {
+            margin-right: 5px;
+        }
+    }
+    .inputfile:disabled+label,
+    .inputfile:disabled+label:hover {
+        cursor: not-allowed;
+        color: #4297c5;
+        text-decoration: none !important;
+    }
+    .inputfile:focus+label,
+    .inputfile.has-focus+label,
+    .inputfile+label:hover {
+        color: #1a7cb1;
+        text-decoration: underline;
+    }
+    .inputfile:focus+label,
+    .inputfile.has-focus+label {
+        outline: 1px dotted #000;
+        outline: -webkit-focus-ring-color auto 5px;
     }
     .btn.rounded {
         min-width: 100px;
