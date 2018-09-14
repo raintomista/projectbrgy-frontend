@@ -40,3 +40,11 @@ export function getBrgyMemberReportById(id) {
     });
 }
 
+export function getReportResponses(id, page, limit) {
+    const token = localStorage.getItem('x-access-token');
+    return axios.get(`${API_HOST}/inquiry/response/${id}?page=${page}&limit=${limit}`, {
+        headers: {
+            'x-access-token': token
+        }
+    });
+}

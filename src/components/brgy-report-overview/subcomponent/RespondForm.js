@@ -49,8 +49,14 @@ export default class RespondForm extends MobxReactForm {
           const formData = this.createFormData(message, files);
           try {
             await this.respondToReport(inquiry_id, formData);
+            setTimeout(() => {
+              alert('You have successfully responded to the report.');
+              this.$('uploadProgress').set('value', -1); //Set upload progress to 100;          
+            }, 1000);
           } catch (err) {
             console.log(err.response);
+            alert('An error occurred. Please try again.');
+            this.$('uploadProgress').set('value', -1); //Set upload progress to 100;                      
           }
         } else {
           alert('You cannot upload more than 5 attachments');
@@ -86,11 +92,6 @@ export default class RespondForm extends MobxReactForm {
       },
       onDownloadProgress: progressEvent => {
         this.$('uploadProgress').set('value', 100); //Set upload progress to 100;
-        setTimeout(() => {
-          alert('You have successfully responded to the report.');
-          this.$('uploadProgress').set('value', -1); //Set upload progress to 100;          
-        }, 1000);
-
       },
       data: formData
     });
