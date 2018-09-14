@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import NavBar from 'components/common/Nav/Bar';
 import ProfileHeader from 'components/profile/ProfileHeader';
 import BrgyPageView from 'components/brgy-page/BrgyPageView';
 import queryString from 'query-string';
@@ -7,6 +8,7 @@ import queryString from 'query-string';
 import { Modal, ModalBody } from 'reactstrap';
 
 import { observer } from 'mobx-react';
+
 
 import 'containers/BrgyPage.less';
 
@@ -16,7 +18,7 @@ export default class BrgyPage extends Component {
   async componentDidMount() {
     const searchQuery = this.props.location.search;
     const parsedQuery = queryString.parse(searchQuery);
-    this.props.AppData.getUserDetails();    
+    this.props.AppData.getUserDetails();
     this.props.BrgyPageStore.fetchBrgyPageData(parsedQuery.id);
     this.props.BrgyPageStore.setViewType(parsedQuery.view);
   }
@@ -27,11 +29,11 @@ export default class BrgyPage extends Component {
     const parsedPrevQuery = queryString.parse(prevQuery);
     const parsedQuery = queryString.parse(query);
 
-    if(parsedPrevQuery.id !== parsedQuery.id){
+    if (parsedPrevQuery.id !== parsedQuery.id) {
       this.props.BrgyPageStore.fetchBrgyPageData(parsedQuery.id);
     }
 
-    if(parsedPrevQuery.view!== parsedQuery.view){
+    if (parsedPrevQuery.view !== parsedQuery.view) {
       this.props.BrgyPageStore.setViewType(parsedQuery.view);
     }
   }
@@ -41,6 +43,7 @@ export default class BrgyPage extends Component {
 
     return (
       <div>
+        <NavBar AppData={AppData} history={this.props.history} />
         {/* Barangay Page Header */}
         <ProfileHeader />
 
@@ -54,7 +57,7 @@ export default class BrgyPage extends Component {
           </div>
         </div>
 
-        <Modal isOpen={BrgyPageStore.isModalOpen} toggle={() => BrgyPageStore.toggleModal()} size="lg" centered={true}>
+        <Modal isOpen={BrgyPageStore.isModalOpen} toggle={() => BrgyPageStore.toggleModal()} size="lg" centered={true} className="e-services-modal">
           <ModalBody>
             <h3 className="modal-title">E-Services</h3>
             <div className="row justify-content-sm-center">
