@@ -4,7 +4,7 @@ import moment from 'moment';
 import './ReportItem.less';
 
 const ReportItem = (props) => {
-  const dateCreated = moment(props.date_created).format('MMMM DD, YYYY hh:mm:ss A')
+  const dateCreated = moment(props.dateCreated).format('MMMM DD, YYYY hh:mm:ss A')
   return (
     <div className="report-item card">
       <div className="card-body">

@@ -17,6 +17,7 @@ import Profile from 'containers/Profile';
 
 import MyReportsView from 'components/my-reports/MyReportsView';
 import CreateReportView from 'components/my-reports/create-report/CreateReportView';
+import MyReportsRespondedView from 'components/my-reports-responded/MyReportsResponded';
 import ResidentsView from 'components/residents/ResidentsView';
 import SearchView from 'components/search/SearchView';
 import BrgyReportsView from 'components/brgy-reports/BrgyReports';
@@ -73,6 +74,12 @@ export default class App extends Component {
             path='/dashboard/my-reports/create'
             render={(props) => <CreateReportView {...props} />}
           />
+          <Route
+            exact={true}
+            path='/dashboard/my-reports/responded'
+            render={(props) => <MyReportsRespondedView {...props} />}
+          />
+          
           <Route
             exact={true}
             path='/search'

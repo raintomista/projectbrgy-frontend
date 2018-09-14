@@ -22,6 +22,15 @@ export function getMyReports() {
     });
 }
 
+export function getMyRespondedReports(page, limit, order) {
+    const token = localStorage.getItem('x-access-token');
+    return axios.get(`${API_HOST}/inquiry/my-reports/responded?page=${page}&limit=${limit}&order=${order}`, {
+        headers: {
+            'x-access-token': token
+        }
+    });
+}
+
 export function getBrgyMembersReports() {
     const token = localStorage.getItem('x-access-token');
     return axios.get(`${API_HOST}/inquiry`, {
