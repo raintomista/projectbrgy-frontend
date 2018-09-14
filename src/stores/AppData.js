@@ -27,7 +27,10 @@ export default class AppData {
                 this.loggedUser = loggedUser;
             });
         } catch (e) {
-            console.log(e);
+            if(e.response.data.errors[0].code === 'UNAUTH') {
+                alert('Your session has expired. Please login again.');
+                // Add navigation here
+            }
         }
     }
 
