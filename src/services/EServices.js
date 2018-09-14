@@ -12,3 +12,20 @@ export function requestBarangayClearance(data) {
         data: data
     });
 }
+
+export function getAllBrgyClearanceRequests(brgyId, page, limit) {
+    const token = localStorage.getItem('x-access-token');
+    return axios.get(`${API_HOST}/barangay-clearance/requests/admin/${brgyId}?page=${page}&limit=${limit}`, {
+        headers: {
+            'x-access-token': token
+        }
+    });
+}
+export function getBrgyClearanceRequestById(brgyId) {
+    const token = localStorage.getItem('x-access-token');
+    return axios.get(`${API_HOST}/barangay-clearance/${brgyId}`, {
+        headers: {
+            'x-access-token': token
+        }
+    });
+}

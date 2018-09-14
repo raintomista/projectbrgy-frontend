@@ -21,6 +21,7 @@ import ResidentsView from 'components/residents/ResidentsView';
 import SearchView from 'components/search/SearchView';
 import BrgyReportsView from 'components/brgy-reports/BrgyReports';
 import BrgyReportOverview from 'components/brgy-report-overview/ReportOverview';
+import BrgyEservices from 'components/brgy-eservices/BrgyEservices';
 import NotFound404 from 'components/not-found/NotFound404';
 
 
@@ -56,6 +57,11 @@ export default class App extends Component {
             exact={true}
             path='/dashboard/my-barangay/reports/:id'
             render={(props) => <BrgyReportOverview {...props} />}
+          />
+          <Route
+            exact={true}
+            path='/dashboard/my-barangay/e-services'
+            render={(props) => <BrgyEservices {...props} />}
           />
           <Route
             exact={true}
