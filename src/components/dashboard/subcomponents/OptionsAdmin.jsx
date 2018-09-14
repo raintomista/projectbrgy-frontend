@@ -26,7 +26,7 @@ const OptionsAdmin = observer((props) => {
       </li>
 
       <li className="list-group-item">
-        <Link to='/dashboard' className="card-link">E-Services</Link>
+        <Link to='/dashboard/my-barangay/e-services' className="card-link">E-Services</Link>
         <span className="badge">{props.eServicesCount > 0 && props.eServicesCount}</span>
       </li>
 

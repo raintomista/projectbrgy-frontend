@@ -53,7 +53,7 @@ export default class DashboardSideBar extends Component {
           /> :
           <SideBarAdminOptions
             adminName={`${loggedUser.user_first_name} ${loggedUser.user_last_name}`}
-            eResourcesCount={11}
+            eServicesCount={loggedUser.stats.unread_e_services_count}
             followersCount={loggedUser.stats.follower_count}
             handleViewBrgyResidents={this._handleViewBrgyResidents()}
             handleViewBrgyFollowersList={this._handleViewBrgyFollowersList(loggedUser.barangay_page_id)}

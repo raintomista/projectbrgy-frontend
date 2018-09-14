@@ -38,3 +38,12 @@ export function getAllBusinessClearanceRequests(brgyId, page, limit) {
         }
     });
 }
+
+export function getAllKatarungangPambarangayComplaints(brgyId, page, limit) {
+    const token = localStorage.getItem('x-access-token');
+    return axios.get(`${API_HOST}/katarungang-pambarangay/requests/admin/${brgyId}`, {
+        headers: {
+            'x-access-token': token
+        }
+    });
+}

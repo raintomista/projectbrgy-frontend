@@ -5,6 +5,7 @@ import NavBar from 'components/common/Nav/Bar';
 import DashboardSideBar from 'components/dashboard/subcomponents/SideBar';
 import BrgyClearanceTable from './subcomponents/BrgyClearanceTable';
 import BusinessPermitTable from './subcomponents/BusinessPermitTable';
+import KatarungangPambarangayTable from './subcomponents/KatarungangPambarangayTable';
 import RootStore from 'stores/RootStore';
 
 @observer
@@ -29,6 +30,10 @@ export default class BrgyEservices extends Component {
                   history={this.props.history}
                 />
                 <BusinessPermitTable
+                  AppData={AppData}
+                  history={this.props.history}
+                />
+                <KatarungangPambarangayTable
                   AppData={AppData}
                   history={this.props.history}
                 />
