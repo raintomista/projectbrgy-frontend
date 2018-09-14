@@ -21,7 +21,7 @@ const OptionsMember = observer((props) => {
         <span className="badge">{props.reportsCount > 0 && props.reportsCount}</span>
       </li>
       <li className="list-group-item">
-        <Link to='/dashboard' className="card-link">Responded</Link>
+        <Link to='/dashboard/my-reports/responded' className="card-link">Responded</Link>
         <span className="badge">{props.respondedCount > 0 && props.respondedCount}</span>
       </li>
 
