@@ -5,7 +5,7 @@ import './MemberReportItem.less';
 const MemberReportItem = (props) => {
   const dateCreated = moment(props.dateCreated).format('MMMM DD, YYYY hh:mm:ss A')
   return (
-    <div className={`${props.status === 'unread' ? 'unread' : ''} member-report-item card`} onClick={props.handleClick}>
+    <div className={`${props.status === 'unread' ? 'unread' : ''} ${props.status === 'responded' ? 'responded' : ''} member-report-item card`} onClick={props.handleClick}>
       <div className="card-body">
         <div className="card-title">
           {props.reportType} Report
