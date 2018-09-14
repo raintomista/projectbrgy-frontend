@@ -28,6 +28,7 @@ export default class SearchBar extends Component {
             type="search"
             placeholder="Search"
             aria-label="Search"
+            autoComplete="off"
             {...this.form.$('query').bind()}
             onKeyPress={(e) => this._handleEnter(e)}
           />
