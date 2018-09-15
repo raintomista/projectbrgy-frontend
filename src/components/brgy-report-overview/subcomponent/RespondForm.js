@@ -1,7 +1,8 @@
-import validatorjs from 'validatorjs';
-import API_HOST from '../../../config';
-import MobxReactForm from 'mobx-react-form';
 import axios from 'axios';
+import MobxReactForm from 'mobx-react-form';
+import validatorjs from 'validatorjs';
+import RootStore from 'stores/RootStore';
+import API_HOST from '../../../config';
 
 export default class RespondForm extends MobxReactForm {
   constructor(history) {
@@ -49,40 +50,52 @@ export default class RespondForm extends MobxReactForm {
     };
   }
 
-  hooks() {
+  handlers() {
     return {
-      async onSuccess(form) {
-        const {
-          inquiry_id,
-          message,
-          files
-        } = form.values();
-
-        if (files.length <= 5) {
-          const formData = this.createFormData(message, files);
-          this.$('message').set('disabled', true);
-
-          try {
-            await this.respondToReport(inquiry_id, formData);
-            setTimeout(() => {
-              alert('You have successfully responded to the report.');
-              this.$('uploadProgress').set('value', -1); //Set upload progress to 100;
-              this.$('message').set('disabled', false);
-            }, 1000);
-          } catch (err) {
-            console.log(err.response);
-            alert('An error occurred. Please try again.');
-            this.$('uploadProgress').set('value', -1); //Set upload progress to 100;  
-            this.$('message').set('disabled', false);
-          }
-        } else {
-          alert('You cannot upload more than 5 attachments');
-        }
-      },
-      onError(form) {
-        alert('Please provide a response message.');
-      },
+      onSubmit: (form) => (e) => {
+        const element = e.target.getElementsByTagName('textarea')[0];
+        e.preventDefault() // Prevent default form submission
+        form.validate()
+          .then((form) => this.onSuccess(form, element))
+          .catch((form) => this.onError());
+      }
     }
+  }
+
+  async onSuccess(form, element) {
+    const {
+      inquiry_id,
+      message,
+      files
+    } = form.values();
+
+    if (files.length <= 5) {
+      const formData = this.createFormData(message, files);
+      this.$('message').set('disabled', true);
+
+      try {
+        await this.respondToReport(inquiry_id, formData);
+        setTimeout(async () => {
+          await RootStore.ReportOverviewStore.getNewResponse(inquiry_id);
+          alert('You have successfully responded to the report.');
+          this.$('uploadProgress').set('value', -1); //Set upload progress to 100;
+          this.$('message').set('disabled', false);
+          this.$('message').set('value', '');
+          element.style.height = "88px";
+        }, 1000);
+      } catch (err) {
+        console.log(err.response);
+        alert('An error occurred. Please try again.');
+        this.$('uploadProgress').set('value', -1); //Set upload progress to 100;  
+        this.$('message').set('disabled', false);
+      }
+    } else {
+      alert('You cannot upload more than 5 attachments');
+    }
+  }
+
+  onError(form) {
+    alert('Please provide a response message.');
   }
 
   createFormData(message, files) {

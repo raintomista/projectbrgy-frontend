@@ -49,7 +49,7 @@ export default class RespondFormBox extends Component {
                   className="btn rounded"
                   disabled={characterCount === 800 || characterCount < 0 || this.form.$('message').disabled}
                 >
-                  Submit
+                  Respond
                 </button>
               </div>
             </div>

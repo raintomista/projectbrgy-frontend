@@ -17,7 +17,7 @@ configure({
 
 export default class ReportOverviewStore {
     @observable page = 1;
-    @observable limit = 2;
+    @observable limit = 5;
     @observable order = 'desc';
     @observable skip = 0;
 
@@ -57,6 +57,34 @@ export default class ReportOverviewStore {
                     this.responses = inquiry_admin_response;
                     this.fetchedCount = inquiry_admin_response.length;
                     this.totalCount = total;
+                });
+            }, 1000);
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    @action
+    async getNewResponse(id) {
+        this.fetchingResponses = true;
+        try {
+            const response = await getReportResponses(id, 1, 1, this.order, 0);
+            const {
+                total,
+                inquiry_admin_response
+            } = response.data.data;
+
+            const newResponses = this.responses.slice();
+            newResponses.unshift(...inquiry_admin_response);
+
+            setTimeout(() => {
+                runInAction(() => {
+                    this.fetchingResponses = false;
+                    this.page = 0;
+                    this.skip = newResponses.length;
+                    this.fetchedCount = newResponses.length;
+                    this.totalCount = total;
+                    this.responses = newResponses;
                 });
             }, 1000);
         } catch (e) {
