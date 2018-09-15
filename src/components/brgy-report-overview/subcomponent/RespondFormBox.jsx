@@ -37,7 +37,7 @@ export default class RespondFormBox extends Component {
                 />
                 <label htmlFor="file">
                   <FontAwesomeIcon icon={faPaperclip} />
-                  {this.state.label}
+                  {this.props.ReportOverviewStore.label}
                 </label>
               </div>
               <div className="toolbar-end">
@@ -70,9 +70,9 @@ export default class RespondFormBox extends Component {
   handleUpload(e) {
     let label = 'Attach files here';
     if (e.target.files.length === 1) {
-      label = '1 file selected';
+      this.props.ReportOverviewStore.setLabel('1 file selected');
     } else {
-      label = `${e.target.files.length} files selected`;
+      this.props.ReportOverviewStore.setLabel(`${e.target.files.length} files selected`);
     }
     this.setState({ label: label });
     this.form.$('files').value = Array.from(e.target.files);

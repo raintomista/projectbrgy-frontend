@@ -98,6 +98,7 @@ export default class BrgyReports extends Component {
                     <RespondFormBox
                       inquiryId={id}
                       history={this.props.history}
+                      ReportOverviewStore={ReportOverviewStore}
                     />
                   </React.Fragment>
                 )}

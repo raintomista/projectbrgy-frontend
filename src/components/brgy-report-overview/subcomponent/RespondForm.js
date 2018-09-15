@@ -53,16 +53,17 @@ export default class RespondForm extends MobxReactForm {
   handlers() {
     return {
       onSubmit: (form) => (e) => {
-        const element = e.target.getElementsByTagName('textarea')[0];
+        const textarea = e.target.getElementsByTagName('textarea')[0];
+
         e.preventDefault() // Prevent default form submission
         form.validate()
-          .then((form) => this.onSuccess(form, element))
+          .then((form) => this.onSuccess(form, textarea))
           .catch((form) => this.onError());
       }
     }
   }
 
-  async onSuccess(form, element) {
+  async onSuccess(form, textarea) {
     const {
       inquiry_id,
       message,
@@ -81,7 +82,9 @@ export default class RespondForm extends MobxReactForm {
           this.$('uploadProgress').set('value', -1); //Set upload progress to 100;
           this.$('message').set('disabled', false);
           this.$('message').set('value', '');
-          element.style.height = "88px";
+          textarea.style.height = "88px";
+          this.$('files').set('value', []);
+          RootStore.ReportOverviewStore.setLabel('Attach files here');
         }, 1000);
       } catch (err) {
         console.log(err.response);

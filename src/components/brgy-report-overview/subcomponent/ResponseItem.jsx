@@ -27,7 +27,7 @@ const ResponseItem = (props) => {
               <label>{props.attachments.length} Attachments:</label>
               {props.attachments.map((attachment, index) => (
                 <a href={attachment.link} target="_blank" className="attachment" key={index}>
-                  yoyoyoyoy.png
+                  {attachment.filename}
                 </a>
               ))}
             </div>

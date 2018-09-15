@@ -30,6 +30,8 @@ export default class ReportOverviewStore {
     @observable report = null;
     @observable responses = [];
 
+    @observable label = 'Attach files here';
+
     @action
     async getReportDetails(id) {
         this.pageLoading = true;
@@ -119,6 +121,10 @@ export default class ReportOverviewStore {
         }
     }
 
+    @action setLabel(label) {
+        this.label = label;
+    }
+
     @action reset() {
         this.page = 1;
         this.limit = 2;
@@ -133,5 +139,7 @@ export default class ReportOverviewStore {
 
         this.report = null;
         this.responses = [];
+
+        this.label = 'Attach files here';
     }
 }
