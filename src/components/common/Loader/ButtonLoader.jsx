@@ -4,7 +4,7 @@ import './ButtonLoader.less';
 const ButtonLoader = (props) => (
   <button className="button-loader" onClick={props.handleClick} disabled={props.loading}>
     { props.loading && 'Loading...'}
-    { !props.loading && 'Show more'}    
+    { !props.loading && props.label}    
   </button>
 );
 
