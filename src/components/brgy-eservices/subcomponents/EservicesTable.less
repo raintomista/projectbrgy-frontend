@@ -1,7 +1,6 @@
 .e-services-table {
     margin-bottom: 16px;
     min-height: 343px;
-
     .card-heading {
         display: flex;
         justify-content: space-between;
@@ -28,6 +27,7 @@
         margin: -10px -20px 0px -20px;
         max-width: none;
         width: calc(100% + 40px);
+        table-layout: fixed;
         thead th {
             border: none;
             color: #2a8abd;
@@ -37,6 +37,9 @@
         tbody td {
             color: rgb(44, 44, 44);
             font-family: 'Lato';
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
         }
         thead th:first-child,
         tbody td:first-child {

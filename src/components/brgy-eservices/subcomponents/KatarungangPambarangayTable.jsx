@@ -28,8 +28,9 @@ export default class KatarungangPambarangayTable extends Component {
           className={request.status === 'unread' ? 'unread' : ''}
           onClick={() => this._viewItem(request.id)}
         >
-          <td>{`${request.name_of_owner}`}</td>
-          <td>{request.name_of_business}</td>
+          <td>{request.name_of_complainant}</td>
+          <td>{request.name_of_offender}</td>
+          <td>{request.allegations}</td>
           <td>{moment(request.date_created).format('MMM DD, YYYY hh:mm:ss a')}</td>
         </tr>
       );
@@ -57,10 +58,10 @@ export default class KatarungangPambarangayTable extends Component {
               <table className="table">
                 <thead>
                   <tr>
-                    <th scope="col">Complainant Name</th>
-                    <th scope="col">Offender Name</th>
-                    <th scope="col">Allegation/s</th>
-                    <th scope="col">Complaint Date</th>
+                    <th scope="col" style={{width: '23.33%'}}>Complainant Name</th>
+                    <th scope="col" style={{width: '23.33%'}}>Offender Name</th>
+                    <th scope="col" style={{width: '23.33%'}}>Allegation/s</th>
+                    <th scope="col" style={{width: '30%'}}>Complaint Date</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -86,7 +87,7 @@ export default class KatarungangPambarangayTable extends Component {
   async _getAllKatarungangPambarangayComplaints(brgyId) {
     this.setState({ loading: true });
     try {
-      const response = await getAllKatarungangPambarangayComplaints(brgyId, 1, 5);
+      const response = await getAllKatarungangPambarangayComplaints(brgyId, 1, 5, 'desc');
       setTimeout(() => {
         this.setState({
           loading: false,

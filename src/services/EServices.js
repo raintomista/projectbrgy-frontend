@@ -51,9 +51,9 @@ export function getAllBusinessClearanceRequests(brgyId, page, limit) {
     });
 }
 
-export function getAllKatarungangPambarangayComplaints(brgyId, page, limit) {
+export function getAllKatarungangPambarangayComplaints(brgyId, page, limit, order) {
     const token = localStorage.getItem('x-access-token');
-    return axios.get(`${API_HOST}/katarungang-pambarangay/requests/admin/${brgyId}`, {
+    return axios.get(`${API_HOST}/katarungang-pambarangay/requests/admin/${brgyId}?page=${page}&limit=${limit}&order=${order}`, {
         headers: {
             'x-access-token': token
         }
