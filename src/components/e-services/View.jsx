@@ -84,17 +84,25 @@ export default class EServicesView extends Component {
   }
 
   renderConfirmation() {
-    if (this.props.location.state) {
+    if (this.state.type === 'katarungang-pambarangay') {
       return (
         <ConfirmationMessage
           type={this.state.type}
-          fee={this.props.location.state.fee}
-          pickup={this.props.location.state.pickup}
         />
       );
-    }
-    else {
-      return <Redirect to={`/e-services/${this.state.type}`} />;
+    } else if (this.state.type === 'barangay-clearance' || this.state.type === 'business-permit') {
+      if (this.props.location.state) {
+        return (
+          <ConfirmationMessage
+            type={this.state.type}
+            fee={this.props.location.state.fee}
+            pickup={this.props.location.state.pickup}
+          />
+        );
+      }
+      else {
+        return <Redirect to={`/e-services/${this.state.type}`} />;
+      }
     }
   }
 

@@ -16,7 +16,7 @@ const KatarungangPambarangay = observer((props) => {
               <InlineInputField
                 id="name-of-complainant"
                 field={props.form.$('name_of_complainant')}
-                label="Name of Complainant: "
+                label="Name of Complainant (Your name): "
                 type="text"
                 required
               />
@@ -28,17 +28,32 @@ const KatarungangPambarangay = observer((props) => {
                 required
               />
               <InlineInputField
-                id="name-of-assailant"
-                field={props.form.$('name_of_assailant')}
-                label="Name of Assailant: "
+                id="name_of_offender"
+                field={props.form.$('name_of_offender')}
+                label="Name of Offender: "
                 type="text"
                 required
               />
               <InlineInputField
-                id="address-of-assailant"
-                field={props.form.$('address_of_assailant')}
-                label="Address of Assailant: "
+                id="address-of-offender"
+                field={props.form.$('address_of_offender')}
+                label="Address of Offender: "
                 type="text"
+                required
+              />
+              <InlineInputField
+                id="allegations"
+                field={props.form.$('allegations')}
+                label="Allegation/s: "
+                type="text"
+                required
+              />
+              <InlineInputField
+                id="date-of-incident"
+                field={props.form.$('date_of_incident')}
+                label="Date of Incident: "
+                type="text"
+                maxLength={10}
                 required
               />
             </div>
@@ -46,8 +61,17 @@ const KatarungangPambarangay = observer((props) => {
         </div>
         <div className="row">
           <div className="incident-report section col-md-12">
-            <label className="heading">In less than 300 words, please report the details of the incidient.</label>
-            <textarea></textarea>
+            <label className="heading">
+              In less than 300 words, please state the details of the incident.
+              <br />
+              (note: Please use the language widely-used in your barangay: i.e. Filipino, English, Waray, etc.)
+            </label>
+            <textarea
+              maxLength={300}
+              className={props.form.errors().details_of_incident ? 'invalid' : ''}
+              {...props.form.$('details_of_incident').bind()}
+            >
+            </textarea>
           </div>
         </div>
 
