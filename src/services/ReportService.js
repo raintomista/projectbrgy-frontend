@@ -31,9 +31,9 @@ export function getMyRespondedReports(page, limit, order) {
     });
 }
 
-export function getBrgyMembersReports() {
+export function getBrgyMembersReports(page, limit, order) {
     const token = localStorage.getItem('x-access-token');
-    return axios.get(`${API_HOST}/inquiry`, {
+    return axios.get(`${API_HOST}/inquiry?page=${page}&limit=${limit}&order=${order}`, {
         headers: {
             'x-access-token': token
         }
