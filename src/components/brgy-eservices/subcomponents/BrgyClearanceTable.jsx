@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import moment from 'moment';
+import FontAwesomeIcon from '@fortawesome/react-fontawesome'
+import faChevronLeft from '@fortawesome/fontawesome-free-solid/faChevronLeft'
+import faChevronRight from '@fortawesome/fontawesome-free-solid/faChevronRight'
+
 import { getAllBrgyClearanceRequests } from 'services/EServices';
 import Loader from 'assets/images/loader.svg';
 import { observer } from 'mobx-react';
@@ -12,7 +15,9 @@ export default class BrgyClearanceTable extends Component {
     super(props);
     this.state = {
       loading: true,
-      requests: []
+      requests: [],
+      currentPage: 1,
+      totalPage: 1,
     }
   }
 
@@ -44,40 +49,48 @@ export default class BrgyClearanceTable extends Component {
               <div className="card-title">
                 Barangay Clearance Requests
               </div>
-              <Link to='/dashboard/my-barangay/e-services/barangay-clearance'>
-                View all
-              </Link>
-            </div>
-            {this.state.loading && (
-              <div className="loader">
-                <object data={Loader} type="image/svg+xml">
-                </object>
+              <div className="btn-group btn-group-toggle" data-toggle="buttons">
+                <span>{this.state.currentPage} of {this.state.totalPage}</span>
+                <button className="btn" onClick={(e) => this._prevPage()} disabled={this.state.currentPage === 1}>
+                  <FontAwesomeIcon icon={faChevronLeft} />
+                </button>
+                <button className="btn" onClick={(e) => this._nextPage()} disabled={this.state.currentPage === this.state.totalPage}>
+                  <FontAwesomeIcon icon={faChevronRight} />
+                </button>
               </div>
-            )}
-            {!this.state.loading && (
-              <table className="table">
-                <thead>
-                  <tr>
-                    <th scope="col">Applicant Name</th>
-                    <th scope="col">Citizenship</th>
-                    <th scope="col">Purpose</th>
-                    <th scope="col">Request Date</th>
+            </div>
+            <table className="table">
+              <thead>
+                <tr>
+                  <th scope="col">Applicant Name</th>
+                  <th scope="col">Citizenship</th>
+                  <th scope="col">Purpose</th>
+                  <th scope="col">Request Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                {this.state.loading && (
+                  <tr className="loader-container">
+                    <td colSpan="4">
+                      <div className="loader">
+                        <object data={Loader} type="image/svg+xml">
+                        </object>
+                      </div>
+                    </td>
                   </tr>
-                </thead>
-                <tbody>
-                  {this.state.requests.length === 0 && (
-                    <React.Fragment>
-                      <tr>
-                        <td colSpan="4" className="filler">
-                          No barangay clearance requests yet!
+                )}
+                {!this.state.loading && this.state.requests.length === 0 && (
+                  <React.Fragment>
+                    <tr>
+                      <td colSpan="4" className="filler">
+                        No barangay clearance requests yet!
                         </td>
-                      </tr>
-                    </React.Fragment>
-                  )}
-                  {rows}
-                </tbody>
-              </table>
-            )}
+                    </tr>
+                  </React.Fragment>
+                )}
+                {!this.state.loading && rows}
+              </tbody>
+            </table>
           </div>
         </div>
       </React.Fragment>
@@ -91,7 +104,48 @@ export default class BrgyClearanceTable extends Component {
       setTimeout(() => {
         this.setState({
           loading: false,
-          requests: response.data.data.barangay_clearance
+          requests: response.data.data.barangay_clearance,
+          totalPage: Math.ceil(response.data.data.total / 5)
+        })
+      }, 1000);
+    } catch (e) {
+      alert('An error occurred. Please try again later.');
+    }
+  }
+
+  async _prevPage() {
+    const brgyId = this.props.AppData.loggedUser.barangay_page_id;
+    const currentPage = this.state.currentPage;
+    this.setState({ loading: true });
+
+    try {
+      const response = await getAllBrgyClearanceRequests(brgyId, currentPage - 1, 5);
+      setTimeout(() => {
+        this.setState({
+          loading: false,
+          requests: response.data.data.barangay_clearance,
+          currentPage: currentPage - 1,
+          totalPage: Math.ceil(response.data.data.total / 5)
+        })
+      }, 1000);
+    } catch (e) {
+      alert('An error occurred. Please try again later.');
+    }
+  }
+
+  async _nextPage() {
+    const brgyId = this.props.AppData.loggedUser.barangay_page_id;
+    const currentPage = this.state.currentPage;
+    this.setState({ loading: true });
+
+    try {
+      const response = await getAllBrgyClearanceRequests(brgyId, currentPage + 1, 5);
+      setTimeout(() => {
+        this.setState({
+          loading: false,
+          requests: response.data.data.barangay_clearance,
+          currentPage: currentPage + 1,
+          totalPage: Math.ceil(response.data.data.total / 5)
         })
       }, 1000);
     } catch (e) {

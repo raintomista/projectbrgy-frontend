@@ -52,7 +52,7 @@ export function requestKatarungan(data) {
 
 export function getAllBrgyClearanceRequests(brgyId, page, limit) {
     const token = localStorage.getItem('x-access-token');
-    return axios.get(`${API_HOST}/barangay-clearance/requests/admin/${brgyId}?page=${page}&limit=${limit}`, {
+    return axios.get(`${API_HOST}/barangay-clearance/requests/admin/${brgyId}?page=${page}&limit=${limit}&order=desc`, {
         headers: {
             'x-access-token': token
         }

@@ -66,7 +66,35 @@
     .loader {
         display: flex;
         align-items: center;
-        height: 280px;
-        padding: 0px 0px 30px 0px;
+        margin-bottom: 15px;
+    }
+    tr.loader-container {
+        height: 245px;
+        td {
+            vertical-align: middle;
+        }
+    }
+    .btn-group {
+        display: inline
+    }
+    .btn-group>span {
+        font-family: 'Lato';
+        margin-right: 10px;
+        vertical-align: middle;
+    }
+    .btn-group>.btn,
+    .btn-group>.btn:focus,
+    .btn-group>.btn:active {
+        background-color: transparent;
+        border: 1.5px solid #2a8abd;
+        color: #2a8abd;
+        min-width: 20px !important;
+    }
+    .btn-group>.btn:nth-child(2) {
+        border-radius: 20px 0px 0px 20px;
+        border-right: none;
+    }
+    .btn-group>.btn:last-child {
+        border-radius: 0px 20px 20px 0px;
     }
 }
