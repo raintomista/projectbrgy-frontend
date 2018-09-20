@@ -140,25 +140,26 @@ export default class BarangayClearanceForm extends MobxReactForm {
 
         // Format pickup datetime to mysql format
         let pickup = moment(`${pickup_date} ${pickup_time}`, 'MM/DD/YYYY hha').format('YYYY-MM-DD HH:mm:ss');
-
+        let files = [];
         const form_value = Object.assign(rest, {
           date_of_birth,
           months_of_residency,
           pickup,
-          purpose
+          purpose,
+          files,
         });
 
         const formatted_pickup = moment(`${pickup_date} ${pickup_time}`, 'MM/DD/YYYY hha').format('MMMM DD, YYYY hh:mm a');
 
         try {
-          const response = await requestBarangayClearance(form_value);
+          await requestBarangayClearance(form_value);
           this.history.push({
             pathname: '/e-services/barangay-clearance',
             search: '?confirmed',
             state: { fee: '₱100.00', pickup: formatted_pickup }
           });
         } catch (e) {
-          console.log(e);
+          console.log(e.response);
         }
       },
       onError(form) {

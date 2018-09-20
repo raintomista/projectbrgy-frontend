@@ -11,6 +11,7 @@ import BusinessPermitForm from './business-permit/Form';
 import KatarungangPambarangay from './katarungang-pambarangay/KatarungangPambarangay';
 import KatarungangPambarangayForm from './katarungang-pambarangay/Form';
 import ConfirmationMessage from './confirmation/ConfirmationMessage';
+import { Line } from 'rc-progress';
 import queryString from 'query-string';
 import './View.less';
 
@@ -34,7 +35,7 @@ export default class EServicesView extends Component {
     const searchQuery = this.props.location.search;
     const parsedQuery = queryString.parse(searchQuery);
 
-    if (prevProps.location.search != searchQuery) {
+    if (prevProps.location.search !== searchQuery) {
       this.setState({
         confirmed: typeof parsedQuery.confirmed === 'undefined' ? false : true
       });
@@ -56,6 +57,14 @@ export default class EServicesView extends Component {
                     {this.state.confirmed === false && this.renderForm()}
                     {this.state.confirmed === true && this.renderConfirmation()}
                   </div>
+                  {this.form.$('uploadProgress').value !== -1 && (
+                    <Line
+                      percent={this.form.$('uploadProgress').value}
+                      strokeWidth="0.5"
+                      strokeColor="#2a8abd"
+                      strokeLinecap="square"
+                    />
+                  )}
                 </div>
               </div>
             </div>

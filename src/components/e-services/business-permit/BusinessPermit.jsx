@@ -63,11 +63,31 @@ const BusinessPermit = observer((props) => {
             <div className="attachments">
               <div className="attachment form-group">
                 <label>Latest Community Tax Certificate (Cedula): </label>
-                <button className="btn rounded">Browse</button>
+                <input
+                  type="file"
+                  name="file"
+                  id="cedula"
+                  className="inputfile"
+                  onChange={(e) => handleCedula(e, props.form)}
+                  accept="application/pdf"
+                />
+                <label htmlFor="cedula">
+                  {props.form.$('cedula').label}
+                </label>
               </div>
               <div className="attachment form-group">
                 <label>DTI Business Permit: </label>
-                <button className="btn rounded">Browse</button>
+                <input
+                  type="file"
+                  name="file"
+                  id="dti-registration"
+                  className="inputfile"
+                  onChange={(e) => handleDTIPermit(e, props.form)}
+                  accept="application/pdf"
+                />
+                <label htmlFor="dti-registration">
+                  {props.form.$('dti_business_registration').label}
+                </label>
               </div>
             </div>
           </div>
@@ -101,6 +121,26 @@ const BusinessPermit = observer((props) => {
     </React.Fragment>
   );
 });
+
+function handleCedula(e, form) {
+  if (e.target.files.length == 1) {
+    const file = e.target.files[0];
+    const blob = file.slice(0, -1, file.type);
+    const renamedFile = new File([blob], `cedula~${file.name}`, { type: file.type });
+    form.$('cedula').value = renamedFile;
+    form.$('cedula').set('label', file.name);
+  }
+}
+
+function handleDTIPermit(e, form) {
+  if (e.target.files.length === 1) {
+    const file = e.target.files[0];
+    const blob = file.slice(0, -1, file.type);
+    const renamedFile = new File([blob], `dti_business_registration~${file.name}`, { type: file.type });
+    form.$('dti_business_registration').value = renamedFile;
+    form.$('dti_business_registration').set('label', file.name);
+  }
+}
 
 BusinessPermit.propTypes = {
   form: PropTypes.object
