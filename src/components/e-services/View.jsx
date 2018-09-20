@@ -39,6 +39,7 @@ export default class EServicesView extends Component {
       this.setState({
         confirmed: typeof parsedQuery.confirmed === 'undefined' ? false : true
       });
+      this.form = this._createForm(this.props.history);
     }
   }
 

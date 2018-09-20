@@ -134,19 +134,60 @@ const BarangayClearance = observer((props) => {
             <div className="attachments">
               <div className="attachment form-group">
                 <label>Certification of Residency from Association or Condominium: </label>
-                <button className="btn rounded">Browse</button>
+                <input
+                  type="file"
+                  name="file"
+                  id="certification-of-residency"
+                  className="inputfile"
+                  onChange={(e) => handleSingleUpload(e, props.form, 'certification_of_residency')}
+                  accept="application/pdf"
+                />
+                <label htmlFor="certification-of-residency">
+                  {props.form.$('certification_of_residency').label}
+                </label>
               </div>
               <div className="attachment form-group">
                 <label>Certification from Resident Owner (For House Helpers): </label>
-                <button className="btn rounded">Browse</button>
+                <input
+                  type="file"
+                  name="file"
+                  id="certification-from-resident-owner"
+                  className="inputfile"
+                  onChange={(e) => handleSingleUpload(e, props.form, 'certification_from_resident_owner')}
+                  accept="application/pdf"
+                />
+                <label htmlFor="certification-from-resident-owner">
+                  {props.form.$('certification_from_resident_owner').label}
+                </label>
               </div>
               <div className="attachment form-group">
                 <label>Latest Proof of Billing: </label>
-                <button className="btn rounded">Browse</button>
+                <input
+                  type="file"
+                  name="file"
+                  id="proof-of-billing"
+                  className="inputfile"
+                  onChange={(e) => handleSingleUpload(e, props.form, 'proof_of_billing')}
+                  accept="application/pdf"
+                />
+                <label htmlFor="proof-of-billing">
+                  {props.form.$('proof_of_billing').label}
+                </label>
               </div>
               <div className="attachment form-group">
                 <label>2 Valid ID with Address: </label>
-                <button className="btn rounded">Browse</button>
+                <input
+                  type="file"
+                  name="file"
+                  id="valid-id"
+                  className="inputfile"
+                  onChange={(e) => handleDualUpload(e, props.form, 'valid_id')}
+                  accept="image/*"
+                  multiple
+                />
+                <label htmlFor="valid-id">
+                  {props.form.$('valid_id').label}
+                </label>
               </div>
             </div>
           </div>
@@ -183,6 +224,49 @@ const BarangayClearance = observer((props) => {
 
 BarangayClearance.propTypes = {
   form: PropTypes.object
+}
+
+
+function handleSingleUpload(e, form, fieldname) {
+  if (e.target.files.length === 1) {
+    const file = e.target.files[0];
+    const blob = file.slice(0, -1, file.type);
+    const renamedFile = new File([blob], `${fieldname}~${file.name}`, { type: file.type });
+    form.$(fieldname).value = renamedFile;
+    form.$(fieldname).set('label', file.name);
+  } else {
+    form.$(fieldname).value = null;
+    form.$(fieldname).set('label', 'Browse');
+  }
+}
+
+function handleDualUpload(e, form, fieldname) {
+  if (e.target.files.length > 2) {
+    alert('You cannot upload more than 2 valid IDs.');
+    form.$(fieldname).value = null;
+    form.$(fieldname).set('label', 'Browse');
+  }
+  else if (e.target.files.length === 2) {
+    const files = [];
+
+    for (let i = 0; i < e.target.files.length; i++) {
+      const file = e.target.files[i];
+      const blob = file.slice(0, -1, file.type);
+      const renamedFile = new File([blob], `${fieldname}${i+1}~${file.name}`, { type: file.type });
+      files.push(renamedFile);
+    }
+    form.$(fieldname).value = files;
+    form.$(fieldname).set('label', '2 files selected');
+  }
+  else if (e.target.files.length === 1) {
+    alert('You are required to attach 2 valid IDs.');
+    form.$(fieldname).value = null;
+    form.$(fieldname).set('label', 'Browse');
+  }
+  else {
+    form.$(fieldname).value = null;
+    form.$(fieldname).set('label', 'Browse');
+  }
 }
 
 export default BarangayClearance;
