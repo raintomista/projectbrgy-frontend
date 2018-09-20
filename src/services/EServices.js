@@ -69,7 +69,7 @@ export function getBrgyClearanceRequestById(brgyId) {
 
 export function getAllBusinessClearanceRequests(brgyId, page, limit) {
     const token = localStorage.getItem('x-access-token');
-    return axios.get(`${API_HOST}/business-permit/requests/admin/${brgyId}?page=${page}&limit=${limit}`, {
+    return axios.get(`${API_HOST}/business-permit/requests/admin/${brgyId}?page=${page}&limit=${limit}&order=desc`, {
         headers: {
             'x-access-token': token
         }

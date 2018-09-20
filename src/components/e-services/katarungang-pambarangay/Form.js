@@ -37,6 +37,9 @@ export default class KatarungangPambarangay extends MobxReactForm {
       },
       details_of_incident: {
         rules: 'required'
+      },
+      uploadProgress: {
+        value: -1,
       }
     }
 
