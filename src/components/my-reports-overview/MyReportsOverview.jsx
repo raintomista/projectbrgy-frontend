@@ -11,19 +11,23 @@ import ButtonLoader from 'components/common/Loader/ButtonLoader';
 import { getBrgyMemberReportById, getReportResponses } from 'services/ReportService';
 import RootStore from 'stores/RootStore';
 import Loader from 'assets/images/loader.svg';
-// import './BrgyReports.less';
+import './MyReportsOverview.less';
 
 @observer
 export default class BrgyReports extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      page: 1,
-      limit: 5,
-      order: 'asc',
       loading: true,
       report: null,
+      currentPage: 1,
+      totalPage: 1,
+      currentItems: 1,
+      totalItems: 1,
+      limit: 5,
+      order: 'desc',
       fetching: false,
+
       responses: []
     }
   }
@@ -40,13 +44,13 @@ export default class BrgyReports extends Component {
     const report = this.state.report;
     const responses = [];
     this.state.responses.map((response, index) => {
-      responses.push(
+      responses.unshift(
         <ResponseItem
           key={response.id}
           sender={loggedUser.barangay_page_name}
           receiver="me"
           dateCreated={response.date_created}
-          index={index + 1}
+          index={this.state.totalItems - index}
           message={response.message}
           attachments={response.attachments}
           handleDisplayMessage={this._handleDisplayMessage}
@@ -63,8 +67,13 @@ export default class BrgyReports extends Component {
               <div className="col-md-3">
                 {loggedUser && <DashboardSideBar AppData={AppData} />}
               </div>
-              <div className="my-barangay-reports col-md-9">
-                <div className="title"><Link to='/dashboard/my-reports/responded'>Responded</Link> » Report Overview</div>
+              <div className="my-reports-overview col-md-9">
+                <div className="section-header">
+                  <div className="title">
+                    <Link to='/dashboard/my-reports/responded'>Responded </Link>
+                    <span> » Report Overview</span>
+                  </div>
+                </div>
                 {this.state.loading && (
                   <div className="loader">
                     <object data={Loader} type="image/svg+xml">
@@ -82,11 +91,14 @@ export default class BrgyReports extends Component {
                       reportType={report.inquiry_report_type}
                       handleDisplayMessage={this._handleDisplayMessage}
                     />
+                    {this.state.currentItems !== this.state.totalItems && (
+                      <ButtonLoader
+                        handleClick={() => this._loadPrevious(report.inquiry_id)}
+                        label="Load previous responses"
+                        loading={this.state.fetching}
+                      />
+                    )}
                     {responses}
-                    <ButtonLoader
-                      handleClick={() => this._showMore(report.inquiry_id)}
-                      loading={this.state.fetching}
-                    />
                   </React.Fragment>
                 )}
               </div>
@@ -108,39 +120,45 @@ export default class BrgyReports extends Component {
         });
       }, 1000);
     } catch (e) {
-      console.log(e);
+      alert('An error occurred. Please try again later.');
     }
   }
 
   async _getBrgyResponses(reportId) {
     try {
-      const { page, limit, order } = this.state;
-      const response = await getReportResponses(reportId, page, limit, order);
+      const { currentPage, limit, order } = this.state;
+      const response = await getReportResponses(reportId, currentPage, limit, order, 0);
       const { inquiry_admin_response } = response.data.data;
       setTimeout(() => {
         this.setState({
           loading: false,
-          responses: inquiry_admin_response
+          responses: inquiry_admin_response,
+          totalPage: Math.ceil(response.data.data.total / limit),
+          currentItems: inquiry_admin_response.length,
+          totalItems: response.data.data.total,
         });
       }, 1000);
     } catch (e) {
-      console.log(e);
+      alert('An error occurred. Please try again later.');
     }
   }
 
-  async _showMore(reportId) {
+  async _loadPrevious(reportId) {
     this.setState({ fetching: true });
     try {
-      const { page, limit, order } = this.state;
-      const response = await getReportResponses(reportId, page + 1, limit, order);
+      const { currentPage, limit, order } = this.state;
+      const response = await getReportResponses(reportId, currentPage + 1, limit, order, 0);
       setTimeout(() => {
         const responses = this.state.responses.slice();
         const { inquiry_admin_response } = response.data.data;
         responses.push(...inquiry_admin_response);
         this.setState({
           fetching: false,
-          page: page + 1,
           responses: responses,
+          currentPage: currentPage + 1,
+          totalPage: Math.ceil(response.data.data.total / limit),
+          currentItems: responses.length,
+          totalItems: response.data.data.total
         });
       }, 1000);
     } catch (e) {
