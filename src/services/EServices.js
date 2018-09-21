@@ -58,9 +58,9 @@ export function getAllBrgyClearanceRequests(brgyId, page, limit) {
         }
     });
 }
-export function getBrgyClearanceRequestById(brgyId) {
+export function getBrgyClearanceRequestById(id) {
     const token = localStorage.getItem('x-access-token');
-    return axios.get(`${API_HOST}/barangay-clearance/${brgyId}`, {
+    return axios.get(`${API_HOST}/barangay-clearance/${id}`, {
         headers: {
             'x-access-token': token
         }
@@ -74,6 +74,15 @@ export function getAllBusinessClearanceRequests(brgyId, page, limit) {
             'x-access-token': token
         }
     });
+}
+
+export function getBusinessPermitRequestById(id) {
+    const token = localStorage.getItem('x-access-token');
+    return axios.get(`${API_HOST}/business-permit/${id}`, {
+        headers: {
+            'x-access-token': token
+        }
+    })
 }
 
 export function getAllKatarungangPambarangayComplaints(brgyId, page, limit, order) {

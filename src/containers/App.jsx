@@ -25,6 +25,8 @@ import BrgyReportsView from 'components/brgy-reports/BrgyReports';
 import BrgyReportOverview from 'components/brgy-report-overview/ReportOverview';
 import BrgyEservices from 'components/brgy-eservices/BrgyEservices';
 import BrgyClearanceOverview from 'components/brgy-eservices/BrgyClearanceOverview';
+import BrgyBusinessPermitOverview from 'components/brgy-eservices/BrgyBusinessPermitOverview';
+
 
 import NotFound404 from 'components/not-found/NotFound404';
 
@@ -69,10 +71,24 @@ export default class App extends Component {
           />
           <Route
             exact={true}
+            path='/dashboard/my-barangay/e-services/barangay-clearance'
+            render={(props) => <Redirect to='/dashboard/my-barangay/e-services' />}
+          />
+          <Route
+            exact={true}
             path='/dashboard/my-barangay/e-services/barangay-clearance/:id'
             render={(props) => <BrgyClearanceOverview {...props} />}
           />
-          <Redirect from='/dashboard/my-barangay/e-services/barangay-clearance' to='/dashboard/my-barangay/e-services'/>
+          <Route
+            exact={true}
+            path='/dashboard/my-barangay/e-services/business-permit'
+            render={(props) => <Redirect to='/dashboard/my-barangay/e-services' />}
+          />
+          <Route
+            exact={true}
+            path='/dashboard/my-barangay/e-services/business-permit/:id'
+            render={(props) => <BrgyBusinessPermitOverview {...props} />}
+          />
           <Route
             exact={true}
             path='/dashboard/my-reports'
