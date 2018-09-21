@@ -57,6 +57,9 @@
         tbody {
             min-height: 269px;
         }
+        tbody>tr {
+            cursor: pointer;
+        }
         tbody>tr.unread {
             background-color: #eee;
             cursor: pointer;
@@ -75,7 +78,8 @@
         }
     }
     .btn-group {
-        display: inline
+        display: inline;
+        z-index: 0;
     }
     .btn-group>span {
         font-family: 'Lato';

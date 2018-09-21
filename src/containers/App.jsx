@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router, Redirect } from 'react-router-dom';
 import { Route, Switch } from 'react-router-dom';
 import { observer, inject } from 'mobx-react';
 
@@ -24,6 +24,8 @@ import SearchView from 'components/search/SearchView';
 import BrgyReportsView from 'components/brgy-reports/BrgyReports';
 import BrgyReportOverview from 'components/brgy-report-overview/ReportOverview';
 import BrgyEservices from 'components/brgy-eservices/BrgyEservices';
+import BrgyClearanceOverview from 'components/brgy-eservices/BrgyClearanceOverview';
+
 import NotFound404 from 'components/not-found/NotFound404';
 
 
@@ -65,6 +67,12 @@ export default class App extends Component {
             path='/dashboard/my-barangay/e-services'
             render={(props) => <BrgyEservices {...props} />}
           />
+          <Route
+            exact={true}
+            path='/dashboard/my-barangay/e-services/barangay-clearance/:id'
+            render={(props) => <BrgyClearanceOverview {...props} />}
+          />
+          <Redirect from='/dashboard/my-barangay/e-services/barangay-clearance' to='/dashboard/my-barangay/e-services'/>
           <Route
             exact={true}
             path='/dashboard/my-reports'
