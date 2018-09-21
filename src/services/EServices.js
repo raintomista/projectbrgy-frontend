@@ -93,3 +93,12 @@ export function getAllKatarungangPambarangayComplaints(brgyId, page, limit, orde
         }
     });
 }
+
+export function getKatarungangPambarangayById(id) {
+    const token = localStorage.getItem('x-access-token');
+    return axios.get(`${API_HOST}/katarungang-pambarangay/${id}`, {
+        headers: {
+            'x-access-token': token
+        }
+    })
+}
