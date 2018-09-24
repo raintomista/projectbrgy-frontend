@@ -90,6 +90,7 @@ export default class DashboardView extends Component {
   }
 
   _getNewsfeedItems(arr) {
+    console.log(arr)
     return arr.map((post, index) => (
       <BarangayPostCard
         key={post.post_id}

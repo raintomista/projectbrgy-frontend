@@ -13,7 +13,7 @@ export function getPostsFromFollowing(page, limit) {
     });
 }
 
-export function postAnnouncement(message) {
+export function postAnnouncement(data) {
     const token = localStorage.getItem('x-access-token');
     return axios({
         url: `${API_HOST}/post`,
@@ -21,8 +21,6 @@ export function postAnnouncement(message) {
         headers: {
             'x-access-token': token
         },
-        data: {
-            message: message
-        }
+        data: data
     });
 }

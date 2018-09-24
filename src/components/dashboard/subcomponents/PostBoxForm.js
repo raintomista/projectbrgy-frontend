@@ -26,6 +26,9 @@ export default class PostBoxForm extends MobxReactForm {
             field.set(element.value);
           }
         }
+      },
+      files: {
+        value: []
       }
     }
 
@@ -47,28 +50,42 @@ export default class PostBoxForm extends MobxReactForm {
   }
   
   async onSuccess(form, element) {
-    const message = form.select('message').value;
+    const formData = this.createFormData(form.values());
 
     // Disable Form
     form.select('message').set('disabled', true);
+    form.select('files').set('disabled', true);    
 
     try {
-      await postAnnouncement(message);
+      await postAnnouncement(formData);
       alert('Successfully posted an announcement');
 
       // Re-enable and reset form
       form.select('message').set('disabled', false);
-      form.select('message').set('value', '');
+      form.select('files').set('disabled', false);
+      form.clear();
 
       // Reload newsfeeds
       this.DashboardStore.reloadNewsfeed();
+      this.DashboardStore.setPreviewImg([]);
       element.style.height = "88px";
     }
     catch (err) {
       alert('An error occured. Please try again.');
+      console.log(err.response)
 
       // Re-enable form          
       form.select('message').set('disabled', false);
     }
+  }
+
+  createFormData(data) {
+    const formData = new FormData;
+    formData.append('message', data.message);
+
+    for(let i = 0; i < data.files.length; i++) {
+      formData.append('files', data.files[i], data.files[i].name);
+    }
+    return formData;
   }
 }

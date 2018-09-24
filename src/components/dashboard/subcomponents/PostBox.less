@@ -3,7 +3,6 @@
     .card-body {
         background: linear-gradient(#60a7ce, 60%, #5c92d1);
         padding: 1.1em 1.25em 0.6em 1.25em;
-        
         textarea {
             border: none;
             border-radius: 0.4em;
@@ -21,16 +20,77 @@
             background-color: rgb(245, 245, 245);
             color: gray;
         }
+        .preview-img {
+            position: relative;
+            display: inline-block;
+            background-color: gainsboro;           
+            border-radius: 0.3em;
+            margin-right: 10px;
+            min-height: 90px;
+            min-width: 90px;
+            max-height: 90px;
+            max-width: 90px;
+            overflow: hidden;
+            width: max-content;
+        }
+        .preview-img img {
+            object-fit: cover;
+            min-height: 90px;
+            min-width: 90px;
+            max-height: 90px;
+            max-width: 90px;
+        }
+        .preview-img .remove-btn {
+            background-color: black;
+            border: none;
+            border-style: none; 
+            border-radius: 100%;            
+            cursor: pointer;
+            font-size: 10px;
+            padding: 1px 5px;            
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            color: white;
+        }
+        .preview-img .remove-btn:disabled {
+            cursor: not-allowed;
+        }
         .options {
             display: flex;
             align-items: center;
             justify-content: space-between;
         }
+        .options>.buttons>input[type="file"] {
+            width: 0.1px;
+            height: 0.1px;
+            opacity: 0;
+            overflow: hidden;
+            position: absolute;
+            z-index: -1;
+        }
+        .options>.buttons>input[type="file"]+label {
+            background-color: transparent;
+            border-radius: 10px !important;
+            cursor: pointer;
+            color: white !important;
+            font-size: 1.3em;
+            margin: 0px 0.6em 0px 0px;       
+            padding: 6px;     
+            text-align: center;
+            height: 43px;
+            width: 43px;
+        }
+        .options>.buttons>input[type="file"]:disabled+label {
+            cursor: initial;
+            opacity: 0.6;
+        }
         .options>.buttons>.btn {
             background-color: transparent;
-            color: white;
-            font-size: 1.3em;
-            margin: 0 0.6em;
+
+        }
+        .options>.buttons>.btn:last-child {
+            margin-right: 0px;
         } // Message Character Count
         .character-count {
             color: white;
