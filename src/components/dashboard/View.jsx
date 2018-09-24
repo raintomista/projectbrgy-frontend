@@ -99,6 +99,7 @@ export default class DashboardView extends Component {
         authorName={post.barangay_page_name}
         authorRole={'barangay_page_admin'}
         authorLocation={post.barangay_page_municipality}
+        attachments={post.attachments}
         handleDeletePost={() => this._deletePost(post.post_id, index)}
         isLiked={post.is_liked}
         loggedUser={RootStore.AppData.loggedUser}

@@ -68,14 +68,14 @@ export default class DasboardPostBox extends Component {
                   className="post-attachment"
                   onChange={(e) => this.handleImageUpload(e)}
                   disabled={this.form.$('message').disabled}
-                  multiple
                 />
-                <label htmlFor="image-upload" title="Upload images">
+                <label htmlFor="image-upload" title="Upload an image">
                   <FontAwesomeIcon icon={faCamera} />
                 </label>
                 <input
                   type="file"
-                  accept="image/*"
+                  accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,
+                  text/plain, application/pdf"
                   name="post-attachment"
                   id="file-upload"
                   className="post-attachment"

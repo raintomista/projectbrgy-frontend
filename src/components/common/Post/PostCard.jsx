@@ -76,6 +76,7 @@ export default class BarangayPost extends Component {
               sharedPostAuthorId={this.props.sharedPostAuthorId}
             />
             <BarangayPostContent
+              attachments={this.props.attachments}
               postMessage={this.props.postMessage}
               postType={this.props.postType}
               sharedPostId={this.props.sharedPostId}

@@ -2,10 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import SharedPost from './SharedPost';
+import ImageContent from './ImageContent';
 
 import './Content.less';
 
 const BarangayPostContent = (props) => {
+  const isPhoto = props.attachments.every((attachment) => attachment.preview_type === 'photo');
   return (
     <div className="post-content">
 
@@ -14,6 +16,10 @@ const BarangayPostContent = (props) => {
           {props.postMessage}
         </div>
       )}
+
+
+
+      {isPhoto && <ImageContent attachments={props.attachments} />}
 
       {props.postType === 'sharePost' && (
         <SharedPost
