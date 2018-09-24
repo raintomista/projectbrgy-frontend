@@ -17,6 +17,8 @@ export default class DashboardStore {
     @observable newsfeedPosts = [];
     @observable pageStart = 0;
     @observable previewImg = [];
+    @observable previewFile = null;
+    @observable isFileUploadOpen = false;
 
     @action
     async deleteAPost(postId, index) {
@@ -76,5 +78,15 @@ export default class DashboardStore {
     @action
     removeSelectedImg(img, index) {
         this.previewImg.splice(index, 1);
+    }
+
+    @action
+    setPreviewFile(previewFile) {
+        this.previewFile = previewFile;
+    }
+
+    @action
+    removePreviewFile() {
+        this.previewFile = null;
     }
 }

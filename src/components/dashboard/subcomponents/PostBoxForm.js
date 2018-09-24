@@ -68,11 +68,11 @@ export default class PostBoxForm extends MobxReactForm {
       // Reload newsfeeds
       this.DashboardStore.reloadNewsfeed();
       this.DashboardStore.setPreviewImg([]);
+      this.DashboardStore.removePreviewFile();
       element.style.height = "88px";
     }
     catch (err) {
       alert('An error occured. Please try again.');
-      console.log(err.response)
 
       // Re-enable form          
       form.select('message').set('disabled', false);

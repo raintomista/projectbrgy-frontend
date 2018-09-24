@@ -56,6 +56,47 @@
         .preview-img .remove-btn:disabled {
             cursor: not-allowed;
         }
+
+        .file-preview {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: gainsboro;           
+            border-radius: 50px;
+            max-width: 200px;
+            margin-bottom: 8px;
+            padding: 10px 10px 10px 15px;
+        }
+
+        .file-details {
+            display: flex;
+            align-items: center;  
+            max-width: 130px;        
+        }
+        .file-details svg {            
+            font-size: 20px;
+        }
+        .file-details span {
+            font-family: 'Lato', sans-serif;
+            margin-left: 8px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .file-preview button {
+            background-color: black;
+            border: none;
+            border-radius: 100%;
+            cursor: pointer;
+            color: white;
+            font-size: 12px;
+            padding-top: 1.5px;
+        }
+
+        .file-preview button:disabled {
+            cursor: not-allowed;
+        }
         .options {
             display: flex;
             align-items: center;
@@ -96,6 +137,7 @@
             color: white;
             font-family: 'Lato', sans-serif;
             font-weight: 700;
+            margin-right: 15px;
         }
         .character-count.invalid {
             color: rgb(247, 41, 41);
