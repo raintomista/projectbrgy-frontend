@@ -29,6 +29,9 @@ export default class PostBoxForm extends MobxReactForm {
       },
       files: {
         value: []
+      },
+      uploadProgress: {
+        value: -1
       }
     }
 
@@ -38,7 +41,7 @@ export default class PostBoxForm extends MobxReactForm {
   handlers() {
     return {
       onSubmit: (form) => (e) => {
-        const element = e.target.getElementsByTagName('textarea')[0];        
+        const element = e.target.getElementsByTagName('textarea')[0];
         e.preventDefault()  // Prevent default form submission
         form.validate().then((form) => this.onSuccess(form, element))
       }
@@ -48,31 +51,35 @@ export default class PostBoxForm extends MobxReactForm {
   plugins() {
     return { dvr: validatorjs };
   }
-  
+
   async onSuccess(form, element) {
     const formData = this.createFormData(form.values());
 
     // Disable Form
     form.select('message').set('disabled', true);
-    form.select('files').set('disabled', true);    
+    form.select('files').set('disabled', true);
 
     try {
-      await postAnnouncement(formData);
-      alert('Successfully posted an announcement');
+      await postAnnouncement(this, formData);
 
-      // Re-enable and reset form
-      form.select('message').set('disabled', false);
-      form.select('files').set('disabled', false);
-      form.clear();
+      setTimeout(() => {
+        alert('Successfully posted an announcement');
+        // Re-enable and reset form
+        form.select('message').set('disabled', false);
+        form.select('files').set('disabled', false);
+        form.clear();
 
-      // Reload newsfeeds
-      this.DashboardStore.reloadNewsfeed();
-      this.DashboardStore.setPreviewImg([]);
-      this.DashboardStore.removePreviewFile();
-      element.style.height = "88px";
+        // Reload newsfeeds
+        form.select('uploadProgress').set('value', -1);
+        this.DashboardStore.reloadNewsfeed();
+        this.DashboardStore.setPreviewImg([]);
+        this.DashboardStore.removePreviewFile();
+        element.style.height = "88px";
+      }, 1000);
     }
     catch (err) {
       alert('An error occured. Please try again.');
+      form.select('uploadProgress').set('value', -1);
 
       // Re-enable form          
       form.select('message').set('disabled', false);
@@ -83,7 +90,7 @@ export default class PostBoxForm extends MobxReactForm {
     const formData = new FormData;
     formData.append('message', data.message);
 
-    for(let i = 0; i < data.files.length; i++) {
+    for (let i = 0; i < data.files.length; i++) {
       formData.append('files', data.files[i], data.files[i].name);
     }
     return formData;

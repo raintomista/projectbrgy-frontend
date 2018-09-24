@@ -9,6 +9,8 @@ import faCloudUploadAlt from '@fortawesome/fontawesome-free-solid/faCloudUploadA
 import faTimes from '@fortawesome/fontawesome-free-solid/faTimes';
 import faFileAlt from '@fortawesome/fontawesome-free-solid/faFileAlt';
 
+import { Line } from 'rc-progress';
+
 
 // Form
 import PostBoxForm from './PostBoxForm';
@@ -36,7 +38,7 @@ export default class DasboardPostBox extends Component {
             <textarea rows="3" {...this.form.$('message').bind()}></textarea>
             {this.props.DashboardStore.previewImg.map((blob, index) => (
               <div className="preview-img" key={index}>
-                <button type="button" className="remove-btn" disabled={this.form.disabled} onClick={() => this.removeImage(blob, index)}>
+                <button type="button" className="remove-btn" disabled={this.form.$('message').disabled} onClick={() => this.removeImage(blob, index)}>
                   <FontAwesomeIcon icon={faTimes} />
                 </button>
                 <img src={blob} />
@@ -50,7 +52,7 @@ export default class DasboardPostBox extends Component {
                   <FontAwesomeIcon icon={faFileAlt} />
                   <span>{this.props.DashboardStore.previewFile.name}</span>
                 </div>
-                <button onClick={() => this.removeFile()} disabled={this.form.disabled}>
+                <button onClick={() => this.removeFile()} disabled={this.form.$('message').disabled}>
                   <FontAwesomeIcon icon={faTimes} />
                 </button>
               </div>
@@ -65,7 +67,7 @@ export default class DasboardPostBox extends Component {
                   id="image-upload"
                   className="post-attachment"
                   onChange={(e) => this.handleImageUpload(e)}
-                  disabled={this.form.disabled}
+                  disabled={this.form.$('message').disabled}
                   multiple
                 />
                 <label htmlFor="image-upload" title="Upload images">
@@ -77,7 +79,7 @@ export default class DasboardPostBox extends Component {
                   name="post-attachment"
                   id="file-upload"
                   className="post-attachment"
-                  disabled={this.form.disabled}
+                  disabled={this.form.$('message').disabled}
                   onChange={(e) => this.handleFileUpload(e)}
                 />
                 <label htmlFor="file-upload" title="Upload a file">
@@ -88,12 +90,20 @@ export default class DasboardPostBox extends Component {
                 <span className={`character-count ${characterCount < 0 ? 'invalid' : ''}`}>
                   {characterCount}
                 </span>
-                <button type="submit" className="submit btn rounded-light" disabled={characterCount === 150 || characterCount < 0 || this.form.disabled}>
+                <button type="submit" className="submit btn rounded-light" disabled={characterCount === 150 || characterCount < 0 || this.form.$('message').disabled}>
                   Post
               </button>
               </div>
             </div>
           </div>
+          {this.form.$('uploadProgress').value !== -1 && (
+            <Line
+              percent={this.form.$('uploadProgress').value}
+              strokeWidth="0.5"
+              strokeColor="white"
+              strokeLinecap="square"
+            />
+          )}
         </div>
       </form>
     );
