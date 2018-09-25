@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import SharedPost from './SharedPost';
+import FileContent from './FileContent';
 import ImageContent from './ImageContent';
 
 import './Content.less';
@@ -19,7 +20,8 @@ const BarangayPostContent = (props) => {
 
 
 
-      {isPhoto && <ImageContent attachments={props.attachments} />}
+      {isPhoto && props.attachments.length > 0 && <ImageContent attachments={props.attachments} />}
+      {!isPhoto && props.attachments.length > 0 && <FileContent attachments={props.attachments} />}
 
       {props.postType === 'sharePost' && (
         <SharedPost
