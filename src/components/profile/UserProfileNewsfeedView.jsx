@@ -18,6 +18,7 @@ export default class UserProfileNewsfeedView extends Component {
         key={post.share_id}
 
         // Author of the Share Post
+        attachments={post.attachments}
         authorId={post.share_user_id}
         authorImg={'images/default-user.png'}
         authorName={`${post.user_first_name} ${post.user_last_name}`}

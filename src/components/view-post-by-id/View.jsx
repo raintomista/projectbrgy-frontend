@@ -68,6 +68,7 @@ export default class ViewPostById extends Component {
       return (
         <PostCard
           key={post.post_id}
+          attachments={post.attachments}
           authorId={post.barangay_page_id}
           authorImg={'images/default-brgy.png'}
           authorName={post.barangay_page_name}
@@ -97,6 +98,7 @@ export default class ViewPostById extends Component {
           key={post.share_id}
 
           // Author of the Share Post
+          attachments={post.attachments}
           authorId={authorId}
           authorImg={authorImg}
           authorName={authorName}
