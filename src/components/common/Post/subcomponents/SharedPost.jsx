@@ -20,7 +20,7 @@ const SharedPost = (props) => {
             {props.sharedPostAuthor}
           </Link>
           <div className="shared-post-subdetails">
-            <Link to='/dashboard' className="shared-post-location">{props.sharedPostLocation}</Link>
+            <a className="shared-post-location">{props.sharedPostLocation}</a>
             <span> &middot; </span>
             <Link
               to={viewPost(props.sharedPostId, 'announcement')}

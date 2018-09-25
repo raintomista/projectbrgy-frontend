@@ -10,9 +10,9 @@ const BarangayPostStats = (props) => {
     <div className="post-stats">
       <div className="post-stats-left">
         {props.statsLikes > 0 && (
-          <Link to='/' className="post-likes-count">
+          <a className="post-likes-count">
             {props.statsLikes === 1 ? `${props.statsLikes} Like` : `${props.statsLikes} Likes`}
-          </Link>
+          </a>
         )}
 
       </div>
@@ -23,9 +23,9 @@ const BarangayPostStats = (props) => {
           </a>
         )}
         {props.statsShares > 0 && (
-          <Link to='/' className="post-shares-count">
+          <a className="post-shares-count">
             {props.statsShares === 1 ? `${props.statsShares} Share` : `${props.statsShares} Share`}
-          </Link>
+          </a>
         )}
       </div>
     </div>

@@ -13,9 +13,18 @@ import './Details.less';
 const BarangayPostDetails = observer((props) => {
   return (
     <div className="post-details-container">
-      <Link to={viewBrgyPage(props.authorId)} className="post-author-avatar">
-        <img src={props.authorImg} alt="" />
-      </Link>
+      {props.authorRole === 'barangay_page_admin' && (
+        <Link to={viewBrgyPage(props.authorId)} className="post-author-avatar">
+          <img src={props.authorImg} alt="" />
+        </Link>
+      )}
+
+      {props.authorRole === 'barangay_member' && (
+        <Link to={viewUserProfile(props.authorId)} className="post-author-avatar">
+          <img src={props.authorImg} alt="" />
+        </Link>
+      )}
+
 
       {/* Post Details */}
       <div className="post-details">
@@ -46,7 +55,7 @@ const BarangayPostDetails = observer((props) => {
 
         {/* Post Location and Timestamp */}
         <div className="post-subdetails">
-          <Link to='/dashboard' className="post-location">{props.authorLocation}</Link>
+          <a className="post-location">{props.authorLocation}</a>
           <span> &middot; </span>
           <Link to={viewPost(props.postId, props.postType)} className="post-timestamp">
             {props.postDate}

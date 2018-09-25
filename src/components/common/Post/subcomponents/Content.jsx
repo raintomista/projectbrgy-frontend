@@ -19,22 +19,29 @@ const BarangayPostContent = (props) => {
               {props.postMessage}
             </div>
           )}
-          {isPhoto && props.attachments.length > 0 && <ImageContent attachments={props.attachments} className="single-image-content"/>}
+          {isPhoto && props.attachments.length > 0 && <ImageContent attachments={props.attachments} className="single-image-content" />}
           {!isPhoto && props.attachments.length > 0 && <FileContent attachments={props.attachments} />}
         </React.Fragment>
       )}
 
       {props.postType === 'sharePost' && (
-        <SharedPost
-          attachments={props.attachments}
-          sharedPostId={props.sharedPostId}
-          sharedPostAuthor={props.sharedPostAuthor}
-          sharedPostAuthorId={props.sharedPostAuthorId}
-          sharedPostAuthorImg={props.sharedPostAuthorImg}
-          sharedPostDate={props.sharedPostDate}
-          sharedPostLocation={props.sharedPostLocation}
-          sharedPostMessage={props.sharedPostMessage}
-        />
+        <React.Fragment>
+          {props.postMessage && (
+            <div className="post-message">
+              {props.postMessage}
+            </div>
+          )}
+          <SharedPost
+            attachments={props.attachments}
+            sharedPostId={props.sharedPostId}
+            sharedPostAuthor={props.sharedPostAuthor}
+            sharedPostAuthorId={props.sharedPostAuthorId}
+            sharedPostAuthorImg={props.sharedPostAuthorImg}
+            sharedPostDate={props.sharedPostDate}
+            sharedPostLocation={props.sharedPostLocation}
+            sharedPostMessage={props.sharedPostMessage}
+          />
+        </React.Fragment>
       )}
     </div>
   )
