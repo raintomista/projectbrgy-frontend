@@ -16,6 +16,7 @@ export default class BrgyPageShared extends Component {
         key={post.share_id}
 
         // Author of the Share Post
+        attachments={post.attachments}
         authorId={post.share_barangay_id}
         authorImg={'images/default-brgy.png'}
         authorName={post.barangay_page_name}

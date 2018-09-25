@@ -39,7 +39,7 @@ export default class BarangayPost extends Component {
       totalComments: 0,
       fetchLimit: 4,
     }
-    
+
     // Initialize comment form
     this.form = new MobxReactForm({ fields }, { plugins, hooks });
     this.form.select('postId').set('value', this.props.postId);
@@ -48,7 +48,7 @@ export default class BarangayPost extends Component {
 
 
     // Check if component will display comments on load
-    if(props.displayCommentsOnLoad) {
+    if (props.displayCommentsOnLoad) {
       this._handleToggleComments(1);
     }
   }
@@ -116,15 +116,16 @@ export default class BarangayPost extends Component {
             )}
           </div>
         </div>
-        
+
 
         <SharePostDialog
+          attachments={this.props.attachments}
           isOpen={this.state.isSharePostDialogOpen}
           toggle={() => this._handleSharePost()}
           loggedUser={this.props.loggedUser}
           sharedPostId={this.props.postId}
           sharedPostAuthor={this.props.authorName}
-          sharedPostAuthorId={this.props.authorId}          
+          sharedPostAuthorId={this.props.authorId}
           sharedPostAuthorImg={this.props.authorImg}
           sharedPostDate={this._handleFormatDate(this.props.postDate)}
           sharedPostLocation={this.props.authorLocation}
@@ -233,7 +234,7 @@ BarangayPost.propTypes = {
   authorLocation: PropTypes.string.isRequired,
   contentType: PropTypes.oneOf(['image', 'attachment']),
   disableInteractions: PropTypes.bool,
-  displayCommentsOnLoad: PropTypes.bool,    
+  displayCommentsOnLoad: PropTypes.bool,
   handleDeletePost: PropTypes.func.isRequired,
   isLiked: PropTypes.oneOf([0, 1]).isRequired,
   loggedUser: PropTypes.object,

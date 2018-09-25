@@ -52,6 +52,7 @@ export default class SharePostDialog extends Component {
             {...this.form.select('shareCaption').bind()}
           ></textarea>
           <SharedPost
+            attachments={this.props.attachments}
             sharedPostId={this.props.sharedPostId}
             sharedPostAuthor={this.props.sharedPostAuthor}
             sharedPostAuthorId={this.props.sharedPostAuthorId}
