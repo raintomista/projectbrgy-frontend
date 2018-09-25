@@ -8,17 +8,25 @@ import {
 
 import {
     getBarangayById,
+    getBrgyPagePosts,
     getBrgyPageSharedPosts,
     getBrgyPageFollowersList,
     getBrgyPageFollowingList,
     followBarangay,
     unfollowBarangay,
 } from 'services/BrgyPageService';
-import { unsharePost } from 'services/PostService';
+import {
+    unsharePost
+} from 'services/PostService';
 
 export default class BrgyPageStore {
     @observable data;
     @observable viewType;
+    @observable pageStart = 0;
+    @observable limit = 15;
+    @observable hasMore = true;
+    @observable posts = [];
+
     @observable sharedPosts = [];
     @observable followersList = [];
     @observable followingList = [];
@@ -112,6 +120,39 @@ export default class BrgyPageStore {
     setViewType(type) {
         this.viewType = type;
     }
+
+
+    @action
+    initBarangayPagePosts() {
+        this.hasMore = true;
+        this.posts = [];
+    }
+
+    @action
+    async getBarangayPagePosts(brgyId, page) {
+        try {
+            const response = await getBrgyPagePosts(brgyId, page, this.limit, 'desc');
+            const posts = this.posts.slice();
+            posts.push(...response.data.data.items);
+
+            setTimeout(() => {
+                runInAction(() => {
+                    this.posts = posts;
+                });
+            }, 1000);
+
+        } catch (e) {
+            if (e.response.data.errors[0].code === 'ZERO_RES') {
+                runInAction(() => {
+                    this.hasMore = false;
+                });
+            }
+        }
+    }
+
+
+
+
 
     @action
     async getBrgyPageSharedPosts(brgyId) {

@@ -3,11 +3,10 @@ import React from 'react';
 import BrgyPageFollowersList from 'components/brgy-page/BrgyPageFollowersList';
 import BrgyPageFollowingList from 'components/brgy-page/BrgyPageFollowingList';
 import BrgyPageShared from 'components/brgy-page/BrgyPageShared';
-
+import BrgyPagePosts from 'components/brgy-page/BrgyPagePosts';
 
 import BrgyPageDetails from 'components/brgy-page/BrgyPageDetails';
 import BrgyPageStats from 'components/brgy-page/BrgyPageStats';
-import DashboardFeedCard from 'components/dashboard/DashboardFeedCard';
 import { observer } from 'mobx-react';
 import 'components/brgy-page/BrgyPageStats.less'
 
@@ -24,18 +23,6 @@ const BrgyPageView = observer((props) => {
       <div className="col-md-6">
         <BrgyPageStats {...props} />
         {renderView(props)}
-        {/* <DashboardFeedCard
-          imgSrc="images/default-brgy.png"
-          authorName="Barangay 69"
-          city="Caloocan City"
-          date={new Date()}
-        />
-        <DashboardFeedCard
-          imgSrc="images/default-brgy.png"
-          authorName="Barangay 69"
-          city="Caloocan City"
-          date={new Date()} */}
-        {/* />   */}
       </div>
     </div>
   );
@@ -45,7 +32,11 @@ function renderView(props) {
   const { BrgyPageStore } = props;
   const { viewType } = BrgyPageStore;
 
-  if(viewType === 'shared_posts') {
+
+  if (typeof viewType === 'undefined') {
+    return <BrgyPagePosts {...props} />;
+  }
+  else if (viewType === 'shared_posts') {
     BrgyPageStore.getBrgyPageSharedPosts(BrgyPageStore.data.id);
     return <BrgyPageShared {...props} />;
   }
