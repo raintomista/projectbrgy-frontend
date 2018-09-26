@@ -17,7 +17,12 @@ const ReportItem = (props) => {
           )}
           <span>{dateCreated}</span>
         </div>
-        <p className="message">{props.message}</p>
+        <p className="message">
+          {props.message.length > 80
+            ? `${props.message.substring(0, 80).trim()}...`
+            : props.message
+          }
+        </p>
       </div>
     </div>
   );

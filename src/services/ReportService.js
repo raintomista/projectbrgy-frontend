@@ -13,9 +13,9 @@ export function createReport(data) {
     });
 }
 
-export function getMyReports() {
+export function getMyReports(page, limit, order) {
     const token = localStorage.getItem('x-access-token');
-    return axios.get(`${API_HOST}/inquiry/my-reports`, {
+    return axios.get(`${API_HOST}/inquiry/my-reports?page=${page}&limit=${limit}&order=${order}`, {
         headers: {
             'x-access-token': token
         }

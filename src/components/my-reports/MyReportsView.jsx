@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 import { Link } from 'react-router-dom';
 import DashboardSideBar from 'components/dashboard/subcomponents/SideBar';
 import NavBar from 'components/common/Nav/Bar';
 import RootStore from 'stores/RootStore';
-import { createReport } from 'services/ReportService';
+import ButtonLoader from 'components/common/Loader/ButtonLoader';
 import { getMyReports } from '../../services/ReportService';
 import Loader from 'assets/images/loader.svg';
 import ReportItem from './subcomponents/ReportItem';
@@ -14,7 +13,15 @@ import './MyReportsView.less';
 export default class DashboardView extends Component {
   constructor(props) {
     super(props);
-    this.state = { loading: true, reports: [] }
+    this.state = {
+      page: 1,
+      limit: 15,
+      order: 'desc',
+      fetchingReports: false,
+      loading: true,
+      totalPage: 1,
+      reports: [],
+    }
   }
 
   componentDidMount() {
@@ -23,7 +30,7 @@ export default class DashboardView extends Component {
   }
 
   render() {
-    const { AppData, DashboardStore } = RootStore;
+    const { AppData } = RootStore;
     const { loggedUser } = AppData;
 
     const reports = this.state.reports.map((report, index) => (
@@ -45,7 +52,7 @@ export default class DashboardView extends Component {
               <div className="col-md-3">
                 {loggedUser && <DashboardSideBar AppData={AppData} />}
               </div>
-              <div className="my-reports-view col-md-7">
+              <div className="my-report-responded col-md-7">
                 <div className="section-header">
                   <div className="title">My Reports</div>
                   <Link to='/dashboard/my-reports/create' className="btn rounded">Create New Report</Link>
@@ -56,7 +63,18 @@ export default class DashboardView extends Component {
                     </object>
                   </div>
                 )}
-                {!this.setState.loading && reports}
+                {!this.state.loading && (
+                  <React.Fragment>
+                    {reports}
+                    {this.state.page !== this.state.totalPage && (
+                      <ButtonLoader
+                        handleClick={() => this._showMore()}
+                        label="Load more"
+                        loading={this.state.fetchingReports}
+                      />
+                    )}
+                  </React.Fragment>
+                )}
               </div>
             </div>
           </div>
@@ -67,16 +85,60 @@ export default class DashboardView extends Component {
 
   async _getMyReports() {
     this.setState({ loading: true });
+    const { page, limit, order } = this.state;
     try {
-      const response = await getMyReports();
+      const response = await getMyReports(page, limit, order);
       setTimeout(() => {
         this.setState({
           loading: false,
-          reports: response.data.data.reports
+          reports: response.data.data.reports,
+          totalPage: Math.ceil(response.data.data.total / limit)
         });
       }, 1000)
     } catch (e) {
-      console.log(e);
+      alert('An error occurred. Please try again later.')
     }
+  }
+
+  async _showMore() {
+    this.setState({ fetchingReports: true });
+    const { page, limit, order, reports } = this.state;
+    try {
+      const response = await getMyReports(page + 1, limit, order);
+      let newReports = reports.slice();
+      newReports.push(...response.data.data.reports);
+      newReports = this.removeDuplicates(newReports, 'id');
+      setTimeout(() => {
+        this.setState({
+          fetchingReports: false,
+          page: page + 1,
+          loading: false,
+          reports: newReports,
+          totalPage: Math.round(response.data.data.total / limit)
+        });
+      }, 1000);
+
+    } catch (e) {
+      if (e.response.data.data.total === 0) {
+        setTimeout(() => {
+          this.setState({
+            loading: false,
+            reports: []
+          });
+        }, 1000);
+      } else {
+        alert('An error occurred. Please try again later.')
+      }
+    }
+  }
+
+  removeDuplicates(arr, key) {
+    var values = {};
+    return arr.filter(function (item) {
+      var val = item[key];
+      var exists = values[val];
+      values[val] = true;
+      return !exists;
+    });
   }
 }

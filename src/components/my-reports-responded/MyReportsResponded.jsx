@@ -18,7 +18,7 @@ export default class MyReportsRespondedView extends Component {
       limit: 15,
       order: 'desc',
       fetchingReports: false,
-      pageLoading: true,
+      loading: true,
       totalPage: 1,
       reports: [],
     }
@@ -71,7 +71,7 @@ export default class MyReportsRespondedView extends Component {
                     {this.state.page !== this.state.totalPage && (
                       <ButtonLoader
                         handleClick={() => this._showMore()}
-                        label="Load more reports"
+                        label="Load more"
                         loading={this.state.fetchingReports}
                       />
                     )}
@@ -114,7 +114,7 @@ export default class MyReportsRespondedView extends Component {
         this.setState({
           fetchingReports: false,
           page: page + 1,
-          pageLoading: false,
+          loading: false,
           reports: newReports,
           totalPage: Math.round(response.data.data.total / limit)
         });
@@ -124,7 +124,7 @@ export default class MyReportsRespondedView extends Component {
       if (e.response.data.data.total === 0) {
         setTimeout(() => {
           this.setState({
-            pageLoading: false,
+            loading: false,
             reports: []
           });
         }, 1000);
