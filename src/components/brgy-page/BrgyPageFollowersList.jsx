@@ -1,94 +1,116 @@
-import React from 'react';
+import React, { Component } from 'react';
+import InfiniteScroll from 'react-infinite-scroller';
 import { Link } from 'react-router-dom';
 
 import { observer } from 'mobx-react';
 
 import 'components/brgy-page/BrgyPageFollowList.less';
+@observer
+export default class BrgyPageFollowersList extends Component {
+  componentWillUnmount() {
+    const { BrgyPageStore } = this.props;
+    BrgyPageStore.initBarangayPageFollowers();
+  }
+  render() {
+    const { AppData, BrgyPageStore } = this.props;
+    const { data, followersList, hasMore, pageStart } = BrgyPageStore;
+    const items = followersList.map((follower, index) => {
+      return (
+        <li className="list-group-item" key={index}>
+          <div className="wrapper">
 
-const BrgyPageFollowersList = observer((props) => {
-  const { AppData, BrgyPageStore } = props;
-  const { followersList } = BrgyPageStore;
+            {/* Barangay Member Profile Pic */}
+            {follower.user_id !== null && (
+              <Link to={this.viewUserProfile(follower.user_id)}>
+                <img src="images/default-user.png" className="profile-pic" alt="" />
+              </Link>
+            )}
 
-  return (
-    <div className="brgy-follow-list card">
-      <div className="card-body">
-        <h4 className="card-title">Followers</h4>
+            {/* Barangay Page Profile Pic */}
+            {follower.user_id === null && (
+              <Link to={this.viewBrgyPage(follower.barangay_page_id)}>
+                <img src="images/default-brgy.png" className="profile-pic" alt="" />
+              </Link>
+            )}
 
-        {/* Followers List */}
-        <ul className="list-group list-group-flush">
-          {BrgyPageStore.loading && (
-            <li className="list-group-item">
-              <div className="loader">
-                <object data="images/loader.svg" type="image/svg+xml">
-                </object>
+
+            {/* Follower Name and Location */}
+            <div className="item-info">
+
+              {/* Barangay Member Follower Name */}
+              {follower.user_id !== null && (
+                <Link to={this.viewUserProfile(follower.user_id)} className="item-name">
+                  {`${follower.user_first_name} ${follower.user_last_name}`}
+                </Link>
+              )}
+
+              {/* Barangay Page Follower Name */}
+              {follower.user_id === null && (
+                <Link to={this.viewBrgyPage(follower.barangay_page_id)} className="item-name">
+                  {`${follower.barangay_page_name}`}
+                </Link>
+              )}
+
+              {/* Follow Location */}
+              <div className="item-location">
+                {`${follower.barangay_page_municipality}, ${follower.barangay_page_province}, ${follower.barangay_page_region}`}
               </div>
-            </li>)
-          }
-          {
-            !BrgyPageStore.loading && followersList.map((follower, index) => {
-              return (
-                <li className="list-group-item" key={index}>
-                  <div className="wrapper">
+            </div>
+          </div>
 
-                    {/* Barangay Member Profile Pic */}
-                    {follower.user_id !== null && (
-                      <Link to={viewUserProfile(follower.user_id)}>
-                        <img src="images/default-user.png" className="profile-pic" alt="" />
-                      </Link>
-                    )}
+          {/* Message Button (Do not display to logged user) */}
+          {follower.user_role === 'barangay_page_admin' && AppData.loggedUser.user_barangay_id !== follower.barangay_page_id && <a className="btn rounded">Message</a>}
+          {follower.user_role === 'barangay_member' && AppData.loggedUser.user_id !== follower.user_id && <a className="btn rounded">Message</a>}
+        </li>
+      );
+    });
 
-                    {/* Barangay Page Profile Pic */}
-                    {follower.user_id === null && (
-                      <Link to={viewBrgyPage(follower.barangay_page_id)}>
-                        <img src="images/default-brgy.png" className="profile-pic" alt="" />
-                      </Link>
-                    )}
+    return (
+      <div className="brgy-follow-list card">
+        <div className="card-body">
+          <h4 className="card-title">Followers</h4>
 
-
-                    {/* Follower Name and Location */}
-                    <div className="item-info">
-
-                      {/* Barangay Member Follower Name */}
-                      {follower.user_id !== null && (
-                        <Link to={viewUserProfile(follower.user_id)} className="item-name">
-                          {`${follower.user_first_name} ${follower.user_last_name}`}
-                        </Link>
-                      )}
-
-                      {/* Barangay Page Follower Name */}
-                      {follower.user_id === null && (
-                        <Link to={viewBrgyPage(follower.barangay_page_id)} className="item-name">
-                          {`${follower.barangay_page_name}`}
-                        </Link>
-                      )}
-
-                      {/* Follow Location */}
-                      <div className="item-location">
-                        {`${follower.barangay_page_municipality}, ${follower.barangay_page_province}, ${follower.barangay_page_region}`}
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Message Button (Do not display to logged user) */}
-                  {AppData.loggedUser.id !== follower.user_id ? <a className="btn rounded">Message</a> : null}
-                </li>
-              );
-            })
-          }
-        </ul>
+          {/* Followers List */}
+          <ul className="list-group list-group-flush">
+            <InfiniteScroll
+              pageStart={pageStart}
+              loadMore={(page) => {
+                BrgyPageStore.getBrgyPageFollowersList(data.id, page)
+              }}
+              hasMore={hasMore}
+              loader={this.renderLoader()}
+            >
+              {items}
+            </InfiniteScroll>
+          </ul>
+        </div>
       </div>
-    </div>
-  );
-});
+    );
+  }
 
-const viewBrgyPage = (brgyId) => ({
-  pathname: '/barangay',
-  search: `?id=${brgyId}`
-});
+  viewBrgyPage(brgyId) {
+    return {
+      pathname: '/barangay',
+      search: `?id=${brgyId}`
+    }
+  }
 
-const viewUserProfile = (userId) => ({
-  pathname: '/profile',
-  search: `?id=${userId}`
-});
+  viewUserProfile(userId) {
+    return {
+      pathname: '/profile',
+      search: `?id=${userId}`
+    }
+  }
 
-export default BrgyPageFollowersList;
+  renderLoader() {
+    return (
+      <li className="list-group-item loader" key={0}>
+        <div className="content-loader">
+          <object data="images/loader.svg" type="image/svg+xml">
+          </object>
+        </div>
+      </li>
+    );
+  }
+}
+

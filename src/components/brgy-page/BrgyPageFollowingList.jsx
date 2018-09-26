@@ -7,7 +7,10 @@ import 'components/brgy-page/BrgyPageFollowList.less';
 
 @observer
 export default class BrgyPageFollowingList extends Component {
-
+  componentWillUnmount() {
+    const { BrgyPageStore } = this.props;
+    BrgyPageStore.initBarangayPageFollowing();
+  }
   render() {
     const { AppData, BrgyPageStore } = this.props;
     const { user_barangay_id: loggedUserBrgyId, user_role: loggedUserRole } = AppData.loggedUser;

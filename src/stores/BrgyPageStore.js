@@ -64,7 +64,7 @@ export default class BrgyPageStore {
             });
 
         } catch (e) {
-            console.log(e);
+            alert('An error occured. Please try again.')
         }
     }
 
@@ -79,7 +79,7 @@ export default class BrgyPageStore {
             });
 
         } catch (e) {
-            console.log(e);
+            alert('An error occured. Please try again.')
         }
     }
 
@@ -88,16 +88,15 @@ export default class BrgyPageStore {
     async followBarangayFromList(loggedUserRole, loggedUserBrgyId, brgyId, index) {
         try {
             await followBarangay(brgyId);
-
             runInAction(() => {
-                this.followingList[0].is_following = 1;
+                this.followingList[index].is_following = 1;
                 if (loggedUserRole === 'barangay_page_admin' && loggedUserBrgyId === this.data.id) {
                     this.data.stats.following_count += 1;
                 }
             });
 
         } catch (e) {
-            console.log(e);
+            alert('An error occured. Please try again.')
         }
     }
 
@@ -114,7 +113,7 @@ export default class BrgyPageStore {
             });
 
         } catch (e) {
-            console.log(e);
+            alert('An error occured. Please try again.')
         }
     }
 
@@ -228,27 +227,39 @@ export default class BrgyPageStore {
     }
 
     @action
-    async getBrgyPageFollowersList(brgyId) {
+    initBarangayPageFollowers() {
+        this.hasMore = true;
         this.followersList = [];
-        this.loading = true;
+    }
 
+    @action
+    async getBrgyPageFollowersList(brgyId, page) {
         try {
-            const response = await getBrgyPageFollowersList(brgyId);
-            const followersList = response.data.data.items;
+            const response = await getBrgyPageFollowersList(brgyId, page, this.limit, 'asc');
+            const followersList = this.followersList.slice();
+            followersList.push(...response.data.data.items);
 
             setTimeout(() => {
                 runInAction(() => {
                     this.followersList = followersList;
-                    this.loading = false;
                 });
             }, 1000);
 
         } catch (e) {
-            runInAction(() => {
-                this.followersList = [];
-                this.loading = false;
-            });
+            if (e.response.data.errors[0].code === 'ZERO_RES') {
+                runInAction(() => {
+                    this.hasMore = false;
+                });
+            } else {
+                alert('An error occured. Please try again.')
+            }
         }
+    }
+
+    @action
+    initBarangayPageFollowing() {
+        this.hasMore = true;
+        this.followingList = [];
     }
 
     @action

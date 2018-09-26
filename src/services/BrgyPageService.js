@@ -50,9 +50,9 @@ export function getBrgyPageSharedPosts(brgyId, page, limit, order) {
     });
 }
 
-export function getBrgyPageFollowersList(brgyId) {
+export function getBrgyPageFollowersList(brgyId, page, limit, order) {
     const token = localStorage.getItem('x-access-token');
-    return axios.get(`${API_HOST}/followers/${brgyId}`, {
+    return axios.get(`${API_HOST}/followers/${brgyId}?page=${page}&limit=${limit}&order=${order}`, {
         headers: {
             'x-access-token': token
         }
