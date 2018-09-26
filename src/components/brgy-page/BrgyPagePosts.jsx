@@ -24,7 +24,7 @@ export default class BrgyPagePosts extends Component {
         authorName={post.barangay_page_name}
         authorRole={'barangay_page_admin'}
         authorLocation={post.barangay_page_municipality}
-        handleDeletePost={() => this._deletePost(post.post_id, index)}
+        handleDeletePost={() => this._handleDeletePost(post.post_id, index)}
         isLiked={post.is_liked}
         loggedUser={AppData.loggedUser}
         postId={post.post_id}
@@ -51,10 +51,10 @@ export default class BrgyPagePosts extends Component {
 
   _handleDeletePost(postId, index) {
     const prompt = window.confirm("Are you sure you want to delete this post?");
-    // if (prompt) {
-    //   const { BrgyPageStore } = this.props;
-    //   BrgyPageStore.unsharePost(postId, index);
-    // }
+    if (prompt) {
+      const { BrgyPageStore } = this.props;
+      BrgyPageStore.deleteBarangayPagePosts(postId, index);
+    }
   }
 
   renderLoader() {

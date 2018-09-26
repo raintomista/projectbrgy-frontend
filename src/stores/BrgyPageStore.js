@@ -16,6 +16,7 @@ import {
     unfollowBarangay,
 } from 'services/BrgyPageService';
 import {
+    deletePost,
     unsharePost
 } from 'services/PostService';
 
@@ -147,6 +148,21 @@ export default class BrgyPageStore {
                     this.hasMore = false;
                 });
             }
+        }
+    }
+
+    @action
+    async deleteBarangayPagePosts(postId, index) {
+        try {
+            const response = await deletePost(postId);
+            alert(response.data.data.message);
+
+            runInAction(() => {
+                this.posts.splice(index, 1);
+                this.data.stats.posts_count -= 1;
+            });
+        } catch (e) {
+            alert('An error occured. Please try again.')
         }
     }
 
