@@ -119,7 +119,7 @@ export default class DashboardView extends Component {
           page: page + 1,
           loading: false,
           reports: newReports,
-          totalPage: Math.round(response.data.data.total / limit)
+          totalPage: Math.ceil(response.data.data.total / limit)
         });
       }, 1000);
 
