@@ -37,7 +37,6 @@ function renderView(props) {
     return <BrgyPagePosts {...props} />;
   }
   else if (viewType === 'shared_posts') {
-    BrgyPageStore.getBrgyPageSharedPosts(BrgyPageStore.data.id);
     return <BrgyPageShared {...props} />;
   }
   else if (viewType === 'followers_list') {

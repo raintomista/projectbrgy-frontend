@@ -1,17 +1,19 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { observer } from 'mobx-react';
+import InfiniteScroll from 'react-infinite-scroller';
 import BrgySharedPostCard from 'components/common/Post/PostCard';
-
-
 import 'components/brgy-page/BrgyPageFollowList.less';
 
 @observer
 export default class BrgyPageShared extends Component {
+  componentWillUnmount() {
+    const { BrgyPageStore } = this.props;
+    BrgyPageStore.initBarangayPageSharedPosts();
+  }
   render() {
     const { AppData, BrgyPageStore } = this.props;
-    const { sharedPosts } = BrgyPageStore;
-    const _sharedPosts = sharedPosts.map((post, index) => {
+    const { data, hasMore, pageStart, sharedPosts } = BrgyPageStore;
+    const items = sharedPosts.map((post, index) => {
       return <BrgySharedPostCard
         key={post.share_id}
 
@@ -52,15 +54,16 @@ export default class BrgyPageShared extends Component {
     });
 
     return (
-      <React.Fragment>
-        {BrgyPageStore.loading && (
-          <div className="loader">
-            <object data="images/loader.svg" type="image/svg+xml">
-            </object>
-          </div>
-        )}
-        {!BrgyPageStore.loading && _sharedPosts}
-      </React.Fragment>
+      <InfiniteScroll
+        pageStart={pageStart}
+        loadMore={(page) => {
+          BrgyPageStore.getBrgyPageSharedPosts(data.id, page)
+        }}
+        hasMore={hasMore}
+        loader={this.renderLoader()}
+      >
+        {items}
+      </InfiniteScroll>
     );
   }
 
@@ -72,4 +75,12 @@ export default class BrgyPageShared extends Component {
     }
   }
 
+  renderLoader() {
+    return (
+      <div className="content-loader" key={0}>
+        <object data="images/loader.svg" type="image/svg+xml">
+        </object>
+      </div>
+    );
+  }
 }

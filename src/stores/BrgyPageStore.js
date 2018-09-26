@@ -147,6 +147,8 @@ export default class BrgyPageStore {
                 runInAction(() => {
                     this.hasMore = false;
                 });
+            } else {
+                alert('An error occured. Please try again.')
             }
         }
     }
@@ -166,30 +168,56 @@ export default class BrgyPageStore {
         }
     }
 
-
-
-
+    @action
+    initBarangayPageSharedPosts() {
+        this.hasMore = true;
+        this.sharedPosts = [];
+    }
 
     @action
-    async getBrgyPageSharedPosts(brgyId) {
-        this.sharedPosts = [];
-        this.loading = true;
+    async getBrgyPageSharedPosts(brgyId, page) {
         try {
-            const response = await getBrgyPageSharedPosts(brgyId);
-            const sharedPosts = response.data.data.items;
+            const response = await getBrgyPageSharedPosts(brgyId, page, this.limit, 'desc');
+            const sharedPosts = this.sharedPosts.slice();
+            sharedPosts.push(...response.data.data.items);
 
             setTimeout(() => {
                 runInAction(() => {
                     this.sharedPosts = sharedPosts;
-                    this.loading = false;
                 });
             }, 1000);
 
         } catch (e) {
+            if (e.response.data.errors[0].code === 'ZERO_RES') {
+                runInAction(() => {
+                    this.hasMore = false;
+                });
+            } else {
+                alert('An error occured. Please try again.')
+            }
+        }
+    }
+
+
+    @action
+    async unsharePost(postId, index) {
+        try {
+            const response = await unsharePost(postId);
+            alert(response.data.data.message);
+
             runInAction(() => {
-                this.sharedPosts = [];
-                this.loading = false;
+                this.loading = true;
+
+                setTimeout(() => {
+                    runInAction(() => {
+                        this.loading = false;
+                        this.sharedPosts.splice(index, 1);
+                        this.data.stats.shared_posts_count -= 1;
+                    });
+                }, 1000);
             });
+        } catch (e) {
+            alert('An error occured. Please try again.')
         }
     }
 
@@ -237,28 +265,6 @@ export default class BrgyPageStore {
                 this.followingList = [];
                 this.loading = false;
             });
-        }
-    }
-
-    @action
-    async unsharePost(postId, index) {
-        try {
-            const response = await unsharePost(postId);
-            alert(response.data.data.message);
-
-            runInAction(() => {
-                this.loading = true;
-
-                setTimeout(() => {
-                    runInAction(() => {
-                        this.loading = false;
-                        this.sharedPosts.splice(index, 1);
-                        this.data.stats.shared_posts_count -= 1;
-                    });
-                }, 1000);
-            });
-        } catch (e) {
-            alert('An error occured. Please try again.')
         }
     }
 }
