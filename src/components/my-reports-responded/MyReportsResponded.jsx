@@ -67,6 +67,11 @@ export default class MyReportsRespondedView extends Component {
 
                 {!this.state.loading && (
                   <React.Fragment>
+                    {this.state.reports.length === 0 && (
+                      <div className="empty-filler">
+                        <h6>You don't have responded reports as of the moment. Please check again later.</h6>
+                      </div>
+                    )}
                     {reports}
                     {this.state.page !== this.state.totalPage && (
                       <ButtonLoader
@@ -93,7 +98,7 @@ export default class MyReportsRespondedView extends Component {
       setTimeout(() => {
         this.setState({
           loading: false,
-          reports: response.data.data.reports,
+          reports: response.data.data.reports,          
           totalPage: Math.ceil(response.data.data.total / limit)
         });
       }, 1000)

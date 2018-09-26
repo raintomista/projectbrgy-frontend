@@ -65,6 +65,11 @@ export default class DashboardView extends Component {
                 )}
                 {!this.state.loading && (
                   <React.Fragment>
+                    {this.state.reports.length === 0 && (
+                      <div className="empty-filler">
+                        <h6>You haven't submitted any reports yet!</h6>
+                      </div>
+                    )}
                     {reports}
                     {this.state.page !== this.state.totalPage && (
                       <ButtonLoader
