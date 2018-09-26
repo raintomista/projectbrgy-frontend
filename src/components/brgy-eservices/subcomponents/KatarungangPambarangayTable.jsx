@@ -20,6 +20,12 @@ export default class KatarungangPambarangayTable extends Component {
     }
   }
 
+  async componentDidUpdate(prevProps, prevState) {
+    if (this.state.totalPage === 0) {
+      this.setState({ totalPage: 1 });
+    }
+  }
+
   async componentDidMount() {
     await this.props.AppData.getUserDetails();
     await this._getAllKatarungangPambarangayComplaints(this.props.AppData.loggedUser.barangay_page_id);

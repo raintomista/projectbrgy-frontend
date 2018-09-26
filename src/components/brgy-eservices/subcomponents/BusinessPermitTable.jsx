@@ -20,6 +20,12 @@ export default class BusinessPermitTable extends Component {
     }
   }
 
+  async componentDidUpdate(prevProps, prevState) {
+    if (this.state.totalPage === 0) {
+      this.setState({ totalPage: 1 });
+    }
+  }
+
   async componentDidMount() {
     await this.props.AppData.getUserDetails();
     await this._getAllBusinessPermitRequests(this.props.AppData.loggedUser.barangay_page_id);
@@ -60,9 +66,9 @@ export default class BusinessPermitTable extends Component {
             <table className="table">
               <thead>
                 <tr>
-                  <th scope="col" style={{width: '30%'}}>Applicant Name</th>
-                  <th scope="col" style={{width: '40%'}}>Business Name</th>
-                  <th scope="col" style={{width: '30%'}}>Request Date</th>
+                  <th scope="col" style={{ width: '30%' }}>Applicant Name</th>
+                  <th scope="col" style={{ width: '40%' }}>Business Name</th>
+                  <th scope="col" style={{ width: '30%' }}>Request Date</th>
                 </tr>
               </thead>
               <tbody>

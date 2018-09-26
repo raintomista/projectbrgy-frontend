@@ -25,6 +25,13 @@ export default class BrgyClearanceTable extends Component {
     await this.props.AppData.getUserDetails();
     await this._getAllBrgyClearanceRequests(this.props.AppData.loggedUser.barangay_page_id);
   }
+
+  async componentDidUpdate(prevProps, prevState) {
+    if (this.state.totalPage === 0) {
+      this.setState({ totalPage: 1 });
+    }
+  }
+  
   render() {
     const rows = this.state.requests.map((request, index) => {
       return (
