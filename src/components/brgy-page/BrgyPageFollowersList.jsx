@@ -59,7 +59,7 @@ export default class BrgyPageFollowersList extends Component {
           </div>
 
           {/* Message Button (Do not display to logged user) */}
-          {follower.user_role === 'barangay_page_admin' && AppData.loggedUser.user_barangay_id !== follower.barangay_page_id && <a className="btn rounded">Message</a>}
+          {follower.user_role === null && AppData.loggedUser.user_barangay_id !== follower.barangay_page_id && <a className="btn rounded">Message</a>}
           {follower.user_role === 'barangay_member' && AppData.loggedUser.user_id !== follower.user_id && <a className="btn rounded">Message</a>}
         </li>
       );
