@@ -5,9 +5,18 @@ import {
     runInAction
 } from 'mobx';
 
-import { followBarangay, unfollowBarangay } from 'services/BrgyPageService';
-import { unsharePost } from 'services/PostService';
-import { getUserById, getUserFollowingList, getUserSharedPosts } from 'services/UserProfileService';
+import {
+    followBarangay,
+    unfollowBarangay
+} from 'services/BrgyPageService';
+import {
+    unsharePost
+} from 'services/PostService';
+import {
+    getUserById,
+    getUserFollowingList,
+    getUserSharedPosts
+} from 'services/UserProfileService';
 
 configure({
     enforceActions: true
@@ -15,10 +24,12 @@ configure({
 
 export default class UserProfileStore {
     @observable data;
-    @observable sharedPosts = [];
     @observable viewType;
+    @observable pageStart = 0;
+    @observable limit = 15;
+    @observable hasMore = true;
+    @observable sharedPosts = [];
     @observable followingList = [];
-    @observable loading = true;
 
     @action
     async fetchUserProfileData(id) {
@@ -26,7 +37,6 @@ export default class UserProfileStore {
         try {
             const response = await getUserById(id);
             const data = response.data.data;
-
             runInAction(() => {
                 this.data = data;
             });
@@ -41,20 +51,38 @@ export default class UserProfileStore {
     }
 
     @action
-    async fetchUserFollowingList(userId) {
-        this.loading = true;
+    initFollowingList() {
+        this.hasMore = true;
+        this.followingList = [];
+    }
+
+    @action
+    async getUserFollowingList(userId, page) {
         try {
-            const response = await getUserFollowingList(userId);
-            const followingList = response.data.data.items;
+            const response = await getUserFollowingList(userId, page, this.limit, 'desc');
+            let followingList = [];
+            if (page === 1) {
+                followingList = response.data.data.items;
+            } else {
+                followingList = this.followingList.slice();
+                followingList.push(...response.data.data.items);
+            }
 
             setTimeout(() => {
                 runInAction(() => {
                     this.followingList = followingList;
-                    this.loading = false;
+                    this.data.stats.posts_count = response.data.data.total;
                 });
             }, 1000);
+
         } catch (e) {
-            console.log(e);
+            if (e.response.data.errors[0].code === 'ZERO_RES') {
+                runInAction(() => {
+                    this.hasMore = false;
+                });
+            } else {
+                alert('An error occured. Please try again.')
+            }
         }
     }
 
@@ -80,6 +108,7 @@ export default class UserProfileStore {
 
             runInAction(() => {
                 this.followingList[index].is_following = 1;
+                this.data.stats.following_count += 1;
             });
 
         } catch (e) {
@@ -94,6 +123,7 @@ export default class UserProfileStore {
 
             runInAction(() => {
                 this.followingList[index].is_following = 0;
+                this.data.stats.following_count -= 1;
             });
 
         } catch (e) {

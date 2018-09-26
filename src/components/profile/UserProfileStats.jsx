@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from "react-router-dom";
-
+import { observer } from 'mobx-react';
 import 'components/profile/UserProfileStats.less';
 
-const UserProfileStats = (props) => {
+const UserProfileStats = observer((props) => {
   const { UserProfileStore } = props;
   const { data, viewType } = UserProfileStore;
   const { stats } = data;
@@ -30,7 +30,7 @@ const UserProfileStats = (props) => {
       </div>
     </div>
   );
-}
+});
 
 const viewTimeline = (profileId) => ({
   pathname: '/profile',

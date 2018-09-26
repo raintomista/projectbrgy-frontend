@@ -59,7 +59,6 @@ export default class Profile extends Component {
         }
 
         else if (viewType === 'following_list') {
-          UserProfileStore.fetchUserFollowingList(data.user_id);
           return <UserProfileFollowingListView AppData={AppData} UserProfileStore={UserProfileStore} history={this.props.history} />;
         }
         else {
