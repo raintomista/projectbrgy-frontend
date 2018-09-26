@@ -44,7 +44,6 @@ function renderView(props) {
     return <BrgyPageFollowersList {...props} />;
   }
   else if (viewType === 'following_list') {
-    BrgyPageStore.getBrgyPageFollowingList(BrgyPageStore.data.id);
     return <BrgyPageFollowingList {...props} />
   }
 }

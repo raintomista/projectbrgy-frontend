@@ -85,12 +85,15 @@ export default class BrgyPageStore {
 
     /*----- Follow/Unfollow in Barangay Page List -----*/
     @action
-    async followBarangayFromList(brgyId, index) {
+    async followBarangayFromList(loggedUserRole, loggedUserBrgyId, brgyId, index) {
         try {
             await followBarangay(brgyId);
 
             runInAction(() => {
                 this.followingList[0].is_following = 1;
+                if (loggedUserRole === 'barangay_page_admin' && loggedUserBrgyId === this.data.id) {
+                    this.data.stats.following_count += 1;
+                }
             });
 
         } catch (e) {
@@ -99,12 +102,15 @@ export default class BrgyPageStore {
     }
 
     @action
-    async unfollowBarangayFromList(brgyId, index) {
+    async unfollowBarangayFromList(loggedUserRole, loggedUserBrgyId, brgyId, index) {
         try {
             await unfollowBarangay(brgyId);
 
             runInAction(() => {
                 this.followingList[index].is_following = 0;
+                if (loggedUserRole === 'barangay_page_admin' && loggedUserBrgyId === this.data.id) {
+                    this.data.stats.following_count -= 1;
+                }
             });
 
         } catch (e) {
@@ -246,25 +252,26 @@ export default class BrgyPageStore {
     }
 
     @action
-    async getBrgyPageFollowingList(brgyId) {
-        this.followingList = [];
-        this.loading = true;
+    async getBrgyPageFollowingList(brgyId, page) {
         try {
-            const response = await getBrgyPageFollowingList(brgyId);
-            const followingList = response.data.data.items;
+            const response = await getBrgyPageFollowingList(brgyId, page, this.limit, 'asc');
+            const followingList = this.followingList.slice();
+            followingList.push(...response.data.data.items);
 
             setTimeout(() => {
                 runInAction(() => {
                     this.followingList = followingList;
-                    this.loading = false;
                 });
             }, 1000);
 
         } catch (e) {
-            runInAction(() => {
-                this.followingList = [];
-                this.loading = false;
-            });
+            if (e.response.data.errors[0].code === 'ZERO_RES') {
+                runInAction(() => {
+                    this.hasMore = false;
+                });
+            } else {
+                alert('An error occured. Please try again.')
+            }
         }
     }
 }
