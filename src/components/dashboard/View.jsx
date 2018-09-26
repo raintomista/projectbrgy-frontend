@@ -32,14 +32,6 @@ export default class DashboardView extends Component {
     const { AppData, DashboardStore } = RootStore;
     const { loggedUser } = AppData;
     const { newsfeedPosts } = DashboardStore;
-
-    const loader = (
-      <div className="loader" key={0}>
-        <object data="images/loader.svg" type="image/svg+xml">
-        </object>
-      </div>
-    );
-
     const items = this._getNewsfeedItems(newsfeedPosts);
 
     return (
@@ -64,9 +56,8 @@ export default class DashboardView extends Component {
                 <InfiniteNewsFeed
                   pageStart={DashboardStore.pageStart}
                   loadMore={this._loadMorePosts}
-                  hasMore={DashboardStore.hasMoreItems}
-                  loader={loader}
-                  threshold={100}
+                  hasMore={DashboardStore.hasMore}
+                  loader={this.renderLoader()}
                 >
                   <div className="posts">
                     {items}
@@ -90,7 +81,6 @@ export default class DashboardView extends Component {
   }
 
   _getNewsfeedItems(arr) {
-    console.log(arr)
     return arr.map((post, index) => (
       <BarangayPostCard
         key={post.post_id}
@@ -113,11 +103,19 @@ export default class DashboardView extends Component {
         statsShares={post.share_count}
       />
     ));
+  }
 
+  renderLoader() {
+    return (
+      <div className="content-loader" key={0}>
+        <object data="images/loader.svg" type="image/svg+xml">
+        </object>
+      </div>
+    );
   }
 
   _loadMorePosts(page) {
     const { DashboardStore } = RootStore;
-    DashboardStore.getNewsfeedPosts(page, 4);
+    DashboardStore.getNewsfeedPosts(page);
   }
 }
