@@ -100,7 +100,7 @@ export default class BrgyReports extends Component {
         this.setState({
           pageLoading: false,
           reports: response.data.data.items,
-          totalPage: Math.round(response.data.data.total / limit)
+          totalPage: Math.ceil(response.data.data.total / limit)
         });
       }, 1000);
 
@@ -134,7 +134,7 @@ export default class BrgyReports extends Component {
           page: page + 1,
           pageLoading: false,
           reports: newReports,
-          totalPage: Math.round(response.data.data.total / limit)
+          totalPage: Math.ceil(response.data.data.total / limit)
         });
       }, 1000);
 
