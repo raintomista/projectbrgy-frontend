@@ -149,6 +149,7 @@ export default class BrgyPageStore {
             setTimeout(() => {
                 runInAction(() => {
                     this.posts = posts;
+                    this.data.stats.posts_count = response.data.data.total;
                 });
             }, 1000);
 
@@ -199,6 +200,7 @@ export default class BrgyPageStore {
             setTimeout(() => {
                 runInAction(() => {
                     this.sharedPosts = sharedPosts;
+                    this.data.stats.shared_posts_count = response.data.data.total;
                 });
             }, 1000);
 
@@ -257,6 +259,7 @@ export default class BrgyPageStore {
             setTimeout(() => {
                 runInAction(() => {
                     this.followersList = followersList;
+                    this.data.stats.followers_count = response.data.data.total;
                 });
             }, 1000);
 
@@ -292,6 +295,7 @@ export default class BrgyPageStore {
             setTimeout(() => {
                 runInAction(() => {
                     this.followingList = followingList;
+                    this.data.stats.following_count = response.data.data.total;
                 });
             }, 1000);
 

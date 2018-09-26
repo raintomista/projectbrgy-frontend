@@ -8,7 +8,7 @@ import 'components/brgy-page/BrgyPageFollowList.less';
 
 @observer
 export default class BrgyPagePosts extends Component {
-  componentWillUnmount() {
+  componentWillMount() {
     const { BrgyPageStore } = this.props;
     BrgyPageStore.initBarangayPagePosts();
   }

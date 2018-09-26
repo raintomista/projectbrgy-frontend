@@ -7,7 +7,7 @@ import 'components/brgy-page/BrgyPageFollowList.less';
 
 @observer
 export default class BrgyPageFollowingList extends Component {
-  componentWillUnmount() {
+  componentWillMount() {
     const { BrgyPageStore } = this.props;
     BrgyPageStore.initBarangayPageFollowing();
   }
@@ -20,7 +20,7 @@ export default class BrgyPageFollowingList extends Component {
         <li className="list-group-item" key={index}>
           <div className="wrapper">
             {/* Profile Pic */}
-            <img src="images/default-user.png" className="profile-pic" alt="" />
+            <img src="images/default-brgy.png" className="profile-pic" alt="" />
 
             {/* Following Name and Location */}
             <div className="item-info">

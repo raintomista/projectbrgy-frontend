@@ -106,21 +106,14 @@ const BrgyPageDetails = observer((props) => {
         )}
 
         {/* E-Services */}
-        <li className="list-group-item">
+       {loggedUser.user_role === 'barangay_member' && loggedUser.barangay_page_id === BrgyPageStore.data.id && (
+          <li className="list-group-item">
           <a onClick={() => BrgyPageStore.toggleModal()} className="card-link">
             <FontAwesomeIcon icon={faCogs} className="icon" />
             <span>E-Services</span>
           </a>
         </li>
-
-        {BrgyPageStore.data && BrgyPageStore.data.e_resources && (
-          <li className="list-group-item">
-            <a href={`${BrgyPageStore.data.e_resources}`} className="card-link">
-              <FontAwesomeIcon icon={faFolder} className="icon" />
-              <span>E-Resources</span>
-            </a>
-          </li>
-        )}
+       )}
       </ul>
     </div>
   );

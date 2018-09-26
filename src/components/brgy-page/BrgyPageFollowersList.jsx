@@ -7,7 +7,7 @@ import { observer } from 'mobx-react';
 import 'components/brgy-page/BrgyPageFollowList.less';
 @observer
 export default class BrgyPageFollowersList extends Component {
-  componentWillUnmount() {
+  componentWillMount() {
     const { BrgyPageStore } = this.props;
     BrgyPageStore.initBarangayPageFollowers();
   }
