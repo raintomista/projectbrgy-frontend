@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
+import InfiniteScroll from 'react-infinite-scroller';
 import { observer } from 'mobx-react';
 import queryString from 'query-string';
 import NavBar from 'components/common/Nav/Bar';
 import { followBarangay, unfollowBarangay } from 'services/BrgyPageService';
 import { search } from 'services/SearchService';
 import BrgyPageAvatar from 'assets/images/default-brgy.png';
-import Loader from 'assets/images/loader.svg';
 import './SearchView.less';
 
 @observer
@@ -15,7 +14,9 @@ export default class ViewPostById extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loading: true,
+      pageStart: 0,
+      hasMore: true,
+      limit: 15,
       query: '',
       results: []
     };
@@ -28,7 +29,6 @@ export default class ViewPostById extends Component {
     const searchQuery = this.props.location.search;
     const parsedQuery = queryString.parse(searchQuery);
     this.setState({ query: parsedQuery.query });
-    this._handleSearch(parsedQuery.query);
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -36,7 +36,11 @@ export default class ViewPostById extends Component {
       const searchQuery = this.props.location.search;
       const parsedQuery = queryString.parse(searchQuery);
       this.setState({ query: parsedQuery.query });
-      this._handleSearch(parsedQuery.query);;
+      this.scroll.pageLoaded = 0
+      this.setState({
+        hasMore: true,
+        results: []
+      })
     }
   }
 
@@ -65,6 +69,8 @@ export default class ViewPostById extends Component {
       </li>
     ));
 
+    const { hasMore, pageStart } = this.state;
+
     return (
       <React.Fragment>
         <NavBar AppData={this.props.AppData} history={this.props.history} />
@@ -76,16 +82,18 @@ export default class ViewPostById extends Component {
                   <div className="card-body">
                     <h4 className="card-title">Results for "{this.state.query}"</h4>
                     <ul className="list-group list-group-flush">
-                      {this.state.loading && (
-                        <li className="list-group-item">
-                          <div className="loader">
-                            <object data={Loader} type="image/svg+xml">
-                            </object>
-                          </div>
-                        </li>
-                      )}
-                      {!this.state.loading && results}
-                      {!this.state.loading && results.length === 0 && (
+                      <InfiniteScroll
+                        pageStart={pageStart}
+                        loadMore={(page) => {
+                          this._handleSearch(page)
+                        }}
+                        hasMore={hasMore}
+                        loader={this.renderLoader()}
+                        ref={(scroll) => { this.scroll = scroll; }}
+                      >
+                        {results}
+                      </InfiniteScroll>
+                      {!hasMore && results.length === 0 && (
                         <li className="list-group-item filler">
                           No barangay pages found for "{this.state.query}"
                         </li>
@@ -124,33 +132,42 @@ export default class ViewPostById extends Component {
     }
   }
 
-  async _handleSearch(query) {
-    this.setState({ loading: true });
-
+  async _handleSearch(page) {
+    const searchQuery = this.props.location.search;
+    const parsedQuery = queryString.parse(searchQuery);
+    const query = parsedQuery.query;
     if (query && query.trim().length > 0) {
       try {
-        const response = await search(query);
-        setTimeout(() => {
+        const response = await search(query, page, this.state.limit);
+        let results = [];
+        if (page === 1) {
+          results = response.data.data.items;
+        } else {
+          results = this.state.results.slice();
+          results.push(...response.data.data.items);
+        }
+
+        if (response.data.data.items.length === 0) {
           this.setState({
-            loading: false,
-            results: response.data.data.items
+            hasMore: false,
           });
-        }, 1000);
+        }
+        this.setState({ results: results });
       } catch (e) {
-        setTimeout(() => {
+        if (e.response.data.errors[0].code === 'ZERO_RES') {
           this.setState({
-            loading: false,
-            results: []
+            results: [],
+            hasMore: false,
           });
-        }, 1000);
+        } else {
+          alert('An error occured. Please try again.')
+        }
       }
     } else {
-      setTimeout(() => {
-        this.setState({
-          loading: false,
-          results: []
-        });
-      }, 1000);
+      this.setState({
+        results: [],
+        hasMore: false,
+      });
     }
   }
 
@@ -159,5 +176,16 @@ export default class ViewPostById extends Component {
       pathname: '/barangay',
       search: `?id=${brgyId}`
     };
+  }
+
+  renderLoader() {
+    return (
+      <li className="list-group-item loader" key={0}>
+        <div className="content-loader">
+          <object data="images/loader.svg" type="image/svg+xml">
+          </object>
+        </div>
+      </li>
+    );
   }
 }

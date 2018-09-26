@@ -26,7 +26,7 @@ export default class CreateReportForm extends MobxReactForm {
 
             if (query.trim().length > 0) {
               try {
-                const response = await search(query);
+                const response = await search(query, 1, 5);
                 this.$('results').set('value', response.data.data.items.slice(0, 5));
 
               } catch (e) {
