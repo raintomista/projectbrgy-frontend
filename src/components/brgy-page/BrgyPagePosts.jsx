@@ -38,14 +38,25 @@ export default class BrgyPagePosts extends Component {
       />
     });
     return (
-      <InfiniteScroll
-        pageStart={pageStart}
-        loadMore={(page) => BrgyPageStore.getBarangayPagePosts(data.id, page)}
-        hasMore={hasMore}
-        loader={this.renderLoader()}
-      >
-        {items}
-      </InfiniteScroll>
+      <React.Fragment>
+        <InfiniteScroll
+          pageStart={pageStart}
+          loadMore={(page) => BrgyPageStore.getBarangayPagePosts(data.id, page)}
+          hasMore={hasMore}
+          loader={this.renderLoader()}
+        >
+          {items}
+        </InfiniteScroll>
+
+        {BrgyPageStore.posts.length === 0 && !hasMore && (
+          <div className="brgy-page-empty-filler">
+            {AppData.loggedUser.user_role === 'barangay_page_admin' && AppData.loggedUser.user_barangay_id === data.id 
+              ? <h6>You haven't posted any announcements yet!</h6>
+              : <h6>{data.name} hasn't posted any announcements yet!</h6>
+            }
+          </div>
+        )}
+      </React.Fragment>
     );
   }
 

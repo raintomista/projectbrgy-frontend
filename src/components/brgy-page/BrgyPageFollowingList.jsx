@@ -71,6 +71,15 @@ export default class BrgyPageFollowingList extends Component {
             >
               {items}
             </InfiniteScroll>
+
+            {BrgyPageStore.followingList.length === 0 && !hasMore && (
+              <div className="brgy-page-empty-filler">
+                {AppData.loggedUser.user_role === 'barangay_page_admin' && AppData.loggedUser.user_barangay_id === data.id
+                  ? <h6>You haven't followed any barangay pages yet!</h6>
+                  : <h6>{data.name} hasn't followed any barangay pages yet!</h6>
+                }
+              </div>
+            )}
           </ul>
         </div>
       </div>

@@ -138,8 +138,13 @@ export default class BrgyPageStore {
     async getBarangayPagePosts(brgyId, page) {
         try {
             const response = await getBrgyPagePosts(brgyId, page, this.limit, 'desc');
-            const posts = this.posts.slice();
-            posts.push(...response.data.data.items);
+            let posts = [];
+            if (page === 1) {
+                posts = response.data.data.items;
+            } else {
+                posts = this.posts.slice();
+                posts.push(...response.data.data.items);
+            }
 
             setTimeout(() => {
                 runInAction(() => {
@@ -183,8 +188,13 @@ export default class BrgyPageStore {
     async getBrgyPageSharedPosts(brgyId, page) {
         try {
             const response = await getBrgyPageSharedPosts(brgyId, page, this.limit, 'desc');
-            const sharedPosts = this.sharedPosts.slice();
-            sharedPosts.push(...response.data.data.items);
+            let sharedPosts = [];
+            if (page === 1) {
+                sharedPosts = response.data.data.items;
+            } else {
+                sharedPosts = this.sharedPosts.slice();
+                sharedPosts.push(...response.data.data.items);
+            }
 
             setTimeout(() => {
                 runInAction(() => {
@@ -236,8 +246,13 @@ export default class BrgyPageStore {
     async getBrgyPageFollowersList(brgyId, page) {
         try {
             const response = await getBrgyPageFollowersList(brgyId, page, this.limit, 'asc');
-            const followersList = this.followersList.slice();
-            followersList.push(...response.data.data.items);
+            let followersList = [];
+            if (page === 1) {
+                followersList = response.data.data.items;
+            } else {
+                followersList = this.followersList.slice();
+                followersList.push(...response.data.data.items);
+            }
 
             setTimeout(() => {
                 runInAction(() => {
@@ -266,8 +281,13 @@ export default class BrgyPageStore {
     async getBrgyPageFollowingList(brgyId, page) {
         try {
             const response = await getBrgyPageFollowingList(brgyId, page, this.limit, 'asc');
-            const followingList = this.followingList.slice();
-            followingList.push(...response.data.data.items);
+            let followingList = [];
+            if (page === 1) {
+                followingList = response.data.data.items;
+            } else {
+                followingList = this.followingList.slice();
+                followingList.push(...response.data.data.items);
+            }
 
             setTimeout(() => {
                 runInAction(() => {

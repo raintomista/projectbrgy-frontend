@@ -54,16 +54,26 @@ export default class BrgyPageShared extends Component {
     });
 
     return (
-      <InfiniteScroll
-        pageStart={pageStart}
-        loadMore={(page) => {
-          BrgyPageStore.getBrgyPageSharedPosts(data.id, page)
-        }}
-        hasMore={hasMore}
-        loader={this.renderLoader()}
-      >
-        {items}
-      </InfiniteScroll>
+      <React.Fragment>
+        <InfiniteScroll
+          pageStart={pageStart}
+          loadMore={(page) => {
+            BrgyPageStore.getBrgyPageSharedPosts(data.id, page)
+          }}
+          hasMore={hasMore}
+          loader={this.renderLoader()}
+        >
+          {items}
+        </InfiniteScroll>
+        {BrgyPageStore.sharedPosts.length === 0 && !hasMore && (
+          <div className="brgy-page-empty-filler">
+            {AppData.loggedUser.user_role === 'barangay_page_admin' && AppData.loggedUser.user_barangay_id === data.id
+              ? <h6>You haven't shared any posts yet!</h6>
+              : <h6>{data.name} hasn't shared any posts yet!</h6>
+            }
+          </div>
+        )}
+      </React.Fragment>
     );
   }
 
