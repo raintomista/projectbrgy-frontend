@@ -17,7 +17,7 @@ export default class BrgyReports extends Component {
     super(props);
     this.state = {
       page: 1,
-      limit: 5,
+      limit: 15,
       order: 'desc',
       fetchingReports: false,
       pageLoading: true,

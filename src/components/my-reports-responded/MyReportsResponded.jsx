@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
-import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-import faChevronLeft from '@fortawesome/fontawesome-free-solid/faChevronLeft';
-import faChevronRight from '@fortawesome/fontawesome-free-solid/faChevronRight';
+import ButtonLoader from 'components/common/Loader/ButtonLoader';
+
 import DashboardSideBar from 'components/dashboard/subcomponents/SideBar';
 import NavBar from 'components/common/Nav/Bar';
 import RootStore from 'stores/RootStore';
@@ -15,12 +14,13 @@ export default class MyReportsRespondedView extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentPage: 1,
-      totalPage: 1,
-      limit: 10,
+      page: 1,
+      limit: 15,
       order: 'desc',
-      loading: true,
-      reports: []
+      fetchingReports: false,
+      pageLoading: true,
+      totalPage: 1,
+      reports: [],
     }
   }
 
@@ -57,15 +57,6 @@ export default class MyReportsRespondedView extends Component {
               <div className="my-report-responded col-md-9">
                 <div className="section-header">
                   <div className="title">Responded</div>
-                  <div className="btn-group btn-group-toggle" data-toggle="buttons">
-                    <span>{this.state.currentPage} of {this.state.totalPage}</span>
-                    <button className="btn" onClick={(e) => this._prevPage()} disabled={this.state.currentPage === 1}>
-                      <FontAwesomeIcon icon={faChevronLeft} />
-                    </button>
-                    <button className="btn" onClick={(e) => this._nextPage()} disabled={this.state.currentPage === this.state.totalPage}>
-                      <FontAwesomeIcon icon={faChevronRight} />
-                    </button>
-                  </div>
                 </div>
                 {this.state.loading && (
                   <div className="loader">
@@ -73,7 +64,19 @@ export default class MyReportsRespondedView extends Component {
                     </object>
                   </div>
                 )}
-                {!this.state.loading && reports}
+
+                {!this.state.loading && (
+                  <React.Fragment>
+                    {reports}
+                    {this.state.page !== this.state.totalPage && (
+                      <ButtonLoader
+                        handleClick={() => this._showMore()}
+                        label="Load more reports"
+                        loading={this.state.fetchingReports}
+                      />
+                    )}
+                  </React.Fragment>
+                )}
               </div>
             </div>
           </div>
@@ -87,7 +90,6 @@ export default class MyReportsRespondedView extends Component {
     try {
       const { currentPage, limit, order } = this.state;
       const response = await getMyRespondedReports(currentPage, limit, order);
-
       setTimeout(() => {
         this.setState({
           loading: false,
@@ -99,44 +101,49 @@ export default class MyReportsRespondedView extends Component {
       alert('An error occurred. Please try again later.');
     }
   }
-  async _prevPage() {
-    this.setState({ loading: true });
-    try {
-      const { currentPage, limit, order } = this.state;
-      const response = await getMyRespondedReports(currentPage - 1, limit, order);
 
+  async _showMore() {
+    this.setState({ fetchingReports: true });
+    const { page, limit, order, reports } = this.state;
+    try {
+      const response = await getMyRespondedReports(page + 1, limit, order);
+      let newReports = reports.slice();
+      newReports.push(...response.data.data.reports);
+      newReports = this.removeDuplicates(newReports, 'id');
       setTimeout(() => {
         this.setState({
-          loading: false,
-          reports: response.data.data.reports,
-          currentPage: currentPage - 1,
-          totalPage: Math.ceil(response.data.data.total / limit)
+          fetchingReports: false,
+          page: page + 1,
+          pageLoading: false,
+          reports: newReports,
+          totalPage: Math.round(response.data.data.total / limit)
         });
       }, 1000);
-    } catch (e) {
-      alert('An error occurred. Please try again later.');
-    }
-  }
 
-  async _nextPage() {
-    this.setState({ loading: true });
-    try {
-      const { currentPage, limit, order } = this.state;
-      const response = await getMyRespondedReports(currentPage + 1, limit, order);
-
-      setTimeout(() => {
-        this.setState({
-          loading: false,
-          reports: response.data.data.reports,
-          currentPage: currentPage + 1,
-          totalPage: Math.ceil(response.data.data.total / limit)
-        });
-      }, 1000);
     } catch (e) {
-      alert('An error occurred. Please try again later.');
+      if (e.response.data.data.total === 0) {
+        setTimeout(() => {
+          this.setState({
+            pageLoading: false,
+            reports: []
+          });
+        }, 1000);
+      } else {
+        alert('An error occurred. Please try again later.')
+      }
     }
   }
   _viewItem(id) {
     this.props.history.push(`/dashboard/my-reports/responded/${id}`)
+  }
+
+  removeDuplicates(arr, key) {
+    var values = {};
+    return arr.filter(function (item) {
+      var val = item[key];
+      var exists = values[val];
+      values[val] = true;
+      return !exists;
+    });
   }
 }

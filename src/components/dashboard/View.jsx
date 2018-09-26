@@ -55,7 +55,7 @@ export default class DashboardView extends Component {
 
                 <InfiniteNewsFeed
                   pageStart={DashboardStore.pageStart}
-                  loadMore={this._loadMorePosts}
+                  loadMore={(page) => {this._loadMorePosts(page)}}
                   hasMore={DashboardStore.hasMore}
                   loader={this.renderLoader()}
                 >
