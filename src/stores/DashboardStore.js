@@ -51,6 +51,12 @@ export default class DashboardStore {
                 newsfeedPosts.push(...response.data.data.items);
             }
 
+            if (response.data.data.items.length === 0) {
+                runInAction(() => {
+                    this.hasMore = false;
+                });
+            }
+
             runInAction(() => {
                 this.newsfeedPosts = newsfeedPosts;
             });
