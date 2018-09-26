@@ -87,17 +87,38 @@ export default class UserProfileStore {
     }
 
     @action
-    async fetchUserSharedPosts(userId) {
+    initSharedPosts() {
+        this.hasMore = true;
         this.sharedPosts = [];
-        try {
-            const response = await getUserSharedPosts(userId);
-            const sharedPosts = response.data.data.items;
+    }
 
-            runInAction(() => {
-                this.sharedPosts = sharedPosts;
-            })
+    @action
+    async getUserSharedPosts(userId, page) {
+        try {
+            const response = await getUserSharedPosts(userId, page, this.limit, 'desc');
+            let sharedPosts = [];
+            if (page === 1) {
+                sharedPosts = response.data.data.items;
+            } else {
+                sharedPosts = this.sharedPosts.slice();
+                sharedPosts.push(...response.data.data.items);
+            }
+
+            setTimeout(() => {
+                runInAction(() => {
+                    this.sharedPosts = sharedPosts;
+                    this.data.stats.posts_count = response.data.data.total;
+                });
+            }, 1000);
+
         } catch (e) {
-            console.log(e);
+            if (e.response.data.errors[0].code === 'ZERO_RES') {
+                runInAction(() => {
+                    this.hasMore = false;
+                });
+            } else {
+                alert('An error occured. Please try again.')
+            }
         }
     }
 
@@ -139,7 +160,7 @@ export default class UserProfileStore {
             runInAction(() => {
                 this.sharedPosts.splice(index, 1);
                 this.data.stats.shared_posts_count -= 1;
-                alert(response.data.data.message);
+                alert('You have successfully deleted a post.');
             });
         } catch (e) {
             alert('An error occured. Please try again.')

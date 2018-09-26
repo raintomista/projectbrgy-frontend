@@ -19,9 +19,9 @@ export function getUserFollowingList(userId, page, limit, order) {
     });
 }
 
-export function getUserSharedPosts(userId) {
+export function getUserSharedPosts(userId, page, limit, order) {
     const token = localStorage.getItem('x-access-token');
-    return axios.get(`${API_HOST}/shared/post/member/${userId}`, {
+    return axios.get(`${API_HOST}/shared/post/member/${userId}?page=${page}&limit=${limit}&order=${order}`, {
         headers: {
             'x-access-token': token
         }
