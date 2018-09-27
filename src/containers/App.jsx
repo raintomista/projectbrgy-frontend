@@ -21,6 +21,7 @@ import MyReportsRespondedView from 'components/my-reports-responded/MyReportsRes
 import MyReportsOverview from 'components/my-reports-overview/MyReportsOverview';
 import ResidentsView from 'components/residents/ResidentsView';
 import SearchView from 'components/search/SearchView';
+import SuperadminStats from 'components/superadmin-stats/SuperadminStats';
 import BrgyReportsView from 'components/brgy-reports/BrgyReports';
 import BrgyReportOverview from 'components/brgy-report-overview/ReportOverview';
 import BrgyEservices from 'components/brgy-eservices/BrgyEservices';
@@ -147,6 +148,12 @@ export default class App extends Component {
           <Route
             path='/e-services/:type/'
             render={(props) => <EServicesView {...props} />}
+          />
+
+          <Route
+            exact={true}
+            path='/superadmin'
+            render={(props) => <SuperadminStats {...props} AppData={this.props.AppData} />}
           />
 
           <Route
