@@ -23,5 +23,56 @@
         height: 250px;
         width: 320px;
         margin-bottom: 0px;
+        z-index: -1;
     }
+}
+
+.superadmin-stats {
+    border-radius: 0px;
+    z-index: 0;
+
+    .card-title {
+        color: #2a8abd;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 700;
+    }
+    .rw-widget-container {
+        background-color: white;
+        border: none;
+        border-radius: 0px;
+    }
+    .rw-widget-input,
+    .rw-filter-input {
+        box-shadow: none;
+    }
+    .rw-input,
+    .rw-dropdown-list-autofill,
+    .rw-filter-input {
+        color: #2a8abd;
+        font-family: 'Lato', sans-serif;
+        font-weight: 500;
+    }
+
+    .rw-select svg {
+        color: #2a8abd;
+    }
+
+    .rw-list-option.rw-state-selected, .rw-list-option.rw-state-selected:hover {
+        background-color: #2a8abd;
+    }
+
+    .rw-state-focus > .rw-widget-container:hover {
+        box-shadow: none;
+    }
+
+    .rw-state-disabled .rw-input,
+    .rw-state-disabled .rw-dropdown-list-autofill,
+    .rw-state-disabled .rw-filter-input {
+        color: gray;
+    }
+
+    .rw-state-disabled .rw-select svg {
+        color: gray;
+    }
+
 }

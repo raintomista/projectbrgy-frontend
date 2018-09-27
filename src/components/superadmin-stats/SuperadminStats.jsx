@@ -3,8 +3,9 @@ import { observer } from 'mobx-react';
 import NavBar from 'components/common/Nav/Bar';
 import { DropdownList } from 'react-widgets'
 import GradientDoughnut from './GradientDoughnut';
-
-import { getRegions } from 'services/SignupService';
+import FontAwesomeIcon from '@fortawesome/react-fontawesome'
+import faChevronDown from '@fortawesome/fontawesome-free-solid/faChevronDown'
+import { getRegions, getProvinces, getMunicipalities, getBarangays } from 'services/SignupService';
 import './SuperadminStats.less';
 
 @observer
@@ -14,32 +15,47 @@ export default class SuperadminStats extends Component {
     this.state = {
       stats: {},
       regions: [],
-      provinces: []
+      provinces: [],
+      municipalities: [],
+      barangays: [],
+      regionValue: 'Entire Philippines',
+      provinceValue: 'All Provinces',
+      municipalityValue: 'All Municipalities',
+      barangayValue: 'All Barangays'
     }
   }
 
 
   async componentWillMount() {
     this.props.AppData.getUserDetails();
-    this.getRegions();
+    this.getNationwide();
   }
 
   render() {
-    const { stats, regions } = this.state;
+    const {
+      stats,
+      regions,
+      provinces,
+      municipalities,
+      barangays,
+      regionValue,
+      provinceValue,
+      municipalityValue,
+      barangayValue
+    } = this.state;
+
     const { user_count, general_report_count, committee_report_count, e_services, committee_report } = stats;
     let userCount = [0];
     let eServices = [0, 0, 0];
     let reportCount = [0, 0];
-    let committeeReport = [0, 0];
-
-
-    if (user_count && e_services && committee_report_count && committee_report) {
+    let committeeReport = [0, 0, 0];
+    if (stats.hasOwnProperty('user_count')) {
       userCount = [user_count];
-      eServices = Array.from(Object.values(e_services));      
+      eServices = Array.from(Object.values(e_services));
       reportCount = [general_report_count, committee_report_count]
       committeeReport = Array.from(Object.values(committee_report));
     }
-    console.log(stats)
+
     return (
       <React.Fragment>
         <NavBar AppData={this.props.AppData} history={this.props.history} />
@@ -47,13 +63,9 @@ export default class SuperadminStats extends Component {
           <div className="container">
             <div className="row justify-content-md-center">
               <div className="col-md-12">
-                <div className="search-view card">
+                <div className="superadmin-stats card">
                   <div className="card-body">
-                    <DropdownList
-                      data={regions}
-                      defaultValue={"National Capital Region"}
-                    />
-                    {/* <h4 className="card-title">Results for "{this.state.query}"</h4> */}
+                    <h4 className="card-title">Superadmin Dashboard</h4>
                     <div className="row justify-content-center">
                       <div className="col-sm-4">
                         <GradientDoughnut
@@ -86,6 +98,45 @@ export default class SuperadminStats extends Component {
                         />
                       </div>
                     </div>
+                    <div className="row justify-content-center">
+                      <div className="col-sm-4">
+                        <DropdownList
+                          data={regions}
+                          value={regionValue}
+                          onChange={(value) => this.handleRegionSelect(value)}
+                          selectIcon={<FontAwesomeIcon icon={faChevronDown} />}
+                        />
+                      </div>
+                      <div className="col-sm-4">
+                        <DropdownList
+                          data={provinces}
+                          value={provinceValue}
+                          onChange={(value) => this.handleProvinceSelect(value)}
+                          disabled={provinces.length === 0}
+                          selectIcon={<FontAwesomeIcon icon={faChevronDown} />}
+                        />
+                      </div>
+                    </div>
+                    <div className="row justify-content-center">
+                      <div className="col-sm-4">
+                        <DropdownList
+                          data={municipalities}
+                          value={municipalityValue}
+                          onChange={(value) => this.handleMunicipalitySelect(value)}
+                          disabled={municipalities.length === 0}
+                          selectIcon={<FontAwesomeIcon icon={faChevronDown} />}
+                        />
+                      </div>
+                      <div className="col-sm-4">
+                        <DropdownList
+                          data={barangays}
+                          value={barangayValue}
+                          onChange={(value) => this.handleBarangaySelect(value)}
+                          disabled={barangays.length === 0}
+                          selectIcon={<FontAwesomeIcon icon={faChevronDown} />}
+                        />
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -96,31 +147,144 @@ export default class SuperadminStats extends Component {
     );
   }
 
-  async getRegions() {
+  handleRegionSelect(region) {
+    if (region === 'Entire Philippines') {
+      this.getNationwide();
+    } else {
+      this.getRegion(region);
+    }
+    this.setState({
+      provinces: [],
+      municipalities: [],
+      barangays: [],
+      regionValue: region,
+      provinceValue: 'All Provinces',
+      municipalityValue: 'All Municipalities',
+      barangayValue: 'All Barangays'
+    });
+  }
+
+  handleProvinceSelect(province) {
+    if (province === 'All Provinces') {
+      this.getRegion(this.state.regionValue);
+    } else {
+      this.getProvince(this.state.regionValue, province);
+    }
+    this.setState({
+      municipalities: [],
+      barangays: [],
+      provinceValue: province,
+      municipalityValue: 'All Municipalities',
+      barangayValue: 'All Barangays'
+    });
+  }
+
+  handleMunicipalitySelect(municipality) {
+    if (municipality === 'All Municipalities') {
+      this.getProvince(this.state.regionValue, this.state.provinceValue);
+    } else {
+      this.getMunicipality(this.state.regionValue, this.state.provinceValue, municipality);
+    }
+    this.setState({
+      barangays: [],
+      municipalityValue: municipality,
+      barangayValue: 'All Barangays'
+    });
+  }
+
+  handleBarangaySelect(barangay) {
+    if (barangay === 'All Barangays') {
+      this.getMunicipality(this.state.regionValue, this.state.provinceValue, this.state.municipalityValue)
+      this.setState({
+        barangayValue: 'All Barangays'
+      });
+    } else {
+      this.getBarangay(this.state.regionValue, this.state.provinceValue, this.state.municipalityValue, barangay)
+      this.setState({ barangayValue: barangay });
+    }
+  }
+
+  async getNationwide() {
     try {
       const response = await getRegions();
-      const stats = response.data.data.counts.reduce((a, b) => ({
-        user_count: a.user_count + b.user_count,
-        general_report_count: a.general_report_count + b.general_report_count,
-        committee_report_count: a.committee_report_count + b.committee_report_count,
-        committee_report: {
-          complaint_count: a.committee_report.complaint_count + b.committee_report.complaint_count,
-          inquiry_count: a.committee_report.inquiry_count + b.committee_report.inquiry_count,
-          feedback_count: a.committee_report.feedback_count + b.committee_report.feedback_count
-        },
-        e_services: {
-          barangay_clearance_count: a.e_services.barangay_clearance_count + b.e_services.barangay_clearance_count,
-          business_permit_count: a.e_services.business_permit_count + b.e_services.business_permit_count,
-          katarungang_pambarangay_count: a.e_services.katarungang_pambarangay_count + b.e_services.katarungang_pambarangay_count,
-        }
-      }))
+      const stats = this.reduceStats(response);
       this.setState({
         stats: stats,
-        regions: response.data.data.items
+        regions: ['Entire Philippines', ...response.data.data.items],
       })
-
     } catch (e) {
-      console.log(e);
+      alert('An error occurred. Please try again.');
     }
+  }
+
+  async getRegion(region) {
+    try {
+      const response = await getProvinces(region);
+      const stats = this.reduceStats(response);
+      this.setState({
+        stats: stats,
+        provinces: ['All Provinces', ...response.data.data.items]
+      })
+    } catch (e) {
+      alert('An error occurred. Please try again.')
+    }
+  }
+
+  async getProvince(region, province) {
+    try {
+      const response = await getMunicipalities(region, province);
+      const stats = this.reduceStats(response);
+      this.setState({
+        stats: stats,
+        municipalities: ['All Municipalities', ...response.data.data.items]
+      })
+    } catch (e) {
+      alert('An error occurred. Please try again.')
+    }
+  }
+
+  async getMunicipality(region, province, municipality) {
+    try {
+      const response = await getBarangays(region, province, municipality);
+      const stats = this.reduceStats(response);
+      this.setState({
+        stats: stats,
+        barangays: ['All Barangays', ...response.data.data.items],
+      })
+    } catch (e) {
+      alert('An error occurred. Please try again.')
+    }
+  }
+
+  async getBarangay(region, province, municipality, barangay) {
+    try {
+      const response = await getBarangays(region, province, municipality);
+      const stats = response.data.data.counts.find((brgy) => brgy.name === barangay);
+      this.setState({
+        stats: stats,
+        barangayValue: barangay
+      })
+    } catch (e) {
+      alert('An error occurred. Please try again.')
+    }
+  }
+
+
+  reduceStats(response) {
+    return response.data.data.counts.reduce((a, b) => ({
+      user_count: a.user_count + b.user_count,
+      general_report_count: a.general_report_count + b.general_report_count,
+      committee_report_count: a.committee_report_count + b.committee_report_count,
+      committee_report: {
+        complaint_count: a.committee_report.complaint_count + b.committee_report.complaint_count,
+        inquiry_count: a.committee_report.inquiry_count + b.committee_report.inquiry_count,
+        feedback_count: a.committee_report.feedback_count + b.committee_report.feedback_count
+      },
+      e_services: {
+        barangay_clearance_count: a.e_services.barangay_clearance_count + b.e_services.barangay_clearance_count,
+        business_permit_count: a.e_services.business_permit_count + b.e_services.business_permit_count,
+        katarungang_pambarangay_count: a.e_services.katarungang_pambarangay_count + b.e_services.katarungang_pambarangay_count,
+      }
+    }));
   }
 }
