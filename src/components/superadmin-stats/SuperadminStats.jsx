@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
+import moment from 'moment';
 import NavBar from 'components/common/Nav/Bar';
 import { DropdownList } from 'react-widgets'
 import GradientDoughnut from './GradientDoughnut';
@@ -137,6 +138,11 @@ export default class SuperadminStats extends Component {
                         />
                       </div>
                     </div>
+                    <div className="row justify-content-center">
+                      <div className="col-sm-3">
+                        <button className="btn rounded" onClick={() => this.generateReport()}>Generate Report</button>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -206,7 +212,7 @@ export default class SuperadminStats extends Component {
 
   async getNationwide() {
     try {
-      const response = await getRegions();
+      const response = await getRegions(false);
       const stats = this.reduceStats(response);
       this.setState({
         stats: stats,
@@ -219,7 +225,7 @@ export default class SuperadminStats extends Component {
 
   async getRegion(region) {
     try {
-      const response = await getProvinces(region);
+      const response = await getProvinces(region, false);
       const stats = this.reduceStats(response);
       this.setState({
         stats: stats,
@@ -232,7 +238,7 @@ export default class SuperadminStats extends Component {
 
   async getProvince(region, province) {
     try {
-      const response = await getMunicipalities(region, province);
+      const response = await getMunicipalities(region, province, false);
       const stats = this.reduceStats(response);
       this.setState({
         stats: stats,
@@ -245,7 +251,7 @@ export default class SuperadminStats extends Component {
 
   async getMunicipality(region, province, municipality) {
     try {
-      const response = await getBarangays(region, province, municipality);
+      const response = await getBarangays(region, province, municipality, false);
       const stats = this.reduceStats(response);
       this.setState({
         stats: stats,
@@ -258,7 +264,7 @@ export default class SuperadminStats extends Component {
 
   async getBarangay(region, province, municipality, barangay) {
     try {
-      const response = await getBarangays(region, province, municipality);
+      const response = await getBarangays(region, province, municipality, false);
       const stats = response.data.data.counts.find((brgy) => brgy.name === barangay);
       this.setState({
         stats: stats,
@@ -266,6 +272,63 @@ export default class SuperadminStats extends Component {
       })
     } catch (e) {
       alert('An error occurred. Please try again.')
+    }
+  }
+
+  async generateReport() {
+    const { regionValue, provinceValue, municipalityValue, provinces, municipalities, barangays } = this.state;
+    if (regionValue === 'Entire Philippines' && provinces.length === 0 && municipalities.length === 0 && barangays.length === 0) {
+      try {
+        const date = moment().format('YYYYMMDD')
+        const response = await getRegions(true);
+        const data = new Blob([response.data], { type: 'text/csv' });
+        const csvURL = window.URL.createObjectURL(data);
+        const a = document.createElement("a");
+        a.href = csvURL;
+        a.download = `Nationwide-Report-${date}.csv`;
+        a.click();
+      } catch (e) {
+        alert('An error occurred. Please try again.');
+      }
+    } else if (regionValue !== 'Entire Philippines' && provinces.length !== 0 && municipalities.length === 0 && barangays.length === 0) {
+      try {
+        const date = moment().format('YYYYMMDD')
+        const response = await getProvinces(regionValue, true);
+        const data = new Blob([response.data], { type: 'text/csv' });
+        const csvURL = window.URL.createObjectURL(data);
+        const a = document.createElement("a");
+        a.href = csvURL;
+        a.download = `Regional-Report-${date}.csv`;
+        a.click();
+      } catch (e) {
+        alert('An error occurred. Please try again.');
+      }
+    } else if (regionValue !== 'Entire Philippines' && provinces.length !== 0 && municipalities.length !== 0 && barangays.length === 0) {
+      try {
+        const date = moment().format('YYYYMMDD')
+        const response = await getMunicipalities(regionValue, provinceValue, true);
+        const data = new Blob([response.data], { type: 'text/csv' });
+        const csvURL = window.URL.createObjectURL(data);
+        const a = document.createElement("a");
+        a.href = csvURL;
+        a.download = `Provincial-Report-${date}.csv`;
+        a.click();
+      } catch (e) {
+        alert('An error occurred. Please try again.');
+      }
+    } else if (regionValue !== 'Entire Philippines' && provinces.length !== 0 && municipalities.length !== 0 && barangays.length !== 0) {
+      try {
+        const date = moment().format('YYYYMMDD')
+        const response = await getBarangays(regionValue, provinceValue, municipalityValue, true);
+        const data = new Blob([response.data], { type: 'text/csv' });
+        const csvURL = window.URL.createObjectURL(data);
+        const a = document.createElement("a");
+        a.href = csvURL;
+        a.download = `Municipality-Report-${date}.csv`;
+        a.click();
+      } catch (e) {
+        alert('An error occurred. Please try again.');
+      }
     }
   }
 
