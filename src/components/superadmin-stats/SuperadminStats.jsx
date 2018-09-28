@@ -4,6 +4,7 @@ import moment from 'moment';
 import NavBar from 'components/common/Nav/Bar';
 import { DropdownList } from 'react-widgets'
 import GradientDoughnut from './GradientDoughnut';
+import ActivityLogTable from './ActivityLogTable';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import faChevronDown from '@fortawesome/fontawesome-free-solid/faChevronDown'
 import { getRegions, getProvinces, getMunicipalities, getBarangays } from 'services/SignupService';
@@ -64,18 +65,18 @@ export default class SuperadminStats extends Component {
           <div className="container">
             <div className="row justify-content-md-center">
               <div className="col-md-12">
-                <div className="superadmin-stats card">
+                <div className="superadmin card">
                   <div className="card-body">
-                    <h4 className="card-title">Superadmin Dashboard</h4>
+                    <h4 className="card-title">B2P Statistics</h4>
                     <div className="row justify-content-center">
-                      <div className="col-sm-4">
+                      <div className="col-md-4">
                         <GradientDoughnut
                           inputData={userCount}
                           labels={['Users']}
                           title="Users"
                         />
                       </div>
-                      <div className="col-sm-4">
+                      <div className="col-md-4">
                         <GradientDoughnut
                           inputData={eServices}
                           labels={['B. Clearance', 'B. Permit', 'K. Pambarangay']}
@@ -84,7 +85,7 @@ export default class SuperadminStats extends Component {
                       </div>
                     </div>
                     <div className="row justify-content-center">
-                      <div className="col-sm-4">
+                      <div className="col-md-4">
                         <GradientDoughnut
                           inputData={reportCount}
                           labels={['General', 'Committee']}
@@ -100,7 +101,7 @@ export default class SuperadminStats extends Component {
                       </div>
                     </div>
                     <div className="row justify-content-center">
-                      <div className="col-sm-4">
+                      <div className="col-md-4">
                         <DropdownList
                           data={regions}
                           value={regionValue}
@@ -108,7 +109,7 @@ export default class SuperadminStats extends Component {
                           selectIcon={<FontAwesomeIcon icon={faChevronDown} />}
                         />
                       </div>
-                      <div className="col-sm-4">
+                      <div className="col-md-4">
                         <DropdownList
                           data={provinces}
                           value={provinceValue}
@@ -119,7 +120,7 @@ export default class SuperadminStats extends Component {
                       </div>
                     </div>
                     <div className="row justify-content-center">
-                      <div className="col-sm-4">
+                      <div className="col-md-4">
                         <DropdownList
                           data={municipalities}
                           value={municipalityValue}
@@ -128,7 +129,7 @@ export default class SuperadminStats extends Component {
                           selectIcon={<FontAwesomeIcon icon={faChevronDown} />}
                         />
                       </div>
-                      <div className="col-sm-4">
+                      <div className="col-md-4">
                         <DropdownList
                           data={barangays}
                           value={barangayValue}
@@ -141,6 +142,20 @@ export default class SuperadminStats extends Component {
                     <div className="row justify-content-center">
                       <div className="col-sm-3">
                         <button className="btn rounded" onClick={() => this.generateReport()}>Generate Report</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="row justify-content-md-center">
+              <div className="col-md-12">
+                <div className="superadmin card">
+                  <div className="card-body">
+                    <h4 className="activity-log card-title">Activity Logs</h4>
+                    <div className="row">
+                      <div className="col-sm-12">
+                        <ActivityLogTable />
                       </div>
                     </div>
                   </div>
