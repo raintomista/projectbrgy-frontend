@@ -10,6 +10,8 @@ import './App.less';
 /*----------------- Router Views -----------------*/
 import Login from 'containers/Login';
 import DashboardView from 'components/dashboard/View';
+import AuthenticateView from 'components/authenticate/AuthenticateView';
+
 import SignupView from 'components/signup/SignupView';
 // import SignupView from 'containers/SignUp';
 
@@ -50,6 +52,11 @@ export default class App extends Component {
             exact={true}
             path='/sign-up'
             render={(props) => <SignupView {...props} />}
+          />
+          <Route
+            exact={true}
+            path='/auth'
+            render={(props) => <AuthenticateView {...props} />}
           />
           <Route
             exact={true}

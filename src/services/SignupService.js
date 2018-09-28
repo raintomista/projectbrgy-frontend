@@ -47,6 +47,11 @@ export function getUser(token) {
     });
 }
 
+
+export function auth(token) {
+    return axios.get(`${API_HOST}/auth/verify-user-registration/${token}`);
+}
+
 export function createUser(user) {
     return axios.post(`${API_HOST}/users`, user);
 }
