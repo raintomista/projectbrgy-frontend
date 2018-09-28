@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Carousel, CarouselItem, CarouselIndicators } from 'reactstrap';
+import './SignUpSlider.less';
 
 const items = [
     { src: 'images/signup-slider1.png' },

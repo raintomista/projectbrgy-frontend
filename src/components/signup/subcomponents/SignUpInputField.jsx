@@ -1,26 +1,24 @@
 import React from 'react';
+import { observer } from 'mobx-react';
 
-export const SignUpInputField = (props) => {
-  const { required, touched, errors } = props;
+export const SignUpInputField = observer((props) => {
 
   return (
     <div>
       <div className="inline-fluid form-group">
-        <label htmlFor={props.name}>{props.label}</label>
+        <label htmlFor={props.name}>
+          {props.label}
+          {props.required && <span className="required"> * </span>}
+        </label>
         <input
-          type={props.type}
-          className="form-control"
+          className={`form-control ${props.field.error ? 'invalid' : ''}`}
           name={props.name}
-          onChange={props.handleChange}
-          onBlur={props.handleBlur}
-          value={props.value}
-          disabled={props.disabled}
+          {...props.field.bind({ type: props.type })}
         />
       </div>
-      { required ? touched && errors && <div>{errors}</div> : errors && <div>{errors}</div> }
     </div>
   );
-}
+});
 
 export const UncontrolledSignUpInputField = (props) => {
   return (

@@ -9,8 +9,10 @@ import './App.less';
 
 /*----------------- Router Views -----------------*/
 import Login from 'containers/Login';
-import SignUp from 'containers/SignUp';
 import DashboardView from 'components/dashboard/View';
+import SignupView from 'components/signup/SignupView';
+// import SignupView from 'containers/SignUp';
+
 import ViewPostById from 'components/view-post-by-id/View';
 import BrgyPage from 'containers/BrgyPage';
 import Profile from 'containers/Profile';
@@ -44,7 +46,11 @@ export default class App extends Component {
       <Router>
         <Switch>
           <Route exact={true} path='/login' component={Login} />
-          <Route exact={true} path='/sign-up' component={SignUp} />
+          <Route
+            exact={true}
+            path='/sign-up'
+            render={(props) => <SignupView {...props} />}
+          />
           <Route
             exact={true}
             path='/dashboard'
