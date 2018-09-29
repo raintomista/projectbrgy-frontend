@@ -1,28 +1,29 @@
 import React, { Component } from 'react';
 import { Carousel, CarouselItem, CarouselIndicators } from 'reactstrap';
+import SliderIcon from 'assets/images/in-the-loop.png';
 
 const items = [
   {
     src: '1',
-    icon: 'images/in-the-loop.png',
+    icon: SliderIcon,
     header: 'Be in the loop',
     subheader: 'Stay updated with the current <br /> projects, issues, updates and events <br /> in your barangay.'
   },
   {
     src: '2',
-    icon: 'images/in-the-loop.png',
+    icon: SliderIcon,
     header: 'Be in the loop 1',
     subheader: 'Stay updated with the current <br /> projects, issues, updates and events <br /> in your barangay.'
   },
   {
     src: '3',
-    icon: 'images/in-the-loop.png',
+    icon: SliderIcon,
     header: 'Be in the loop 2',
     subheader: 'Stay updated with the current <br /> projects, issues, updates and events <br /> in your barangay.'
   },
   {
     src: '4',
-    icon: 'images/in-the-loop.png',
+    icon: SliderIcon,
     header: 'Be in the loop 3',
     subheader: 'Stay updated with the current <br /> projects, issues, updates and events <br /> in your barangay.'
   }

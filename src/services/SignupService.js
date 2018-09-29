@@ -57,9 +57,13 @@ export function createUser(user) {
 }
 
 export function loginUser(email, password) {
-    return axios.post(`${API_HOST}/auth/sign-in`, {
-        email,
-        password
+    return axios({
+        url: `${API_HOST}/auth/sign-in`,
+        method: 'post',
+        data: {
+            email,
+            password
+        }
     });
 }
 

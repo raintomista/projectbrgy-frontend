@@ -8,9 +8,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.less';
 
 /*----------------- Router Views -----------------*/
-import Login from 'containers/Login';
+import Login from 'components/login/Login';
 import DashboardView from 'components/dashboard/View';
 import AuthenticateView from 'components/authenticate/AuthenticateView';
+import ForgotView from 'components/forgot-password/ForgotView';
+
 
 import SignupView from 'components/signup/SignupView';
 // import SignupView from 'containers/SignUp';
@@ -47,7 +49,11 @@ export default class App extends Component {
     return (
       <Router>
         <Switch>
-          <Route exact={true} path='/login' component={Login} />
+          <Route
+            exact={true}
+            path='/login'
+            render={(props) => <Login {...props} />}
+          />
           <Route
             exact={true}
             path='/sign-up'
@@ -57,6 +63,11 @@ export default class App extends Component {
             exact={true}
             path='/auth'
             render={(props) => <AuthenticateView {...props} />}
+          />
+          <Route
+            exact={true}
+            path='/forgot'
+            render={(props) => <ForgotView {...props} />}
           />
           <Route
             exact={true}
