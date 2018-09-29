@@ -12,6 +12,8 @@ import Login from 'components/login/Login';
 import DashboardView from 'components/dashboard/View';
 import AuthenticateView from 'components/authenticate/AuthenticateView';
 import ResetView from 'components/reset/ResetView';
+import ForgotView from 'components/forgot/ForgotView';
+
 
 
 import SignupView from 'components/signup/SignupView';
@@ -61,6 +63,11 @@ export default class App extends Component {
             exact={true}
             path='/auth'
             render={(props) => <AuthenticateView {...props} />}
+          />
+          <Route
+            exact={true}
+            path='/forgot-password'
+            render={(props) => <ForgotView {...props} />}
           />
           <Route
             exact={true}
