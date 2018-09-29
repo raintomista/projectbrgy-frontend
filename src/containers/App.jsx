@@ -11,12 +11,10 @@ import './App.less';
 import Login from 'components/login/Login';
 import DashboardView from 'components/dashboard/View';
 import AuthenticateView from 'components/authenticate/AuthenticateView';
-import ForgotView from 'components/forgot-password/ForgotView';
+import ResetView from 'components/reset/ResetView';
 
 
 import SignupView from 'components/signup/SignupView';
-// import SignupView from 'containers/SignUp';
-
 import ViewPostById from 'components/view-post-by-id/View';
 import BrgyPage from 'containers/BrgyPage';
 import Profile from 'containers/Profile';
@@ -66,8 +64,8 @@ export default class App extends Component {
           />
           <Route
             exact={true}
-            path='/forgot'
-            render={(props) => <ForgotView {...props} />}
+            path='/reset'
+            render={(props) => <ResetView {...props} />}
           />
           <Route
             exact={true}
