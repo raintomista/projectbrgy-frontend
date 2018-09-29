@@ -139,6 +139,7 @@ export default class SignupView extends Component {
                         name="barangay_captain"
                         label="Barangay Captain"
                         field={this.form.$('barangay_captain')}
+                        disabled={true}
                         required
                       />
                       <SignUpInputField
@@ -146,6 +147,7 @@ export default class SignupView extends Component {
                         name="barangay_address"
                         label="Barangay Address"
                         field={this.form.$('barangay_address')}
+                        disabled={true}
                         required
                       />
                     </div>
@@ -295,9 +297,7 @@ export default class SignupView extends Component {
       const response = await getBarangayDetails(region, province, municipality, barangay, false);
       this.form.$('barangay_id').set('value', response.data.data.id);
       this.form.$('barangay_captain').set('value', response.data.data.captain);
-      this.form.$('barangay_captain').set('disabled', false);
       this.form.$('barangay_address').set('value', response.data.data.office_address_street);
-      this.form.$('barangay_address').set('disabled', false);
     } catch (e) {
       alert('An error occurred. Please try again.')
     }
