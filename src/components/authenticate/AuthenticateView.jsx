@@ -9,7 +9,7 @@ export default class AuthenticateView extends Component {
     const parsedQuery = queryString.parse(searchQuery);
     try {
       await auth(parsedQuery.token);
-      alert('You have successfully authenticated your account.')
+      alert('You have successfully confirmed your account.')
     } catch (e) {
       alert('The token provided is invalid or has already expired.')
     }

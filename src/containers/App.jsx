@@ -61,7 +61,7 @@ export default class App extends Component {
           />
           <Route
             exact={true}
-            path='/auth'
+            path='/confirm'
             render={(props) => <AuthenticateView {...props} />}
           />
           <Route
