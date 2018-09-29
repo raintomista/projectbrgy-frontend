@@ -43,13 +43,13 @@ export default class Login extends Component {
                   field={this.form.$('password')}
                 />
                 <div className="forgot-password-login">
-                  <a href="">Forgot Password?</a>
+                  <Link to='/forgot-password'>Forgot Password?</Link>
                   <button type="submit" className="btn rounded">Log-in</button>
                 </div>
               </form>
               <div className="d-flex justify-content-center">
                 <div className="sign-up">
-                  <label>Don't have an account yet?</label>
+                  <Link to='/sign-up'>Don't have an account yet?</Link>
                   <Link to='/sign-up'><button className="btn rounded">Sign-up</button></Link>
                 </div>
               </div>

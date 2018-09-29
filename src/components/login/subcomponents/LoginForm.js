@@ -51,7 +51,10 @@ export default class LoginForm extends MobxReactForm {
             alert('The email you’ve entered doesn’t match any account.')
           } else if (error.code === 'LOG_FAIL' && error.context === 'Incorrect Password') {
             alert('The password you’ve entered is incorrect.');
-          } else {
+          } else if(error.code === 'INVALID_ACTION') {
+            alert('Please check your email to activate your account.');
+          }
+          else {
             alert('An error occurred. Please try again.');
           }
         }
