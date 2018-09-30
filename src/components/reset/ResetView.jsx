@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { observer } from 'mobx-react';
 import queryString from 'query-string';
 
 import ResetForm from './subcomponents/ResetForm';
@@ -13,6 +14,7 @@ import LogoDOST from 'assets/images/DOST.jpg';
 
 import './ResetView.less';
 
+@observer
 export default class ResetView extends Component {
   constructor(props) {
     super(props);
@@ -29,7 +31,7 @@ export default class ResetView extends Component {
       <div className="content">
         <div className="row">
           <LoginSlider />
-          <div className="col-md-8 d-flex login-form forgot-form">
+          <div className="col-md-8 d-flex login-form reset-form">
             <div className="container align-self-center">
               <h1>Reset Password</h1>
               <form onSubmit={this.form.onSubmit}>
@@ -39,7 +41,7 @@ export default class ResetView extends Component {
                       type="password"
                       name="new-password"
                       label="New Password"
-                      field={this.form.$('new_password')}
+                      field={this.form.$('new_password_confirmation')}
                     />
                   </div>
                 </div>
@@ -49,14 +51,20 @@ export default class ResetView extends Component {
                       type="password"
                       name="confirm-password"
                       label="Confirm New Password"
-                      field={this.form.$('new_password_confirmation')}
+                      field={this.form.$('new_password')}
                     />
                   </div>
                 </div>
                 <div className="row justify-content-center">
                   <div className="col-md-8">
                     <div className=" d-flex justify-content-center">
-                      <button type="submit" className="btn rounded">Reset</button>
+                      <button 
+                        type="submit" 
+                        className="btn rounded" 
+                        disabled={this.form.$('new_password').disabled}
+                      >
+                        Reset
+                      </button>
                     </div>
                   </div>
                 </div>

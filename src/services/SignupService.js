@@ -75,3 +75,25 @@ export function signOutUser() {
         }
     });
 }
+
+
+export function forgotPassword(email) {
+    return axios({
+        url: `${API_HOST}/auth/forgot-password`,
+        method: 'post',
+        data: {
+            email
+        }
+    });
+}
+
+export function resetPassword(verify_code, new_password) {
+    return axios({
+        url: `${API_HOST}/auth/update-password`,
+        method: 'post',
+        data: {
+            verify_code,
+            new_password
+        }
+    });
+}
