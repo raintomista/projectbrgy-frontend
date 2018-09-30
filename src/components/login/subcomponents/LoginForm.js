@@ -40,21 +40,23 @@ export default class LoginForm extends MobxReactForm {
         } = form.values();
         try {
           const response = await loginUser(email, password);
-          if (response.data.data.role === 'superadmin') {
-            this.history.push('/superadmin');
-          } else {
-            this.history.push('/dashboard');
-          }
+          localStorage.setItem('x-access-token', response.data.data.token);
+          setTimeout(() => {
+            if (response.data.data.role === 'superadmin') {
+              this.history.push('/superadmin');
+            } else {
+              this.history.push('/dashboard');
+            }
+          }, 100);
         } catch (e) {
           const error = e.response.data.errors[0];
           if (error.code === 'INC_DATA' || (error.code === 'LOG_FAIL' && error.context === 'Invalid Email')) {
             alert('The email you’ve entered doesn’t match any account.')
           } else if (error.code === 'LOG_FAIL' && error.context === 'Incorrect Password') {
             alert('The password you’ve entered is incorrect.');
-          } else if(error.code === 'INVALID_ACTION') {
+          } else if (error.code === 'INVALID_ACTION') {
             alert('Please check your email to activate your account.');
-          }
-          else {
+          } else {
             alert('An error occurred. Please try again.');
           }
         }
