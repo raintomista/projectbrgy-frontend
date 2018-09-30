@@ -44,7 +44,7 @@ import NotFound404 from 'components/not-found/NotFound404';
 /*----------------- E-Services Views -----------------*/
 import EServicesView from 'components/e-services/View';
 
-@inject('AppData', 'BrgyPageStore', 'DashboardStore', 'UserProfileStore')
+@inject('AppData', 'BrgyPageStore', 'DashboardStore', 'MessagingStore', 'UserProfileStore')
 @observer
 export default class App extends Component {
   render() {
@@ -69,8 +69,14 @@ export default class App extends Component {
 
           <Route
             exact={true}
-            path='/messages'
-            render={(props) => <MessagesView {...props} AppData={this.props.AppData} />}
+            path='/messages/:id'
+            render={(props) => (
+              <MessagesView
+                {...props}
+                AppData={this.props.AppData}
+                MessagingStore={this.props.MessagingStore}
+              />
+            )}
           />
           <Route
             exact={true}

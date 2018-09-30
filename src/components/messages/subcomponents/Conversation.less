@@ -11,25 +11,36 @@
             text-align: center;
         }
     }
-
     .messages {
         height: calc(100vh - 60px - 55px - 61px);
-
-        .message {
-            background-color: #e4e4e4;
-            border-radius: 50px;
-            margin-bottom: 10px;
-            max-width: max-content;
-            padding: 5px 10px;
+        padding: 0px 20px;
+        .message-container {
+            display: flex;
+            justify-content: flex-end;
+            .message {
+                text-align: right;
+                background-color: #2a8abd;
+                color: white;
+                border-radius: 50px;
+                margin-bottom: 10px;
+                max-width: max-content;
+                padding: 5px 10px;
+            }
         }
+        .received.message-container {
+            justify-content: flex-start;
+            .message {
+                background-color: #e4e4e4;
+                color: black;
+            }
+        }
+        .received.message {}
     }
-
     .message-box {
         border: 1px solid gainsboro;
         border-bottom: 0px;
         border-left: 0px;
         padding: 15px;
-
         input {
             width: 100%;
         }
