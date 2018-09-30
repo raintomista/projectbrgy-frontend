@@ -6,6 +6,7 @@ import './MessagesView.less';
 
 
 export default class MessagesView extends Component {
+
   render() {
     const { AppData, history } = this.props;
     return (
