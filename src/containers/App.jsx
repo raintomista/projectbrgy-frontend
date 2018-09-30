@@ -13,6 +13,8 @@ import DashboardView from 'components/dashboard/View';
 import AuthenticateView from 'components/authenticate/AuthenticateView';
 import ResetView from 'components/reset/ResetView';
 import ForgotView from 'components/forgot/ForgotView';
+import MessagesView from 'components/messages/MessagesView';
+
 
 
 
@@ -63,6 +65,12 @@ export default class App extends Component {
             exact={true}
             path='/confirm'
             render={(props) => <AuthenticateView {...props} />}
+          />
+
+          <Route
+            exact={true}
+            path='/messages'
+            render={(props) => <MessagesView {...props} AppData={this.props.AppData} />}
           />
           <Route
             exact={true}

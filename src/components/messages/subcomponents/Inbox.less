@@ -1,0 +1,44 @@
+.messaging-inbox {
+    // background-color: rgb(214, 214, 214);
+    height: 100%;
+    .header {
+        border: 1px solid gainsboro;
+        border-top: 0px;
+        padding: 15px;
+        h5 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            margin: 0px;
+            text-align: center;
+        }
+    }
+
+    .messages {
+        border: 1px solid gainsboro;
+        border-top: 0px;
+        border-bottom: 0px;
+        height: calc(100vh - 60px - 56px);
+        overflow-y: scroll;
+    }
+    .message {
+        padding: 15px;
+        .author {
+            display: flex;
+            justify-content: space-between;
+            font-family: 'Lato', sans-serif;
+            .author-name {
+                font-size: 16px;
+                margin: 0px;
+            }
+            .timestamp {
+                color: gray;
+                font-size: 14px;
+            }
+        }
+        .recent-message {
+            color: gray;
+            font-family: 'Lato', sans-serif;
+            font-size: 15px;
+        }
+    }
+}

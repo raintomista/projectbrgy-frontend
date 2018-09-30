@@ -56,6 +56,7 @@
     "react-widgets": "^4.4.4",
     "reactstrap": "^6.1.0",
     "resolve": "1.6.0",
+    "socket.io-client": "^2.1.1",
     "sw-precache-webpack-plugin": "0.11.4",
     "url-loader": "0.6.2",
     "validatorjs": "^3.14.2",
