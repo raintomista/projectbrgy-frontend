@@ -12,6 +12,18 @@ import './Conversation.less';
 
 @observer
 export default class Conversation extends Component {
+  async componentWillMount() {
+    await RootStore.MessagingStore.initConversation(this.scroll);
+    await this.props.MessagingStore.getUserDetails(this.props.receiverId);
+  }
+
+  async componentWillReceiveProps(nextProp) {
+    if (this.props.receiverId !== nextProp.receiverId) {
+      await RootStore.MessagingStore.initConversation(this.scroll);
+      await this.props.MessagingStore.getUserDetails(this.props.receiverId);
+    }
+  }
+
   componentDidMount() {
     setTimeout(() => {
       this.props.handleListen((message) => this.handleListen(message));
@@ -59,6 +71,7 @@ export default class Conversation extends Component {
             useWindow={false}
             isReverse={true}
             threshold={10}
+            ref={(scroll) => { this.scroll = scroll; }}
           >
             {items}
           </InfiniteScroll>
@@ -82,7 +95,7 @@ export default class Conversation extends Component {
   }
 
   async loadMore(page) {
-    RootStore.MessagingStore.getConversationMessages(page, this.props.receiverId);
+    RootStore.MessagingStore.getConversationMessages(page, this.props.receiverId, this.props.history);
 
     if (!RootStore.MessagingStore.hasScrolled) {
       this.scrollToBottom()

@@ -66,7 +66,17 @@ export default class App extends Component {
             path='/confirm'
             render={(props) => <AuthenticateView {...props} />}
           />
-
+          <Route
+            exact={true}
+            path='/messages'
+            render={(props) => (
+              <MessagesView
+                {...props}
+                AppData={this.props.AppData}
+                MessagingStore={this.props.MessagingStore}
+              />
+            )}
+          />
           <Route
             exact={true}
             path='/messages/:id'

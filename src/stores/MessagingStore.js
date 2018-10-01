@@ -27,6 +27,24 @@ export default class MessagingStore {
     @observable inbox = [];
 
     @action
+    initConversation(scroll) {
+        this.page = 1;
+        this.limit = 25;
+        this.skip = 0;
+        this.hasScrolled = false;
+        this.hasMore = true;
+        this.messages = [];
+        this.inputDisabled = false;
+        this.inputValue = '';
+        this.user = null;
+
+        if (scroll) {
+            console.log(this.hasScrolled)
+            scroll.pageLoaded = 0;
+        }
+    }
+
+    @action
     async getUserDetails(id) {
         try {
             const response = await getUserById(id);
@@ -40,23 +58,18 @@ export default class MessagingStore {
                     user_last_name
                 }
             });
-        } catch (e) {
-
-        }
+        } catch (e) {}
     }
 
     @action
     async getInbox() {
         try {
             const response = await getInbox(this.page, this.limit);
-            console.log(response)
-            setTimeout(() => {
-                runInAction(() => {
-                    const inbox = this.inbox.slice();
-                    inbox.push(...response.data.data.items);
-                    this.inbox = inbox;
-                });
-            }, 1000);
+            runInAction(() => {
+                const inbox = this.inbox.slice();
+                inbox.push(...response.data.data.items);
+                this.inbox = inbox;
+            });
         } catch (e) {
 
         }
@@ -64,22 +77,29 @@ export default class MessagingStore {
 
 
     @action
-    async getConversationMessages(page, id) {
+    async getConversationMessages(page, id, history) {
         try {
             const response = await getMessagesById(id, page, this.limit, this.order, this.skip);
-            setTimeout(() => {
-                runInAction(() => {
-                    const messages = this.messages.slice();
-                    messages.push(...response.data.data.items);
-                    this.messages = messages;
-                    this.page = page + 1;
-                });
-            }, 1000);
-
-        } catch (e) {
             runInAction(() => {
-                this.hasMore = false;
+                const messages = this.messages.slice();
+                messages.push(...response.data.data.items);
+                this.messages = messages;
+                this.page = page + 1;
             });
+        } catch (e) {
+            const error = e.response.data.errors[0];
+            if (error.code === 'ZERO_RES') {
+                runInAction(() => {
+                    this.hasMore = false;
+                });
+            } else {
+                runInAction(() => {
+                    this.messages = [];
+                    this.hasMore = false;
+                    history.push('/messages');
+                    alert('Sorry, this user is not available.');
+                });
+            }
         }
     }
 

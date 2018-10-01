@@ -9,7 +9,6 @@ export default class Inbox extends Component {
 
   render() {
     const { inbox } = this.props.MessagingStore;
-    console.log(inbox)
     const items = inbox.map((message, index) => (
       <Message
         authorId={message.message_sender_id}
