@@ -20,7 +20,7 @@ export default class Conversation extends Component {
   async componentWillReceiveProps(nextProp) {
     if (this.props.receiverId !== nextProp.receiverId) {
       await RootStore.MessagingStore.initConversation(this.scroll);
-      await this.props.MessagingStore.getUserDetails(this.props.receiverId);
+      await this.props.MessagingStore.setUserDetails(this.props.history.location.state);
     }
   }
 
@@ -58,7 +58,7 @@ export default class Conversation extends Component {
       <div className="messaging-conversation">
         <div className="header">
           {user && (
-            <h5>{user.user_first_name} {user.user_last_name}</h5>
+            <h5>{user.authorName}</h5>
           )}
         </div>
         <div className="messages" id="messages" onScroll={(e) => this.handleScroll(e)}>

@@ -39,7 +39,6 @@ export default class MessagingStore {
         this.user = null;
 
         if (scroll) {
-            console.log(this.hasScrolled)
             scroll.pageLoaded = 0;
         }
     }
@@ -54,11 +53,17 @@ export default class MessagingStore {
             } = response.data.data;
             runInAction(() => {
                 this.user = {
-                    user_first_name,
-                    user_last_name
+                    authorName: `${user_first_name} ${user_last_name}`
                 }
             });
-        } catch (e) {}
+        } catch (e) {
+
+        }
+    }
+    
+    @action
+    setUserDetails(user) {
+        this.user = user;
     }
 
     @action
