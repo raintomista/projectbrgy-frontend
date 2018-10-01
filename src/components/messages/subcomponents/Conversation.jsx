@@ -7,7 +7,6 @@ import faPaperPlane from '@fortawesome/fontawesome-free-solid/faPaperPlane'
 import { observer } from 'mobx-react';
 import moment from 'moment';
 
-
 import RootStore from 'stores/RootStore';
 import './Conversation.less';
 
@@ -25,7 +24,8 @@ export default class Conversation extends Component {
       inputValue,
       pageStart,
       hasMore,
-      messages
+      messages,
+      user
     } = RootStore.MessagingStore;
 
     const items = [];
@@ -45,9 +45,11 @@ export default class Conversation extends Component {
     return (
       <div className="messaging-conversation">
         <div className="header">
-          <h5>Juan Dela Cruz</h5>
+          {user && (
+            <h5>{user.user_first_name} {user.user_last_name}</h5>
+          )}
         </div>
-        <div className="messages" id="messages">
+        <div className="messages" id="messages" onScroll={(e) => this.handleScroll(e)}>
           <InfiniteScroll
             pageStart={pageStart}
             loadMore={(page) => this.loadMore(page)}
@@ -81,8 +83,9 @@ export default class Conversation extends Component {
 
   async loadMore(page) {
     RootStore.MessagingStore.getConversationMessages(page, this.props.receiverId);
-    if (page < 3) {
-      this.scrollToBottom();
+
+    if (!RootStore.MessagingStore.hasScrolled) {
+      this.scrollToBottom()
     }
   }
 
@@ -103,6 +106,10 @@ export default class Conversation extends Component {
         this.scrollToBottom();
       }
     }
+  }
+
+  handleScroll(e) {
+    this.props.MessagingStore.setScrolled(true);
   }
 
   async handleSubmit(e) {

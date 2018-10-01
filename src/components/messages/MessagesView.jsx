@@ -19,6 +19,7 @@ export default class MessagesView extends Component {
 
   async componentWillMount() {
     await this.props.AppData.getUserDetails();
+    await this.props.MessagingStore.getUserDetails(this.props.match.params.id);
     this.connect();
   }
   render() {

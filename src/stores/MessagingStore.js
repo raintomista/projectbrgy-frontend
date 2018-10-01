@@ -8,6 +8,7 @@ import {
 
 import {
     getMessagesById,
+    getUserById,
     sendMessage
 } from 'services/MessagingService';
 
@@ -16,10 +17,31 @@ export default class MessagingStore {
     @observable limit = 25;
     @observable order = 'desc';
     @observable skip = 0;
+    @observable hasScrolled = false;
     @observable hasMore = true;
     @observable messages = [];
     @observable inputDisabled = false;
     @observable inputValue = '';
+    @observable user = null;
+
+    @action
+    async getUserDetails(id) {
+        try {
+            const response = await getUserById(id);
+            const {
+                user_first_name,
+                user_last_name
+            } = response.data.data;
+            runInAction(() => {
+                this.user = {
+                    user_first_name,
+                    user_last_name
+                }
+            });
+        } catch (e) {
+
+        }
+    }
 
     @action
     async getConversationMessages(page, id) {
@@ -44,6 +66,11 @@ export default class MessagingStore {
     @action
     inputChange(message) {
         this.inputValue = message;
+    }
+
+    @action
+    setScrolled(hasScrolled) {
+        this.hasScrolled = hasScrolled;
     }
 
     @action
