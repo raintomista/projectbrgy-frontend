@@ -2,7 +2,11 @@ import React, { Component } from 'react';
 import { animateScroll } from "react-scroll";
 import InfiniteScroll from 'react-infinite-scroller';
 
+import FontAwesomeIcon from '@fortawesome/react-fontawesome'
+import faPaperPlane from '@fortawesome/fontawesome-free-solid/faPaperPlane'
 import { observer } from 'mobx-react';
+import moment from 'moment';
+
 
 import RootStore from 'stores/RootStore';
 import './Conversation.less';
@@ -31,7 +35,7 @@ export default class Conversation extends Component {
           className={`message-container ${msg.sender_id === this.props.receiverId ? 'received' : ''}`}
           key={msg.id}
         >
-          <div className="message" >
+          <div className="message" title={moment(msg.date_created).format('MMM DD, YYYY hh:mm:ss a')}>
             {msg.message}
           </div>
         </div>
@@ -57,15 +61,20 @@ export default class Conversation extends Component {
             {items}
           </InfiniteScroll>
         </div>
-        <div className="message-box">
+        <form onSubmit={(e) => this.handleSubmit(e)} className="message-box">
           <input type="text"
-            onKeyPress={(e) => this.handleEnter(e)}
+            name="message"
             onChange={(e) => this.handleChange(e)}
             value={inputValue}
             placeholder="Type a message..."
             disabled={inputDisabled}
+            maxLength={200}
+            autoComplete="off"
           />
-        </div>
+          <button type="submit" disabled={inputDisabled} title="Send">
+            <FontAwesomeIcon icon={faPaperPlane} />
+          </button>
+        </form>
       </div>
     );
   }
@@ -93,6 +102,17 @@ export default class Conversation extends Component {
         await this.props.MessagingStore.sendMsg(message, receiverId, handleSendMessage);
         this.scrollToBottom();
       }
+    }
+  }
+
+  async handleSubmit(e) {
+    e.preventDefault();
+    e.persist();
+    const message = e.target.message.value.trim();
+    const { receiverId, handleSendMessage } = this.props;
+    if (message.length > 0) {
+      await this.props.MessagingStore.sendMsg(message, receiverId, handleSendMessage);
+      this.scrollToBottom();
     }
   }
 

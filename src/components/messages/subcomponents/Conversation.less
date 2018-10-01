@@ -13,37 +13,65 @@
     }
     .messages {
         height: calc(100vh - 60px - 55px - 61px);
-        overflow:auto;
-        
+        overflow: auto;
         .message-container {
             display: flex;
             justify-content: flex-end;
             .message {
-                text-align: right;
                 background-color: #2a8abd;
                 color: white;
-                border-radius: 50px;
-                margin-bottom: 10px;
-                max-width: max-content;
-                padding: 5px 10px;
+                border-radius: 18px;
+                font-family: 'Lato', sans-serif;
+                font-size: 14.2px;
+                font-weight: 500;
+                line-height: 14px;
+                overflow-wrap: break-word;
+                margin: 10px 0px 0px 0px;
+                max-width: 350px;
+                padding: 10px 12px;
+                text-align: justify;
+                width: fit-content;
             }
         }
         .received.message-container {
             justify-content: flex-start;
             .message {
-                background-color: #e4e4e4;
+                background-color: #dbe5eb;
                 color: black;
             }
         }
         .received.message {}
     }
     .message-box {
+        display: flex;
+        justify-content: space-between;
         border: 1px solid gainsboro;
         border-bottom: 0px;
         border-left: 0px;
         padding: 15px;
         input {
-            width: 100%;
+            border: none;
+            font-family: 'Lato', sans-serif;
+            outline: none;
+            width: 95%;
+        }
+        input::placeholder {
+            font-family: 'Lato', sans-serif;
+        }
+        input:disabled {
+            background-color: transparent;
+            cursor: not-allowed;
+        }
+
+        button {
+            background-color: transparent;
+            border: none;
+            color: #2a8abd;
+            font-size: 18px;
+        }
+
+        button:hover {
+            color: #2893cc;
         }
     }
 }
