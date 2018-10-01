@@ -1,65 +1,111 @@
 import React, { Component } from 'react';
+import { animateScroll } from "react-scroll";
+import InfiniteScroll from 'react-infinite-scroller';
+
 import { observer } from 'mobx-react';
-import Form from './Form';
 
-
+import RootStore from 'stores/RootStore';
 import './Conversation.less';
 
 @observer
 export default class Conversation extends Component {
-  constructor(props) {
-    super(props);
-    this.form = new Form();
-    this.form.$('receiver_id').set('value', props.receiverId);
-  }
-
   componentDidMount() {
     setTimeout(() => {
-      this.props.handleListen((message) => {
-        if (message.sender_id === this.props.receiverId) {
-          this.addMessage(message)
-        }
-      });
+      this.props.handleListen((message) => this.handleListen(message));
     }, 1000);
   }
 
   render() {
-    const { MessagingStore } = this.props;
-    const messages = MessagingStore.messages.map((message, index) => {
-      return (
-        <div className={`message-container ${message.sender_id === this.props.receiverId ? 'received' : ''}`}>
-          <div className="message" key={index}>
-            {message.message}
+    const {
+      inputDisabled,
+      inputValue,
+      pageStart,
+      hasMore,
+      messages
+    } = RootStore.MessagingStore;
+
+    const items = [];
+    messages.map((msg, index) => (
+      items.unshift(
+        <div
+          className={`message-container ${msg.sender_id === this.props.receiverId ? 'received' : ''}`}
+          key={msg.id}
+        >
+          <div className="message" >
+            {msg.message}
           </div>
         </div>
-      );
+      )
+    ));
 
-    });
     return (
       <div className="messaging-conversation">
         <div className="header">
           <h5>Juan Dela Cruz</h5>
         </div>
-        <div className="messages">
-          {messages}
+        <div className="messages" id="messages">
+          <InfiniteScroll
+            pageStart={pageStart}
+            loadMore={(page) => this.loadMore(page)}
+            hasMore={hasMore}
+            loader={this.renderLoader()}
+            style={{ padding: '20px' }}
+            useWindow={false}
+            isReverse={true}
+            threshold={10}
+          >
+            {items}
+          </InfiniteScroll>
         </div>
         <div className="message-box">
           <input type="text"
             onKeyPress={(e) => this.handleEnter(e)}
-            {...this.form.$('message').bind()}
+            onChange={(e) => this.handleChange(e)}
+            value={inputValue}
+            placeholder="Type a message..."
+            disabled={inputDisabled}
           />
         </div>
       </div>
     );
   }
 
-  handleEnter(e) {
-    if (e.key === 'Enter') {
-      this.form.handleSubmit(e, this.props.handleSendMessage);
+  async loadMore(page) {
+    RootStore.MessagingStore.getConversationMessages(page, this.props.receiverId);
+    if (page < 3) {
+      this.scrollToBottom();
     }
   }
 
-  addMessage(message) {
-    this.props.MessagingStore.receiveMessage(message);
+  renderLoader() {
+    return <div key={0}>Loading...</div>;
+  }
+
+  handleChange(e) {
+    this.props.MessagingStore.inputChange(e.target.value);
+  }
+
+  async handleEnter(e) {
+    if (e.key === 'Enter') {
+      const message = e.target.value.trim();
+      const { receiverId, handleSendMessage } = this.props;
+      if (message.length > 0) {
+        await this.props.MessagingStore.sendMsg(message, receiverId, handleSendMessage);
+        this.scrollToBottom();
+      }
+    }
+  }
+
+  async handleListen(message) {
+    await this.props.MessagingStore.receiveMsg(message);
+    this.scrollToBottom();
+  }
+
+  scrollToBottom() {
+    animateScroll.scrollToBottom({
+      containerId: "messages",
+      delay: 0,
+      duration: 0
+    });
   }
 }
