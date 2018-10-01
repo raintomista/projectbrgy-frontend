@@ -7,6 +7,7 @@ import {
 } from 'mobx';
 
 import {
+    getInbox,
     getMessagesById,
     getUserById,
     sendMessage
@@ -23,6 +24,7 @@ export default class MessagingStore {
     @observable inputDisabled = false;
     @observable inputValue = '';
     @observable user = null;
+    @observable inbox = [];
 
     @action
     async getUserDetails(id) {
@@ -42,6 +44,24 @@ export default class MessagingStore {
 
         }
     }
+
+    @action
+    async getInbox() {
+        try {
+            const response = await getInbox(this.page, this.limit);
+            console.log(response)
+            setTimeout(() => {
+                runInAction(() => {
+                    const inbox = this.inbox.slice();
+                    inbox.push(...response.data.data.items);
+                    this.inbox = inbox;
+                });
+            }, 1000);
+        } catch (e) {
+
+        }
+    }
+
 
     @action
     async getConversationMessages(page, id) {

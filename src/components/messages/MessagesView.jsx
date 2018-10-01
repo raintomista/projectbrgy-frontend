@@ -19,6 +19,7 @@ export default class MessagesView extends Component {
 
   async componentWillMount() {
     await this.props.AppData.getUserDetails();
+    await this.props.MessagingStore.getInbox();
     await this.props.MessagingStore.getUserDetails(this.props.match.params.id);
     this.connect();
   }
@@ -30,7 +31,7 @@ export default class MessagesView extends Component {
         <div className="messaging-container">
           <div className="row">
             <div className="col-md-4 inbox-container">
-              <Inbox />
+              <Inbox MessagingStore={MessagingStore}/>
             </div>
             <div className="col-md-8 conversation-container">
 

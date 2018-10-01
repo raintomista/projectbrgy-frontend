@@ -1,15 +1,16 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Message = (props) => (
-  <div className="message">
+  <Link to={`/messages/${props.authorId}`} className={`${props.status === 'unread' ? 'unread' : ''} message`}>
     <div className="author">
-      <h6 className="author-name">Juan Dela Cruz</h6>
-      <span className="timestamp">Fri</span>
+      <h6 className="author-name">{props.authorName}</h6>
+      <span className="timestamp">{props.dateCreated}</span>
     </div>
     <div className="recent-message">
-      <span>Hello World</span>
+      <span>{props.message}</span>
     </div>
-  </div>
+  </Link>
 );
 
 export default Message;

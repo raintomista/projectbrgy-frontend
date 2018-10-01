@@ -16,6 +16,15 @@ export function sendMessage(message, receiver_id) {
     });
 }
 
+export function getInbox(page, limit) {
+    const token = localStorage.getItem('x-access-token');
+    return axios.get(`${API_HOST}/inbox?page=${page}&limit=${limit}`, {
+        headers: {
+            'x-access-token': token
+        }
+    });
+}
+
 export function getUserById(id) {
     const token = localStorage.getItem('x-access-token');
     return axios.get(`${API_HOST}/users/${id}`, {
