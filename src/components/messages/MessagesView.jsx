@@ -32,7 +32,10 @@ export default class MessagesView extends Component {
         <div className="messaging-container">
           <div className="row">
             <div className="col-md-4 inbox-container">
-              <Inbox MessagingStore={MessagingStore} />
+              <Inbox
+                handleListen={(handler) => this.handleListen(handler)}
+                MessagingStore={MessagingStore}
+              />
             </div>
             <div className="col-md-8 conversation-container">
               {typeof this.props.match.params.id !== 'undefined' && (

@@ -58,7 +58,7 @@ export default class Conversation extends Component {
       <div className="messaging-conversation">
         <div className="header">
           {user && (
-            <h5>{user.authorName}</h5>
+            <h5>{user.user_first_name} {user.user_last_name}</h5>
           )}
         </div>
         <div className="messages" id="messages" onScroll={(e) => this.handleScroll(e)}>
@@ -106,6 +106,15 @@ export default class Conversation extends Component {
     return <div key={0}>Loading...</div>;
   }
 
+  getLoggedUser() {
+    const { loggedUser } = this.props.AppData;
+    const { user_first_name, user_last_name } = loggedUser;
+    return {
+      sender_first_name: user_first_name,
+      sender_last_name: user_last_name
+    };
+  }
+
   handleChange(e) {
     this.props.MessagingStore.inputChange(e.target.value);
   }
@@ -114,8 +123,9 @@ export default class Conversation extends Component {
     if (e.key === 'Enter') {
       const message = e.target.value.trim();
       const { receiverId, handleSendMessage } = this.props;
+      const sender_name = this.getLoggedUser();
       if (message.length > 0) {
-        await this.props.MessagingStore.sendMsg(message, receiverId, handleSendMessage);
+        await this.props.MessagingStore.sendMsg(message, receiverId, sender_name, handleSendMessage);
         this.scrollToBottom();
       }
     }
@@ -130,8 +140,9 @@ export default class Conversation extends Component {
     e.persist();
     const message = e.target.message.value.trim();
     const { receiverId, handleSendMessage } = this.props;
+    const sender_name = this.getLoggedUser();
     if (message.length > 0) {
-      await this.props.MessagingStore.sendMsg(message, receiverId, handleSendMessage);
+      await this.props.MessagingStore.sendMsg(message, receiverId, sender_name, handleSendMessage);
       this.scrollToBottom();
     }
   }

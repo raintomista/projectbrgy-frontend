@@ -53,14 +53,15 @@ export default class MessagingStore {
             } = response.data.data;
             runInAction(() => {
                 this.user = {
-                    authorName: `${user_first_name} ${user_last_name}`
+                    user_first_name,
+                    user_last_name
                 }
             });
         } catch (e) {
 
         }
     }
-    
+
     @action
     setUserDetails(user) {
         this.user = user;
@@ -118,15 +119,56 @@ export default class MessagingStore {
         this.hasScrolled = hasScrolled;
     }
 
+    sendInboxMsg(message) {
+        const msgIndex = this.inbox.findIndex((e) => e.message_sender_id === message.receiver_id);
+        if (msgIndex !== -1) {
+            const msg = this.inbox.splice(msgIndex, 1)[0];
+            msg.message_date_created = message.date_created;
+            msg.message_message = message.message;
+            msg.message_status = 'replied';
+            this.inbox.unshift(msg);
+        } else {
+            const msg = {
+                message_date_created: message.date_created,
+                message_id: message.id,
+                message_message: message.message,
+                message_receiver_id: message.receiver_id,
+                message_receiver_role: message.receiver_role,
+                message_sender_id: message.sender_id,
+                message_sender_role: message.sender_role,
+                message_status: 'replied',
+                sender_first_name: this.user.user_first_name,
+                sender_last_name: this.user.user_last_name
+            };
+            this.inbox.unshift(msg);
+        }
+    }
+
     @action
-    async sendMsg(message, receiverId, handleSendMessage) {
+    receiveInboxMsg(message) {
+        const msgIndex = this.inbox.findIndex((e) => e.message_sender_id === message.sender_id);
+        if (msgIndex !== -1) {
+            const msg = this.inbox.splice(msgIndex, 1)[0];
+            msg.message_date_created = message.date_created;
+            msg.message_message = message.message;
+            msg.message_status = message.status;
+            this.inbox.unshift(msg);
+        }
+    }
+
+    @action
+    async sendMsg(message, receiverId, sender_name, handleSendMessage) {
         this.inputDisabled = true;
         try {
             const response = await sendMessage(message, receiverId);
             const newMessage = response.data.data;
-            handleSendMessage(newMessage);
+            handleSendMessage({
+                ...sender_name,
+                ...newMessage
+            });
             runInAction(() => {
                 this.messages.unshift(newMessage);
+                this.sendInboxMsg(newMessage);
                 this.inputValue = '';
                 this.inputDisabled = false;
             });

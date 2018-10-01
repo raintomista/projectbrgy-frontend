@@ -7,12 +7,19 @@ import './Inbox.less';
 @observer
 export default class Inbox extends Component {
 
+  componentDidMount() {
+    setTimeout(() => {
+      this.props.handleListen((message) => this.handleListen(message));
+    }, 1000);
+  }
+
   render() {
     const { inbox } = this.props.MessagingStore;
     const items = inbox.map((message, index) => (
       <Message
         authorId={message.message_sender_id}
-        authorName={`${message.sender_first_name} ${message.sender_last_name}`}
+        user_first_name={message.sender_first_name}
+        user_last_name={message.sender_last_name}
         dateCreated={this.formatDate(message.message_date_created)}
         message={message.message_message}
         status={message.message_status}
@@ -34,5 +41,9 @@ export default class Inbox extends Component {
 
   formatDate(date) {
     return moment(date).fromNow();
+  }
+
+  handleListen(message) {
+    this.props.MessagingStore.receiveInboxMsg(message);
   }
 }
