@@ -73,7 +73,7 @@ export default class MyReportsRespondedView extends Component {
                       </div>
                     )}
                     {reports}
-                    {this.state.page !== this.state.totalPage && (
+                    {this.state.reports.length > 0 && this.state.page !== this.state.totalPage && (
                       <ButtonLoader
                         handleClick={() => this._showMore()}
                         label="Load more"

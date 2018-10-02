@@ -91,7 +91,7 @@ export default class BrgyReports extends Component {
                       reportType={report.inquiry_report_type}
                       handleDisplayMessage={this._handleDisplayMessage}
                     />
-                    {this.state.currentItems !== this.state.totalItems && (
+                    {this.state.responses.length > 0 && this.state.currentItems !== this.state.totalItems && (
                       <ButtonLoader
                         handleClick={() => this._loadPrevious(report.inquiry_id)}
                         label="Load previous responses"
