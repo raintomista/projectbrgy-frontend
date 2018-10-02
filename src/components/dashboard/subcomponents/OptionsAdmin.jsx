@@ -14,12 +14,10 @@ const OptionsAdmin = observer((props) => {
         <Link to={props.handleViewBrgyResidents} className="card-link">Residents</Link>
         <span className="badge">{props.residentCount > 0 && props.residentCount}</span>
       </li>
-
       <li className="list-group-item">
-        <Link to='/dashboard' className="card-link">Message</Link>
+        <Link to='/messages' className="card-link">Messages</Link>
         <span className="badge">{props.messageCount > 0 && props.messageCount}</span>
       </li>
-
       <li className="list-group-item">
         <Link to='/dashboard/my-barangay/reports' className="card-link">Reports</Link>
         <span className="badge">{props.reportsCount > 0 && props.reportsCount}</span>

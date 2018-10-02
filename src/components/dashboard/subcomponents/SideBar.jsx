@@ -48,6 +48,7 @@ export default class DashboardSideBar extends Component {
             handleViewBrgyPage={this._handleViewBrgyPage(loggedUser.barangay_page_id)}
             handleViewUserFollowingList={this._handleViewUserFollowingList(loggedUser.user_id)}
             handleViewUserReports={this._handleViewUserReports(loggedUser.user_id)}
+            messageCount={loggedUser.stats.unread_messages_count}
             reportsCount={loggedUser.stats.reports_count}
             respondedCount={loggedUser.stats.responded_count}
           /> :
@@ -57,7 +58,7 @@ export default class DashboardSideBar extends Component {
             followersCount={loggedUser.stats.follower_count}
             handleViewBrgyResidents={this._handleViewBrgyResidents()}
             handleViewBrgyFollowersList={this._handleViewBrgyFollowersList(loggedUser.barangay_page_id)}
-            messageCount={5}
+            messageCount={loggedUser.stats.unread_messages_count}
             reportsCount={loggedUser.stats.unread_reports_count}
             residentCount={loggedUser.stats.resident_count}
           />

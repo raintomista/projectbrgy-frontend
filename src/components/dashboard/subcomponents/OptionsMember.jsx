@@ -13,6 +13,11 @@ const OptionsMember = observer((props) => {
         <span className="badge"></span>
       </li>
       <li className="list-group-item">
+        <Link to='/messages' className="card-link">Messages</Link>
+        <span className="badge">{props.messageCount > 0 && props.messageCount}</span>
+      </li>
+
+      <li className="list-group-item">
         <Link to={props.handleViewUserFollowingList} className="card-link">Following</Link>
         <span className="badge">{props.followingCount > 0 && props.followingCount}</span>
       </li>
@@ -36,7 +41,7 @@ OptionsMember.propTypes = {
   handleViewUserFollowingList: PropTypes.object,
   handleViewUserReports: PropTypes.object,
   reportsCount: PropTypes.number,
-  respondedCount: PropTypes.number,  
+  respondedCount: PropTypes.number,
 }
 
 export default OptionsMember;
