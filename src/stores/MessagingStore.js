@@ -28,7 +28,7 @@ export default class MessagingStore {
     @observable inbox = [];
     @observable conversationLoading = true;
 
-    @action 
+    @action
     resetConvo() {
         this.skip = 0;
         this.hasScrolled = false;
@@ -40,7 +40,7 @@ export default class MessagingStore {
         this.conversationLoading = true;
     }
 
-    @action 
+    @action
     resetMessaging() {
         this.skip = 0;
         this.hasScrolled = false;
@@ -74,7 +74,8 @@ export default class MessagingStore {
                 runInAction(() => {
                     this.user = {
                         user_first_name,
-                        user_last_name
+                        user_last_name,
+                        id
                     }
                     this.conversationLoading = false;
                 });
@@ -104,7 +105,8 @@ export default class MessagingStore {
             setTimeout(() => {
                 runInAction(() => {
                     this.user = {
-                        barangay_name
+                        barangay_name,
+                        id
                     }
                     this.conversationLoading = false;
                 });
@@ -205,12 +207,14 @@ export default class MessagingStore {
 
     @action
     receiveInboxMsg(message, logged_user) {
-        const msgIndex = this.inbox.findIndex((e) => message.receiver_id == logged_user);
+        const msgIndex = this.inbox.findIndex((e) => message.receiver_id === logged_user);
+        const status = this.user.id === message.sender_id ? 'read' : 'unread';
+
         if (msgIndex !== -1) {
             const msg = this.inbox.splice(msgIndex, 1)[0];
             msg.date_created = message.date_created;
             msg.message = message.message;
-            msg.status = 'unread';
+            msg.status = status;
             this.inbox.unshift(msg);
         } else {
             const msg = {
@@ -218,7 +222,7 @@ export default class MessagingStore {
                 message: message.message,
                 receiver_id: message.receiver_id,
                 sender_id: message.sender_id,
-                status: 'unread',
+                status: status,
                 sender_first_name: message.sender_first_name,
                 sender_last_name: message.sender_last_name
             };
