@@ -17,13 +17,13 @@ export default class Inbox extends Component {
     const { inbox } = this.props.MessagingStore;
     const items = inbox.map((message, index) => (
       <Message
-        authorId={message.message_sender_id}
+        authorId={message.sender_id}
         user_first_name={message.sender_first_name}
         user_last_name={message.sender_last_name}
-        dateCreated={this.formatDate(message.message_date_created)}
-        message={message.message_message}
-        status={message.message_status}
-        key={message.message_id}
+        dateCreated={this.formatDate(message.date_created)}
+        message={message.message}
+        status={message.status}
+        key={message.id}
       />
     ))
 

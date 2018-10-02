@@ -34,6 +34,16 @@ export function getUserById(id) {
     });
 }
 
+
+export function getBrgyById(id) {
+    const token = localStorage.getItem('x-access-token');
+    return axios.get(`${API_HOST}/barangay/${id}`, {
+        headers: {
+            'x-access-token': token
+        }
+    });
+}
+
 export function getMessagesById(id, page, limit, order, skip) {
     const token = localStorage.getItem('x-access-token');
     return axios.get(`${API_HOST}/message/${id}?page=${page}&limit=${limit}&order=${order}&skip=${skip}`, {

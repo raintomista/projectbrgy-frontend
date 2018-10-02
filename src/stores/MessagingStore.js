@@ -7,6 +7,7 @@ import {
 } from 'mobx';
 
 import {
+    getBrgyById,
     getInbox,
     getMessagesById,
     getUserById,
@@ -28,7 +29,7 @@ export default class MessagingStore {
     @observable conversationLoading = true;
 
     @action
-    async getUserDetails(id) {
+    async getUserDetails(id, history) {
         this.conversationLoading = true;
         this.skip = 0;
         this.hasScrolled = false;
@@ -54,7 +55,37 @@ export default class MessagingStore {
                 });
             }, 500);
         } catch (e) {
+            history.push('/messages');
+        }
+    }
 
+    @action
+    async getBarangayDetails(id, history) {
+        this.conversationLoading = true;
+        this.skip = 0;
+        this.hasScrolled = false;
+        this.hasMore = true;
+        this.messages = [];
+        this.inputDisabled = false;
+        this.inputValue = '';
+        this.user = null;
+
+        try {
+            const response = await getBrgyById(id);
+            const {
+                name: barangay_name
+            } = response.data.data;
+
+            setTimeout(() => {
+                runInAction(() => {
+                    this.user = {
+                        barangay_name
+                    }
+                    this.conversationLoading = false;
+                });
+            }, 500);
+        } catch (e) {
+            history.push('/messages');
         }
     }
 
@@ -65,6 +96,7 @@ export default class MessagingStore {
 
     @action
     async getInbox() {
+        this.getInbox = [];
         try {
             const response = await getInbox(1, this.limit);
             runInAction(() => {
@@ -98,7 +130,6 @@ export default class MessagingStore {
                     this.messages = [];
                     this.hasMore = false;
                     history.push('/messages');
-                    alert('Sorry, this user is not available.');
                 });
             }
         }

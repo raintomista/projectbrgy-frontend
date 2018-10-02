@@ -16,14 +16,34 @@ export default class MessagesView extends Component {
   async componentWillMount() {
     await this.props.AppData.getUserDetails();
     await this.props.MessagingStore.getInbox();
-    await this.props.MessagingStore.getUserDetails(this.props.match.params.id);
+
+    const id = this.props.match.params.id;
+    const history = this.props.history;
+    const { AppData } = this.props;
+    const { loggedUser } = AppData;
+
+    if(typeof id !== 'undefined') {
+      if (loggedUser.user_role === 'barangay_page_admin') {
+        await this.props.MessagingStore.getBarangayDetails(id, history);
+      } else if (loggedUser.user_role === 'barangay_member') {
+        await this.props.MessagingStore.getUserDetails(id, history);
+      }
+    }
     this.connect();
   }
 
   async componentDidUpdate(prevProps) {
     const id = this.props.match.params.id;
-    if (prevProps.match.params.id !== id) {
-      await this.props.MessagingStore.getUserDetails(id);
+    const history = this.props.history;
+    const { AppData } = this.props;
+    const { loggedUser } = AppData;
+
+    if (prevProps.match.params.id !== id && typeof id !== 'undefined') {
+      if (loggedUser.user_role === 'barangay_page_admin') {
+        await this.props.MessagingStore.getBarangayDetails(id, history);
+      } else if (loggedUser.user_role === 'barangay_member') {
+        await this.props.MessagingStore.getUserDetails(id, history);
+      }
     }
   }
 

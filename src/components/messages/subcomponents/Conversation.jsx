@@ -13,10 +13,6 @@ import './Conversation.less';
 
 @observer
 export default class Conversation extends Component {
-  async componentWillMount() {
-    await this.props.MessagingStore.getUserDetails(this.props.receiverId);
-  }
-
   componentDidMount() {
     setTimeout(() => {
       this.props.handleListen((message) => this.handleListen(message));
@@ -51,8 +47,11 @@ export default class Conversation extends Component {
     return (
       <div className="messaging-conversation">
         <div className="header">
-          {user && (
+          {user && !user.hasOwnProperty('barangay_name') && (
             <h5>{user.user_first_name} {user.user_last_name}</h5>
+          )}
+          {user && user.hasOwnProperty('barangay_name') && (
+            <h5>{user.barangay_name}</h5>
           )}
         </div>
         {conversationLoading && (
