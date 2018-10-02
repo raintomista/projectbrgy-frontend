@@ -53,6 +53,8 @@ export default class Inbox extends Component {
   }
 
   handleListen(message) {
-    this.props.MessagingStore.receiveInboxMsg(message);
+    const loggedUser = this.props.AppData.loggedUser;
+    const logged_user = loggedUser.user_role === 'barangay_member' ? loggedUser.user_id : loggedUser.barangay_page_name;
+    this.props.MessagingStore.receiveInboxMsg(message, logged_user);
   }
 }

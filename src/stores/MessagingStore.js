@@ -146,24 +146,31 @@ export default class MessagingStore {
         this.hasScrolled = hasScrolled;
     }
 
-    sendInboxMsg(message) {
-        const msgIndex = this.inbox.findIndex((e) => e.message_sender_id === message.receiver_id);
+    sendInboxMsg(message, sender_id) {
+        const msgIndex = this.inbox.findIndex((e) => {
+            let id = null;
+            if(sender_id === e.sender_id) {
+                id = e.receiver_id;
+            } else {
+                id = e.sender_id;
+            }
+
+            return id === message.receiver_id;
+        });
+
         if (msgIndex !== -1) {
             const msg = this.inbox.splice(msgIndex, 1)[0];
-            msg.message_date_created = message.date_created;
-            msg.message_message = message.message;
-            msg.message_status = 'replied';
+            msg.date_created = message.date_created;
+            msg.message = message.message;
+            msg.status = 'replied';
             this.inbox.unshift(msg);
         } else {
             const msg = {
-                message_date_created: message.date_created,
-                message_id: message.id,
-                message_message: message.message,
-                message_receiver_id: message.receiver_id,
-                message_receiver_role: message.receiver_role,
-                message_sender_id: message.sender_id,
-                message_sender_role: message.sender_role,
-                message_status: 'replied',
+                date_created: message.date_created,
+                message: message.message,
+                receiver_id: message.receiver_id,
+                sender_id: message.sender_id,
+                status: 'replied',
                 sender_first_name: this.user.user_first_name,
                 sender_last_name: this.user.user_last_name
             };
@@ -172,19 +179,30 @@ export default class MessagingStore {
     }
 
     @action
-    receiveInboxMsg(message) {
-        const msgIndex = this.inbox.findIndex((e) => e.message_sender_id === message.sender_id);
+    receiveInboxMsg(message, logged_user) {
+        const msgIndex = this.inbox.findIndex((e) => message.receiver_id == logged_user);
         if (msgIndex !== -1) {
             const msg = this.inbox.splice(msgIndex, 1)[0];
-            msg.message_date_created = message.date_created;
-            msg.message_message = message.message;
-            msg.message_status = message.status;
+            msg.date_created = message.date_created;
+            msg.message = message.message;
+            msg.status = 'unread';
+            this.inbox.unshift(msg);
+        } else {
+            const msg = {
+                date_created: message.date_created,
+                message: message.message,
+                receiver_id: message.receiver_id,
+                sender_id: message.sender_id,
+                status: 'unread',
+                sender_first_name: message.sender_first_name,
+                sender_last_name: message.sender_last_name
+            };
             this.inbox.unshift(msg);
         }
     }
 
     @action
-    async sendMsg(message, receiverId, sender_name, handleSendMessage) {
+    async sendMsg(message, receiverId, sender_name, sender_id, handleSendMessage) {
         this.inputDisabled = true;
         try {
             const response = await sendMessage(message, receiverId);
@@ -195,7 +213,7 @@ export default class MessagingStore {
             });
             runInAction(() => {
                 this.messages.unshift(newMessage);
-                this.sendInboxMsg(newMessage);
+                this.sendInboxMsg(newMessage, sender_id);
                 this.inputValue = '';
                 this.inputDisabled = false;
             });

@@ -141,11 +141,19 @@ export default class Conversation extends Component {
   async handleSubmit(e) {
     e.preventDefault();
     e.persist();
+    const { receiverId, handleSendMessage } = this.props;    
+    const { loggedUser } = this.props.AppData;
+
     const message = e.target.message.value.trim();
-    const { receiverId, handleSendMessage } = this.props;
-    const sender_name = this.getLoggedUser();
+    const sender_id = loggedUser.user_role === 'barangay_member' ? loggedUser.user_id : loggedUser.barangay_page_name;
+    const sender_name = {
+      sender_first_name: loggedUser.user_first_name,
+      sender_last_name: loggedUser.user_last_name
+    }
+
+
     if (message.length > 0) {
-      await this.props.MessagingStore.sendMsg(message, receiverId, sender_name, handleSendMessage);
+      await this.props.MessagingStore.sendMsg(message, receiverId, sender_name, sender_id, handleSendMessage);
       this.scrollToBottom();
     }
   }
