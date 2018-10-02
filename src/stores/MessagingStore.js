@@ -28,6 +28,31 @@ export default class MessagingStore {
     @observable inbox = [];
     @observable conversationLoading = true;
 
+    @action 
+    resetConvo() {
+        this.skip = 0;
+        this.hasScrolled = false;
+        this.hasMore = true;
+        this.messages = [];
+        this.inputDisabled = false;
+        this.inputValue = '';
+        this.user = null;
+        this.conversationLoading = true;
+    }
+
+    @action 
+    resetMessaging() {
+        this.skip = 0;
+        this.hasScrolled = false;
+        this.hasMore = true;
+        this.messages = [];
+        this.inputDisabled = false;
+        this.inputValue = '';
+        this.user = null;
+        this.inbox = [];
+        this.conversationLoading = true;
+    }
+
     @action
     async getUserDetails(id, history) {
         this.conversationLoading = true;
@@ -96,10 +121,10 @@ export default class MessagingStore {
 
     @action
     async getInbox() {
-        this.getInbox = [];
+        this.inbox = [];
+
         try {
             const response = await getInbox(1, this.limit);
-            console.log(response)
             runInAction(() => {
                 const inbox = this.inbox.slice();
                 inbox.push(...response.data.data.items);
@@ -149,7 +174,7 @@ export default class MessagingStore {
     sendInboxMsg(message, sender_id) {
         const msgIndex = this.inbox.findIndex((e) => {
             let id = null;
-            if(sender_id === e.sender_id) {
+            if (sender_id === e.sender_id) {
                 id = e.receiver_id;
             } else {
                 id = e.sender_id;

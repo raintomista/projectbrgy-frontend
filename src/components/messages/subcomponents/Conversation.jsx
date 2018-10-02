@@ -19,6 +19,10 @@ export default class Conversation extends Component {
     }, 1000);
   }
 
+  componentWillUnmount() {
+    RootStore.MessagingStore.resetConvo();
+  }
+
   render() {
     const {
       inputDisabled,

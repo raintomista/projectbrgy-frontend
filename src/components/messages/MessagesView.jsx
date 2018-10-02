@@ -47,6 +47,10 @@ export default class MessagesView extends Component {
     }
   }
 
+  async componentWillUnmount() {
+    this.props.MessagingStore.resetMessaging();
+  }
+
   render() {
     const { AppData, MessagingStore, history } = this.props;
     return (
