@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 /*----------------- FontAwesome -----------------*/
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
@@ -83,18 +84,20 @@ const BrgyPageDetails = observer((props) => {
                 </li>
 
               </React.Fragment>
-          )}
+            )}
 
-          {/* Message */}
-          <li className="message-btn list-group-item">
-            <a className="btn rounded">Message</a>
-          </li>
+          {loggedUser.user_role === 'barangay_page_admin' && loggedUser.user_barangay_id !== data.id && (
+            <li className="message-btn list-group-item">
+              <Link to={sendMessage(data.id)} className="btn rounded">Message</Link>
+            </li>
+          )}
         </div>
       </ul>
 
       {/* Barangay Resources  */}
       <ul className="brgy-resources list-group list-group-flush">
 
+        {console.log(BrgyPageStore.data)}
         {/* Dropbox */}
         {BrgyPageStore.data && BrgyPageStore.data.dropbox && (
           <li className="list-group-item">
@@ -106,17 +109,21 @@ const BrgyPageDetails = observer((props) => {
         )}
 
         {/* E-Services */}
-       {loggedUser.user_role === 'barangay_member' && loggedUser.barangay_page_id === BrgyPageStore.data.id && (
+        {loggedUser.user_role === 'barangay_member' && loggedUser.barangay_page_id === BrgyPageStore.data.id && (
           <li className="list-group-item">
-          <a onClick={() => BrgyPageStore.toggleModal()} className="card-link">
-            <FontAwesomeIcon icon={faCogs} className="icon" />
-            <span>E-Services</span>
-          </a>
-        </li>
-       )}
+            <a onClick={() => BrgyPageStore.toggleModal()} className="card-link">
+              <FontAwesomeIcon icon={faCogs} className="icon" />
+              <span>E-Services</span>
+            </a>
+          </li>
+        )}
       </ul>
     </div>
   );
 });
+
+const sendMessage = (profileId) => ({
+  pathname: `/messages/${profileId}`,
+})
 
 export default BrgyPageDetails;
