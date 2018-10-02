@@ -14,7 +14,8 @@ import faPhone from '@fortawesome/fontawesome-free-solid/faPhone';
 import './UserProfileExpandedView.less';
 
 const UserProfileExpandedView = observer((props) => {
-  const { UserProfileStore } = props;
+  const { AppData, UserProfileStore } = props;
+  const { loggedUser } = AppData;
   const data = UserProfileStore.data;
   const { stats } = data;
 
@@ -39,13 +40,19 @@ const UserProfileExpandedView = observer((props) => {
               <div className="user-stats">
                 <ul className="nav justify-content-center nav-fill">
                   <li className="nav-item">
-                    <Link className="nav-link" to={viewFollowing(data.user_id)}>
+                    <Link className="nav-link" to={viewFollowing(data.user_id, loggedUser)}>
                       <span className="nav-item-title">Following</span>
                       <span className="nav-item-value">{stats.following_count}</span>
                     </Link>
                   </li>
                 </ul>
               </div>
+
+              {loggedUser.user_role === 'barangay_member' && loggedUser.user_id !== data.user_id && (
+                <div className="message-btn">
+                  <Link to={sendMessage(data.user_id)} className="btn rounded">Message</Link>
+                </div>
+              )}
             </div>
           </div>
 
@@ -178,14 +185,26 @@ const UserProfileExpandedView = observer((props) => {
   );
 });
 
+const sendMessage = (profileId) => ({
+  pathname: `/messages/${profileId}`,
+})
+
 const viewTimeline = (profileId) => ({
   pathname: '/profile',
   search: `?id=${profileId}`
 });
 
-const viewFollowing = (profileId) => ({
-  pathname: '/profile',
-  search: `?id=${profileId}&view=following_list`
-});
-
+const viewFollowing = (profileId, loggedUser) => {
+  if ((loggedUser.user_role === 'barangay_member' && loggedUser.user_id !== profileId) || (loggedUser.user_role === 'barangay_page_admin')) {
+    return ({
+      pathname: '/profile',
+      search: `?id=${profileId}`
+    });
+  } else {
+    return ({
+      pathname: '/profile',
+      search: `?id=${profileId}&view=following_list`
+    });
+  }
+}
 export default UserProfileExpandedView;
