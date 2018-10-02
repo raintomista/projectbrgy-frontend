@@ -11,19 +11,22 @@ import './MessagesView.less';
 
 @observer
 export default class MessagesView extends Component {
-  constructor(props) {
-    super(props);
-    this.socket = {};
-  }
+  socket = {};
 
   async componentWillMount() {
     await this.props.AppData.getUserDetails();
     await this.props.MessagingStore.getInbox();
-    if (typeof this.props.match.params.id !== 'undefined') {
-      await this.props.MessagingStore.getUserDetails(this.props.match.params.id);
-    }
+    await this.props.MessagingStore.getUserDetails(this.props.match.params.id);
     this.connect();
   }
+
+  async componentDidUpdate(prevProps) {
+    const id = this.props.match.params.id;
+    if (prevProps.match.params.id !== id) {
+      await this.props.MessagingStore.getUserDetails(id);
+    }
+  }
+
   render() {
     const { AppData, MessagingStore, history } = this.props;
     return (

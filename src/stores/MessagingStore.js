@@ -14,7 +14,7 @@ import {
 } from 'services/MessagingService';
 
 export default class MessagingStore {
-    @observable page = 1;
+    @observable pageStart = 0;
     @observable limit = 25;
     @observable order = 'desc';
     @observable skip = 0;
@@ -25,11 +25,11 @@ export default class MessagingStore {
     @observable inputValue = '';
     @observable user = null;
     @observable inbox = [];
+    @observable conversationLoading = true;
 
     @action
-    initConversation(scroll) {
-        this.page = 1;
-        this.limit = 25;
+    async getUserDetails(id) {
+        this.conversationLoading = true;
         this.skip = 0;
         this.hasScrolled = false;
         this.hasMore = true;
@@ -37,26 +37,22 @@ export default class MessagingStore {
         this.inputDisabled = false;
         this.inputValue = '';
         this.user = null;
-
-        if (scroll) {
-            scroll.pageLoaded = 0;
-        }
-    }
-
-    @action
-    async getUserDetails(id) {
         try {
             const response = await getUserById(id);
             const {
                 user_first_name,
                 user_last_name
             } = response.data.data;
-            runInAction(() => {
-                this.user = {
-                    user_first_name,
-                    user_last_name
-                }
-            });
+
+            setTimeout(() => {
+                runInAction(() => {
+                    this.user = {
+                        user_first_name,
+                        user_last_name
+                    }
+                    this.conversationLoading = false;
+                });
+            }, 500);
         } catch (e) {
 
         }
@@ -70,7 +66,7 @@ export default class MessagingStore {
     @action
     async getInbox() {
         try {
-            const response = await getInbox(this.page, this.limit);
+            const response = await getInbox(1, this.limit);
             runInAction(() => {
                 const inbox = this.inbox.slice();
                 inbox.push(...response.data.data.items);
@@ -90,7 +86,6 @@ export default class MessagingStore {
                 const messages = this.messages.slice();
                 messages.push(...response.data.data.items);
                 this.messages = messages;
-                this.page = page + 1;
             });
         } catch (e) {
             const error = e.response.data.errors[0];

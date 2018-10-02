@@ -13,7 +13,17 @@
             text-align: center;
         }
     }
-    .messages {
+    .conversation-loading {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        height: calc(100vh - 60px - 55px - 61px);
+
+        .loader {
+            margin-bottom: 10px;
+        }
+    }
+    .conversation {
         height: calc(100vh - 60px - 55px - 61px);
         overflow: auto;
         .message-container {
@@ -64,14 +74,12 @@
             background-color: transparent;
             cursor: not-allowed;
         }
-
         button {
             background-color: transparent;
             border: none;
             color: #2a8abd;
             font-size: 18px;
         }
-
         button:hover {
             color: #2893cc;
         }

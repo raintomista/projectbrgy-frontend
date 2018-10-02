@@ -8,20 +8,13 @@ import { observer } from 'mobx-react';
 import moment from 'moment';
 
 import RootStore from 'stores/RootStore';
+import Loader from 'assets/images/loader.svg';
 import './Conversation.less';
 
 @observer
 export default class Conversation extends Component {
   async componentWillMount() {
-    await RootStore.MessagingStore.initConversation(this.scroll);
     await this.props.MessagingStore.getUserDetails(this.props.receiverId);
-  }
-
-  async componentWillReceiveProps(nextProp) {
-    if (this.props.receiverId !== nextProp.receiverId) {
-      await RootStore.MessagingStore.initConversation(this.scroll);
-      await this.props.MessagingStore.setUserDetails(this.props.history.location.state);
-    }
   }
 
   componentDidMount() {
@@ -37,7 +30,8 @@ export default class Conversation extends Component {
       pageStart,
       hasMore,
       messages,
-      user
+      user,
+      conversationLoading
     } = RootStore.MessagingStore;
 
     const items = [];
@@ -61,32 +55,42 @@ export default class Conversation extends Component {
             <h5>{user.user_first_name} {user.user_last_name}</h5>
           )}
         </div>
-        <div className="messages" id="messages" onScroll={(e) => this.handleScroll(e)}>
-          <InfiniteScroll
-            pageStart={pageStart}
-            loadMore={(page) => this.loadMore(page)}
-            hasMore={hasMore}
-            loader={this.renderLoader()}
-            style={{ padding: '20px' }}
-            useWindow={false}
-            isReverse={true}
-            threshold={10}
-            ref={(scroll) => { this.scroll = scroll; }}
-          >
-            {items}
-          </InfiniteScroll>
-        </div>
+        {conversationLoading && (
+          <div className="conversation-loading">
+            <div className="loader">
+              <object data={Loader} type="image/svg+xml">
+              </object>
+            </div>
+          </div>
+        )}
+        {!conversationLoading && (
+          <div className="conversation" id="conversation" onScroll={(e) => this.handleScroll(e)}>
+            <InfiniteScroll
+              pageStart={pageStart}
+              loadMore={(page) => this.loadMore(page)}
+              hasMore={hasMore}
+              loader={this.renderLoader()}
+              style={{ padding: '20px' }}
+              useWindow={false}
+              isReverse={true}
+              threshold={10}
+              ref={(scroll) => { this.scroll = scroll; }}
+            >
+              {items}
+            </InfiniteScroll>
+          </div>
+        )}
         <form onSubmit={(e) => this.handleSubmit(e)} className="message-box">
           <input type="text"
             name="message"
             onChange={(e) => this.handleChange(e)}
             value={inputValue}
             placeholder="Type a message..."
-            disabled={inputDisabled}
+            disabled={conversationLoading || inputDisabled}
             maxLength={200}
             autoComplete="off"
           />
-          <button type="submit" disabled={inputDisabled} title="Send">
+          <button type="submit" disabled={conversationLoading || inputDisabled} title="Send">
             <FontAwesomeIcon icon={faPaperPlane} />
           </button>
         </form>
@@ -154,7 +158,7 @@ export default class Conversation extends Component {
 
   scrollToBottom() {
     animateScroll.scrollToBottom({
-      containerId: "messages",
+      containerId: "conversation",
       delay: 0,
       duration: 0
     });
