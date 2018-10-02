@@ -99,6 +99,7 @@ export default class MessagingStore {
         this.getInbox = [];
         try {
             const response = await getInbox(1, this.limit);
+            console.log(response)
             runInAction(() => {
                 const inbox = this.inbox.slice();
                 inbox.push(...response.data.data.items);

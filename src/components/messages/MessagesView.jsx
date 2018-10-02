@@ -22,7 +22,7 @@ export default class MessagesView extends Component {
     const { AppData } = this.props;
     const { loggedUser } = AppData;
 
-    if(typeof id !== 'undefined') {
+    if (typeof id !== 'undefined') {
       if (loggedUser.user_role === 'barangay_page_admin') {
         await this.props.MessagingStore.getBarangayDetails(id, history);
       } else if (loggedUser.user_role === 'barangay_member') {
@@ -56,6 +56,7 @@ export default class MessagesView extends Component {
           <div className="row">
             <div className="col-md-4 inbox-container">
               <Inbox
+                AppData={AppData}
                 handleListen={(handler) => this.handleListen(handler)}
                 MessagingStore={MessagingStore}
               />

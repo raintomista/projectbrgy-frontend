@@ -14,18 +14,27 @@ export default class Inbox extends Component {
   }
 
   render() {
+    const { loggedUser } = this.props.AppData;
     const { inbox } = this.props.MessagingStore;
-    const items = inbox.map((message, index) => (
-      <Message
-        authorId={message.sender_id}
-        user_first_name={message.sender_first_name}
-        user_last_name={message.sender_last_name}
-        dateCreated={this.formatDate(message.date_created)}
-        message={message.message}
-        status={message.status}
-        key={message.id}
-      />
-    ))
+    const items = inbox.map((message, index) => {
+      let id = null;
+      if (loggedUser.user_role === 'barangay_page_admin') {
+        id = loggedUser.barangay_page_id === message.sender_id ? message.receiver_id : message.sender_id;
+      } else if (loggedUser.user_role === 'barangay_member') {
+        id = loggedUser.user_id === message.sender_id ? message.receiver_id : message.sender_id;
+      }
+      return (
+        <Message
+          authorId={id}
+          user_first_name={message.sender_first_name}
+          user_last_name={message.sender_last_name}
+          dateCreated={this.formatDate(message.date_created)}
+          message={message.message}
+          status={message.status}
+          key={id}
+        />
+      );
+    });
 
     return (
       <div className="messaging-inbox">
