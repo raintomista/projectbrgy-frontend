@@ -7,7 +7,7 @@ export default class ActivityLogTable extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      pageStart: 1,
+      pageStart: 0,
       limit: 50,
       hasMore: true,
       logs: [],
@@ -38,9 +38,7 @@ export default class ActivityLogTable extends Component {
         </thead>
         <InfiniteScroll
           pageStart={pageStart}
-          loadMore={(page) => {
-            this.getLogs(page)
-          }}
+          loadMore={(page) => this.getLogs(page)}
           hasMore={hasMore}
           loader={this.renderLoader()}
           element="tbody"
