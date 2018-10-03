@@ -69,13 +69,14 @@ export function loginUser(email, password) {
 
 export function signOutUser() {
     const token = localStorage.getItem('x-access-token');
-    return axios.post(`${API_HOST}/auth/sign-out`, {
+    return axios({
+        url: `${API_HOST}/auth/sign-out`,
+        method: 'post',
         headers: {
             'x-access-token': token
         }
     });
 }
-
 
 export function forgotPassword(email) {
     return axios({

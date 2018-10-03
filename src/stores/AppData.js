@@ -40,4 +40,9 @@ export default class AppData {
     toggleSidebar() {
         this.isSidebarOpen = !this.isSidebarOpen;
     }
+
+    @action
+    logout() {
+        this.loggedUser = null;
+    }
 }
