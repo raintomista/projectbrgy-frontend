@@ -29,18 +29,20 @@ export default class ViewPostById extends Component {
     const searchQuery = this.props.location.search;
     const parsedQuery = queryString.parse(searchQuery);
     this.setState({ query: parsedQuery.query });
+    document.title = `${parsedQuery.query} - B2P Search`;
   }
 
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.location.search != this.props.location.search) {
       const searchQuery = this.props.location.search;
       const parsedQuery = queryString.parse(searchQuery);
+      document.title = `${parsedQuery.query} - B2P Search`;
       this.setState({ query: parsedQuery.query });
       this.scroll.pageLoaded = 0
       this.setState({
         hasMore: true,
         results: []
-      })
+      });
     }
   }
 

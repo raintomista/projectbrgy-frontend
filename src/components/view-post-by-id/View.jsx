@@ -174,9 +174,16 @@ export default class ViewPostById extends Component {
 
       if (postType === 'announcement') {
         response = await getPostById(postId);
+        document.title = `${response.data.data.barangay_page_name} - ${response.data.data.barangay_page_name} posted an announcement.`;
+
       }
       else if (postType === 'sharePost') {
         response = await getSharedPostById(postId);
+        if (response.data.data.user_role === 'barangay_page_admin') {
+          document.title = `${response.data.data.barangay_page_name} - ${response.data.data.barangay_page_name} shared an announcement.`;
+        } else {
+          document.title = `${response.data.data.user_first_name} ${response.data.data.user_last_name} - ${response.data.data.user_first_name} ${response.data.data.user_last_name} shared an announcement.`;
+        }
       }
 
       setTimeout(() => {

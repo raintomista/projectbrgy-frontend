@@ -19,8 +19,10 @@ export default class BrgyPage extends Component {
     const searchQuery = this.props.location.search;
     const parsedQuery = queryString.parse(searchQuery);
     this.props.AppData.getUserDetails();
-    this.props.BrgyPageStore.fetchBrgyPageData(parsedQuery.id);
-    this.props.BrgyPageStore.setViewType(parsedQuery.view);
+    await this.props.BrgyPageStore.fetchBrgyPageData(parsedQuery.id);
+    await this.props.BrgyPageStore.setViewType(parsedQuery.view);
+    const brgyName = this.props.BrgyPageStore.data ? `${this.props.BrgyPageStore.data.name} - B2P` : 'B2P';
+    document.title = brgyName;
   }
 
   componentDidUpdate(prevProps) {

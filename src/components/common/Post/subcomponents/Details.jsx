@@ -47,8 +47,9 @@ const BarangayPostDetails = observer((props) => {
           {/* [author] shared a post */}
           {props.postType === 'sharePost' && (
             <div className="share-post-details">
-              <span> shared a </span>
-              <Link to={viewPost(props.sharedPostId, 'announcement')} className="post-link">post</Link>
+              <span> shared an </span>
+              <Link to={viewPost(props.sharedPostId, 'announcement')} className="post-link">announcement</Link>
+              <span>.</span>
             </div>
           )}
         </div>

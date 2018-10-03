@@ -32,6 +32,10 @@ export default class MessagesView extends Component {
     this.connect();
   }
 
+  componentDidMount() {
+    document.title = 'Messages - B2P';
+  }
+
   async componentDidUpdate(prevProps) {
     const id = this.props.match.params.id;
     const history = this.props.history;

@@ -24,8 +24,11 @@ export default class Profile extends Component {
     const searchQuery = this.props.location.search;
     const parsedQuery = queryString.parse(searchQuery);
     this.props.AppData.getUserDetails();
-    this.props.UserProfileStore.fetchUserProfileData(parsedQuery.id);
-    this.props.UserProfileStore.setProfileView(parsedQuery.view);
+    await this.props.UserProfileStore.fetchUserProfileData(parsedQuery.id);
+    await this.props.UserProfileStore.setProfileView(parsedQuery.view);
+
+    const profileName = this.props.UserProfileStore.data ? `${this.props.UserProfileStore.data.user_first_name} ${this.props.UserProfileStore.data.user_last_name} - B2P` : 'B2P';
+    document.title = profileName;
   }
 
   componentDidUpdate() {
