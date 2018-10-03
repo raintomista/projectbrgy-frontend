@@ -37,13 +37,14 @@ export default class UnauthenticatedRoute extends Component {
   }
   render() {
     const token = localStorage.getItem('x-access-token');
-    const { component: Component, ...rest } = this.props;
+    const { component: Component, exact, path, ...rest } = this.props;
     const { loading, authenticated } = this.state;
     const { AppData } = RootStore;
 
     return (
       <Route
-        {...rest}
+        exact={exact}
+        path={path}
         render={(props) => (
           loading
             ? (token
@@ -57,7 +58,7 @@ export default class UnauthenticatedRoute extends Component {
               : <HomeView />
             )
             : (!authenticated
-              ? <Component {...props} />
+              ? <Component {...props} {...rest} />
               : <Redirect to='/dashboard' />
             )
         )}

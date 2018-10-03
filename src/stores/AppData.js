@@ -27,8 +27,7 @@ export default class AppData {
                 this.loggedUser = loggedUser;
             });
         } catch (e) {
-            if(e.response.data.errors[0].code === 'UNAUTH') {
-                alert('Your session has expired. Please login again.');
+            if (e.response.data.errors[0].code === 'UNAUTH') {
                 // Add navigation here
             }
         }

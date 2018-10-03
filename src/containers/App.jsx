@@ -57,6 +57,12 @@ export default class App extends Component {
         <Switch>
           <UnauthenticatedRoute
             exact={true}
+            path='/'
+            component={Redirect}
+            to='/login'
+          />
+          <UnauthenticatedRoute
+            exact={true}
             path='/login'
             component={Login}
           />
@@ -207,7 +213,6 @@ export default class App extends Component {
             path='/dashboard/my-barangay/e-services/katarungang-pambarangay/:id'
             component={KatarungangPambarangayOverview}
           />
-
           <Route
             exact={true}
             path='/superadmin'
