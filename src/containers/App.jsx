@@ -23,10 +23,16 @@ import ViewPostById from 'components/view-post-by-id/View';
 import BrgyPage from 'containers/BrgyPage';
 import Profile from 'containers/Profile';
 
+
+// Barangay Member Exclusive Routes
 import MyReportsView from 'components/my-reports/MyReportsView';
-import CreateReportView from 'components/my-reports/create-report/CreateReportView';
-import MyReportsRespondedView from 'components/my-reports-responded/MyReportsResponded';
 import MyReportsOverview from 'components/my-reports-overview/MyReportsOverview';
+import MyReportsRespondedView from 'components/my-reports-responded/MyReportsResponded';
+import CreateReportView from 'components/my-reports/create-report/CreateReportView';
+import EServicesView from 'components/e-services/View';
+
+
+
 import ResidentsView from 'components/residents/ResidentsView';
 import SearchView from 'components/search/SearchView';
 import SuperadminStats from 'components/superadmin-stats/SuperadminStats';
@@ -42,7 +48,11 @@ import NotFound404 from 'components/not-found/NotFound404';
 
 
 /*----------------- E-Services Views -----------------*/
-import EServicesView from 'components/e-services/View';
+
+
+import MemberOnlyRoute from 'guards/MemberOnlyRoute';
+
+
 
 @inject('AppData', 'BrgyPageStore', 'DashboardStore', 'MessagingStore', 'UserProfileStore')
 @observer
@@ -153,26 +163,37 @@ export default class App extends Component {
             path='/dashboard/my-barangay/e-services/katarungang-pambarangay/:id'
             render={(props) => <KatarungangPambarangayOverview {...props} />}
           />
-          <Route
+
+
+          {/* Barangay Member Exclusive Routes */}
+          <MemberOnlyRoute
             exact={true}
             path='/dashboard/my-reports'
-            render={(props) => <MyReportsView {...props} />}
+            component={MyReportsView}
           />
-          <Route
+          <MemberOnlyRoute
             exact={true}
             path='/dashboard/my-reports/create'
-            render={(props) => <CreateReportView {...props} />}
+            component={CreateReportView}
           />
-          <Route
+          <MemberOnlyRoute
             exact={true}
             path='/dashboard/my-reports/responded'
-            render={(props) => <MyReportsRespondedView {...props} />}
+            component={MyReportsRespondedView}
           />
-          <Route
+          <MemberOnlyRoute
             exact={true}
             path='/dashboard/my-reports/responded/:id'
-            render={(props) => <MyReportsOverview {...props} />}
+            component={MyReportsOverview}
           />
+          <MemberOnlyRoute
+            exact={true}
+            path='/e-services/:type/'
+            component={EServicesView}
+          />
+
+
+
 
           <Route
             exact={true}
@@ -198,10 +219,7 @@ export default class App extends Component {
             path='/profile'
             render={(props) => <Profile {...props} AppData={this.props.AppData} UserProfileStore={this.props.UserProfileStore} />}
           />
-          <Route
-            path='/e-services/:type/'
-            render={(props) => <EServicesView {...props} />}
-          />
+
 
           <Route
             exact={true}
