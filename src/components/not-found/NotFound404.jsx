@@ -1,11 +1,24 @@
 import React, { Component } from 'react';
+import { observer } from 'mobx-react';
+import NavBar from 'components/common/Nav/Bar';
 import NavBarAlt from 'components/common/Nav/BarAlt';
 import './NotFound.less';
+
+@observer
 export default class NotFound404 extends Component {
+  componentDidMount() {
+    this.props.AppData.getUserDetails();
+  }
   render() {
+    const { AppData } = this.props;
+    const { loggedUser } = AppData;
+
     return (
       <React.Fragment>
-        <NavBarAlt />
+        {!loggedUser
+          ? <NavBarAlt />
+          : <NavBar AppData={AppData} history={this.props.history} />
+        }
         <div className="dashboard-content">
           <div className="container">
             <div className="row justify-content-md-center">

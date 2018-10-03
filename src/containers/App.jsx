@@ -213,11 +213,8 @@ export default class App extends Component {
             path='/superadmin'
             render={(props) => <SuperadminStats {...props} AppData={this.props.AppData} />}
           />
-
           <Route
-            exact={true}
-            path='/404'
-            render={(props) => <NotFound404 {...props} />}
+            render={(props) => <NotFound404 {...props} AppData={this.props.AppData} />}
           />
         </Switch>
       </Router>
