@@ -7,35 +7,31 @@ import { observer, inject } from 'mobx-react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.less';
 
-/*----------------- Router Views -----------------*/
+
+// Unauthenticated Routes
 import Login from 'components/login/Login';
-import DashboardView from 'components/dashboard/View';
-import AuthenticateView from 'components/authenticate/AuthenticateView';
 import ResetView from 'components/reset/ResetView';
 import ForgotView from 'components/forgot/ForgotView';
-import MessagesView from 'components/messages/MessagesView';
-
-
-
-
 import SignupView from 'components/signup/SignupView';
-import ViewPostById from 'components/view-post-by-id/View';
-import BrgyPage from 'containers/BrgyPage';
+import AuthenticateView from 'components/authenticate/AuthenticateView';
+
+// Barangay Member and Barangay Page Admin Exclusive Views
 import Profile from 'containers/Profile';
+import BrgyPage from 'containers/BrgyPage';
+import DashboardView from 'components/dashboard/View';
+import SearchView from 'components/search/SearchView';
+import MessagesView from 'components/messages/MessagesView';
+import ViewPostById from 'components/view-post-by-id/View';
 
-
-// Barangay Member Exclusive Routes
+// Barangay Member Exclusive Views
 import MyReportsView from 'components/my-reports/MyReportsView';
 import MyReportsOverview from 'components/my-reports-overview/MyReportsOverview';
 import MyReportsRespondedView from 'components/my-reports-responded/MyReportsResponded';
 import CreateReportView from 'components/my-reports/create-report/CreateReportView';
 import EServicesView from 'components/e-services/View';
 
-
-
+// Barangay Page Admin Exclusive Views
 import ResidentsView from 'components/residents/ResidentsView';
-import SearchView from 'components/search/SearchView';
-import SuperadminStats from 'components/superadmin-stats/SuperadminStats';
 import BrgyReportsView from 'components/brgy-reports/BrgyReports';
 import BrgyReportOverview from 'components/brgy-report-overview/ReportOverview';
 import BrgyEservices from 'components/brgy-eservices/BrgyEservices';
@@ -43,13 +39,12 @@ import BrgyClearanceOverview from 'components/brgy-eservices/BrgyClearanceOvervi
 import BrgyBusinessPermitOverview from 'components/brgy-eservices/BrgyBusinessPermitOverview';
 import KatarungangPambarangayOverview from 'components/brgy-eservices/KatarungangPambarangayOverview';
 
+
+import SuperadminStats from 'components/superadmin-stats/SuperadminStats';
+
 import NotFound404 from 'components/not-found/NotFound404';
 
-
-
-/*----------------- E-Services Views -----------------*/
-
-
+import AdminOnlyRoute from 'guards/AdminOnlyRoute';
 import MemberOnlyRoute from 'guards/MemberOnlyRoute';
 
 
@@ -113,57 +108,6 @@ export default class App extends Component {
             path='/dashboard'
             render={(props) => <DashboardView {...props} />}
           />
-          <Route
-            exact={true}
-            path='/dashboard/my-barangay/residents'
-            render={(props) => <ResidentsView {...props} />}
-          />
-          <Route
-            exact={true}
-            path='/dashboard/my-barangay/reports'
-            render={(props) => <BrgyReportsView {...props} />}
-          />
-          <Route
-            exact={true}
-            path='/dashboard/my-barangay/reports/:id'
-            render={(props) => <BrgyReportOverview {...props} />}
-          />
-          <Route
-            exact={true}
-            path='/dashboard/my-barangay/e-services'
-            render={(props) => <BrgyEservices {...props} />}
-          />
-          <Route
-            exact={true}
-            path='/dashboard/my-barangay/e-services/barangay-clearance'
-            render={(props) => <Redirect to='/dashboard/my-barangay/e-services' />}
-          />
-          <Route
-            exact={true}
-            path='/dashboard/my-barangay/e-services/barangay-clearance/:id'
-            render={(props) => <BrgyClearanceOverview {...props} />}
-          />
-          <Route
-            exact={true}
-            path='/dashboard/my-barangay/e-services/business-permit'
-            render={(props) => <Redirect to='/dashboard/my-barangay/e-services' />}
-          />
-          <Route
-            exact={true}
-            path='/dashboard/my-barangay/e-services/business-permit/:id'
-            render={(props) => <BrgyBusinessPermitOverview {...props} />}
-          />
-          <Route
-            exact={true}
-            path='/dashboard/my-barangay/e-services/katarungang-pambarangay'
-            render={(props) => <Redirect to='/dashboard/my-barangay/e-services' />}
-          />
-          <Route
-            exact={true}
-            path='/dashboard/my-barangay/e-services/katarungang-pambarangay/:id'
-            render={(props) => <KatarungangPambarangayOverview {...props} />}
-          />
-
 
           {/* Barangay Member Exclusive Routes */}
           <MemberOnlyRoute
@@ -190,6 +134,58 @@ export default class App extends Component {
             exact={true}
             path='/e-services/:type/'
             component={EServicesView}
+          />
+
+          {/* Barangay Page Admin Exclusive Routes */}
+          <AdminOnlyRoute
+            exact={true}
+            path='/dashboard/my-barangay/residents'
+            component={ResidentsView}
+          />
+          <AdminOnlyRoute
+            exact={true}
+            path='/dashboard/my-barangay/reports'
+            component={BrgyReportsView}
+          />
+          <AdminOnlyRoute
+            exact={true}
+            path='/dashboard/my-barangay/reports/:id'
+            component={BrgyReportOverview}
+          />
+          <AdminOnlyRoute
+            exact={true}
+            path='/dashboard/my-barangay/e-services'
+            component={BrgyEservices}
+          />
+          <AdminOnlyRoute
+            exact={true}
+            path='/dashboard/my-barangay/e-services/barangay-clearance'
+            render={(props) => <Redirect to='/dashboard/my-barangay/e-services' />}
+          />
+          <AdminOnlyRoute
+            exact={true}
+            path='/dashboard/my-barangay/e-services/barangay-clearance/:id'
+            component={BrgyClearanceOverview}
+          />
+          <AdminOnlyRoute
+            exact={true}
+            path='/dashboard/my-barangay/e-services/business-permit'
+            render={(props) => <Redirect to='/dashboard/my-barangay/e-services' />}
+          />
+          <AdminOnlyRoute
+            exact={true}
+            path='/dashboard/my-barangay/e-services/business-permit/:id'
+            component={BrgyBusinessPermitOverview}
+          />
+          <AdminOnlyRoute
+            exact={true}
+            path='/dashboard/my-barangay/e-services/katarungang-pambarangay'
+            render={(props) => <Redirect to='/dashboard/my-barangay/e-services' />}
+          />
+          <AdminOnlyRoute
+            exact={true}
+            path='/dashboard/my-barangay/e-services/katarungang-pambarangay/:id'
+            component={KatarungangPambarangayOverview}
           />
 
 
