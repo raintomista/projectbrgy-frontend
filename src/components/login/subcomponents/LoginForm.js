@@ -6,9 +6,10 @@ import {
 } from 'services/SignupService';
 
 export default class LoginForm extends MobxReactForm {
-  constructor(history) {
+  constructor(history, location) {
     super();
     this.history = history;
+    this.location = location;
   }
   setup() {
     const fields = {
@@ -43,9 +44,11 @@ export default class LoginForm extends MobxReactForm {
           localStorage.setItem('x-access-token', response.data.data.token);
           setTimeout(() => {
             if (response.data.data.role === 'superadmin') {
-              this.history.push('/superadmin');
+              const { from } = this.location.state || { from: { pathname: '/superadmin' } }
+              this.history.push(from);
             } else {
-              this.history.push('/dashboard');
+              const { from } = this.location.state || { from: { pathname: '/dashboard' } }
+              this.history.push(from);
             }
           }, 100);
         } catch (e) {

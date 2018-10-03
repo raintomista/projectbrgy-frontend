@@ -55,10 +55,10 @@ export default class App extends Component {
     return (
       <Router>
         <Switch>
-          <Route
+          <UnauthenticatedRoute
             exact={true}
             path='/login'
-            render={(props) => <Login {...props} />}
+            component={Login}
           />
           <UnauthenticatedRoute
             exact={true}

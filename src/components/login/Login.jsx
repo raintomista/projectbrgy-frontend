@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
 import LoginForm from './subcomponents/LoginForm';
 import LoginInputField from './subcomponents/LoginInputField'
 import LoginSlider from './subcomponents/LoginSlider';
-import { loginUser } from 'services/SignupService';
-
+import { getUserDetailsViaToken } from 'services/DashboardService';
 
 import LogoAE from 'assets/images/AETech.png';
 import LogoDICT from 'assets/images/DICT.png';
@@ -18,8 +17,9 @@ import 'stylesheets/containers/Login.less';
 export default class Login extends Component {
   constructor(props) {
     super(props);
-    this.form = new LoginForm(props.history);
+    this.form = new LoginForm(props.history, props.location);
   }
+
   render() {
     return (
       <div className="content">
