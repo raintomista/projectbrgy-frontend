@@ -19,6 +19,11 @@ export default class ResetView extends Component {
     this.form = new ResetForm(props.history);
   }
 
+
+  componentDidMount() {
+    document.title = "Forgot Password - B2P"
+  }
+
   render() {
     return (
       <div className="content">

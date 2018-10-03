@@ -25,6 +25,7 @@ export default class DashboardView extends Component {
   }
 
   componentDidMount() {
+    document.title = "B2P"
     RootStore.AppData.getUserDetails();
   }
 
@@ -55,7 +56,7 @@ export default class DashboardView extends Component {
 
                 <InfiniteNewsFeed
                   pageStart={DashboardStore.pageStart}
-                  loadMore={(page) => {this._loadMorePosts(page)}}
+                  loadMore={(page) => { this._loadMorePosts(page) }}
                   hasMore={DashboardStore.hasMore}
                   loader={this.renderLoader()}
                 >

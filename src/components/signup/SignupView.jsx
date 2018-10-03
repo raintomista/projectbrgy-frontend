@@ -29,6 +29,11 @@ export default class SignupView extends Component {
   componentWillMount() {
     this.getAllRegions();
   }
+
+  componentDidMount() {
+    document.title = "Join B2P - B2P"
+  }
+
   render() {
     return (
       <React.Fragment>

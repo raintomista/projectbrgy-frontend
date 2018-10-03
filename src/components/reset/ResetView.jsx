@@ -26,6 +26,11 @@ export default class ResetView extends Component {
     const parsedQuery = queryString.parse(searchQuery);
     this.form.$('verify_code').set('value', typeof parsedQuery.token === 'undefined' ? '' : parsedQuery.token);
   }
+
+  componentDidMount() {
+    document.title = "Reset Password - B2P"
+  }
+
   render() {
     return (
       <div className="content">

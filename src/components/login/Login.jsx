@@ -20,6 +20,10 @@ export default class Login extends Component {
     this.form = new LoginForm(props.history, props.location);
   }
 
+  componentDidMount() {
+    document.title = "Welcome to B2P"
+  }
+
   render() {
     return (
       <div className="content">
