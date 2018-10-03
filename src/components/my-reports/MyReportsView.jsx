@@ -27,8 +27,9 @@ export default class DashboardView extends Component {
   componentDidMount() {
     RootStore.AppData.getUserDetails();
     this._getMyReports();
+    document.title = 'My Reports - B2P';
   }
-
+  
   render() {
     const { AppData } = RootStore;
     const { loggedUser } = AppData;

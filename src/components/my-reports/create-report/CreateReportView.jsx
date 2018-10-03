@@ -20,6 +20,7 @@ export default class CreateReportView extends Component {
 
   componentDidMount() {
     RootStore.AppData.getUserDetails();
+    document.title = 'Create Report - B2P';    
   }
 
   render() {

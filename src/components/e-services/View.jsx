@@ -27,8 +27,21 @@ export default class EServicesView extends Component {
     const parsedQuery = queryString.parse(searchQuery);
     RootStore.AppData.getUserDetails();
 
+
+    if (this.state.type === 'barangay-clearance') {
+      document.title = 'Barangay Clearance Form - B2P E-Services'
+    } else if (this.state.type === 'business-permit') {
+      document.title = 'Business Permit Form - B2P E-Services'
+    } else if (this.state.type === 'katarungang-pambarangay') {
+      document.title = 'Katarungang Pambarangay Form - B2P E-Services'
+    }
+
     this.setState({
       confirmed: typeof parsedQuery.confirmed === 'undefined' ? false : true
+    }, () => {
+      if (this.state.confirmed) {
+        document.title = 'Confirmation - B2P E-Services'
+      }
     });
   }
   componentDidUpdate(prevProps, prevState) {
@@ -38,6 +51,10 @@ export default class EServicesView extends Component {
     if (prevProps.location.search !== searchQuery) {
       this.setState({
         confirmed: typeof parsedQuery.confirmed === 'undefined' ? false : true
+      }, () => {
+        if (this.state.confirmed) {
+          document.title = 'Confirmation - B2P E-Services'
+        }
       });
       this.form = this._createForm(this.props.history);
     }

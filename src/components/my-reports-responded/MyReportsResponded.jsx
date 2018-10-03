@@ -27,6 +27,7 @@ export default class MyReportsRespondedView extends Component {
   componentDidMount() {
     RootStore.AppData.getUserDetails();
     this._getMyRespondedReports();
+    document.title = 'My Responded Reports - B2P';    
   }
 
   render() {

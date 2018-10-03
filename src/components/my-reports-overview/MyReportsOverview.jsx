@@ -36,6 +36,7 @@ export default class BrgyReports extends Component {
     await RootStore.AppData.getUserDetails();
     await this._getReportDetails(this.props.match.params.id);
     await this._getBrgyResponses(this.props.match.params.id);
+    document.title = 'Report Overview - B2P';    
   }
 
   render() {
