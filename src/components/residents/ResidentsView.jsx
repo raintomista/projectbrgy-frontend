@@ -19,6 +19,7 @@ export default class ResidentsView extends Component {
   async componentDidMount() {
     await RootStore.AppData.getUserDetails();
     this._getMyResidents(RootStore.AppData.loggedUser.barangay_page_id);
+    document.title = 'My Barangay Residents - B2P';
   }
 
   render() {

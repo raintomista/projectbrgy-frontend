@@ -21,6 +21,7 @@ export default class BrgyReports extends Component {
     await RootStore.AppData.getUserDetails();
     await RootStore.ReportOverviewStore.getReportDetails(id);
     await RootStore.ReportOverviewStore.getAdminResponses(id);
+    document.title = 'Report Overview - B2P';
   }
 
   async componentWillUnmount() {

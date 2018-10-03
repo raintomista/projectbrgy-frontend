@@ -26,6 +26,7 @@ export default class KatarungangPambarangayRequest extends Component {
     const { id } = this.props.match.params;
     await RootStore.AppData.getUserDetails();
     this._getKatarungangPambarangayById(id);
+    document.title = 'Complaint Overview - B2P';
   }
   render() {
     const { AppData } = RootStore;

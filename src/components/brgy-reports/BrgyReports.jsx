@@ -29,6 +29,7 @@ export default class BrgyReports extends Component {
   async componentDidMount() {
     await RootStore.AppData.getUserDetails();
     this._getMembersReports();
+    document.title = 'My Barangay Reports - B2P';
   }
 
   render() {

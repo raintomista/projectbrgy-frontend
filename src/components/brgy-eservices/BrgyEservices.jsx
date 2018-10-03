@@ -10,6 +10,9 @@ import RootStore from 'stores/RootStore';
 
 @observer
 export default class BrgyEservices extends Component {
+  componentDidMount() {
+    document.title = 'My Barangay E-Services - B2P';
+  }
   render() {
     const { AppData } = RootStore;
     const { loggedUser } = AppData;

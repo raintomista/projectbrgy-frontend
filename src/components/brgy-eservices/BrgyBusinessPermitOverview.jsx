@@ -26,6 +26,7 @@ export default class BrgyBusinessPermitOverview extends Component {
     const { id } = this.props.match.params;
     await RootStore.AppData.getUserDetails();
     this._getBusinessPermitById(id);
+    document.title = 'Request Overview - B2P';
   }
   render() {
     const { AppData } = RootStore;

@@ -26,6 +26,7 @@ export default class BrgyClearanceOverview extends Component {
     const { id } = this.props.match.params;
     await RootStore.AppData.getUserDetails();
     this._getBarangayClearanceById(id);
+    document.title = 'Request Overview - B2P';
   }
   render() {
     const { AppData } = RootStore;
