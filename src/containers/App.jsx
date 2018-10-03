@@ -46,6 +46,8 @@ import NotFound404 from 'components/not-found/NotFound404';
 
 import AdminOnlyRoute from 'guards/AdminOnlyRoute';
 import MemberOnlyRoute from 'guards/MemberOnlyRoute';
+import MemberAdminRoute from 'guards/MemberAdminRoute';
+
 
 
 
@@ -73,28 +75,6 @@ export default class App extends Component {
           />
           <Route
             exact={true}
-            path='/messages'
-            render={(props) => (
-              <MessagesView
-                {...props}
-                AppData={this.props.AppData}
-                MessagingStore={this.props.MessagingStore}
-              />
-            )}
-          />
-          <Route
-            exact={true}
-            path='/messages/:id'
-            render={(props) => (
-              <MessagesView
-                {...props}
-                AppData={this.props.AppData}
-                MessagingStore={this.props.MessagingStore}
-              />
-            )}
-          />
-          <Route
-            exact={true}
             path='/forgot-password'
             render={(props) => <ForgotView {...props} />}
           />
@@ -103,10 +83,53 @@ export default class App extends Component {
             path='/reset'
             render={(props) => <ResetView {...props} />}
           />
-          <Route
+
+          {/* Barangay Member and Barangay Page Admin Exclusive Views */}
+          <MemberAdminRoute
             exact={true}
             path='/dashboard'
-            render={(props) => <DashboardView {...props} />}
+            component={DashboardView}
+          />
+          <MemberAdminRoute
+            exact={true}
+            path='/barangay'
+            component={BrgyPage}
+            AppData={this.props.AppData}
+            BrgyPageStore={this.props.BrgyPageStore}
+          />
+          <MemberAdminRoute
+            exact={true}
+            path='/profile'
+            component={Profile}
+            AppData={this.props.AppData}
+            UserProfileStore={this.props.UserProfileStore}
+          />
+          <MemberAdminRoute
+            exact={true}
+            path='/search'
+            component={SearchView}
+            AppData={this.props.AppData}
+          />
+          <MemberAdminRoute
+            exact={true}
+            path='/post'
+            component={ViewPostById}
+            AppData={this.props.AppData}
+            DashboardStore={this.props.DashboardStore}
+          />
+          <MemberAdminRoute
+            exact={true}
+            path='/messages'
+            component={MessagesView}
+            AppData={this.props.AppData}
+            MessagingStore={this.props.MessagingStore}
+          />
+          <MemberAdminRoute
+            exact={true}
+            path='/messages/:id'
+            component={MessagesView}
+            AppData={this.props.AppData}
+            MessagingStore={this.props.MessagingStore}
           />
 
           {/* Barangay Member Exclusive Routes */}
@@ -187,35 +210,6 @@ export default class App extends Component {
             path='/dashboard/my-barangay/e-services/katarungang-pambarangay/:id'
             component={KatarungangPambarangayOverview}
           />
-
-
-
-
-          <Route
-            exact={true}
-            path='/search'
-            render={(props) => <SearchView {...props} AppData={this.props.AppData} />}
-          />
-
-
-          <Route
-            exact={true}
-            path='/post'
-            render={(props) => <ViewPostById {...props} AppData={this.props.AppData} DashboardStore={this.props.DashboardStore} />}
-          />
-
-
-          <Route
-            exact={true}
-            path='/barangay'
-            render={(props) => <BrgyPage {...props} AppData={this.props.AppData} BrgyPageStore={this.props.BrgyPageStore} />}
-          />
-          <Route
-            exact={true}
-            path='/profile'
-            render={(props) => <Profile {...props} AppData={this.props.AppData} UserProfileStore={this.props.UserProfileStore} />}
-          />
-
 
           <Route
             exact={true}
