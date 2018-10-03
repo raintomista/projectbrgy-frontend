@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom';
 import queryString from 'query-string';
 import { auth } from 'services/SignupService';
 
-export default class AuthenticateView extends Component {
+export default class ConfirmView extends Component {
   async componentWillMount() {
     const searchQuery = this.props.location.search;
     const parsedQuery = queryString.parse(searchQuery);

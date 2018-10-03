@@ -7,13 +7,12 @@ import { observer, inject } from 'mobx-react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.less';
 
-
 // Unauthenticated Routes
 import Login from 'components/login/Login';
 import ResetView from 'components/reset/ResetView';
 import ForgotView from 'components/forgot/ForgotView';
 import SignupView from 'components/signup/SignupView';
-import AuthenticateView from 'components/authenticate/AuthenticateView';
+import ConfirmView from 'components/confirm/ConfirmView';
 
 // Barangay Member and Barangay Page Admin Exclusive Views
 import Profile from 'containers/Profile';
@@ -47,9 +46,7 @@ import NotFound404 from 'components/not-found/NotFound404';
 import AdminOnlyRoute from 'guards/AdminOnlyRoute';
 import MemberOnlyRoute from 'guards/MemberOnlyRoute';
 import MemberAdminRoute from 'guards/MemberAdminRoute';
-
-
-
+import UnauthenticatedRoute from 'guards/UnauthenticatedRoute';
 
 @inject('AppData', 'BrgyPageStore', 'DashboardStore', 'MessagingStore', 'UserProfileStore')
 @observer
@@ -63,25 +60,25 @@ export default class App extends Component {
             path='/login'
             render={(props) => <Login {...props} />}
           />
-          <Route
-            exact={true}
-            path='/sign-up'
-            render={(props) => <SignupView {...props} />}
-          />
-          <Route
+          <UnauthenticatedRoute
             exact={true}
             path='/confirm'
-            render={(props) => <AuthenticateView {...props} />}
+            component={ConfirmView}
           />
-          <Route
+          <UnauthenticatedRoute
             exact={true}
             path='/forgot-password'
-            render={(props) => <ForgotView {...props} />}
+            component={ForgotView}
           />
-          <Route
+          <UnauthenticatedRoute
             exact={true}
             path='/reset'
-            render={(props) => <ResetView {...props} />}
+            component={ResetView}
+          />
+          <UnauthenticatedRoute
+            exact={true}
+            path='/sign-up'
+            component={SignupView}
           />
 
           {/* Barangay Member and Barangay Page Admin Exclusive Views */}
