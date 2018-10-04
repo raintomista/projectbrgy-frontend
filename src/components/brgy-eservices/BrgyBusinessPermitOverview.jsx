@@ -98,13 +98,13 @@ export default class BrgyBusinessPermitOverview extends Component {
                           </div>
                         </div>
                         <div className="row">
-                          <div className="col-md-6">
+                          <div className="col-md-12 col-lg-6">
                             <div className="field">
                               <label>Date of Request: </label>
                               <span> {moment(request.date_created).format('MMMM DD, YYYY')}</span>
                             </div>
                           </div>
-                          <div className="col-md-6">
+                          <div className="col-md-12 col-lg-6">
                             <div className="field">
                               <label>Date of Pickup: </label>
                               <span> {moment(request.pickup).format('MMMM DD, YYYY (h a)')}</span>

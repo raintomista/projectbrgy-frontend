@@ -74,13 +74,13 @@ export default class BrgyClearanceOverview extends Component {
                           </div>
                         </div>
                         <div className="row">
-                          <div className="col-md-6">
+                          <div className="col-md-12 col-lg-6">
                             <div className="field">
                               <label>Citizenship:</label>
                               <span> {request.citizenship}</span>
                             </div>
                           </div>
-                          <div className="col-md-6">
+                          <div className="col-md-12 col-lg-6">
                             <div className="field">
                               <label>Purpose:</label>
                               <span> {request.purpose}</span>
@@ -88,13 +88,13 @@ export default class BrgyClearanceOverview extends Component {
                           </div>
                         </div>
                         <div className="row">
-                          <div className="col-md-6">
+                          <div className="col-md-12 col-lg-6">
                             <div className="field">
                               <label>Date of Birth:</label>
                               <span> {moment(request.date_of_birth).format('MMMM DD, YYYY')}</span>
                             </div>
                           </div>
-                          <div className="col-md-6">
+                          <div className="col-md-12 col-lg-6">
                             <div className="field">
                               <label>Place of Birth:</label>
                               <span> {request.place_of_birth}</span>
@@ -102,13 +102,13 @@ export default class BrgyClearanceOverview extends Component {
                           </div>
                         </div>
                         <div className="row">
-                          <div className="col-md-6">
+                          <div className="col-md-12 col-lg-6">
                             <div className="field">
                               <label>Marital Status:</label>
                               <span> {request.marital_status}</span>
                             </div>
                           </div>
-                          <div className="col-md-6">
+                          <div className="col-md-12 col-lg-6">
                             <div className="field">
                               <label>Months / Years of Residency:</label>
                               <span>
@@ -121,13 +121,13 @@ export default class BrgyClearanceOverview extends Component {
                           </div>
                         </div>
                         <div className="row">
-                          <div className="col-md-6">
+                          <div className="col-md-12 col-lg-6">
                             <div className="field">
                               <label>Date of Request: </label>
                               <span> {moment(request.date_created).format('MMMM DD, YYYY')}</span>
                             </div>
                           </div>
-                          <div className="col-md-6">
+                          <div className="col-md-12 col-lg-6">
                             <div className="field">
                               <label>Date of Pickup: </label>
                               <span> {moment(request.pickup).format('MMMM DD, YYYY (h a)')}</span>

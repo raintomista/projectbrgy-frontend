@@ -98,13 +98,13 @@ export default class KatarungangPambarangayRequest extends Component {
                           </div>
                         </div>
                         <div className="row">
-                          <div className="col-md-6">
+                          <div className="col-md-12 col-lg-6">
                             <div className="field">
                               <label>Date of Incident: </label>
                               <span> {moment(request.date_of_incident).format('MMMM DD, YYYY')}</span>
                             </div>
                           </div>
-                          <div className="col-md-6">
+                          <div className="col-md-12 col-lg-6">
                             <div className="field">
                               <label>Date of Filling: </label>
                               <span> {moment(request.date_created).format('MMMM DD, YYYY')}</span>
