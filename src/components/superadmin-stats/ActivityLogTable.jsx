@@ -26,14 +26,14 @@ export default class ActivityLogTable extends Component {
       </tr>
     ))
     return (
-      <table className="activity-log table">
+      <table className="activity-log table" style={{ tableLayout: 'fixed' }}>
         <thead>
           <tr>
-            <th>User</th>
-            <th>Method</th>
-            <th>Activity</th>
-            <th>IP Address</th>
-            <th>Timestamp</th>
+            <th style={{ width: '20%' }}>User</th>
+            <th style={{ width: '10%' }}>Method</th>
+            <th style={{ width: '30%' }}>Activity</th>
+            <th style={{ width: '20%' }}>IP Address</th>
+            <th style={{ width: '20%' }}>Timestamp</th>
           </tr>
         </thead>
         <InfiniteScroll

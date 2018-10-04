@@ -140,7 +140,7 @@ export default class SuperadminStats extends Component {
                       </div>
                     </div>
                     <div className="row justify-content-center">
-                      <div className="col-sm-3">
+                      <div className="col-sm-12 generate-btn">
                         <button className="btn rounded" onClick={() => this.generateReport()}>Generate Report</button>
                       </div>
                     </div>
