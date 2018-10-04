@@ -1,5 +1,5 @@
 .brgy-page-stats {
-    border-top: none;
+    border: none;
     border-radius: 0px;
     margin-bottom: 1em;
     .card-body {
@@ -31,5 +31,14 @@
     } // Profile Stats Filler Item
     .filler.nav-item {
         min-width: 115px;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .brgy-page-stats {
+        .nav-item {
+            flex: 0 50%;
+            margin-bottom: 10px;
+        }
     }
 }
