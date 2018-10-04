@@ -84,7 +84,7 @@ export default class LoginSlider extends Component {
     });
 
     return (
-      <div className="col-md-4 login-slider">
+      <div className="d-none d-md-flex col-md-5 col-lg-4 login-slider">
         <Carousel
           activeIndex={activeIndex}
           next={this.next}

@@ -40,11 +40,11 @@ export default class DashboardView extends Component {
         <NavBar AppData={AppData} history={this.props.history} />
         <div className="dashboard-content">
           <div className="container">
-            <div className="row">
-              <div className="col-md-3">
+            <div className="row ">
+              <div className="col-md-4 col-lg-3">
                 {loggedUser && <DashboardSideBar AppData={AppData} />}
               </div>
-              <div className="col-md-6">
+              <div className="col-md-7 col-lg-6">
 
                 {loggedUser && loggedUser.user_role !== 'barangay_member' && (
                   <DashboardPostBox

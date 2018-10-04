@@ -30,7 +30,7 @@ export default class Login extends Component {
         <div className="row">
           {/* Login Slider */}
           <LoginSlider />
-          <div className="col-md-8 d-flex login-form">
+          <div className="col-md-7 col-lg-8  d-flex login-form">
             <div className="container align-self-center">
               <h1>Know what's happening in your Barangay!</h1>
               <form onSubmit={this.form.onSubmit}>
