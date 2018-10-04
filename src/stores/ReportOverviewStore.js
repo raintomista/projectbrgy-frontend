@@ -41,7 +41,6 @@ export default class ReportOverviewStore {
                 runInAction(() => this.report = response.data.data);
             }, 1000);
         } catch (e) {
-            console.log(e);
         }
     }
     @action
@@ -62,7 +61,6 @@ export default class ReportOverviewStore {
                 });
             }, 1000);
         } catch (e) {
-            console.log(e);
         }
     }
 
@@ -90,7 +88,6 @@ export default class ReportOverviewStore {
                 });
             }, 1000);
         } catch (e) {
-            console.log(e);
         }
     }
 
@@ -117,7 +114,6 @@ export default class ReportOverviewStore {
                 });
             }, 1000);
         } catch (e) {
-            console.log(e);
         }
     }
 

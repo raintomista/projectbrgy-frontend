@@ -9,8 +9,6 @@ const DashboardSidebar = observer((props) => {
   const { AppData } = props;
   const { loggedUser } = AppData;
 
-  console.log(loggedUser);
-
   if (loggedUser) {
     return (
       <div className="home-sidebar card">

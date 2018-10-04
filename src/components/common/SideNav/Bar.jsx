@@ -83,7 +83,6 @@ export default class SideBar extends Component {
       this.props.AppData.logout();
       localStorage.clear();            
     } catch (e) {
-      console.log(e.response)
       alert('An error occurred. Please try again.')
     }
   }

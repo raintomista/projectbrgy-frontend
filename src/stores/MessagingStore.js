@@ -245,7 +245,6 @@ export default class MessagingStore {
                 this.inputDisabled = false;
             });
         } catch (e) {
-            console.log(e.response);
         }
     }
 

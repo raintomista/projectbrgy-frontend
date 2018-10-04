@@ -104,7 +104,6 @@ export default class AnnouncementTextOnlyCard extends Component {
       this.setState({ isLiked: 1 });
     }
     catch (e) {
-      console.log(e)
     }
   }
 
@@ -114,7 +113,6 @@ export default class AnnouncementTextOnlyCard extends Component {
       this.setState({ isLiked: 0 });
     }
     catch (e) {
-      console.log(e)
     }
   }
 

@@ -176,7 +176,6 @@ export default class BarangayPost extends Component {
       }));
     }
     catch (e) {
-      console.log(e)
     }
   }
 
@@ -189,7 +188,6 @@ export default class BarangayPost extends Component {
       }));
     }
     catch (e) {
-      console.log(e)
     }
   }
 

@@ -17,11 +17,9 @@ export default class Inbox extends Component {
     const { loggedUser } = this.props.AppData;
     const { inbox } = this.props.MessagingStore;
     const items = inbox.map((message, index) => {
-      console.log(message)
       let id = null;
       let status = 'unread';
 
-      console.log(message)
       if (loggedUser.user_role === 'barangay_page_admin') {
         id = loggedUser.barangay_page_id === message.sender_id ? message.receiver_id : message.sender_id;
         status = loggedUser.barangay_page_id === message.sender_id ? message.sender_status : message.receiver_status;

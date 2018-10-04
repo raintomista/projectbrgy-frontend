@@ -114,8 +114,6 @@ export default class KatarungangPambarangayTable extends Component {
         })
       }, 1000);
     } catch (e) {
-      console.log(e.response)
-      alert('An error occurred. Please try again later.');
     }
   }
 
@@ -126,7 +124,6 @@ export default class KatarungangPambarangayTable extends Component {
 
     try {
       const response = await getAllKatarungangPambarangayComplaints(brgyId, currentPage - 1, 5, 'desc');
-      console.log(response)
       setTimeout(() => {
         this.setState({
           loading: false,
@@ -147,7 +144,6 @@ export default class KatarungangPambarangayTable extends Component {
 
     try {
       const response = await getAllKatarungangPambarangayComplaints(brgyId, currentPage + 1, 5, 'desc');
-      console.log(response.data.data.katarungang_pambarangay)
       setTimeout(() => {
         this.setState({
           loading: false,

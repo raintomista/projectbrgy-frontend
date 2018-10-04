@@ -43,7 +43,6 @@ export const hooks = {
             form.set('disabled', false);            
         } 
         catch (e) {
-            console.log(e);
         }
     }
 }

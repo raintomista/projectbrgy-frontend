@@ -82,7 +82,6 @@ export default class SharePostDialogForm extends MobxReactForm {
         }
       },
       onError(form) {
-        console.log(form.errors())
       }
     }
   }

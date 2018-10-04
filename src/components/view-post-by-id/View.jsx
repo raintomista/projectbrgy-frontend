@@ -193,7 +193,6 @@ export default class ViewPostById extends Component {
       }, 1000);
     }
     catch (e) {
-      console.log(e);
     }
   }
 }

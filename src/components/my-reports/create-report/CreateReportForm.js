@@ -79,7 +79,6 @@ export default class CreateReportForm extends MobxReactForm {
             alert('You have successfully created a report');
             this.history.push('/dashboard/my-reports');
           } catch (e) {
-            console.log(e.response)
           }
         }
       },

@@ -135,7 +135,6 @@ export default class KatarungangPambarangayRequest extends Component {
     this.setState({ loading: true });
     try {
       const response = await getKatarungangPambarangayById(id);
-      console.log(response)
       setTimeout(() => {
         this.setState({
           loading: false,

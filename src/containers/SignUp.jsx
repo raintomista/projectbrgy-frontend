@@ -40,7 +40,7 @@ const Form = props => {
     if (value !== '')
       getProvinces(value)
         .then((response) => updateState('provinces', response.data.data.items))
-        .catch((e) => console.log(e));
+        .catch((e) => { });
   }
 
   // Handle the change in province dropdown menu
@@ -63,7 +63,7 @@ const Form = props => {
     if (value !== '')
       getMunicipalities(values.region, value)
         .then((response) => updateState('municipalities', response.data.data.items))
-        .catch((e) => console.log(e));
+        .catch((e) => { });
   }
 
   // Handle the change in municipality dropdown menu
@@ -83,7 +83,7 @@ const Form = props => {
     //Fetch provinces when valid municipality is selected
     getBarangays(values.region, values.province, value)
       .then((response) => updateState('barangays', response.data.data.items))
-      .catch((e) => console.log(e));
+      .catch((e) => { });
   }
 
 
@@ -98,10 +98,10 @@ const Form = props => {
         setFieldValue('barangayAddress', details.office_address_street);
         setFieldValue('barangay_id', details.id);
       })
-      .catch((e) => console.log(e));
+      .catch((e) => { });
   }
 
-  
+
 
   return (
     <form onSubmit={handleSubmit}>
@@ -262,7 +262,7 @@ const SignupForm = withFormik({
         alert('You have successfully created a barangay member account.');
         setStatus(true);
       })
-      .catch((e) => console.log(e));
+      .catch((e) => { });
   },
 
 })(Form);

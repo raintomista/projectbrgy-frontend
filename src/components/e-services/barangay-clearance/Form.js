@@ -186,11 +186,9 @@ export default class BarangayClearanceForm extends MobxReactForm {
             this.$('valid_id').set('label', 'Browse');
           }, 2000);
         } catch (e) {
-          console.log(e.response);
         }
       },
       onError(form) {
-        console.log(form.errors())
       },
     }
   }

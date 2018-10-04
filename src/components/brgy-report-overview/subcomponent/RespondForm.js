@@ -87,7 +87,6 @@ export default class RespondForm extends MobxReactForm {
           RootStore.ReportOverviewStore.setLabel('Attach files here');
         }, 1000);
       } catch (err) {
-        console.log(err.response);
         alert('An error occurred. Please try again.');
         this.$('uploadProgress').set('value', -1); //Set upload progress to 100;  
         this.$('message').set('disabled', false);

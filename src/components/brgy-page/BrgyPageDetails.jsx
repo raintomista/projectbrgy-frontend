@@ -96,7 +96,6 @@ const BrgyPageDetails = observer((props) => {
       {/* Barangay Resources  */}
       <ul className="brgy-resources list-group list-group-flush">
 
-        {console.log(BrgyPageStore.data)}
         {/* Dropbox */}
         {BrgyPageStore.data && BrgyPageStore.data.dropbox && (
           <li className="list-group-item">

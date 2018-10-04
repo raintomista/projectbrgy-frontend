@@ -80,7 +80,6 @@ export default class KatarungangPambarangay extends MobxReactForm {
       },
       onError(form) {
         alert('All fields are required.')
-        console.log(form.errors())
       },
     }
   }

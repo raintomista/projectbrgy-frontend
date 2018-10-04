@@ -41,7 +41,6 @@ export default class UserProfileStore {
                 this.data = data;
             });
         } catch (e) {
-            console.log(e);
         }
     }
 
@@ -133,7 +132,6 @@ export default class UserProfileStore {
             });
 
         } catch (e) {
-            console.log(e);
         }
     }
 
@@ -148,7 +146,6 @@ export default class UserProfileStore {
             });
 
         } catch (e) {
-            console.log(e);
         }
     }
 

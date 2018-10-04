@@ -138,7 +138,6 @@ export default class CommentSection extends Component {
       }
     }
     catch (e) {
-      console.log(e);
     }
   }
 
@@ -169,7 +168,6 @@ export default class CommentSection extends Component {
         this.props.form.select('comments').set('value', comments);
       }
       catch (e) {
-        console.log(e);
       }
     }
   }
