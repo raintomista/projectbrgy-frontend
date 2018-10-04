@@ -56,8 +56,8 @@ const BarangayPostDetails = observer((props) => {
 
         {/* Post Location and Timestamp */}
         <div className="post-subdetails">
-          <a className="post-location">{props.authorLocation}</a>
-          <span> &middot; </span>
+          <a className="d-none d-md-inline post-location">{props.authorLocation}</a>
+          <span className="d-none d-md-inline"> &middot; </span>
           <Link to={viewPost(props.postId, props.postType)} className="post-timestamp">
             {props.postDate}
           </Link>

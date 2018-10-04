@@ -8,7 +8,7 @@
         text-decoration: underline;
     }
     .list-group-item:first-of-type {
-        color: #bfbfbf;        
+        color: #bfbfbf;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -29,5 +29,18 @@
         color: #bfbfbf;
         font-size: 0.8em;
         font-weight: 600;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .dashboard-sidebar-options.list-group.list-group-flush {
+        .list-group-item {
+            font-size: 18px;
+        }
+        .list-group-item:last-of-type {
+            border-top: 0;
+            padding: 10px;
+            height: 0.5em;
+        }
     }
 }
