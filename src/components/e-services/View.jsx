@@ -69,7 +69,7 @@ export default class EServicesView extends Component {
         <div className="dashboard-content">
           <div className="container">
             <div className="row justify-content-md-center">
-              <div className="col-md-10">
+              <div className="col-sm-12 col-md-10">
                 <div className="e-services-form card">
                   <div className="card-body">
                     {this.state.confirmed === false && this.renderForm()}

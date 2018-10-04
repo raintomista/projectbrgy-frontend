@@ -9,9 +9,26 @@
         margin-left: 0.7em;
         width: 60px;
     }
-
     .rw-dropdown-list {
-        margin-left: 0.7em;   
+        margin-left: 0.7em;
         flex-grow: 100;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .inline.field-dropdown.form-group {
+        flex-wrap: wrap;
+        label {
+            width: 100%;
+            margin-left: 0px;
+            margin-bottom: 5px;
+        }
+        .form-control {
+            margin-left: 0px;
+            width: 40%;
+        }
+        .rw-dropdown-list {
+            flex-grow: 100;
+        }
     }
 }

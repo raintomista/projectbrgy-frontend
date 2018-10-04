@@ -232,4 +232,32 @@
         outline: 1px dotted #000;
         outline: -webkit-focus-ring-color auto 5px;
     }
+    @media only screen and (max-width: 768px) {
+        .dashboard-content>.container {
+            max-width: 90vw !important;
+        }
+        .card-body {
+            padding: 2em;
+        }
+        .section {
+            margin-left: 0px;
+        }
+        .pickup-datetime.section {
+            margin: 0px;
+        }
+        .pickup-datetime .input-field {
+            margin-bottom: 10px;
+            max-width: none;
+        }
+
+        .business-info.section>.fields>.input-field {
+            max-width: 90%;
+            margin-bottom: 10px;
+        }
+
+        .katarungang-pambarangay-info>.fields>.input-field {
+            max-width: 100%;
+            margin-bottom: 10px;
+        }
+    }
 }

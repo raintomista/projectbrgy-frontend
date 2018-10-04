@@ -16,9 +16,9 @@ const BarangayClearance = observer((props) => {
       <form onSubmit={props.form.onSubmit}>
 
         <div className="row">
-          <div className="basic-info section col-md-12">
+          <div className="basic-info section col-sm-12 col-md-12">
             <div className="row">
-              <div className="col col-md-7">
+              <div className="col-sm-12 col-md-7">
                 <InlineInputField
                   id="first-name"
                   field={props.form.$('first_name')}
@@ -27,7 +27,7 @@ const BarangayClearance = observer((props) => {
                   required
                 />
               </div>
-              <div className="col col-md-5">
+              <div className="col-sm-12 col-md-5">
                 <InlineInputField
                   id="middle-name"
                   field={props.form.$('middle_name')}
@@ -38,7 +38,7 @@ const BarangayClearance = observer((props) => {
               </div>
             </div>
             <div className="row">
-              <div className="col col-md-6">
+              <div className="col-sm-12 col-md-6">
                 <InlineInputField
                   id="last-name"
                   field={props.form.$('last_name')}
@@ -47,7 +47,7 @@ const BarangayClearance = observer((props) => {
                   required
                 />
               </div>
-              <div className="col col-md-6">
+              <div className="col-sm-12 col-md-6">
                 <InlineInputField
                   id="citizenship"
                   field={props.form.$('citizenship')}
@@ -58,7 +58,7 @@ const BarangayClearance = observer((props) => {
               </div>
             </div>
             <div className="row">
-              <div className="col col-md-6">
+              <div className="col-sm-12 col-md-6">
                 <InlineInputField
                   id="date-of-birth"
                   field={props.form.$('date_of_birth')}
@@ -68,7 +68,7 @@ const BarangayClearance = observer((props) => {
                   required
                 />
               </div>
-              <div className="col col-md-6">
+              <div className="col-sm-12 col-md-6">
                 <InlineInputField
                   id="place-of-birth"
                   field={props.form.$('place_of_birth')}
@@ -79,7 +79,7 @@ const BarangayClearance = observer((props) => {
               </div>
             </div>
             <div className="row">
-              <div className="col col-md-12">
+              <div className="col-sm-12 col-md-12">
                 <InlineInputField
                   id="address"
                   field={props.form.$('address')}
@@ -90,14 +90,14 @@ const BarangayClearance = observer((props) => {
               </div>
             </div>
             <div className="row">
-              <div className="col col-md-5">
+              <div className="col-sm-12 col-md-5">
                 <InlineDropdownInput
                   id="marital-status"
                   field={props.form.$('marital_status')}
                   label="Marital Status:"
                 />
               </div>
-              <div className="col col-md-7">
+              <div className="col-sm-12 col-md-7">
                 <InlineInputFieldWithDropdown
                   id="residency"
                   label="Months/Years of Residency:"

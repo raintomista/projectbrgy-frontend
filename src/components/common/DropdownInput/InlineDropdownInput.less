@@ -5,9 +5,25 @@
         margin-bottom: 0;
         min-width: max-content;
     }
-
     .rw-dropdown-list {
         margin-left: 0.7em;
         flex-grow: 100;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .inline.dropdown-input.form-group {
+        margin-bottom: 10px !important;
+        display: flex;
+        flex-wrap: wrap;
+        label {
+            margin-bottom: 5px;
+            width: 100%;
+        }
+        .rw-dropdown-list {
+            margin-left: 0px;
+            margin-bottom: 10px;
+            flex-grow: 100;
+        }
     }
 }

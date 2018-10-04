@@ -1,17 +1,23 @@
 .radio-with-field {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
-
-    > label {
+    >label {
         min-width: 180px;
     }
-
     input[type="text"] {
         margin-left: 5px;
         width: 150px;
     }
-
     .required {
         color: red;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .radio-with-field {
+        input[type="text"] {
+            margin-left: 25px !important;
+        }
     }
 }
