@@ -22,7 +22,7 @@ export default class NotFound404 extends Component {
         <div className="dashboard-content">
           <div className="container">
             <div className="row justify-content-md-center">
-              <div className="col-md-10">
+              <div className="col-md-12">
                 <div className="not-found-404 card">
                   <h2>Page Not Found!</h2>
                   <p>

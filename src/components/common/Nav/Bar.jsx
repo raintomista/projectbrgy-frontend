@@ -26,33 +26,34 @@ export default class NavBar extends Component {
   }
 
   onSetSidebarOpen() {
-    this.props.AppData.toggleSidebar();                   
+    this.props.AppData.toggleSidebar();
   }
 
   render() {
     return (
       <div>
-        <nav className="navbar navbar-expand-md fixed-top navbar-dark">
-          <div className="mx-auto order-0">
-            <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-              aria-expanded="false" aria-label="Toggle navigation">
-              <span className="navbar-toggler-icon"></span>
-            </button>
-            <div className="collapse navbar-collapse" id="navbarSupportedContent">
-              <div className="navbar-nav">
-                <Link to="/dashboard" className="nav-logo">
-                  <img src={Home} alt="" />
-                </Link>
-              </div>
-              <div className="form-inline my-2 my-lg-0">
-                <SearchBar history={this.props.history}/>
-              </div>
-              <div className="navbar-nav">
-                <a onClick={() => this.onSetSidebarOpen()} className="nav-menu">
+
+        <nav className="navbar navbar-collapse-sm navbar-dark fixed-top">
+          <div className="container">
+            <div className="navbar-brand mr-auto ">
+              <a href="/dashboard" className="nav-logo">
+                <img src={Home} alt="" />
+              </a>
+            </div>
+            <ul className="d-none d-md-block navbar-nav">
+              <li className="nav-item">
+                <div className="nav-link">
+                  <SearchBar history={this.props.history} />
+                </div>
+              </li>
+            </ul>
+            <ul className="navbar-nav ml-auto">
+              <li className="nav-item">
+                <a className="nav-menu nav-link" onClick={() => this.onSetSidebarOpen()}>
                   <img src={Menu} alt="" />
                 </a>
-              </div>
-            </div>
+              </li>
+            </ul>
           </div>
         </nav>
         <SideBar {...this.props} onSetOpen={this.onSetSidebarOpen} />

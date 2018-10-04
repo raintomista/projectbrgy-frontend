@@ -9,14 +9,12 @@ export default class NavBarAlt extends Component {
   render() {
     return (
       <div>
-        <nav className="navbar navbar-expand-md fixed-top navbar-dark">
-          <div className="mx-auto order-0">
-            <div className="collapse navbar-collapse" id="navbarSupportedContent">
-              <div className="navbar-nav">
-                <Link to="/login" className="nav-logo">
-                  <img src={Home} alt="" />
-                </Link>
-              </div>
+        <nav className="navbar navbar-collapse-sm navbar-dark fixed-top">
+          <div className="container">
+            <div className="navbar-brand mr-auto ">
+              <a href="/login" className="nav-logo">
+                <img src={Home} alt="" />
+              </a>
             </div>
           </div>
         </nav>
