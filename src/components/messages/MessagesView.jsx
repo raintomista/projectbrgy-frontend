@@ -56,20 +56,21 @@ export default class MessagesView extends Component {
   }
 
   render() {
+    const id = this.props.match.params.id;
     const { AppData, MessagingStore, history } = this.props;
     return (
       <React.Fragment>
         <NavBar AppData={AppData} history={history} />
         <div className="messaging-container">
           <div className="row">
-            <div className="col-md-4 inbox-container">
+            <div className={`${typeof id !== 'undefined' ? 'd-none' : ''} d-md-block col-md-5  col-lg-4 col-xl-3 inbox-container`}>
               <Inbox
                 AppData={AppData}
                 handleListen={(handler) => this.handleListen(handler)}
                 MessagingStore={MessagingStore}
               />
             </div>
-            <div className="col-md-8 conversation-container">
+            <div className="col-md-7 col-lg-8 col-xl-9 conversation-container">
               {typeof this.props.match.params.id !== 'undefined' && (
                 <Conversation
                   AppData={AppData}

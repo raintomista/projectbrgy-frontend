@@ -4,13 +4,16 @@
         height: calc(100vh - 60px);
         width: calc(100% + 15px);
     }
-
     .inbox-container {
         padding-right: 0px;
     }
-
     .conversation-container {
         padding-left: 0px;
-        padding-right: 0px;        
+        padding-right: 0px;
+    }
+    @media only screen and (max-width: 768px) {
+        .conversation-container {
+            padding-left: 15px;
+        }
     }
 }
