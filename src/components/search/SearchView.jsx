@@ -65,8 +65,8 @@ export default class ViewPostById extends Component {
         </div>
         {
           result.is_followed === 1 ?
-            <a className="btn rounded filled" onClick={() => this._handleUnfollow(result.id, index)}>Following</a> :
-            <a className="btn rounded" onClick={() => this._handleFollow(result.id, index)}>Follow</a>
+            <a className="d-none d-lg-inline btn rounded filled" onClick={() => this._handleUnfollow(result.id, index)}>Following</a> :
+            <a className="d-none d-lg-inline btn rounded" onClick={() => this._handleFollow(result.id, index)}>Follow</a>
         }
       </li>
     ));
@@ -79,7 +79,7 @@ export default class ViewPostById extends Component {
         <div className="dashboard-content">
           <div className="container">
             <div className="row justify-content-md-center">
-              <div className="col-md-8">
+              <div className="col-md-12 col-lg-8">
                 <div className="search-view card">
                   <div className="card-body">
                     <h4 className="card-title">Results for "{this.state.query}"</h4>
