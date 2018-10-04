@@ -34,8 +34,8 @@ export default class UserFollowingList extends Component {
           {/* Follow Button */}
           {
             barangay.is_following === 1 ?
-              <a className="btn rounded filled" onClick={() => UserProfileStore.unfollowBarangay(barangay.barangay_page_id, index)}>Following</a> :
-              <a className="btn rounded" onClick={() => UserProfileStore.followBarangay(barangay.barangay_page_id, index)}>Follow</a>
+              <a className="d-none d-lg-inline btn rounded filled" onClick={() => UserProfileStore.unfollowBarangay(barangay.barangay_page_id, index)}>Following</a> :
+              <a className="d-none d-lg-inline btn rounded" onClick={() => UserProfileStore.followBarangay(barangay.barangay_page_id, index)}>Follow</a>
           }
         </li >
       );

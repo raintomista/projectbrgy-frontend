@@ -1,4 +1,6 @@
 .user-following-list {
+    border: none;
+    border-radius: 0px;
     .card-title {
         font-family: 'Montserrat', sans-serif;
         font-weight: 700;
@@ -9,6 +11,9 @@
         justify-content: space-between;
         align-items: center;
         padding: 10px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
     .list-group-item>.wrapper {
         display: flex;
@@ -18,7 +23,7 @@
         width: 100%;
     }
     .list-group-item>.wrapper .profile-pic {
-        background-color: rgb(204, 204, 204);        
+        background-color: rgb(204, 204, 204);
         border: 2px solid #2a8abd;
         border-radius: 100%;
         margin-right: 10px;
@@ -28,7 +33,7 @@
         max-width: 55px;
     }
     .list-group-item>.wrapper>.brgy-info {
-        max-width: 290px;
+        max-width: 250px;
     }
     .list-group-item>.wrapper>.brgy-info>.brgy-name {
         color: #2a8abd;
@@ -46,16 +51,13 @@
         text-overflow: ellipsis;
         font-size: 16px;
     }
-
     .list-group-item.loader {
         margin-top: 10px;
         padding: 0px;
     }
-
     .loader {
         width: 100%;
         text-align: center;
-
         object {
             height: 50px;
         }

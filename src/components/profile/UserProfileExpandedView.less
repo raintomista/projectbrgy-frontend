@@ -18,10 +18,10 @@
     }
     /* User Full Name */
     .basic-info>.card-title {
-        color: #2a8abd;      
-        display: block;  
+        color: #2a8abd;
+        display: block;
         font-family: 'Montserrat', sans-serif;
-        font-size: 1.75rem;        
+        font-size: 1.75rem;
         font-weight: 700;
         margin-bottom: 0;
         text-align: center;
@@ -70,7 +70,6 @@
         margin-bottom: 0.5em;
         max-width: 380px;
         text-transform: lowercase;
-        
         text-transform: capitalize;
     }
     /* User's Contact Info */
@@ -92,7 +91,6 @@
         min-width: 16px;
         margin-right: 8px;
     }
-
     .message-btn {
         margin-top: 15px;
         text-align: center;
@@ -113,4 +111,25 @@
     justify-content: flex-start;
     min-height: 410px;
     padding: 2.5em 0 2.5em 0px;
+}
+
+@media only screen and (max-width: 768px) {
+    .user-profile-expanded-details {
+        .basic-info {
+            text-align: center;
+        }
+        .basic-info>.card-img {
+            width: 90%;
+        }
+        .additional-info {
+            border: none;
+        }
+        .col-md-4 {
+            padding: 0px;
+        }
+        .col-md-8 {
+            padding-top: 0px;
+        }
+    }
+    .user-profile-details {}
 }
