@@ -52,10 +52,10 @@ export default class MyReportsRespondedView extends Component {
         <div className="dashboard-content">
           <div className="container">
             <div className="row">
-              <div className="col-md-3">
+              <div className="col-md-4 col-lg-4 col-xl-3">
                 {loggedUser && <DashboardSideBar AppData={AppData} />}
               </div>
-              <div className="my-report-responded col-md-9">
+              <div className="my-report-responded col-md-8 col-lg-7 col-xl-7">
                 <div className="section-header">
                   <div className="title">Responded</div>
                 </div>
