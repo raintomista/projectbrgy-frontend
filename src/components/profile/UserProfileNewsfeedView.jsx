@@ -58,12 +58,12 @@ export default class UserProfileNewsfeedView extends Component {
     return (
       <div className="row">
         {/* User Profile Details Section (Left) */}
-        <div className="col-md-3">
+        <div className="col-md-4 col-lg-3 col-xl-3">
           <UserProfileDetails AppData={AppData} UserProfileStore={UserProfileStore} history={this.props.history} />
         </div>
 
         {/* User Profile Stats and Newsfeed Section (Middle) */}
-        <div className="col-md-6">
+        <div className="col-md-8 col-lg-7 col-xl-6">
           <UserProfileStats AppData={AppData} UserProfileStore={UserProfileStore} />
           <InfiniteScroll
             pageStart={pageStart}

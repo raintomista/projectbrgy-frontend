@@ -174,13 +174,13 @@ const UserProfileExpandedView = observer((props) => {
         </div>
       </div>
 
-      <div className="col-lg-3 d-none d-lg-block d-xl-block">
+      {/* <div className="col-lg-3 d-none d-lg-block d-xl-block">
         <div className="card">
           <div className="card-body">
             &nbsp;
         </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 });

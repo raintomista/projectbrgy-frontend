@@ -15,12 +15,12 @@ const BrgyPageView = observer((props) => {
   return (
     <div className="row">
       {/* Brarangay Page Details Section (Left) */}
-      <div className="col-md-3">
+      <div className="col-md-4 col-lg-3 col-xl-3">
         <BrgyPageDetails {...props} />
       </div>
 
       {/* Brarangay Page Stats and Newsfeed Section (Middle) */}
-      <div className="col-md-6">
+      <div className="col-md-8 col-lg-7 col-xl-6">
         <BrgyPageStats {...props} />
         {renderView(props)}
       </div>
