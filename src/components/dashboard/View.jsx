@@ -41,10 +41,10 @@ export default class DashboardView extends Component {
         <div className="dashboard-content">
           <div className="container">
             <div className="row ">
-              <div className="col-md-4 col-lg-3">
+              <div className="col-md-4 col-lg-4 col-xl-3">
                 {loggedUser && <DashboardSideBar AppData={AppData} />}
               </div>
-              <div className="col-md-7 col-lg-6">
+              <div className="col-md-8 col-lg-7 col-xl-6">
 
                 {loggedUser && loggedUser.user_role !== 'barangay_member' && (
                   <DashboardPostBox

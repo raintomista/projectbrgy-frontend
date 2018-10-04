@@ -47,10 +47,10 @@ export default class ResidentsView extends Component {
         <div className="dashboard-content">
           <div className="container">
             <div className="row">
-              <div className="col-md-3">
+              <div className="col-md-4 col-lg-4 col-xl-3">
                 {loggedUser && <DashboardSideBar AppData={AppData} />}
               </div>
-              <div className="my-barangay-residents col-md-9">
+              <div className="my-barangay-residents col-md-8 col-lg-8 col-xl-9">
                 <div className="title"><Link to='/dashboard'>My Barangay</Link> » Residents</div>
                 <div className="card">
                   <div className="card-body">

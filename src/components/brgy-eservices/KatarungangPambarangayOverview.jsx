@@ -39,10 +39,10 @@ export default class KatarungangPambarangayRequest extends Component {
         <div className="dashboard-content">
           <div className="container">
             <div className="row">
-              <div className="col-md-3">
+              <div className="col-md-4 col-lg-4 col-xl-3">
                 {loggedUser && <DashboardSideBar AppData={AppData} />}
               </div>
-              <div className="brgy-eservice-overview col-md-9">
+              <div className="brgy-eservice-overview col-md-8 col-lg-8 col-xl-9">
                 <div className="title">
                   <Link to='/dashboard/my-barangay/e-services'>E-Services</Link> » Complaint Overview
                 </div>
