@@ -39,12 +39,12 @@ export default class BrgyPageFollowingList extends Component {
           {
             barangay.is_following === 1 ?
               <a
-                className="btn rounded filled"
+                className="d-none d-md-inline btn rounded filled"
                 onClick={() => BrgyPageStore.unfollowBarangayFromList(loggedUserRole, loggedUserBrgyId, barangay.barangay_page_id, index)}
               >
                 Following
               </a> :
-              <a className="btn rounded"
+              <a className="d-none d-md-inline btn rounded"
                 onClick={() => BrgyPageStore.followBarangayFromList(loggedUserRole, loggedUserBrgyId, barangay.barangay_page_id, index)}
               >
                 Follow

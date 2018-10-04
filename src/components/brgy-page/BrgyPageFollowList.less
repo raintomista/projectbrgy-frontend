@@ -1,4 +1,6 @@
 .brgy-follow-list {
+    border: none;
+    border-radius: 0px;
     margin-bottom: 3.5em;
     .card-title {
         font-family: 'Montserrat', sans-serif;
@@ -10,6 +12,9 @@
         justify-content: space-between;
         align-items: center;
         padding: 10px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
     .list-group-item>.wrapper {
         display: flex;
