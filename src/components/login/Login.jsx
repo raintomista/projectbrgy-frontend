@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import LoginForm from './subcomponents/LoginForm';
 import LoginInputField from './subcomponents/LoginInputField'
 import LoginSlider from './subcomponents/LoginSlider';
-import { getUserDetailsViaToken } from 'services/DashboardService';
 
 import LogoAE from 'assets/images/AETech.png';
 import LogoDICT from 'assets/images/DICT.png';

@@ -13,8 +13,6 @@ export default class BarangayClearanceForm extends MobxReactForm {
     this.history = history;
   }
   setup() {
-    const request_date = moment().format('MM/DD/YYYY');
-
     const fields = {
       barangay_id: {
         rules: 'required'
@@ -143,7 +141,7 @@ export default class BarangayClearanceForm extends MobxReactForm {
         } = form.values();
 
         // Compute months of residency
-        let months_of_residency = parseInt(residencyField);
+        let months_of_residency = parseInt(residencyField, 10);
         if (residencyDropdown === 'year/s') {
           months_of_residency *= 12;
         }

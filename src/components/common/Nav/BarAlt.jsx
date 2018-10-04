@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
-
 import Home from 'assets/images/nav-home.png';
-
-import { Link } from "react-router-dom";
 import 'components/common/Nav/Bar.less';
 
 export default class NavBarAlt extends Component {

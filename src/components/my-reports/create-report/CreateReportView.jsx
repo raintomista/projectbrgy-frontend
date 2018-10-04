@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 
 import NavBar from 'components/common/Nav/Bar';
@@ -24,7 +23,7 @@ export default class CreateReportView extends Component {
   }
 
   render() {
-    const { AppData, DashboardStore } = RootStore;
+    const { AppData } = RootStore;
     const { loggedUser } = AppData;
     let characterCount = 150 - this.form.$('message').value.length;
 

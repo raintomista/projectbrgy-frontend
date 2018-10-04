@@ -1,6 +1,6 @@
 import validatorjs from 'validatorjs';
 
-import { addComment, getCommentsByPostId } from 'services/CommentService';
+import { addComment } from 'services/CommentService';
 
 export const plugins = { dvr: validatorjs };
 

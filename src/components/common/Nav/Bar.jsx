@@ -1,21 +1,11 @@
-/*--------------- React Core ---------------*/
 import React, { Component } from 'react';
+import { observer } from 'mobx-react';
 
-/*--------------- Components ---------------*/
 import SideBar from 'components/common/SideNav/Bar';
-
-/*--------------- Nav Images ---------------*/
+import SearchBar from './subcomponent/SearchBar';
 import Home from 'assets/images/nav-home.png';
 import Menu from 'assets/images/nav-menu.png';
 
-/*--------------- Utilities ---------------*/
-import { Link } from "react-router-dom";
-import { observer } from 'mobx-react';
-
-
-import SearchBar from './subcomponent/SearchBar';
-
-/*--------------- Stylesheets ---------------*/
 import 'components/common/Nav/Bar.less';
 
 @observer

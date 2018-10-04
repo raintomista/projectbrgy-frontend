@@ -155,7 +155,7 @@ export default class UserProfileStore {
     @action
     async unsharePost(postId, index) {
         try {
-            const response = await unsharePost(postId);
+            await unsharePost(postId);
 
             runInAction(() => {
                 this.sharedPosts.splice(index, 1);

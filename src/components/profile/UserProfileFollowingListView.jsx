@@ -1,5 +1,4 @@
 import React from 'react';
-import DashboardFeedCard from 'components/dashboard/DashboardFeedCard';
 import UserFollowingList from './UserFollowingList';
 import UserProfileDetails from 'components/profile/UserProfileDetails';
 import UserProfileStats from 'components/profile/UserProfileStats';

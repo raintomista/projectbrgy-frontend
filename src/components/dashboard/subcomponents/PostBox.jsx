@@ -15,9 +15,6 @@ import { Line } from 'rc-progress';
 // Form
 import PostBoxForm from './PostBoxForm';
 
-// Subcomponent
-import LightRoundedButton from 'components/common/Buttons/LightRounded';
-
 // Stylesheet
 import './PostBox.less';
 
@@ -41,7 +38,7 @@ export default class DasboardPostBox extends Component {
                 <button type="button" className="remove-btn" disabled={this.form.$('message').disabled} onClick={() => this.removeImage(blob, index)}>
                   <FontAwesomeIcon icon={faTimes} />
                 </button>
-                <img src={blob} />
+                <img src={blob} alt=""/>
               </div>
             ))}
 

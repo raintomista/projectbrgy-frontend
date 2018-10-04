@@ -1,6 +1,5 @@
 import validatorjs from 'validatorjs';
 import MobxReactForm from 'mobx-react-form';
-import moment from 'moment';
 import RootStore from 'stores/RootStore';
 import {
   createReport
@@ -13,8 +12,6 @@ export default class CreateReportForm extends MobxReactForm {
     this.$('committee_type').set('disabled', true);
   }
   setup() {
-    const request_date = moment().format('MM/DD/YYYY');
-
     const fields = {
       receiver_id: {
         rules: 'string'
@@ -78,7 +75,7 @@ export default class CreateReportForm extends MobxReactForm {
             formData.set('files', files);
             
 
-            const response = await createReport(formData);
+            await createReport(formData);
             alert('You have successfully created a report');
             this.history.push('/dashboard/my-reports');
           } catch (e) {

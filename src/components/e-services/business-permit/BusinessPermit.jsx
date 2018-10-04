@@ -123,7 +123,7 @@ const BusinessPermit = observer((props) => {
 });
 
 function handleCedula(e, form) {
-  if (e.target.files.length == 1) {
+  if (e.target.files.length === 1) {
     const file = e.target.files[0];
     const blob = file.slice(0, -1, file.type);
     const renamedFile = new File([blob], `cedula~${file.name}`, { type: file.type });

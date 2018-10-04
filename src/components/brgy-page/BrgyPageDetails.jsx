@@ -6,7 +6,6 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import { faDropbox } from '@fortawesome/free-brands-svg-icons';
 import faCogs from '@fortawesome/fontawesome-free-solid/faCogs';
 import faEnvelope from '@fortawesome/fontawesome-free-solid/faEnvelope';
-import faFolder from '@fortawesome/fontawesome-free-solid/faFolder';
 import faGlobe from '@fortawesome/fontawesome-free-solid/faGlobe';
 import faPhone from '@fortawesome/fontawesome-free-solid/faPhone';
 

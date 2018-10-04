@@ -5,7 +5,7 @@ const ImageContent = (props) => {
   if (props.attachments.length === 1) {
     return (
       <div className={props.className}>
-        <img src={getRawURL(props.attachments[0].link)} />
+        <img src={getRawURL(props.attachments[0].link)} alt=""/>
       </div>
     );
   } else {

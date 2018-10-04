@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import queryString from 'query-string';
 import { observer } from 'mobx-react';
 import ResetForm from './ForgotForm';
 import LoginInputField from 'components/login/subcomponents/LoginInputField'

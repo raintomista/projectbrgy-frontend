@@ -62,10 +62,4 @@ const viewFollowing = (brgyId) => ({
   search: `?id=${brgyId}&view=following_list`
 });
 
-const viewEvents = (brgyId) => ({
-  pathname: '/barangay',
-  search: `?id=${brgyId}&view=events_list`
-});
-
-
 export default BrgyPageStats;

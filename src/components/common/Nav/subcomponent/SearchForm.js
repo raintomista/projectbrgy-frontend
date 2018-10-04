@@ -1,6 +1,5 @@
 import validatorjs from 'validatorjs';
 import MobxReactForm from 'mobx-react-form';
-import moment from 'moment';
 import { search } from 'services/SearchService';
 
 export default class CreateReportForm extends MobxReactForm {

@@ -33,7 +33,7 @@ export default class ViewPostById extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevProps.location.search != this.props.location.search) {
+    if (prevProps.location.search !== this.props.location.search) {
       const searchQuery = this.props.location.search;
       const parsedQuery = queryString.parse(searchQuery);
       document.title = `${parsedQuery.query} - B2P Search`;
@@ -114,7 +114,7 @@ export default class ViewPostById extends Component {
 
   async _handleFollow(brgyId, index) {
     try {
-      const response = await followBarangay(brgyId);
+      await followBarangay(brgyId);
       let results = this.state.results.slice();
       results[index].is_followed = 1;
       this.setState({ results: results });
@@ -125,7 +125,7 @@ export default class ViewPostById extends Component {
 
   async _handleUnfollow(brgyId, index) {
     try {
-      const response = await unfollowBarangay(brgyId);
+      await unfollowBarangay(brgyId);
       let results = this.state.results.slice();
       results[index].is_followed = 0;
       this.setState({ results: results });

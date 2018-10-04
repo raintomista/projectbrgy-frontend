@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 import queryString from 'query-string';
 
@@ -29,7 +28,7 @@ export default class ViewPostById extends Component {
 
   componentDidUpdate(prevProps, prevState) {
 
-    if (prevProps.location.search != this.props.location.search) {
+    if (prevProps.location.search !== this.props.location.search) {
       // Parse search query
       const searchQuery = this.props.location.search;
       const parsedQuery = queryString.parse(searchQuery);

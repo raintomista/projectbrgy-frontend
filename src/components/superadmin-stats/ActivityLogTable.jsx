@@ -15,7 +15,7 @@ export default class ActivityLogTable extends Component {
   }
 
   render() {
-    const { hasMore, logs, pageStart, page } = this.state;
+    const { hasMore, logs, pageStart } = this.state;
     const items = logs.map((log, index) => (
       <tr key={log.id}>
         <td className="actor">{log.actor}</td>

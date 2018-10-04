@@ -87,7 +87,7 @@ export default class PostBoxForm extends MobxReactForm {
   }
 
   createFormData(data) {
-    const formData = new FormData;
+    const formData = new FormData();
     formData.append('message', data.message);
 
     for (let i = 0; i < data.files.length; i++) {

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 import { Link } from 'react-router-dom';
 import DashboardSideBar from 'components/dashboard/subcomponents/SideBar';
@@ -23,7 +22,7 @@ export default class ResidentsView extends Component {
   }
 
   render() {
-    const { AppData, DashboardStore } = RootStore;
+    const { AppData } = RootStore;
     const { loggedUser } = AppData;
 
     const residents = this.state.residents.map((resident, index) => (

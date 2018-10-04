@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import { observer } from 'mobx-react';
-import { search } from 'services/SearchService';
 import SearchForm from './SearchForm'
 
 import './SearchBar.less';

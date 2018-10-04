@@ -44,7 +44,7 @@ export default class BrgyReports extends Component {
     const { loggedUser } = AppData;
     const report = this.state.report;
     const responses = [];
-    this.state.responses.map((response, index) => {
+    this.state.responses.map((response, index) => (
       responses.unshift(
         <ResponseItem
           key={response.id}
@@ -57,7 +57,7 @@ export default class BrgyReports extends Component {
           handleDisplayMessage={this._handleDisplayMessage}
         />
       )
-    })
+    ));
 
     return (
       <React.Fragment>

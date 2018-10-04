@@ -1,7 +1,5 @@
 import {
     action,
-    computed,
-    configure,
     observable,
     runInAction
 } from 'mobx';

@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-
 import { observer } from 'mobx-react';
 
-// Subcomponents
 import BarangayPostCard from 'components/common/Post/PostCard';
 import DashboardPostBox from 'components/dashboard/subcomponents/PostBox';
 import InfiniteNewsFeed from 'components/dashboard/subcomponents/InfiniteNewsFeed';
