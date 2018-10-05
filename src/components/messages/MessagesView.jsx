@@ -12,6 +12,13 @@ import './MessagesView.less';
 @observer
 export default class MessagesView extends Component {
   socket = {};
+  constructor(props) {
+    super(props);
+    this.state = {
+      connected: false,
+      statusHidden: false,
+    }
+  }
 
   async componentWillMount() {
     await this.props.AppData.getUserDetails();
@@ -74,6 +81,8 @@ export default class MessagesView extends Component {
               {typeof this.props.match.params.id !== 'undefined' && (
                 <Conversation
                   AppData={AppData}
+                  connected={this.state.connected}
+                  statusHidden={this.state.statusHidden}
                   handleSendMessage={(data) => this.handleSendMessage(data)}
                   handleListen={(handler) => this.handleListen(handler)}
                   history={this.props.history}
@@ -97,21 +106,34 @@ export default class MessagesView extends Component {
 
     this.socket.on('connect', () => {
       const { loggedUser } = this.props.AppData;
+      this.setState({ connected: true });
       if (loggedUser.user_role === 'barangay_member') {
         this.socket.emit('setMessengerId', { messengerId: loggedUser.user_id });
       } else if (loggedUser.user_role === 'barangay_member_admin') {
         this.socket.emit('setMessengerId', { messengerId: loggedUser.user_barangay_id });
       }
-    })
+
+      setTimeout(() => {
+        this.setState({ statusHidden: true })
+      }, 1000);
+    });
+
+    this.socket.on('disconnect', () => {
+      this.setState({ connected: false, statusHidden: false });
+    });
   }
 
   handleSendMessage(data) {
-    this.socket.emit('client:message', data);
+    if (this.state.connected) {
+      this.socket.emit('client:message', data);
+    }
   }
 
   handleListen(handler) {
-    this.socket.on('server:message', (data) => {
-      handler(data);
-    });
+    if (this.state.connected) {
+      this.socket.on('server:message', (data) => {
+        handler(data);
+      });
+    }
   }
 }

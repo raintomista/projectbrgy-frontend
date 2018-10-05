@@ -14,12 +14,25 @@
             text-align: center;
         }
     }
+    .connection-indicator {
+        position: absolute;
+        color: white;
+        font-family: 'Lato', sans-serif;
+        font-weight: 600;
+        padding: 5px;
+        text-align: center;
+        width: 100%;
+    }
+    .connection-indicator+.conversation-loading,
+    .connection-indicator+.conversation {
+        margin-top: 34px;
+        height: calc(100vh - 60px - 55px - 61px - 34px);
+    }
     .conversation-loading {
         display: flex;
         align-items: center;
         justify-content: space-around;
         height: calc(100vh - 60px - 55px - 61px);
-
         .loader {
             margin-bottom: 10px;
         }

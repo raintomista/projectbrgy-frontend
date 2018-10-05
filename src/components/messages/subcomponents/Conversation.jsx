@@ -67,21 +67,28 @@ export default class Conversation extends Component {
           </div>
         )}
         {!conversationLoading && (
-          <div className="conversation" id="conversation" onScroll={(e) => this.handleScroll(e)}>
-            <InfiniteScroll
-              pageStart={pageStart}
-              loadMore={(page) => this.loadMore(page)}
-              hasMore={hasMore}
-              loader={this.renderLoader()}
-              style={{ padding: '20px' }}
-              useWindow={false}
-              isReverse={true}
-              threshold={10}
-              ref={(scroll) => { this.scroll = scroll; }}
-            >
-              {items}
-            </InfiniteScroll>
-          </div>
+          <React.Fragment>
+            {!this.props.statusHidden && (
+              <div className="connection-indicator" style={{ backgroundColor: !this.props.connected ? '#ffab12' : '#28c128' }}>
+                {!this.props.connected ? 'Connecting' : 'Connected'}
+              </div>
+            )}
+            <div className="conversation" id="conversation" onScroll={(e) => this.handleScroll(e)}>
+              <InfiniteScroll
+                pageStart={pageStart}
+                loadMore={(page) => this.loadMore(page)}
+                hasMore={hasMore}
+                loader={this.renderLoader()}
+                style={{ padding: '20px' }}
+                useWindow={false}
+                isReverse={true}
+                threshold={10}
+                ref={(scroll) => { this.scroll = scroll; }}
+              >
+                {items}
+              </InfiniteScroll>
+            </div>
+          </React.Fragment>
         )}
         <form onSubmit={(e) => this.handleSubmit(e)} className="message-box">
           <input type="text"
@@ -145,7 +152,7 @@ export default class Conversation extends Component {
   async handleSubmit(e) {
     e.preventDefault();
     e.persist();
-    const { receiverId, handleSendMessage } = this.props;    
+    const { receiverId, handleSendMessage } = this.props;
     const { loggedUser } = this.props.AppData;
 
     const message = e.target.message.value.trim();
