@@ -7,6 +7,10 @@
     height: 60px;
 }
 
+.navbar-nav {
+    flex-direction: row;
+}
+
 // Place navbar below the sidebar
 .fixed-top {
     z-index: 1;
@@ -28,11 +32,32 @@
     padding: 0px 10px;
 }
 
+.sm-search-bar {
+    .nav-search-bar {
+        input,
+        input:active,
+        input:focus {
+            width: 62vw !important;
+        }
+    }
+}
+.nav-search {
+    h5 {
+        font-family: 'Lato', sans-serif;
+        font-size: 20px;
+        margin-bottom: 0px;
+    }
+}
+.nav-search * {
+    color: white;
+    font-size: 28px;
+    margin-right: -2px;
+}
+
 @media only screen and (max-width: 768px) {
     .nav-logo {
         margin-left: -25px;
     }
-
     .nav-menu {
         margin-right: -25px;
     }
