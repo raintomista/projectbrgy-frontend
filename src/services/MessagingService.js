@@ -16,9 +16,9 @@ export function sendMessage(message, receiver_id) {
     });
 }
 
-export function getInbox(page, limit) {
+export function getInbox(page, limit, order, skip) {
     const token = localStorage.getItem('x-access-token');
-    return axios.get(`${API_HOST}/inbox?page=${page}&limit=${limit}`, {
+    return axios.get(`${API_HOST}/inbox?page=${page}&limit=${limit}&order=${order}&skip=${skip}`, {
         headers: {
             'x-access-token': token
         }

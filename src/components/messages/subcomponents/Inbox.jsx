@@ -17,25 +17,24 @@ export default class Inbox extends Component {
     const { loggedUser } = this.props.AppData;
     const { inbox } = this.props.MessagingStore;
     const items = inbox.map((message, index) => {
-      let id = null;
-      let status = 'unread';
+      let chatmate_id, status;
 
-      if (loggedUser.user_role === 'barangay_page_admin') {
-        id = loggedUser.barangay_page_id === message.sender_id ? message.receiver_id : message.sender_id;
-        status = loggedUser.barangay_page_id === message.sender_id ? message.sender_status : message.receiver_status;
-      } else if (loggedUser.user_role === 'barangay_member') {
-        id = loggedUser.user_id === message.sender_id ? message.receiver_id : message.sender_id;
+      if (loggedUser.user_role === 'barangay_member') {
+        chatmate_id = loggedUser.user_id === message.sender_id ? message.receiver_id : message.sender_id;
         status = loggedUser.user_id === message.sender_id ? message.sender_status : message.receiver_status;
+      } else if (loggedUser.user_role === 'barangay_page_admin') {
+        chatmate_id = loggedUser.barangay_page_id === message.sender_id ? message.receiver_id : message.sender_id;
+        status = loggedUser.barangay_page_id === message.sender_id ? message.sender_status : message.receiver_status;
       }
       return (
         <Message
-          authorId={id}
+          authorId={chatmate_id}
           user_first_name={message.sender_first_name}
           user_last_name={message.sender_last_name}
           dateCreated={this.formatDate(message.date_created)}
           message={message.message}
           status={status}
-          key={id}
+          key={chatmate_id}
         />
       );
     });
@@ -57,8 +56,12 @@ export default class Inbox extends Component {
   }
 
   handleListen(message) {
-    const loggedUser = this.props.AppData.loggedUser;
-    const logged_user = loggedUser.user_role === 'barangay_member' ? loggedUser.user_id : loggedUser.barangay_page_name;
-    this.props.MessagingStore.receiveInboxMsg(message, logged_user);
+    const { loggedUser } = this.props.AppData;
+
+    if(loggedUser.user_role === 'barangay_member') {
+      this.props.MessagingStore.receiveInboxMsg(message, loggedUser.user_id);
+    } else if(loggedUser.user_role === 'barangay_page_admin') {
+      this.props.MessagingStore.receiveInboxMsg(message, loggedUser.barangay_page_name);
+    }
   }
 }

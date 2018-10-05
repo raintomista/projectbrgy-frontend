@@ -122,11 +122,18 @@ export default class Conversation extends Component {
 
   getLoggedUser() {
     const { loggedUser } = this.props.AppData;
-    const { user_first_name, user_last_name } = loggedUser;
-    return {
-      sender_first_name: user_first_name,
-      sender_last_name: user_last_name
-    };
+    const { barangay_page_name, user_first_name, user_last_name } = loggedUser;
+
+    if (loggedUser.user_role === 'barangay_member') {
+      return ({
+        sender_first_name: user_first_name,
+        sender_last_name: user_last_name
+      });
+    } else if (loggedUser.user_role === 'barangay_admin') {
+      return ({
+        sender_barangay_name: barangay_page_name
+      });
+    }
   }
 
   handleChange(e) {
@@ -136,10 +143,11 @@ export default class Conversation extends Component {
   async handleEnter(e) {
     if (e.key === 'Enter') {
       const message = e.target.value.trim();
-      const { receiverId, handleSendMessage } = this.props;
+      const { receiverId: receiver_id, handleSendMessage } = this.props;
       const sender_name = this.getLoggedUser();
+
       if (message.length > 0) {
-        await this.props.MessagingStore.sendMsg(message, receiverId, sender_name, handleSendMessage);
+        await this.props.MessagingStore.sendMsg(message, receiver_id, sender_name, handleSendMessage);
         this.scrollToBottom();
       }
     }
@@ -161,7 +169,6 @@ export default class Conversation extends Component {
       sender_first_name: loggedUser.user_first_name,
       sender_last_name: loggedUser.user_last_name
     }
-
 
     if (message.length > 0) {
       await this.props.MessagingStore.sendMsg(message, receiverId, sender_name, sender_id, handleSendMessage);

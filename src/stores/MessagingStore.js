@@ -124,7 +124,7 @@ export default class MessagingStore {
         this.inbox = [];
 
         try {
-            const response = await getInbox(1, this.limit);
+            const response = await getInbox(1, this.limit, 'desc', 0);
             runInAction(() => {
                 const inbox = this.inbox.slice();
                 inbox.push(...response.data.data.items);
@@ -173,29 +173,30 @@ export default class MessagingStore {
 
     sendInboxMsg(message, sender_id) {
         const msgIndex = this.inbox.findIndex((e) => {
-            let id = null;
-            if (sender_id === e.sender_id) {
-                id = e.receiver_id;
-            } else {
-                id = e.sender_id;
+            if (e.sender_id === message.sender_id && e.receiver_id === message.receiver_id) {
+                return e;
+            } else if (e.sender_id === message.receiver_id && e.receiver_id === message.sender_id) {
+                return e;
             }
-
-            return id === message.receiver_id;
         });
 
         if (msgIndex !== -1) {
             const msg = this.inbox.splice(msgIndex, 1)[0];
             msg.date_created = message.date_created;
             msg.message = message.message;
-            msg.status = 'replied';
+            msg.receiver_id = message.receiver_id;
+            msg.receiver_status = 'unread';
+            msg.sender_id = message.sender_id;
+            msg.sender_status = 'replied';
             this.inbox.unshift(msg);
         } else {
             const msg = {
                 date_created: message.date_created,
                 message: message.message,
                 receiver_id: message.receiver_id,
+                receiver_status: 'unread',
                 sender_id: message.sender_id,
-                status: 'replied',
+                sender_status: 'replied',
                 sender_first_name: this.user.user_first_name,
                 sender_last_name: this.user.user_last_name
             };
@@ -205,22 +206,30 @@ export default class MessagingStore {
 
     @action
     receiveInboxMsg(message, logged_user) {
-        const msgIndex = this.inbox.findIndex((e) => message.receiver_id === logged_user);
-        const status = this.user.id === message.sender_id ? 'read' : 'unread';
-
+        const msgIndex = this.inbox.findIndex((e) => {
+            if (e.sender_id === message.sender_id && e.receiver_id === message.receiver_id) {
+                return e;
+            } else if (e.sender_id === message.receiver_id && e.receiver_id === message.sender_id) {
+                return e;
+            }
+        });
         if (msgIndex !== -1) {
             const msg = this.inbox.splice(msgIndex, 1)[0];
             msg.date_created = message.date_created;
             msg.message = message.message;
-            msg.status = status;
+            msg.receiver_id = message.sender_id;
+            msg.receiver_status = message.sender_status;
+            msg.sender_id = message.receiver_id;
+            msg.sender_status = message.receiver_status;
             this.inbox.unshift(msg);
         } else {
             const msg = {
                 date_created: message.date_created,
                 message: message.message,
-                receiver_id: message.receiver_id,
-                sender_id: message.sender_id,
-                status: status,
+                receiver_id: message.sender_id,
+                receiver_status: message.sender_status,
+                sender_id: message.receiver_id,
+                sender_status: message.receiver_status,
                 sender_first_name: message.sender_first_name,
                 sender_last_name: message.sender_last_name
             };
@@ -234,18 +243,17 @@ export default class MessagingStore {
         try {
             const response = await sendMessage(message, receiverId);
             const newMessage = response.data.data;
-            handleSendMessage({
-                ...sender_name,
+
+            handleSendMessage({ ...sender_name,
                 ...newMessage
             });
             runInAction(() => {
                 this.messages.unshift(newMessage);
-                this.sendInboxMsg(newMessage, sender_id);
+                this.sendInboxMsg(newMessage);
                 this.inputValue = '';
                 this.inputDisabled = false;
             });
-        } catch (e) {
-        }
+        } catch (e) {}
     }
 
     @action
