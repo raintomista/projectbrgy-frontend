@@ -14,7 +14,7 @@ import {
 
 export default class MessagingStore {
     @observable pageStart = 0;
-    @observable limit = 25;
+    @observable limit = 15;
     @observable order = 'desc';
     @observable skip = 0;
     @observable hasScrolled = false;
@@ -138,8 +138,11 @@ export default class MessagingStore {
 
     @action
     async getConversationMessages(page, id, history) {
+        const page_no = this.skip === 0 ? page : 1;
+        const skip_cnt = this.skip === 0 ? 0 : this.messages.length;
+
         try {
-            const response = await getMessagesById(id, page, this.limit, this.order, this.skip);
+            const response = await getMessagesById(id, page_no, this.limit, this.order, skip_cnt);
             runInAction(() => {
                 const messages = this.messages.slice();
                 messages.push(...response.data.data.items);
@@ -252,6 +255,7 @@ export default class MessagingStore {
                 this.sendInboxMsg(newMessage);
                 this.inputValue = '';
                 this.inputDisabled = false;
+                this.skip += 1;
             });
         } catch (e) {}
     }
@@ -259,6 +263,7 @@ export default class MessagingStore {
     @action
     async receiveMsg(message) {
         this.messages.unshift(message);
+        this.skip += 1;                
     }
 
 

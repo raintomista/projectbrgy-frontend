@@ -70,10 +70,10 @@ export default class Conversation extends Component {
           <React.Fragment>
             {!this.props.statusHidden && (
               <div className="connection-indicator" style={{ backgroundColor: !this.props.connected ? '#ffab12' : '#28c128' }}>
-                {!this.props.connected ? 'Connecting' : 'Connected'}
+                {!this.props.connected ? 'Waiting to reconnect...' : 'Connected'}
               </div>
             )}
-            <div className="conversation" id="conversation" onScroll={(e) => this.handleScroll(e)}>
+            <div className="conversation" id="conversation" onScroll={(e) => this.handleScroll(e)} ref="conversation">
               <InfiniteScroll
                 pageStart={pageStart}
                 loadMore={(page) => this.loadMore(page)}
@@ -109,15 +109,24 @@ export default class Conversation extends Component {
   }
 
   async loadMore(page) {
-    RootStore.MessagingStore.getConversationMessages(page, this.props.receiverId, this.props.history);
+    const prevScrollHeight = this.refs.conversation ? this.refs.conversation.scrollHeight : 0;
+    await RootStore.MessagingStore.getConversationMessages(page, this.props.receiverId, this.props.history);
 
     if (!RootStore.MessagingStore.hasScrolled) {
       this.scrollToBottom()
+    } else {
+      const scrollHeight = this.refs.conversation.scrollHeight;
+      animateScroll.scrollMore(scrollHeight - prevScrollHeight, { containerId: "conversation", duration: 0, delay: 0 })
     }
   }
 
   renderLoader() {
-    return <div key={0}>Loading...</div>;
+    return (
+      <div key={0} className="content-loader">
+        <object data={Loader} type="image/svg+xml">
+        </object>
+      </div>
+    );
   }
 
   getLoggedUser() {
