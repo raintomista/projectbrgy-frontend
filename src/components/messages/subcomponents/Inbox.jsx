@@ -19,14 +19,16 @@ export default class Inbox extends Component {
     const { inbox } = this.props.MessagingStore;
 
     const items = inbox.map((message, index) => {
-      let chatmate_id, status;
+      let chatmate_id, status, logged_user_id;
 
       if (loggedUser.user_role === 'barangay_member') {
         chatmate_id = loggedUser.user_id === message.sender_id ? message.receiver_id : message.sender_id;
         status = loggedUser.user_id === message.sender_id ? message.sender_status : message.receiver_status;
+        logged_user_id = loggedUser.user_id;
       } else if (loggedUser.user_role === 'barangay_page_admin') {
         chatmate_id = loggedUser.barangay_page_id === message.sender_id ? message.receiver_id : message.sender_id;
         status = loggedUser.barangay_page_id === message.sender_id ? message.sender_status : message.receiver_status;
+        logged_user_id = loggedUser.barangay_page_id;
       }
       const active = this.props.receiverId === chatmate_id ? true : false;
 
@@ -40,7 +42,7 @@ export default class Inbox extends Component {
           status={status}
           key={chatmate_id}
           active={active}
-          handleClick={(e) => this.handleClick()}
+          handleClick={(e) => this.props.MessagingStore.markAsRead(message.receiver_id, logged_user_id)}
         />
       );
     });

@@ -13,6 +13,7 @@ const Message = (props) => (
       }
     }}
     className={`${props.status === 'unread' ? 'unread' : ''} message ${props.active ? 'active' : ''}`}
+    onClick={props.handleClick}
   >
     <div className="author">
       <h6 className="author-name">{props.user_first_name} {props.user_last_name}</h6>
