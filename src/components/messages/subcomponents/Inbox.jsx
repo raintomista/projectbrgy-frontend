@@ -11,11 +11,13 @@ export default class Inbox extends Component {
     setTimeout(() => {
       this.props.handleListen((message) => this.handleListen(message));
     }, 1000);
+    
   }
 
   render() {
     const { loggedUser } = this.props.AppData;
     const { inbox } = this.props.MessagingStore;
+
     const items = inbox.map((message, index) => {
       let chatmate_id, status;
 
@@ -26,6 +28,8 @@ export default class Inbox extends Component {
         chatmate_id = loggedUser.barangay_page_id === message.sender_id ? message.receiver_id : message.sender_id;
         status = loggedUser.barangay_page_id === message.sender_id ? message.sender_status : message.receiver_status;
       }
+      const active = this.props.receiverId === chatmate_id ? true : false;
+
       return (
         <Message
           authorId={chatmate_id}
@@ -35,6 +39,8 @@ export default class Inbox extends Component {
           message={message.message}
           status={status}
           key={chatmate_id}
+          active={active}
+          handleClick={(e) => this.handleClick()}
         />
       );
     });
@@ -55,13 +61,23 @@ export default class Inbox extends Component {
     return moment(date).fromNow();
   }
 
-  handleListen(message) {
+  handleClick() {
+
+  }
+
+  async handleListen(message) {
     const { loggedUser } = this.props.AppData;
 
-    if(loggedUser.user_role === 'barangay_member') {
-      this.props.MessagingStore.receiveInboxMsg(message, loggedUser.user_id);
-    } else if(loggedUser.user_role === 'barangay_page_admin') {
+    if (loggedUser.user_role === 'barangay_member') {
+      await this.props.MessagingStore.receiveInboxMsg(message, loggedUser.user_id);
+      if (this.props.receiverId === message.sender_id) {
+        await this.props.MessagingStore.markAsRead(message.sender_id, loggedUser.user_id);
+      }
+    } else if (loggedUser.user_role === 'barangay_page_admin') {
       this.props.MessagingStore.receiveInboxMsg(message, loggedUser.barangay_page_name);
+      if (this.props.receiverId === message.sender_id) {
+        await this.props.MessagingStore.markAsRead(message.sender_id, loggedUser.barangay_page_id);
+      }
     }
   }
 }

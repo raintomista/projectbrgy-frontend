@@ -32,8 +32,10 @@ export default class MessagesView extends Component {
     if (typeof id !== 'undefined') {
       if (loggedUser.user_role === 'barangay_page_admin') {
         await this.props.MessagingStore.getBarangayDetails(id, history);
+        await this.props.MessagingStore.markAsRead(id, loggedUser.barangay_page_id);
       } else if (loggedUser.user_role === 'barangay_member') {
         await this.props.MessagingStore.getUserDetails(id, history);
+        await this.props.MessagingStore.markAsRead(id, loggedUser.user_id);
       }
     }
     this.connect();
@@ -75,6 +77,7 @@ export default class MessagesView extends Component {
                 AppData={AppData}
                 handleListen={(handler) => this.handleListen(handler)}
                 MessagingStore={MessagingStore}
+                receiverId={this.props.match.params.id}
               />
             </div>
             <div className="col-md-7 col-lg-8 col-xl-9 conversation-container">

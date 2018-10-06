@@ -12,7 +12,7 @@ const Message = (props) => (
         user_last_name: props.user_last_name,
       }
     }}
-    className={`${props.status === 'unread' ? 'unread' : ''} message`}
+    className={`${props.status === 'unread' ? 'unread' : ''} message ${props.active ? 'active' : ''}`}
   >
     <div className="author">
       <h6 className="author-name">{props.user_first_name} {props.user_last_name}</h6>

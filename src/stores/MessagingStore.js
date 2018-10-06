@@ -260,4 +260,20 @@ export default class MessagingStore {
     async receiveMsg(message) {
         this.messages.unshift(message);
     }
+
+
+    @action
+    async markAsRead(receiver_id, sender_id) {
+        const msgIndex = this.inbox.findIndex((e) => {
+            if (e.sender_id === sender_id && e.receiver_id === receiver_id) {
+                return e;
+            } else if (e.sender_id === receiver_id && e.receiver_id === sender_id) {
+                return e;
+            }
+        });
+        
+        if(msgIndex !== -1) {
+            this.inbox[msgIndex].sender_status = 'read';
+        }
+    }
 }
