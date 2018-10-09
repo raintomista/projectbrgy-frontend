@@ -99,6 +99,7 @@ export default class Conversation extends Component {
             disabled={conversationLoading || inputDisabled}
             maxLength={200}
             autoComplete="off"
+            ref={input => input && input.focus()}
           />
           <button type="submit" disabled={conversationLoading || inputDisabled} title="Send">
             <FontAwesomeIcon icon={faPaperPlane} />
@@ -186,8 +187,10 @@ export default class Conversation extends Component {
   }
 
   async handleListen(message) {
-    await this.props.MessagingStore.receiveMsg(message);
-    this.scrollToBottom();
+    if(this.props.receiverId === message.sender_id) {
+      await this.props.MessagingStore.receiveMsg(message);
+      this.scrollToBottom();  
+    }
   }
 
   scrollToBottom() {
