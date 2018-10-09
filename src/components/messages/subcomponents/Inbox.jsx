@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import InfiniteScroll from 'react-infinite-scroller';
 import moment from 'moment';
 import { observer } from 'mobx-react';
+import Loader from 'assets/images/loader.svg';
 import Message from './Message';
 import './Inbox.less';
 
@@ -11,12 +13,16 @@ export default class Inbox extends Component {
     setTimeout(() => {
       this.props.handleListen((message) => this.handleListen(message));
     }, 1000);
-    
+
   }
 
   render() {
     const { loggedUser } = this.props.AppData;
-    const { inbox } = this.props.MessagingStore;
+    const {
+      pageStart,
+      inbox,
+      inboxHasMore,
+    } = this.props.MessagingStore;
 
     const items = inbox.map((message, index) => {
       let chatmate_id, status, logged_user_id;
@@ -53,7 +59,17 @@ export default class Inbox extends Component {
           <h5>Messages</h5>
         </div>
         <div className="messages">
-          {items}
+          <InfiniteScroll
+            pageStart={pageStart}
+            loadMore={(page) => this.loadMore(page)}
+            hasMore={inboxHasMore}
+            useWindow={false}
+            loader={this.renderLoader()}
+            threshold={10}
+            ref={(scroll) => { this.scroll = scroll; }}
+          >
+            {items}
+          </InfiniteScroll>
         </div>
       </div>
     );
@@ -63,9 +79,6 @@ export default class Inbox extends Component {
     return moment(date).fromNow();
   }
 
-  handleClick() {
-
-  }
 
   async handleListen(message) {
     const { loggedUser } = this.props.AppData;
@@ -81,5 +94,18 @@ export default class Inbox extends Component {
         await this.props.MessagingStore.markAsRead(message.sender_id, loggedUser.barangay_page_id);
       }
     }
+  }
+
+  async loadMore(page) {
+    await this.props.MessagingStore.getInbox(page);
+  }
+
+  renderLoader() {
+    return (
+      <div key={0} className="content-loader">
+        <object data={Loader} type="image/svg+xml">
+        </object>
+      </div>
+    );
   }
 }

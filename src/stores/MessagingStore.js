@@ -24,6 +24,8 @@ export default class MessagingStore {
     @observable inputValue = '';
     @observable user = null;
     @observable inbox = [];
+    @observable inboxHasMore = true;
+    @observable inboxSkip = 0;
     @observable conversationLoading = true;
 
     @action
@@ -120,18 +122,24 @@ export default class MessagingStore {
     }
 
     @action
-    async getInbox() {
-        this.inbox = [];
+    async getInbox(page) {
+        const page_no = this.inboxSkip === 0 ? page : 1;
+        const skip_cnt = this.inboxSkip === 0 ? 0 : this.inbox.length;
+
 
         try {
-            const response = await getInbox(1, this.limit, 'desc', 0);
+            const response = await getInbox(page_no, this.limit, 'desc', skip_cnt);
             runInAction(() => {
-                const inbox = this.inbox.slice();
-                inbox.push(...response.data.data.items);
-                this.inbox = inbox;
+                if (response.data.data.items.length === 0) {
+                    this.inboxHasMore = false;
+                } else {
+                    const inbox = this.inbox.slice();
+                    inbox.push(...response.data.data.items);
+                    this.inbox = inbox;
+                }
             });
         } catch (e) {
-
+            this.inboxHasMore = false;
         }
     }
 
@@ -181,6 +189,7 @@ export default class MessagingStore {
             } else if (e.sender_id === message.receiver_id && e.receiver_id === message.sender_id) {
                 return e;
             }
+            return null;
         });
 
         if (msgIndex !== -1) {
@@ -203,6 +212,7 @@ export default class MessagingStore {
                 sender_first_name: this.user.user_first_name,
                 sender_last_name: this.user.user_last_name
             };
+            this.inboxSkip += 1;
             this.inbox.unshift(msg);
         }
     }
@@ -215,6 +225,7 @@ export default class MessagingStore {
             } else if (e.sender_id === message.receiver_id && e.receiver_id === message.sender_id) {
                 return e;
             }
+            return null;            
         });
         if (msgIndex !== -1) {
             const msg = this.inbox.splice(msgIndex, 1)[0];
@@ -236,6 +247,7 @@ export default class MessagingStore {
                 sender_first_name: message.sender_first_name,
                 sender_last_name: message.sender_last_name
             };
+            this.inboxSkip += 1;
             this.inbox.unshift(msg);
         }
     }
@@ -263,7 +275,7 @@ export default class MessagingStore {
     @action
     async receiveMsg(message) {
         this.messages.unshift(message);
-        this.skip += 1;                
+        this.skip += 1;
     }
 
 
@@ -275,9 +287,10 @@ export default class MessagingStore {
             } else if (e.sender_id === receiver_id && e.receiver_id === sender_id) {
                 return e;
             }
+            return null;            
         });
-        
-        if(msgIndex !== -1) {
+
+        if (msgIndex !== -1) {
             this.inbox[msgIndex].sender_status = 'read';
         }
     }

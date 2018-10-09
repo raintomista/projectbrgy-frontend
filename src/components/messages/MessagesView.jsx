@@ -22,7 +22,6 @@ export default class MessagesView extends Component {
 
   async componentWillMount() {
     await this.props.AppData.getUserDetails();
-    await this.props.MessagingStore.getInbox();
 
     const id = this.props.match.params.id;
     const history = this.props.history;
